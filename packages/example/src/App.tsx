@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  EuiPage,
+  EuiPageBody,
+  EuiPageContent,
+  EuiPageContentBody,
+  EuiPageHeader,
+} from "@elastic/eui"
+import { Admin } from "@react-mool/eui"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Admin>
+      <EuiPage>
+        <EuiPageBody panelled>
+          <EuiPageHeader iconType="logoElastic" pageTitle="Example" />
+          <EuiPageContent
+            hasBorder={false}
+            hasShadow={false}
+            paddingSize="none"
+            color="transparent"
+            borderRadius="none"
+          >
+            <EuiPageContentBody></EuiPageContentBody>
+          </EuiPageContent>
+        </EuiPageBody>
+      </EuiPage>
+    </Admin>
+  )
 }
 
-export default App;
+export default App
