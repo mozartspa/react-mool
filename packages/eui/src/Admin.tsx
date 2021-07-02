@@ -1,10 +1,21 @@
 import "@elastic/eui/dist/eui_theme_amsterdam_light.css"
-import { ReactNode } from "react"
+import { AdminCore, AdminCoreProps } from "@react-mool/core"
+import { ComponentType, ReactNode } from "react"
+import { Layout } from "./layout/Layout"
 
-export type AdminProps = {
+export type AdminProps = AdminCoreProps & {
+  layout?: ComponentType
   children?: ReactNode
 }
 
 export const Admin = (props: AdminProps) => {
-  return <>{props.children}</>
+  const { layout, children, ...coreProps } = props
+
+  const AppLayout = layout || Layout
+
+  return (
+    <AdminCore {...coreProps}>
+      <AppLayout>{children}</AppLayout>
+    </AdminCore>
+  )
 }
