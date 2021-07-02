@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "tsc --watch",
+    "dev": "tsc -d --watch",
     "build": "tsc -d",
     "lint": "eslint .",
     "prepublishOnly": "yarn build"

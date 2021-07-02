@@ -66,4 +66,14 @@ export const {
   },
 })
 
+// Enable gqless logger
+if (process.env.NODE_ENV === "development") {
+  import("@gqless/logger").then(({ createLogger }) => {
+    const logger = createLogger(client, {
+      // Custom options...
+    })
+    logger.start()
+  })
+}
+
 export * from "./schema.generated"
