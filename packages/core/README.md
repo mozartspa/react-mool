@@ -1,1 +1,1 @@
-# react-mool-core
+# @react-mool/core

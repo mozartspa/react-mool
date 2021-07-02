@@ -1,5 +1,5 @@
 {
-  "name": "react-mool",
+  "name": "react-mool-monorepo",
   "license": "MIT",
   "private": true,
   "workspaces": [

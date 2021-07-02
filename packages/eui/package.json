@@ -1,5 +1,5 @@
 {
-  "name": "@react-mool/core",
+  "name": "@react-mool/eui",
   "version": "0.0.0",
   "files": [
     "dist",
@@ -27,15 +27,16 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.13",
-    "react": "^17.0.2"
+    "@types/react-dom": "^17.0.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "peerDependencies": {
     "react": "^16.9.0 || ^17.0.0"
   },
   "dependencies": {
-    "@mozartspa/mobx-form": "^0.4.1",
-    "mobx": "^6.3.2",
-    "mobx-react-lite": "^3.2.0",
-    "react-query": "^3.18.1"
+    "@elastic/datemath": "^5.0.3",
+    "@elastic/eui": "^34.5.2",
+    "moment": "^2.29.1"
   }
 }
