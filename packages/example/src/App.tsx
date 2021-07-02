@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { Route, Switch } from "react-router-dom"
 import { dataProvider } from "./dataProvider"
 import { Layout } from "./layout/Layout"
-import { ProductDetail, ProductList } from "./products"
+import { ProductCreate, ProductDetail, ProductList } from "./products"
 
 const queryClient = new QueryClient()
 
@@ -14,6 +14,9 @@ function App() {
       <Admin dataProvider={dataProvider} layout={Layout}>
         <ResourceContext.Provider value="product">
           <Switch>
+            <Route path="/products/create">
+              <ProductCreate />
+            </Route>
             <Route path="/products/:id">
               <ProductDetail />
             </Route>

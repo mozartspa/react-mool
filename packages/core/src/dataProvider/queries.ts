@@ -14,19 +14,11 @@ import {
   useResourceDataProvider,
 } from "./dataProvider"
 
-export type UseGetOneOptions<TRecord = any> = UseQueryOptions<
-  unknown,
-  unknown,
-  TRecord
-> & {
+export type UseGetOneOptions<TRecord = any> = UseQueryOptions<TRecord> & {
   resource?: string
 }
 
-export type UseGetListOptions<TRecord = any> = UseQueryOptions<
-  unknown,
-  unknown,
-  GetListOutput<TRecord>
-> & {
+export type UseGetListOptions<TRecord = any> = UseQueryOptions<GetListOutput<TRecord>> & {
   resource?: string
 }
 

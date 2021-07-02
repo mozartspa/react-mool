@@ -45,7 +45,12 @@ export const dataProvider: DataProvider = {
       }
     })
   },
-  create: todo,
+  create: async (resource, params) => {
+    return await resolved(() => {
+      const record = (client.mutation as any)[`create${capitalize(resource)}`](params)
+      return selectFields(record, "*", 2)
+    })
+  },
   update: todo,
   delete: todo,
 }
