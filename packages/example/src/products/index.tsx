@@ -24,7 +24,7 @@ export const ProductList = () => {
   const { data } = useGetList<Product>({
     page: 1,
     pageSize: 10,
-    sortField: "",
+    sortField: "reference",
     sortOrder: "asc",
   })
 
