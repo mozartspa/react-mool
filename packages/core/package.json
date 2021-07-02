@@ -1,0 +1,36 @@
+{
+  "name": "react-mool-core",
+  "version": "0.0.0",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/mozartspa/react-mool#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozartspa/react-mool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mozartspa/react-mool/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc -d",
+    "lint": "eslint .",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.13",
+    "react": "^17.0.2"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0 || ^17.0.0"
+  },
+  "dependencies": {}
+}
