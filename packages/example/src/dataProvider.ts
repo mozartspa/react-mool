@@ -1,5 +1,6 @@
 import { DataProvider } from "@react-mool/core"
 import { selectFields } from "gqless"
+import pluralize from "pluralize"
 import { client, resolved } from "./gqless"
 
 function capitalize(value: string) {
@@ -15,10 +16,35 @@ export const dataProvider: DataProvider = {
       const record = (client.query as any)[capitalize(resource)]({
         id: String(params.id),
       })
-      return selectFields(record, "*")
+      return selectFields(record, "*", 2)
     })
   },
-  getList: todo,
+  getList: async (
+    resource,
+    { page: pageParam, pageSize, sortField, sortOrder, filter }
+  ) => {
+    const page = pageParam - 1
+    return await resolved(() => {
+      const items = (client.query as any)[`all${capitalize(pluralize(resource))}`]({
+        page,
+        perPage: pageSize,
+        sortField,
+        sortOrder,
+        filter,
+      })
+
+      const total = (client.query as any)[`_all${capitalize(pluralize(resource))}Meta`]({
+        page,
+        perPage: pageSize,
+        filter,
+      })?.count
+
+      return {
+        items: selectFields(items, "*", 2),
+        total,
+      }
+    })
+  },
   create: todo,
   update: todo,
   delete: todo,

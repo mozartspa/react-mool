@@ -18,7 +18,7 @@ export interface GetListParams<TFilter = any> {
 }
 
 export interface GetListOutput<TRecord = any> {
-  data: TRecord[]
+  items: TRecord[]
   total: number
 }
 
