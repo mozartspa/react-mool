@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { Route, Switch } from "react-router-dom"
 import { dataProvider } from "./dataProvider"
 import { Layout } from "./layout/Layout"
-import { ProductCreate, ProductDetail, ProductList } from "./products"
+import { ProductCreate, ProductDetail, ProductList, ProductUpdate } from "./products"
 
 const queryClient = new QueryClient()
 
@@ -17,8 +17,11 @@ function App() {
             <Route path="/products/create">
               <ProductCreate />
             </Route>
-            <Route path="/products/:id">
+            <Route path="/products/:id/detail">
               <ProductDetail />
+            </Route>
+            <Route path="/products/:id">
+              <ProductUpdate />
             </Route>
             <Route path="/products">
               <ProductList />

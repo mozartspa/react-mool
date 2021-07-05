@@ -68,6 +68,17 @@ export const dataProvider: DataProvider = {
       }
     )
   },
-  update: todo,
+  update: async (resource, params) => {
+    return await resolved(
+      () => {
+        const record = client.mutation.updateProduct({
+          ...params.data,
+          id: String(params.id),
+        })
+        return selectFields(record, "*", 2)
+      },
+      { noCache: true }
+    )
+  },
   delete: todo,
 }
