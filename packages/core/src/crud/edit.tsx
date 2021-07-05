@@ -9,19 +9,16 @@ import { useUpdateEffectOnce } from "../helpers/useUpdateEffectOnce"
 import { ResourceContext, useResource } from "../resource"
 
 function getInitialValues<TRecord = any, TUpdate = TRecord>(
-  initialValues: TUpdate | ((record: TRecord) => TUpdate),
+  initialValues: ((record: TRecord) => TUpdate) | undefined,
   record: TRecord | undefined
 ): TUpdate {
   if (initialValues == null) {
     return record as unknown as TUpdate
-  }
-  if (typeof initialValues === "object") {
-    return initialValues
-  }
-  if (record != null && initialValues instanceof Function) {
+  } else if (record != null) {
     return initialValues(record)
+  } else {
+    return record as unknown as TUpdate
   }
-  return record as unknown as TUpdate
 }
 
 export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
@@ -29,7 +26,7 @@ export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
 > & {
   id?: RecordID
   resource?: string
-  initialValues?: TUpdate | ((record: TRecord) => TUpdate)
+  initialValues?: (record: TRecord) => TUpdate
   transform?: (values: TUpdate) => any
 }
 
