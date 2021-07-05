@@ -6,7 +6,13 @@ import {
   EuiSpacer,
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
-import { useCreate, useGetList, useGetOne, useUpdate } from "@react-mool/core"
+import {
+  useCreate,
+  useGetList,
+  useGetOne,
+  useUpdate,
+  ValidationError,
+} from "@react-mool/core"
 import { TextInput, useLinkProps } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { Fragment, useEffect } from "react"
@@ -116,8 +122,16 @@ export const ProductUpdate = observer(() => {
   const form = useForm<ProductUpdateInput>({
     initialValues: preTransform(record),
     onSubmit: async (values) => {
-      await mutation.mutateAsync({ id, data: values })
-      console.log("Uhhrray!")
+      try {
+        await mutation.mutateAsync({ id, data: values })
+        console.log("Uhhrray!")
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          return err.validationErrors
+        } else {
+          throw err
+        }
+      }
     },
   })
 
@@ -137,7 +151,9 @@ export const ProductUpdate = observer(() => {
       <TextInput name="price" type="number" />
       <TextInput name="stock" type="number" />
       <EuiSpacer />
-      <EuiButton onClick={form.submit}>Update</EuiButton>
+      <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
+        Update
+      </EuiButton>
     </form.Form>
   )
 })

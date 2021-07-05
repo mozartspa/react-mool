@@ -1,4 +1,4 @@
-import { DataProvider } from "@react-mool/core"
+import { DataProvider, ValidationError } from "@react-mool/core"
 import { selectFields } from "gqless"
 import pluralize from "pluralize"
 import { client, resolved } from "./gqless"
@@ -8,10 +8,12 @@ function capitalize(value: string) {
 }
 
 const todo = () => Promise.reject(new Error("Not implemented"))
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const dataProvider: DataProvider = {
   id: (_resource, record) => record.id,
   getOne: async (resource, params) => {
+    await wait(1000)
     return await resolved(
       () => {
         const record = (client.query as any)[capitalize(resource)]({
@@ -58,6 +60,7 @@ export const dataProvider: DataProvider = {
     )
   },
   create: async (resource, params) => {
+    await wait(1000)
     return await resolved(
       () => {
         const record = (client.mutation as any)[`create${capitalize(resource)}`](params)
@@ -69,6 +72,15 @@ export const dataProvider: DataProvider = {
     )
   },
   update: async (resource, params) => {
+    await wait(1000)
+
+    // fake validation error
+    if (resource === "product" && params.data.description?.length < 5) {
+      throw new ValidationError({
+        description: "Must be at least 5 chars long.",
+      })
+    }
+
     return await resolved(
       () => {
         const record = (client.mutation as any)[`update${capitalize(resource)}`]({
