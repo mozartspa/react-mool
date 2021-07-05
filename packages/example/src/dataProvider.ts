@@ -71,7 +71,7 @@ export const dataProvider: DataProvider = {
   update: async (resource, params) => {
     return await resolved(
       () => {
-        const record = client.mutation.updateProduct({
+        const record = (client.mutation as any)[`update${capitalize(resource)}`]({
           ...params.data,
           id: String(params.id),
         })
