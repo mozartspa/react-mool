@@ -8,6 +8,7 @@ import {
 import { useForm } from "@mozartspa/mobx-form"
 import {
   useCreate,
+  useDelete,
   useGetList,
   useGetOne,
   useUpdate,
@@ -16,6 +17,7 @@ import {
 import { TextInput, useLinkProps } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { Fragment, useEffect } from "react"
+import { useQueryClient } from "react-query"
 import { useParams } from "react-router-dom"
 import { GeneratedSchema, Product } from "../gqless"
 
@@ -40,6 +42,10 @@ export const ProductList = () => {
     sortOrder: "asc",
   })
 
+  const deleteMutation = useDelete()
+
+  const queryClient = useQueryClient()
+
   const link = useLinkProps()
 
   return (
@@ -58,6 +64,19 @@ export const ProductList = () => {
               <a {...link(`/products/${item.id}`)}>Update</a>
               {" | "}
               <a {...link(`/products/${item.id}/detail`)}>Detail</a>
+              {" | "}
+              <a
+                href="#delete"
+                onClick={(ev) => {
+                  ev.preventDefault()
+                  deleteMutation.mutateAsync({ id: String(item.id) }).then(() => {
+                    console.log("removed!")
+                    queryClient.invalidateQueries("product")
+                  })
+                }}
+              >
+                Delete
+              </a>
             </EuiDescriptionListDescription>
           </Fragment>
         ))}

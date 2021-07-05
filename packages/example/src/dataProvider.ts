@@ -7,7 +7,6 @@ function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.substring(1)
 }
 
-const todo = () => Promise.reject(new Error("Not implemented"))
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const dataProvider: DataProvider = {
@@ -92,5 +91,17 @@ export const dataProvider: DataProvider = {
       { noCache: true }
     )
   },
-  delete: todo,
+  delete: async (resource, params) => {
+    await wait(1000)
+
+    return await resolved(
+      () => {
+        const record = (client.mutation as any)[`remove${capitalize(resource)}`]({
+          id: String(params.id),
+        })
+        return selectFields(record, "*", 2)
+      },
+      { noCache: true }
+    )
+  },
 }
