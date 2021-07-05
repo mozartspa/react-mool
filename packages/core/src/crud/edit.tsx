@@ -1,16 +1,17 @@
 import { FormConfig, FormContext, useForm, UseFormResult } from "@mozartspa/mobx-form"
 import { Observer, observer } from "mobx-react-lite"
-import React, { ReactElement, ReactNode, useEffect } from "react"
+import React, { ReactElement, ReactNode, useMemo } from "react"
 import { UseMutationResult, UseQueryResult } from "react-query"
 import { useParams } from "react-router-dom"
 import { RecordID, UpdateParams, useGetOne, useUpdate } from "../dataProvider"
 import { ValidationError } from "../errors"
+import { useUpdateEffectOnce } from "../helpers/useUpdateEffectOnce"
 import { ResourceContext, useResource } from "../resource"
 
 function getInitialValues<TRecord = any, TUpdate = TRecord>(
   initialValues: TUpdate | ((record: TRecord) => TUpdate),
   record: TRecord | undefined
-) {
+): TUpdate {
   if (initialValues == null) {
     return record as unknown as TUpdate
   }
@@ -58,10 +59,15 @@ export function useEditForm<TRecord = any, TUpdate = any>(
   const resource = useResource(resourceOpt)
   const { id: idParam } = useParams<{ id: string }>()
   const id = idOpt || idParam
-  const query = useGetOne<TRecord>(id, { resource })
+  const query = useGetOne<TRecord>(id, {
+    resource,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    structuralSharing: false,
+  })
   const mutation = useUpdate<TRecord, TUpdate>({ resource })
 
-  const initialValues = getInitialValues(initialValuesOpt, query.data)
+  const initialValues = useMemo(() => getInitialValues(initialValuesOpt, query.data), [])
 
   const form = useForm<TUpdate>({
     initialValues,
@@ -83,8 +89,7 @@ export function useEditForm<TRecord = any, TUpdate = any>(
     ...formOptions,
   })
 
-  useEffect(() => {
-    // FIXME
+  useUpdateEffectOnce(() => {
     form.reset(getInitialValues(initialValuesOpt, query.data))
   }, [query.data])
 
