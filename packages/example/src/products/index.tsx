@@ -6,17 +6,10 @@ import {
   EuiSpacer,
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
-import {
-  useCreate,
-  useDelete,
-  useGetList,
-  useGetOne,
-  useUpdate,
-  ValidationError,
-} from "@react-mool/core"
+import { EditBase, useCreate, useDelete, useGetList, useGetOne } from "@react-mool/core"
 import { TextInput, useLinkProps } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
-import { Fragment, useEffect } from "react"
+import { Fragment } from "react"
 import { useQueryClient } from "react-query"
 import { useParams } from "react-router-dom"
 import { GeneratedSchema, Product } from "../gqless"
@@ -134,45 +127,25 @@ function preTransform(data: Product | undefined): ProductUpdateInput {
 }
 
 export const ProductUpdate = observer(() => {
-  const { id } = useParams<{ id: string }>()
-  const { data: record } = useGetOne<Product>(id)
-  const mutation = useUpdate()
-
-  const form = useForm<ProductUpdateInput>({
-    initialValues: preTransform(record),
-    onSubmit: async (values) => {
-      try {
-        await mutation.mutateAsync({ id, data: values })
-        console.log("Uhhrray!")
-      } catch (err) {
-        if (err instanceof ValidationError) {
-          return err.validationErrors
-        } else {
-          throw err
-        }
-      }
-    },
-  })
-
-  useEffect(() => {
-    form.reset(preTransform(record))
-  }, [record, form])
-
   return (
-    <form.Form>
-      <TextInput name="reference" />
-      <TextInput name="category_id" />
-      <TextInput name="thumbnail" />
-      <TextInput name="image" />
-      <TextInput name="description" />
-      <TextInput name="height" type="number" />
-      <TextInput name="width" type="number" />
-      <TextInput name="price" type="number" />
-      <TextInput name="stock" type="number" />
-      <EuiSpacer />
-      <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
-        Update
-      </EuiButton>
-    </form.Form>
+    <EditBase>
+      {({ form }) => (
+        <>
+          <TextInput name="reference" />
+          <TextInput name="category_id" />
+          <TextInput name="thumbnail" />
+          <TextInput name="image" />
+          <TextInput name="description" />
+          <TextInput name="height" type="number" />
+          <TextInput name="width" type="number" />
+          <TextInput name="price" type="number" />
+          <TextInput name="stock" type="number" />
+          <EuiSpacer />
+          <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
+            Update!
+          </EuiButton>
+        </>
+      )}
+    </EditBase>
   )
 })

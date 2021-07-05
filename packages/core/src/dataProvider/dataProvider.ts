@@ -112,10 +112,6 @@ export function useResourceDataProvider<
 }
 
 /*
-useUpdate()
-useCreate()
-useDelete()
-
 useListController()
 useEditController()
 useCreateController()

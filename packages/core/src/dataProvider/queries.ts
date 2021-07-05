@@ -1,10 +1,3 @@
-/*
-useGetList()
-useUpdate()
-useCreate()
-useDelete()
-*/
-
 import { useQuery, UseQueryOptions } from "react-query"
 import { useResource } from "../resource"
 import {
