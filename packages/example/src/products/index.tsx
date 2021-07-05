@@ -20,7 +20,8 @@ type ProductUpdateInput = Omit<
 >
 
 export const ProductDetail = () => {
-  const { data } = useGetOne("1")
+  const { id } = useParams<{ id: string }>()
+  const { data } = useGetOne(id)
 
   return <pre>{JSON.stringify(data, null, 2)}</pre>
 }
