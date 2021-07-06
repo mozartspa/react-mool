@@ -5,7 +5,7 @@ import { UseMutationResult, UseQueryResult } from "react-query"
 import { useParams } from "react-router-dom"
 import { RecordID, UpdateParams, useGetOne, useUpdate } from "../dataProvider"
 import { ValidationError } from "../errors"
-import { useUpdateEffectOnce } from "../helpers/useUpdateEffectOnce"
+import { useReinitFormOnce } from "../helpers/useReinitFormOnce"
 import { ResourceContext, useResource } from "../resource"
 
 function getInitialValues<TRecord = any, TUpdate = TRecord>(
@@ -58,9 +58,9 @@ export function useEditForm<TRecord = any, TUpdate = any>(
   const id = idOpt || idParam
   const query = useGetOne<TRecord>(id, {
     resource,
+    refetchOnMount: true,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
-    structuralSharing: false,
   })
   const mutation = useUpdate<TRecord, TUpdate>({ resource })
 
@@ -86,16 +86,20 @@ export function useEditForm<TRecord = any, TUpdate = any>(
     ...formOptions,
   })
 
-  useUpdateEffectOnce(() => {
-    form.reset(getInitialValues(initialValuesOpt, query.data))
-  }, [query.data])
+  const { isReady } = useReinitFormOnce({
+    form,
+    isFetching: query.isFetching,
+    record: query.data,
+    getValues: (record) => getInitialValues(initialValuesOpt, record),
+  })
 
   return {
     id,
     resource,
     record: query.data,
     isLoading: query.isLoading,
-    isLoaded: query.isFetched,
+    isLoaded: !query.isLoading && !query.isError,
+    isReady,
     isSaving: mutation.isLoading,
     form,
     query,

@@ -1692,10 +1692,10 @@
   dependencies:
     unist-util-visit "^1.4.1"
 
-"@mozartspa/mobx-form@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.4.1.tgz#1f8ba821731995b612cc9fae2551e16079bc4a73"
-  integrity sha512-Z2cLJci/KLESmBJLgKLDyu/DxZqyM6wDZ3vWmtozwh/unsqldI9DdiJc/MGpgLXu7WxkKZTfeNQFruwOtdwBxw==
+"@mozartspa/mobx-form@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.5.0.tgz#837da45adf8d1493a4e2436d0f4b3927fee20e84"
+  integrity sha512-xwMuwGwB8u/Mv3ZSEBlrhXx+Xdvrz2my4YhuhgHDdwnfhyqzb6078ihWhFKyPMDqP7z9iCcNCDn6yD8Rsv7GWg==
   dependencies:
     debounce-promise "^3.1.2"
     dlv "^1.1.3"
