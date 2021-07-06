@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom"
 import { RecordID, UpdateParams, useGetOne, useUpdate } from "../dataProvider"
 import { ValidationError } from "../errors"
 import { useReinitFormOnce } from "../helpers/useReinitFormOnce"
+import { RecordContext } from "../record"
 import { ResourceContext, useResource } from "../resource"
 
 function getInitialValues<TRecord = any, TUpdate = TRecord>(
@@ -138,7 +139,9 @@ export const EditBase = observer((options: EditBaseProps) => {
   return (
     <ResourceContext.Provider value={edit.resource}>
       <EditFormContext.Provider value={edit}>
-        <FormContext.Provider value={edit.form}>{body}</FormContext.Provider>
+        <RecordContext.Provider value={edit.record}>
+          <FormContext.Provider value={edit.form}>{body}</FormContext.Provider>
+        </RecordContext.Provider>
       </EditFormContext.Provider>
     </ResourceContext.Provider>
   )
