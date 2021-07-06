@@ -14,16 +14,16 @@ function App() {
       <Admin dataProvider={dataProvider} layout={Layout}>
         <ResourceContext.Provider value="product">
           <Switch>
-            <Route path="/products/create">
+            <Route path="/product/create">
               <ProductCreate />
             </Route>
-            <Route path="/products/:id/detail">
-              <ProductDetail />
-            </Route>
-            <Route path="/products/:id">
+            <Route path="/product/:id/edit">
               <ProductUpdate />
             </Route>
-            <Route path="/products">
+            <Route path="/product/:id">
+              <ProductDetail />
+            </Route>
+            <Route path="/product">
               <ProductList />
             </Route>
           </Switch>

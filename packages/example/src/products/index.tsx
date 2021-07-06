@@ -14,6 +14,8 @@ import {
   useGetOne,
   useNotify,
   useRecordValue,
+  useRedirect,
+  useRedirectLink,
 } from "@react-mool/core"
 import { TextInput, useLinkProps } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
@@ -51,6 +53,9 @@ export const ProductList = () => {
 
   const notify = useNotify()
 
+  const redirect = useRedirect()
+  const redirectLink = useRedirectLink()
+
   return (
     <>
       <EuiButton {...link("/products/create")} iconType="plus">
@@ -64,9 +69,9 @@ export const ProductList = () => {
           <Fragment key={item.id}>
             <EuiDescriptionListTitle>{item.reference}</EuiDescriptionListTitle>
             <EuiDescriptionListDescription>
-              <a {...link(`/products/${item.id}`)}>Update</a>
+              <a {...redirectLink("edit", { id: item.id })}>Update</a>
               {" | "}
-              <a {...link(`/products/${item.id}/detail`)}>Detail</a>
+              <a {...redirectLink("detail", { id: item.id })}>Detail</a>
               {" | "}
               <a
                 href="#delete"
@@ -89,6 +94,16 @@ export const ProductList = () => {
                 }}
               >
                 Notify
+              </a>
+              {" | "}
+              <a
+                href="#go"
+                onClick={(ev) => {
+                  ev.preventDefault()
+                  redirect("detail", { id: item.id })
+                }}
+              >
+                Go
               </a>
             </EuiDescriptionListDescription>
           </Fragment>

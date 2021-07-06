@@ -15,7 +15,7 @@ export const Menu = () => {
               pinnable: false,
               ...getLinkProps("/"),
             },
-            { label: "Products", pinned: true, ...getLinkProps("/products") },
+            { label: "Products", pinned: true, ...getLinkProps("/product") },
           ]}
           onPinClick={() => {}}
           maxWidth="none"
