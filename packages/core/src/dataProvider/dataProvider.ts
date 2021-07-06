@@ -110,13 +110,3 @@ export function useResourceDataProvider<
 
   return resourceDataProvider
 }
-
-/*
-useListController()
-useEditController()
-useCreateController()
-
-useNotify()
-useTranslate()
-useAuthProvider()
-*/

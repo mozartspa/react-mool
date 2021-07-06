@@ -2,6 +2,7 @@ import { EuiPage, EuiPageContent, EuiPageContentBody, EuiPageSideBar } from "@el
 import { ComponentType, ReactNode } from "react"
 import { Header } from "./Header"
 import { Menu } from "./Menu"
+import { Notifications } from "./Notifications"
 
 export type LayoutProps = {
   menu?: ComponentType
@@ -24,6 +25,7 @@ export const Layout = (props: LayoutProps) => {
           <EuiPageContentBody>{children}</EuiPageContentBody>
         </EuiPageContent>
       </EuiPage>
+      <Notifications />
     </>
   )
 }

@@ -5,8 +5,16 @@ import {
   EuiDescriptionListTitle,
   EuiSpacer,
 } from "@elastic/eui"
-import { useForm } from "@mozartspa/mobx-form"
-import { EditBase, useCreate, useDelete, useGetList, useGetOne } from "@react-mool/core"
+import { DebugForm, useForm } from "@mozartspa/mobx-form"
+import {
+  EditBase,
+  useCreate,
+  useDelete,
+  useGetList,
+  useGetOne,
+  useNotify,
+  useRecordValue,
+} from "@react-mool/core"
 import { TextInput, useLinkProps } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { Fragment } from "react"
@@ -41,6 +49,8 @@ export const ProductList = () => {
 
   const link = useLinkProps()
 
+  const notify = useNotify()
+
   return (
     <>
       <EuiButton {...link("/products/create")} iconType="plus">
@@ -69,6 +79,16 @@ export const ProductList = () => {
                 }}
               >
                 Delete
+              </a>
+              {" | "}
+              <a
+                href="#notify"
+                onClick={(ev) => {
+                  ev.preventDefault()
+                  notify(item.reference)
+                }}
+              >
+                Notify
               </a>
             </EuiDescriptionListDescription>
           </Fragment>
@@ -108,7 +128,7 @@ export const ProductCreate = observer(() => {
   )
 })
 
-function preTransform(data: Product | undefined): ProductUpdateInput {
+function initialValues(data: Product | undefined): ProductUpdateInput {
   if (!data) {
     return {}
   }
@@ -128,24 +148,31 @@ function preTransform(data: Product | undefined): ProductUpdateInput {
 
 export const ProductUpdate = observer(() => {
   return (
-    <EditBase>
-      {({ form }) => (
-        <>
-          <TextInput name="reference" />
-          <TextInput name="category_id" />
-          <TextInput name="thumbnail" />
-          <TextInput name="image" />
-          <TextInput name="description" />
-          <TextInput name="height" type="number" />
-          <TextInput name="width" type="number" />
-          <TextInput name="price" type="number" />
-          <TextInput name="stock" type="number" />
-          <EuiSpacer />
-          <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
-            Update!
-          </EuiButton>
-        </>
-      )}
+    <EditBase initialValues={initialValues}>
+      {({ form }) => {
+        const desc = useRecordValue("description")
+
+        return (
+          <>
+            <TextInput name="reference" />
+            <TextInput name="category_id" />
+            <TextInput name="thumbnail" />
+            <TextInput name="image" />
+            <TextInput name="description" />
+            <TextInput name="height" type="number" />
+            <TextInput name="width" type="number" />
+            <TextInput name="price" type="number" />
+            <TextInput name="stock" type="number" />
+            <EuiSpacer />
+            <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
+              Update!
+            </EuiButton>
+            <span>isDirty: {`${form.isDirty}`}</span>
+            <p>DESC: {desc}</p>
+            <DebugForm />
+          </>
+        )
+      }}
     </EditBase>
   )
 })

@@ -1,0 +1,16 @@
+/*
+TODO GENERAL:
+useListController()
+useCreateController()
+
+useNotify()
+useTranslate()
+useAuthProvider()
+*/
+
+// TODO EDIT:
+// Redirect
+// onSaveSuccess
+// onSaveError
+// onLoadSuccess
+// onLoadError
