@@ -16,7 +16,7 @@ import {
   useRedirect,
   useRedirectLink,
 } from "@react-mool/core"
-import { TextInput, useLinkProps } from "@react-mool/eui"
+import { TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { Fragment } from "react"
 import { useQueryClient } from "react-query"
@@ -45,19 +45,15 @@ export const ProductList = () => {
   })
 
   const deleteMutation = useDelete()
-
   const queryClient = useQueryClient()
 
-  const link = useLinkProps()
-
   const notify = useNotify()
-
   const redirect = useRedirect()
   const redirectLink = useRedirectLink()
 
   return (
     <>
-      <EuiButton {...link("/products/create")} iconType="plus">
+      <EuiButton {...redirectLink("create")} iconType="plus">
         Add
       </EuiButton>
       <EuiSpacer />
