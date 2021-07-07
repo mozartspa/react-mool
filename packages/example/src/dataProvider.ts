@@ -7,12 +7,20 @@ function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.substring(1)
 }
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+//const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, 0))
 
 export const dataProvider: DataProvider = {
   id: (_resource, record) => record.id,
   getOne: async (resource, params) => {
-    await wait(1000)
+    await wait(3000)
+
+    // fake error
+    if (resource === "product" && Number(params.id) === 140) {
+      console.log("thrown error")
+      throw new Error("Oh gosh!")
+    }
+
     return await resolved(
       () => {
         const record = (client.query as any)[capitalize(resource)]({
@@ -78,6 +86,11 @@ export const dataProvider: DataProvider = {
       throw new ValidationError({
         description: "Must be at least 5 chars long.",
       })
+    }
+
+    // fake error
+    if (resource === "product" && params.data.thumbnail === "a") {
+      throw new Error("Uh oh! Error")
     }
 
     return await resolved(

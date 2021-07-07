@@ -5,7 +5,7 @@ import {
   EuiDescriptionListTitle,
   EuiSpacer,
 } from "@elastic/eui"
-import { DebugForm, useForm } from "@mozartspa/mobx-form"
+import { useForm } from "@mozartspa/mobx-form"
 import {
   EditBase,
   useCreate,
@@ -13,7 +13,6 @@ import {
   useGetList,
   useGetOne,
   useNotify,
-  useRecordValue,
   useRedirect,
   useRedirectLink,
 } from "@react-mool/core"
@@ -165,8 +164,6 @@ export const ProductUpdate = observer(() => {
   return (
     <EditBase initialValues={initialValues}>
       {({ form }) => {
-        const desc = useRecordValue("description")
-
         return (
           <>
             <TextInput name="reference" />
@@ -179,12 +176,14 @@ export const ProductUpdate = observer(() => {
             <TextInput name="price" type="number" />
             <TextInput name="stock" type="number" />
             <EuiSpacer />
-            <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
-              Update!
+            <EuiButton
+              onClick={form.submit}
+              disabled={!form.isDirty}
+              isLoading={form.isSubmitting}
+            >
+              Save
             </EuiButton>
-            <span>isDirty: {`${form.isDirty}`}</span>
-            <p>DESC: {desc}</p>
-            <DebugForm />
+            {/*<DebugForm />*/}
           </>
         )
       }}
