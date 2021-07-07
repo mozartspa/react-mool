@@ -29,13 +29,13 @@ export function resolveUrl(to: RedirectToPage, options: RedirectToOptions) {
   const getLocation = () => {
     switch (to) {
       case "list":
-        return `${resource}/list`
+        return `/${resource}`
       case "create":
-        return `${resource}/create`
+        return `/${resource}/create`
       case "detail":
-        return `${resource}/${id}`
+        return `/${resource}/${id}`
       case "edit":
-        return `${resource}/${id}/edit`
+        return `/${resource}/${id}/edit`
       default: {
         warn(`redirectTo value unknown: ${to}.`)
         return undefined
