@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from "react-query"
+import { useQuery, useQueryClient, UseQueryOptions } from "react-query"
 import { useResource } from "../resource"
 import {
   GetListOutput,
@@ -21,12 +21,30 @@ export function useGetOne<TRecord = any>(
 ) {
   const resource = useResource(options.resource)
   const dataProvider = useResourceDataProvider<TRecord>(resource)
+  const queryClient = useQueryClient()
+
   const query = useQuery(
     [resource, id],
     () => {
       return dataProvider.getOne({ id })
     },
-    options
+    {
+      initialData: () => {
+        // Find cache data in list queries
+        const listCache: GetListOutput | undefined = queryClient.getQueryData(
+          [resource, "list"],
+          {
+            exact: false,
+          }
+        )
+        if (listCache && listCache.items) {
+          return listCache.items.find((o) => dataProvider.id(o) === id)
+        } else {
+          return undefined
+        }
+      },
+      ...options,
+    }
   )
 
   return query
@@ -39,7 +57,7 @@ export function useGetList<TRecord = any, TFilter = any>(
   const resource = useResource(options.resource)
   const dataProvider = useResourceDataProvider<TRecord>(resource)
   const query = useQuery(
-    [resource, params],
+    [resource, "list", params],
     () => {
       return dataProvider.getList(params)
     },
