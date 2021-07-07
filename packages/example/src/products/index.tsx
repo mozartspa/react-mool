@@ -5,10 +5,9 @@ import {
   EuiDescriptionListTitle,
   EuiSpacer,
 } from "@elastic/eui"
-import { useForm } from "@mozartspa/mobx-form"
 import {
+  CreateBase,
   EditBase,
-  useCreate,
   useDelete,
   useGetList,
   useGetOne,
@@ -109,40 +108,34 @@ export const ProductList = () => {
 }
 
 export const ProductCreate = observer(() => {
-  const mutation = useCreate()
-
-  const form = useForm<ProductCreateInput>({
-    initialValues: {
-      category_id: "1",
-      description: "",
-      height: 100,
-      image: "",
-      price: 0,
-      reference: "",
-      stock: 0,
-      thumbnail: "",
-      width: 0,
-    },
-    onSubmit: async (values) => {
-      await mutation.mutateAsync(values)
-      console.log("Uhhrray!")
-    },
-  })
+  const initialValues = {
+    category_id: "1",
+    description: "",
+    height: 100,
+    image: "",
+    price: 0,
+    reference: "",
+    stock: 0,
+    thumbnail: "",
+    width: 0,
+  }
 
   return (
-    <form.Form>
-      <TextInput name="reference" />
-      <EuiSpacer />
-      <EuiButton onClick={form.submit}>Create</EuiButton>
-    </form.Form>
+    <CreateBase initialValues={initialValues} redirectTo="detail">
+      {({ form }) => (
+        <>
+          <TextInput name="reference" />
+          <EuiSpacer />
+          <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
+            Create
+          </EuiButton>
+        </>
+      )}
+    </CreateBase>
   )
 })
 
-function initialValues(data: Product | undefined): ProductUpdateInput {
-  if (!data) {
-    return {}
-  }
-
+function initialValues(data: Product): ProductUpdateInput {
   return {
     category_id: data.category_id,
     description: data.description,

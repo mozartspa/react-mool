@@ -1,11 +1,4 @@
-import {
-  Form,
-  FormConfig,
-  FormContext,
-  FormErrors,
-  useForm,
-  UseFormResult,
-} from "@mozartspa/mobx-form"
+import { Form, FormConfig, FormContext, FormErrors, useForm } from "@mozartspa/mobx-form"
 import { Observer, observer } from "mobx-react-lite"
 import React, { ReactElement, ReactNode, useMemo } from "react"
 import { UseMutationResult, UseQueryResult } from "react-query"
@@ -17,6 +10,13 @@ import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
 import { ResourceContext, useResource } from "../resource"
+import { getRedirectTo, getSuccessMessage } from "./helpers"
+import {
+  LoadErrorHandler,
+  LoadSuccessHandler,
+  SaveErrorHandler,
+  SaveSuccessHandler,
+} from "./types"
 
 function getInitialValues<TRecord = any, TUpdate = TRecord>(
   initialValues: ((record: TRecord) => TUpdate) | undefined,
@@ -30,62 +30,6 @@ function getInitialValues<TRecord = any, TUpdate = TRecord>(
     return record as unknown as TUpdate
   }
 }
-
-function getSuccessMessage(
-  message: ReactNode | ((record: any) => ReactNode) | undefined,
-  record: any,
-  defaultMessage: ReactNode
-) {
-  if (message instanceof Function) {
-    return message(record) || defaultMessage
-  } else {
-    return message || defaultMessage
-  }
-}
-
-function getRedirectTo(
-  to: RedirectToPage | { to: RedirectToPage; options?: RedirectToOptions } | false
-) {
-  if (to === false) {
-    return false
-  } else if (typeof to === "string") {
-    return { to }
-  } else {
-    return to
-  }
-}
-
-export type SaveSuccessHandler<TRecord = any, TUpdate = TRecord> = (
-  arg: {
-    id: RecordID
-    record: TRecord
-    form: Form<TUpdate>
-  },
-  defaultHandler: () => Promise<void>
-) => Promise<void> | void
-
-export type SaveErrorHandler<TRecord = any, TUpdate = TRecord> = (
-  arg: {
-    id: RecordID
-    record: TRecord
-    form: Form<TUpdate>
-    error: any
-  },
-  defaultHandler: () => Promise<void>
-) => Promise<FormErrors | void> | FormErrors | void
-
-export type LoadSuccessHandler<TRecord = any> = (arg: {
-  id: RecordID
-  record: TRecord
-}) => void
-
-export type LoadErrorHandler = (
-  arg: {
-    id: RecordID
-    error: any
-  },
-  defaultHandler: () => void
-) => void
 
 export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
   Omit<FormConfig<TUpdate>, "initialValues">
@@ -113,14 +57,15 @@ export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
   isLoaded: boolean
   isReady: boolean
   isSaving: boolean
-  form: UseFormResult<TUpdate>
+  isSaved: boolean
+  form: Form<TUpdate>
   query: UseQueryResult<TRecord>
   mutation: UseMutationResult<TRecord, unknown, UpdateParams<TUpdate>>
 }
 
-export function useEditForm<TRecord = any, TUpdate = any>(
+export function useEditForm<TRecord = any, TUpdate = TRecord>(
   options: UseEditFormOptions<TRecord, TUpdate> = {}
-) {
+): UseEditFormResult<TRecord, TUpdate> {
   const {
     id: idOpt,
     resource: resourceOpt,
@@ -243,6 +188,7 @@ export function useEditForm<TRecord = any, TUpdate = any>(
     isLoaded: !query.isLoading && !query.isError,
     isReady,
     isSaving: mutation.isLoading,
+    isSaved: mutation.isSuccess,
     form,
     query,
     mutation,
