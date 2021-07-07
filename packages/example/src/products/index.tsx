@@ -7,10 +7,10 @@ import {
 } from "@elastic/eui"
 import {
   CreateBase,
+  DetailBase,
   EditBase,
   useDelete,
   useGetList,
-  useGetOne,
   useNotify,
   useRedirect,
   useRedirectLink,
@@ -19,20 +19,23 @@ import { TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { Fragment } from "react"
 import { useQueryClient } from "react-query"
-import { useParams } from "react-router-dom"
 import { GeneratedSchema, Product } from "../gqless"
 
-type ProductCreateInput = Parameters<GeneratedSchema["mutation"]["createProduct"]>[0]
 type ProductUpdateInput = Omit<
   Parameters<GeneratedSchema["mutation"]["updateProduct"]>[0],
   "id"
 >
 
 export const ProductDetail = () => {
-  const { id } = useParams<{ id: string }>()
-  const { data } = useGetOne(id)
-
-  return <pre>{JSON.stringify(data, null, 2)}</pre>
+  return (
+    <DetailBase>
+      {({ record }) => (
+        <>
+          <pre>{JSON.stringify(record, null, 2)}</pre>
+        </>
+      )}
+    </DetailBase>
+  )
 }
 
 export const ProductList = () => {
