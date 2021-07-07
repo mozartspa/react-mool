@@ -111,6 +111,7 @@ export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
   record: TRecord | undefined
   isLoading: boolean
   isLoaded: boolean
+  isReady: boolean
   isSaving: boolean
   form: UseFormResult<TUpdate>
   query: UseQueryResult<TRecord>
