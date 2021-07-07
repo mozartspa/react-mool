@@ -1,5 +1,5 @@
 import { Form, FormErrors } from "@mozartspa/mobx-form"
-import { RecordID } from "../dataProvider"
+import { GetListParams, RecordID } from "../dataProvider"
 
 export type SaveSuccessHandler<TRecord = any, TUpdate = TRecord> = (
   arg: {
@@ -29,6 +29,19 @@ export type LoadErrorHandler = (
   arg: {
     id: RecordID
     error: any
+  },
+  defaultHandler: () => void
+) => void
+
+export type LoadListSuccessHandler<TRecord = any> = (arg: {
+  items: TRecord[]
+  total: number
+}) => void
+
+export type LoadListErrorHandler<TFilter = any> = (
+  arg: {
+    error: any
+    listParams: GetListParams<TFilter>
   },
   defaultHandler: () => void
 ) => void

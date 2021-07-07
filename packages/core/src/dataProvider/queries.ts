@@ -61,7 +61,10 @@ export function useGetList<TRecord = any, TFilter = any>(
     () => {
       return dataProvider.getList(params)
     },
-    options
+    {
+      keepPreviousData: true,
+      ...options,
+    }
   )
 
   return query

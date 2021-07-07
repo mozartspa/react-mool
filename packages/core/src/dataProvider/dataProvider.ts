@@ -12,7 +12,7 @@ export interface GetOneParams {
 export interface GetListParams<TFilter = any> {
   page: number
   pageSize: number
-  sortField: string
+  sortField?: string
   sortOrder: SortOrder
   filter?: TFilter
 }

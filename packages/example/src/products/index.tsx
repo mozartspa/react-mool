@@ -9,8 +9,8 @@ import {
   CreateBase,
   DetailBase,
   EditBase,
+  ListBase,
   useDelete,
-  useGetList,
   useNotify,
   useRedirect,
   useRedirectLink,
@@ -39,13 +39,6 @@ export const ProductDetail = () => {
 }
 
 export const ProductList = () => {
-  const { data } = useGetList<Product>({
-    page: 1,
-    pageSize: 10,
-    sortField: "reference",
-    sortOrder: "asc",
-  })
-
   const deleteMutation = useDelete()
   const queryClient = useQueryClient()
 
@@ -54,59 +47,66 @@ export const ProductList = () => {
   const redirectLink = useRedirectLink()
 
   return (
-    <>
-      <EuiButton {...redirectLink("create")} iconType="plus">
-        Add
-      </EuiButton>
-      <EuiSpacer />
-      <p>Total: {data?.total}</p>
-      <EuiSpacer />
-      <EuiDescriptionList>
-        {data?.items.map((item) => (
-          <Fragment key={item.id}>
-            <EuiDescriptionListTitle>{item.reference}</EuiDescriptionListTitle>
-            <EuiDescriptionListDescription>
-              <a {...redirectLink("edit", { id: item.id })}>Update</a>
-              {" | "}
-              <a {...redirectLink("detail", { id: item.id })}>Detail</a>
-              {" | "}
-              <a
-                href="#delete"
-                onClick={(ev) => {
-                  ev.preventDefault()
-                  deleteMutation.mutateAsync({ id: String(item.id) }).then(() => {
-                    console.log("removed!")
-                    queryClient.invalidateQueries("product")
-                  })
-                }}
-              >
-                Delete
-              </a>
-              {" | "}
-              <a
-                href="#notify"
-                onClick={(ev) => {
-                  ev.preventDefault()
-                  notify(item.reference)
-                }}
-              >
-                Notify
-              </a>
-              {" | "}
-              <a
-                href="#go"
-                onClick={(ev) => {
-                  ev.preventDefault()
-                  redirect("detail", { id: item.id })
-                }}
-              >
-                Go
-              </a>
-            </EuiDescriptionListDescription>
-          </Fragment>
-        ))}
-      </EuiDescriptionList>
-    </>
+    <ListBase initialPageSize={10}>
+      {({ items, total, page, setPage }) => (
+        <>
+          <EuiButton {...redirectLink("create")} iconType="plus">
+            Add
+          </EuiButton>
+          <EuiSpacer />
+          <p>Total: {total}</p>
+          <EuiSpacer />
+          <EuiDescriptionList>
+            {items.map((item) => (
+              <Fragment key={item.id}>
+                <EuiDescriptionListTitle>{item.reference}</EuiDescriptionListTitle>
+                <EuiDescriptionListDescription>
+                  <a {...redirectLink("edit", { id: item.id })}>Update</a>
+                  {" | "}
+                  <a {...redirectLink("detail", { id: item.id })}>Detail</a>
+                  {" | "}
+                  <a
+                    href="#delete"
+                    onClick={(ev) => {
+                      ev.preventDefault()
+                      deleteMutation.mutateAsync({ id: String(item.id) }).then(() => {
+                        console.log("removed!")
+                        queryClient.invalidateQueries("product")
+                      })
+                    }}
+                  >
+                    Delete
+                  </a>
+                  {" | "}
+                  <a
+                    href="#notify"
+                    onClick={(ev) => {
+                      ev.preventDefault()
+                      notify(item.reference)
+                    }}
+                  >
+                    Notify
+                  </a>
+                  {" | "}
+                  <a
+                    href="#go"
+                    onClick={(ev) => {
+                      ev.preventDefault()
+                      redirect("detail", { id: item.id })
+                    }}
+                  >
+                    Go
+                  </a>
+                </EuiDescriptionListDescription>
+              </Fragment>
+            ))}
+          </EuiDescriptionList>
+          <p>Page: {page}</p>
+          <EuiButton onClick={() => setPage(page - 1)}>Prev</EuiButton>{" "}
+          <EuiButton onClick={() => setPage(page + 1)}>Next</EuiButton>
+        </>
+      )}
+    </ListBase>
   )
 }
 
