@@ -33,8 +33,20 @@ export function resolveUrl(to: RedirectToPage, options: RedirectToOptions) {
       case "create":
         return `/${resource}/create`
       case "detail":
+        if (id == null) {
+          warn(
+            `Tried to redirect to "detail" page with an undefined ID ("/${resource}/${id}"). Redirect is cancelled.`
+          )
+          return undefined
+        }
         return `/${resource}/${id}`
       case "edit":
+        if (id == null) {
+          warn(
+            `Tried to redirect to "edit" page with an undefined ID ("/${resource}/${id}/edit"). Redirect is cancelled.`
+          )
+          return undefined
+        }
         return `/${resource}/${id}/edit`
       default: {
         warn(`redirectTo value unknown: ${to}.`)
