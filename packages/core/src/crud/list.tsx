@@ -1,4 +1,3 @@
-import { Observer, observer } from "mobx-react-lite"
 import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from "react"
 import { UseQueryResult } from "react-query"
 import { GetListOutput, GetListParams, SortOrder, useGetList } from "../dataProvider"
@@ -170,16 +169,15 @@ export type ListBaseProps<TRecord = any, TFilter = any> = UseListOptions<
   children: ReactNode | ((list: UseListResult<TRecord, TFilter>) => ReactElement)
 }
 
-export const ListBase = observer((options: ListBaseProps) => {
+export const ListBase = (options: ListBaseProps) => {
   const { children, ...listOptions } = options
   const list = useList(listOptions)
 
-  const body =
-    children instanceof Function ? <Observer>{() => children(list)}</Observer> : children
+  const body = children instanceof Function ? children(list) : children
 
   return (
     <ResourceContext.Provider value={list.resource}>
       <ListContext.Provider value={list}>{body}</ListContext.Provider>
     </ResourceContext.Provider>
   )
-})
+}
