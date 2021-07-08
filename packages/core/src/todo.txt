@@ -1,7 +1,5 @@
 /*
 TODO GENERAL:
-useListController()
 
-useTranslate()
 useAuthProvider()
 */

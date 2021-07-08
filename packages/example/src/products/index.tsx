@@ -1,8 +1,11 @@
 import {
   EuiButton,
+  EuiButtonGroup,
   EuiDescriptionList,
   EuiDescriptionListDescription,
   EuiDescriptionListTitle,
+  EuiFlexGroup,
+  EuiFlexItem,
   EuiSpacer,
 } from "@elastic/eui"
 import {
@@ -11,9 +14,12 @@ import {
   EditBase,
   ListBase,
   useDelete,
+  useLocale,
   useNotify,
   useRedirect,
   useRedirectLink,
+  useSetLocale,
+  useTranslate,
 } from "@react-mool/core"
 import { TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
@@ -38,6 +44,47 @@ export const ProductDetail = () => {
   )
 }
 
+function LangTest() {
+  const translate = useTranslate()
+  const locale = useLocale()
+  const setLocale = useSetLocale()
+
+  const items = ["open", "close", "show"].map((key) => ({
+    title: key,
+    description: translate(key),
+  }))
+
+  return (
+    <EuiFlexGroup>
+      <EuiFlexItem grow={true}>
+        <EuiDescriptionList listItems={items} textStyle="reverse" />
+      </EuiFlexItem>
+
+      <EuiFlexItem grow={false}>
+        <EuiButtonGroup
+          legend="Choose language"
+          options={[
+            {
+              id: "en",
+              label: "EN",
+            },
+            {
+              id: "fr",
+              label: "FR",
+            },
+            {
+              id: "it",
+              label: "IT",
+            },
+          ]}
+          idSelected={locale}
+          onChange={(id) => setLocale(id)}
+        />
+      </EuiFlexItem>
+    </EuiFlexGroup>
+  )
+}
+
 export const ProductList = () => {
   const deleteMutation = useDelete()
   const queryClient = useQueryClient()
@@ -50,6 +97,8 @@ export const ProductList = () => {
     <ListBase initialPageSize={10}>
       {({ items, total, page, setPage }) => (
         <>
+          <LangTest />
+          <EuiSpacer />
           <EuiButton {...redirectLink("create")} iconType="plus">
             Add
           </EuiButton>

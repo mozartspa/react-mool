@@ -7,8 +7,8 @@ function capitalize(value: string) {
   return value.charAt(0).toUpperCase() + value.substring(1)
 }
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-//const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, 0))
+//const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, 0))
 
 export const dataProvider: DataProvider = {
   id: (_resource, record) => record.id,
