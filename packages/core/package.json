@@ -39,6 +39,7 @@
     "dlv": "^1.1.3",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
+    "query-string": "^7.0.1",
     "react-query": "^3.18.1",
     "react-router-dom": "^5.2.0",
     "rooks": "^5.0.2"

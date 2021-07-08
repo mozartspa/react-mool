@@ -1,6 +1,15 @@
-import React, { ReactElement, ReactNode, useCallback, useEffect, useState } from "react"
+import React, {
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { UseQueryResult } from "react-query"
 import { GetListOutput, GetListParams, SortOrder, useGetList } from "../dataProvider"
+import { useLastListParams } from "../helpers/useLastListParams"
+import { useSyncListParamsWithURL } from "../helpers/useSyncListParamsWithURL"
 import { useNotify } from "../notify"
 import { ResourceContext, useResource } from "../resource"
 import { LoadListErrorHandler, LoadListSuccessHandler } from "./types"
@@ -22,6 +31,9 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   baseFilter?: TFilter
   onLoadSuccess?: LoadListSuccessHandler<TRecord>
   onLoadError?: LoadListErrorHandler<TFilter>
+  syncWithURL?: boolean
+  restoreFromLast?: boolean
+  restoreKey?: string
 }
 
 export type UseListResult<TRecord = any, TFilter = any> = {
@@ -36,10 +48,18 @@ export type UseListResult<TRecord = any, TFilter = any> = {
   isLoading: boolean
   isLoaded: boolean
   query: UseQueryResult<GetListOutput<TRecord>>
+  defaults: {
+    page: number
+    pageSize: number
+    sortField?: string | undefined
+    sortOrder: SortOrder
+    filter?: TFilter | undefined
+  }
   setPage: (page: number) => void
   setPageSize: (pageSize: number) => void
   setSort: (field: string | undefined, order?: SortOrder) => void
   setFilter: (filter: TFilter) => void
+  reset: () => void
 }
 
 export function useList<TRecord = any, TFilter = any>(
@@ -55,6 +75,9 @@ export function useList<TRecord = any, TFilter = any>(
     baseFilter,
     onLoadSuccess,
     onLoadError,
+    syncWithURL = true,
+    restoreFromLast = true,
+    restoreKey,
   } = options
 
   const resource = useResource(resourceOpt)
@@ -66,12 +89,17 @@ export function useList<TRecord = any, TFilter = any>(
   const [sortOrder, setSortOrder] = useState(initialSortOrder)
   const [filter, setFilter] = useState(initialFilter)
 
+  const mergedFilter = useMemo(
+    () => mergeFilters(baseFilter, filter),
+    [baseFilter, filter]
+  )
+
   const listParams: GetListParams<TFilter> = {
     page: page,
     pageSize: pageSize,
     sortField: sortField,
     sortOrder: sortOrder,
-    filter: mergeFilters(baseFilter, filter),
+    filter: mergedFilter,
   }
 
   const query = useGetList<TRecord, TFilter>(listParams, {
@@ -125,6 +153,14 @@ export function useList<TRecord = any, TFilter = any>(
     [page]
   )
 
+  const reset = useCallback(() => {
+    setPage(initialPage)
+    setPageSize(initialPageSize)
+    setSortField(initialSortField)
+    setSortOrder(initialSortOrder)
+    setFilter(initialFilter)
+  }, [])
+
   // Ensure page value is within the bounds
   useEffect(() => {
     if (query.data?.total != null) {
@@ -135,18 +171,55 @@ export function useList<TRecord = any, TFilter = any>(
     }
   }, [page, query.data?.total])
 
+  const defaults = useMemo(
+    () => ({
+      page: initialPage,
+      pageSize: initialPageSize,
+      sortField: initialSortField,
+      sortOrder: initialSortOrder,
+      filter: initialFilter,
+    }),
+    [
+      initialPage,
+      initialPageSize,
+      initialSortField,
+      initialSortOrder,
+      JSON.stringify(initialFilter),
+    ]
+  )
+
+  const setters = {
+    setPage: updatePage,
+    setPageSize: updatePageSize,
+    setSort,
+    setFilter,
+    reset,
+  }
+
+  useSyncListParamsWithURL({
+    params: listParams,
+    setters,
+    defaults,
+    enabled: syncWithURL,
+  })
+
+  useLastListParams({
+    params: listParams,
+    setters,
+    storageKey: restoreKey ?? `${resource}-lastparams`,
+    enabled: restoreFromLast,
+  })
+
   return {
     resource,
     items: query.data?.items ?? [],
     total: query.data?.total ?? 0,
     ...listParams,
+    ...setters,
     isLoading: query.isLoading,
     isLoaded: !query.isLoading && !query.isError,
     query,
-    setPage: updatePage,
-    setPageSize: updatePageSize,
-    setSort,
-    setFilter,
+    defaults,
   }
 }
 
