@@ -1,9 +1,9 @@
 import React, { useCallback } from "react"
 import { useHistory } from "react-router-dom"
 import { RecordID } from "./dataProvider"
+import { warn } from "./helpers/console"
 import { useImmediateRef } from "./helpers/useImmediateRef"
 import { useLinkProps } from "./helpers/useLinkProps"
-import { warn } from "./helpers/warn"
 import { RecordContext } from "./record"
 import { useResource } from "./resource"
 
