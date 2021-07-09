@@ -8,8 +8,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/lib/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
   "homepage": "https://github.com/mozartspa/react-mool#readme",
   "repository": {
     "type": "git",
@@ -20,8 +21,10 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "tsc -d --watch",
-    "build": "tsc -d",
+    "dev": "yarn build-esm --watch",
+    "build": "rimraf ./dist && yarn build-cjs && yarn build-esm",
+    "build-cjs": "rimraf ./dist/lib && tsc",
+    "build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
     "lint": "eslint .",
     "prepublishOnly": "yarn build"
   },
