@@ -52,7 +52,7 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
       }
 
       try {
-        i18nProvider.changeLocale(newLocale)
+        await i18nProvider.changeLocale(newLocale)
         setLocale(newLocale)
       } catch (error) {
         logError(error)
