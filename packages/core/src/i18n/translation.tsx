@@ -1,18 +1,20 @@
-import React, { ReactNode, useCallback, useMemo, useState } from "react"
+import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "react"
 import { logError } from "../helpers/console"
+import { RefreshSignal } from "../helpers/refreshSignal"
 import { useNotify } from "../notify"
 import { coreMessages } from "./messages"
 
 export type I18nProvider = {
   translate: (key: string, options?: any) => string
   changeLocale: (locale: string) => Promise<void>
-  getInitialLocale: () => string
+  getLocale: () => string
+  getRefreshSignal?: () => RefreshSignal
 }
 
 export const defaultI18nProvider: I18nProvider = {
   translate: (key) => key,
   changeLocale: async () => {},
-  getInitialLocale: () => "",
+  getLocale: () => "",
 }
 
 export type TranslationContextValue = {
@@ -41,7 +43,7 @@ export type TranslationContextProviderProps = {
 export function TranslationContextProvider(props: TranslationContextProviderProps) {
   const { i18nProvider, children } = props
 
-  const [locale, setLocale] = useState(i18nProvider.getInitialLocale())
+  const [locale, setLocale] = useState(i18nProvider.getLocale())
 
   const notify = useNotify()
 
@@ -64,6 +66,19 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
     },
     [locale, i18nProvider]
   )
+
+  // Refresh locale when asked by the provider
+  useEffect(() => {
+    if (!i18nProvider.getRefreshSignal) {
+      return
+    }
+
+    const signal = i18nProvider.getRefreshSignal()
+    const disposer = signal.addListener(() => {
+      updateLocale(i18nProvider.getLocale())
+    })
+    return disposer
+  }, [i18nProvider, updateLocale])
 
   const context: TranslationContextValue = useMemo(
     () => ({
