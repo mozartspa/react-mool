@@ -43,7 +43,7 @@ export function createPolyglotI18nProvider(config: PolyglotI18nProviderConfig) {
     translate: (key, options) => {
       return polyglot.t(key, options)
     },
-    getLocale: () => {
+    getInitialLocale: () => {
       return locale
     },
     changeLocale: async (newLocale) => {
@@ -91,7 +91,7 @@ export async function createPolyglotI18nProviderAsync(
     translate: (key, options) => {
       return polyglot.t(key, options)
     },
-    getLocale: () => {
+    getInitialLocale: () => {
       return locale
     },
     changeLocale: async (newLocale) => {

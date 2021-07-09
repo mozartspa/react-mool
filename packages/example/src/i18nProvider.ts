@@ -14,7 +14,7 @@ export const i18nProvider: I18nProvider = {
     locale = newLocale
     localStorage.setItem(LS_LOCALE_KEY, newLocale)
   },
-  getLocale: () => locale,
+  getInitialLocale: () => locale,
 }
 
 const translations = {

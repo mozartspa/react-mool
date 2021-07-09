@@ -5,13 +5,13 @@ import { useNotify } from "../notify"
 export type I18nProvider = {
   translate: (key: string, options?: any) => string
   changeLocale: (locale: string) => Promise<void>
-  getLocale: () => string
+  getInitialLocale: () => string
 }
 
 export const defaultI18nProvider: I18nProvider = {
   translate: (key) => key,
   changeLocale: async () => {},
-  getLocale: () => "",
+  getInitialLocale: () => "",
 }
 
 export type TranslationContextValue = {
@@ -40,7 +40,7 @@ export type TranslationContextProviderProps = {
 export function TranslationContextProvider(props: TranslationContextProviderProps) {
   const { i18nProvider, children } = props
 
-  const [locale, setLocale] = useState(i18nProvider.getLocale())
+  const [locale, setLocale] = useState(i18nProvider.getInitialLocale())
 
   const notify = useNotify()
 
