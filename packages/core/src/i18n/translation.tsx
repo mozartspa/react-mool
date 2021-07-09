@@ -1,6 +1,7 @@
 import React, { ReactNode, useCallback, useMemo, useState } from "react"
 import { logError } from "../helpers/console"
 import { useNotify } from "../notify"
+import { coreMessages } from "./messages"
 
 export type I18nProvider = {
   translate: (key: string, options?: any) => string
@@ -56,7 +57,7 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
         setLocale(newLocale)
       } catch (error) {
         logError(error)
-        notify("Failed to load the translations for the specified language", {
+        notify(coreMessages.mool.i18n.change_locale_error, {
           type: "danger",
         })
       }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Route, Switch } from "react-router-dom"
 import { dataProvider } from "./dataProvider"
-import { polyglotI18nProviderAsync } from "./i18nProvider"
+import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
 import { Layout } from "./layout/Layout"
 import { ProductCreate, ProductDetail, ProductList, ProductUpdate } from "./products"
 

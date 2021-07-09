@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom"
 import { RecordID, UpdateParams, useGetOne, useUpdate } from "../dataProvider"
 import { ValidationError } from "../errors"
 import { useReinitFormOnce } from "../helpers/useReinitFormOnce"
+import { coreMessages } from "../i18n"
 import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
@@ -99,7 +100,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     onError: (error) => {
       // default handler
       const handleError = () => {
-        notify("Element does not exist", { type: "danger" })
+        notify(coreMessages.mool.crud.item_not_found, { type: "danger" })
         redirect("list", { resource })
       }
 
@@ -120,7 +121,11 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
 
       // default handler
       const handleSuccess = async () => {
-        const message = getSuccessMessage(successMessage, record, "Element saved")
+        const message = getSuccessMessage(
+          successMessage,
+          record,
+          coreMessages.mool.crud.updated
+        )
         notify(message, { type: "success" })
 
         const redirectArgs = getRedirectTo(redirectTo ?? "list")
@@ -146,7 +151,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     } catch (error) {
       // catch validation errors
       if (error instanceof ValidationError) {
-        notify("The form is not valid. Please check for errors", { type: "danger" })
+        notify(coreMessages.mool.crud.invalid_form, { type: "danger" })
         return error.validationErrors
       }
 
