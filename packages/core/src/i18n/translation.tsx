@@ -89,7 +89,18 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
 export function useTranslate() {
   const { i18nProvider } = useTranslationContext()
 
-  return i18nProvider.translate
+  const translate = useCallback(
+    (key: string | ReactNode, options?: any): string | ReactNode => {
+      if (typeof key === "string") {
+        return i18nProvider.translate(key, options)
+      } else {
+        return key
+      }
+    },
+    [i18nProvider]
+  )
+
+  return translate
 }
 
 export function useLocale() {
