@@ -1,4 +1,5 @@
 export * from "./admin"
+export * from "./auth"
 export * from "./crud"
 export * from "./dataProvider"
 export * from "./errors"
