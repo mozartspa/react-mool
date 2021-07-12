@@ -6,7 +6,7 @@ import { DataProvider, DataProviderContext } from "../dataProvider"
 import { defaultI18nProvider, I18nProvider, TranslationContextProvider } from "../i18n"
 import { NotificationContext, useNotification } from "../notify"
 
-export type AdminCoreProps = {
+export type AdminContextProps = {
   dataProvider: DataProvider
   i18nProvider?: I18nProvider
   authProvider?: AuthProvider
@@ -14,7 +14,7 @@ export type AdminCoreProps = {
   children?: ReactNode
 }
 
-export const AdminCore = (props: AdminCoreProps) => {
+export const AdminContext = (props: AdminContextProps) => {
   const {
     dataProvider,
     i18nProvider = defaultI18nProvider,
