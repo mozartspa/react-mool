@@ -2,6 +2,7 @@ import { I18nProvider, ResourceContext } from "@react-mool/core"
 import { Admin } from "@react-mool/eui"
 import { useEffect, useState } from "react"
 import { Route, Switch } from "react-router-dom"
+import { authProvider, TestAuth } from "./components/TestAuth"
 import { dataProvider } from "./dataProvider"
 import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
 import { Layout } from "./layout/Layout"
@@ -19,7 +20,12 @@ function App() {
   }
 
   return (
-    <Admin dataProvider={dataProvider} i18nProvider={i18nProvider} layout={Layout}>
+    <Admin
+      dataProvider={dataProvider}
+      i18nProvider={i18nProvider}
+      authProvider={authProvider}
+      layout={Layout}
+    >
       <ResourceContext.Provider value="product">
         <Switch>
           <Route path="/product/create">
@@ -38,7 +44,7 @@ function App() {
       </ResourceContext.Provider>
 
       <Route exact path="/">
-        None
+        <TestAuth />
       </Route>
     </Admin>
   )
