@@ -11,12 +11,6 @@ export type I18nProvider = {
   getRefreshSignal?: () => RefreshSignal
 }
 
-export const defaultI18nProvider: I18nProvider = {
-  translate: (key) => key,
-  changeLocale: async () => {},
-  getLocale: () => "",
-}
-
 export type TranslationContextValue = {
   locale: string
   setLocale: (locale: string) => Promise<void>
