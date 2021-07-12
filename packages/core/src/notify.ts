@@ -24,7 +24,7 @@ export type UseNotificationResult = {
 }
 
 export function useNotification(): UseNotificationResult {
-  const nextId = useIdGenerator("n")
+  const [nextId] = useIdGenerator("n")
 
   const [state, setState] = useState(() => ({
     notifications: [] as Notification[],
