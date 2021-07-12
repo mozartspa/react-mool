@@ -66,7 +66,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
         const message = getSuccessMessage(
           successMessage,
           record,
-          coreMessages.mool.crud.created
+          coreMessages.mool.core.crud.created
         )
         notify(message, { type: "success" })
 
@@ -93,7 +93,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
     } catch (error) {
       // catch validation errors
       if (error instanceof ValidationError) {
-        notify(coreMessages.mool.crud.invalid_form, { type: "danger" })
+        notify(coreMessages.mool.core.crud.invalid_form, { type: "danger" })
         return error.validationErrors
       }
 

@@ -49,7 +49,7 @@ export function useDetail<TRecord = any>(
     onError: (error) => {
       // default handler
       const handleError = () => {
-        notify(coreMessages.mool.crud.item_not_found, { type: "danger" })
+        notify(coreMessages.mool.core.crud.item_not_found, { type: "danger" })
         redirect("list", { resource })
       }
 

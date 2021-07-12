@@ -100,7 +100,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     onError: (error) => {
       // default handler
       const handleError = () => {
-        notify(coreMessages.mool.crud.item_not_found, { type: "danger" })
+        notify(coreMessages.mool.core.crud.item_not_found, { type: "danger" })
         redirect("list", { resource })
       }
 
@@ -124,7 +124,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
         const message = getSuccessMessage(
           successMessage,
           record,
-          coreMessages.mool.crud.updated
+          coreMessages.mool.core.crud.updated
         )
         notify(message, { type: "success" })
 
@@ -151,7 +151,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     } catch (error) {
       // catch validation errors
       if (error instanceof ValidationError) {
-        notify(coreMessages.mool.crud.invalid_form, { type: "danger" })
+        notify(coreMessages.mool.core.crud.invalid_form, { type: "danger" })
         return error.validationErrors
       }
 

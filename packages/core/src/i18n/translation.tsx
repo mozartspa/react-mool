@@ -53,7 +53,7 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
         setLocale(newLocale)
       } catch (error) {
         logError(error)
-        notify(coreMessages.mool.i18n.change_locale_error, {
+        notify(coreMessages.mool.core.i18n.change_locale_error, {
           type: "danger",
         })
       }
