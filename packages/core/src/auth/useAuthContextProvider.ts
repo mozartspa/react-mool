@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useIdGenerator } from "../helpers/useIdGenerator"
 import { AuthCredentials, AuthIdentity, AuthProvider } from "./auth"
 
@@ -117,6 +117,15 @@ export function useAuthContextProvider<
       setRefreshing(false)
     }
   }, [authProvider, setIdentity, setPermissions, setRefreshing])
+
+  useEffect(() => {
+    if (!authProvider.getRefreshSignal) {
+      return
+    }
+    return authProvider.getRefreshSignal().addListener(() => {
+      refresh()
+    })
+  }, [authProvider, refresh])
 
   return {
     authProvider,
