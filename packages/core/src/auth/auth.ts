@@ -11,7 +11,6 @@ export type AuthIdentity = {
 export type AuthCredentials = {
   username?: string
   password?: string
-  rememberMe?: boolean
   [index: string]: any
 }
 
