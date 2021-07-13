@@ -86,17 +86,25 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
   return <TranslationContext.Provider value={context} children={children} />
 }
 
+function createMaybeTranslate(translate: I18nProvider["translate"]) {
+  function t(key: string, options?: any): string
+  function t(key: ReactNode, options?: any): ReactNode
+  function t(key: string | ReactNode, options?: any): string | ReactNode {
+    if (typeof key === "string") {
+      return translate(key, options)
+    } else {
+      return key
+    }
+  }
+
+  return t
+}
+
 export function useTranslate() {
   const { i18nProvider } = useTranslationContext()
 
-  const translate = useCallback(
-    (key: string | ReactNode, options?: any): string | ReactNode => {
-      if (typeof key === "string") {
-        return i18nProvider.translate(key, options)
-      } else {
-        return key
-      }
-    },
+  const translate = useMemo(
+    () => createMaybeTranslate(i18nProvider.translate),
     [i18nProvider]
   )
 
