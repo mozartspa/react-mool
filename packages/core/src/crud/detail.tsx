@@ -3,7 +3,7 @@ import React, { ReactElement, ReactNode } from "react"
 import { UseQueryResult } from "react-query"
 import { useParams } from "react-router-dom"
 import { RecordID, useGetOne } from "../dataProvider"
-import { coreMessages } from "../i18n"
+import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { useRedirect } from "../redirect"
@@ -49,7 +49,7 @@ export function useDetail<TRecord = any>(
     onError: (error) => {
       // default handler
       const handleError = () => {
-        notify(coreMessages.mool.core.crud.item_not_found, { type: "danger" })
+        notify(t.core.crud.item_not_found, { type: "danger" })
         redirect("list", { resource })
       }
 

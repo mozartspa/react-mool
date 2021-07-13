@@ -4,7 +4,7 @@ import React, { ReactElement, ReactNode } from "react"
 import { UseMutationResult } from "react-query"
 import { useCreate, useResourceDataProvider } from "../dataProvider"
 import { ValidationError } from "../errors"
-import { coreMessages } from "../i18n"
+import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
 import { ResourceContext, useResource } from "../resource"
@@ -63,11 +63,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
 
       // default handler
       const handleSuccess = async () => {
-        const message = getSuccessMessage(
-          successMessage,
-          record,
-          coreMessages.mool.core.crud.created
-        )
+        const message = getSuccessMessage(successMessage, record, t.core.crud.created)
         notify(message, { type: "success" })
 
         const redirectArgs = getRedirectTo(redirectTo ?? "list")
@@ -93,7 +89,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
     } catch (error) {
       // catch validation errors
       if (error instanceof ValidationError) {
-        notify(coreMessages.mool.core.crud.invalid_form, { type: "danger" })
+        notify(t.core.crud.invalid_form, { type: "danger" })
         return error.validationErrors
       }
 

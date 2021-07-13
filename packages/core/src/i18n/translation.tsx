@@ -2,7 +2,7 @@ import React, { ReactNode, useCallback, useEffect, useMemo, useState } from "rea
 import { logError } from "../helpers/console"
 import { RefreshSignal } from "../helpers/refreshSignal"
 import { useNotify } from "../notify"
-import { coreMessages } from "./messages"
+import { t } from "./messages"
 
 export type I18nProvider = {
   translate: (key: string, options?: any) => string
@@ -53,7 +53,7 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
         setLocale(newLocale)
       } catch (error) {
         logError(error)
-        notify(coreMessages.mool.core.i18n.change_locale_error, {
+        notify(t.core.i18n.change_locale_error, {
           type: "danger",
         })
       }

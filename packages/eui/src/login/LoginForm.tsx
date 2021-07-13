@@ -7,9 +7,10 @@ import {
   EuiSpacer,
 } from "@elastic/eui"
 import { Field, useForm } from "@mozartspa/mobx-form"
-import { useAuthContext, ValidationError } from "@react-mool/core"
+import { useAuthContext, useTranslate, ValidationError } from "@react-mool/core"
 import { observer } from "mobx-react-lite"
 import { useHistory } from "react-router"
+import { t } from "../i18n"
 
 export type LoginFormProps = {
   initialValues?: {
@@ -29,6 +30,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
 
   const auth = useAuthContext()
   const history = useHistory()
+  const translate = useTranslate()
 
   const form = useForm({
     initialValues,
@@ -42,8 +44,8 @@ export const LoginForm = observer((props: LoginFormProps) => {
           return error.validationErrors
         } else {
           const message =
-            error instanceof Error ? error.message : "Credentials not valid."
-          return { "*": message }
+            error instanceof Error ? error.message : t.eui.login.invalid_credentials
+          return { "*": translate(message) }
         }
       }
     },
@@ -56,7 +58,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
       <Field name="username">
         {(field) => (
           <EuiFormRow
-            label="Username"
+            label={translate(t.eui.login.username_label)}
             isInvalid={field.isTouched && !field.isValid}
             error={field.isTouched && field.errors}
           >
@@ -67,7 +69,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
       <Field name="password">
         {(field) => (
           <EuiFormRow
-            label="Password"
+            label={translate(t.eui.login.password_label)}
             isInvalid={field.isTouched && !field.isValid}
             error={field.isTouched && field.errors}
           >
@@ -89,7 +91,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
         disabled={isFormEmpty}
         isLoading={form.isSubmitting}
       >
-        Log in
+        {translate(t.eui.login.login_btn)}
       </EuiButton>
     </form.Form>
   )

@@ -1,12 +1,14 @@
-import { buildTranslationKeys, coreMessagesEN } from "@react-mool/core"
+import { buildTranslationKeys, englishCoreMessages } from "@react-mool/core"
+import { englishEuiMessages } from "@react-mool/eui"
 
-export const EN = {
-  ...coreMessagesEN,
+export const englishMessages = {
+  ...englishCoreMessages,
+  ...englishEuiMessages,
   show: "Show",
   open: "Open",
   close: "Close",
 }
 
-export const messages = buildTranslationKeys(EN)
+export const t = buildTranslationKeys(englishMessages)
 
-export type Messages = typeof messages
+export type Messages = typeof englishMessages

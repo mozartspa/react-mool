@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom"
 import { RecordID, UpdateParams, useGetOne, useUpdate } from "../dataProvider"
 import { ValidationError } from "../errors"
 import { useReinitFormOnce } from "../helpers/useReinitFormOnce"
-import { coreMessages } from "../i18n"
+import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
@@ -100,7 +100,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     onError: (error) => {
       // default handler
       const handleError = () => {
-        notify(coreMessages.mool.core.crud.item_not_found, { type: "danger" })
+        notify(t.core.crud.item_not_found, { type: "danger" })
         redirect("list", { resource })
       }
 
@@ -121,11 +121,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
 
       // default handler
       const handleSuccess = async () => {
-        const message = getSuccessMessage(
-          successMessage,
-          record,
-          coreMessages.mool.core.crud.updated
-        )
+        const message = getSuccessMessage(successMessage, record, t.core.crud.updated)
         notify(message, { type: "success" })
 
         const redirectArgs = getRedirectTo(redirectTo ?? "list")
@@ -151,7 +147,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     } catch (error) {
       // catch validation errors
       if (error instanceof ValidationError) {
-        notify(coreMessages.mool.core.crud.invalid_form, { type: "danger" })
+        notify(t.core.crud.invalid_form, { type: "danger" })
         return error.validationErrors
       }
 

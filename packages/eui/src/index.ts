@@ -1,6 +1,7 @@
 export * from "./Admin"
 export * from "./form/SimpleForm"
 export { useLinkProps } from "./helpers/useLinkProps"
+export * from "./i18n"
 export * from "./input/FieldInput"
 export * from "./input/TextInput"
 export * from "./layout/Header"
