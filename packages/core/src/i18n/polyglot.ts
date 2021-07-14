@@ -85,6 +85,7 @@ export async function createPolyglotI18nProviderAsync(
   let polyglot = new Polyglot({
     locale,
     phrases: await getMessages(locale),
+    ...polyglotOptions,
   })
 
   const provider: I18nProvider = {
