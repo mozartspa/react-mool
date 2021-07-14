@@ -1,5 +1,5 @@
 {
-  "name": "react-mool",
+  "name": "react-mool-monorepo",
   "license": "MIT",
   "private": true,
   "workspaces": [
@@ -16,6 +16,7 @@
     "prettier": "^2.3.2",
     "prettier-plugin-organize-imports": "^2.2.0",
     "pretty-quick": "^3.1.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.3.5"
   }
 }

@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "lib": ["es2018"],
+    "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist",
+    "outDir": "dist/lib",
     "sourceMap": true,
-    "target": "es2018",
+    "target": "es5",
     "strict": true,
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "skipLibCheck": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,6 +18,8 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "strictFunctionTypes": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "declaration": true,
+    "declarationMap": true
   }
 }
