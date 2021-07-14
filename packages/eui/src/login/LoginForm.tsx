@@ -7,7 +7,12 @@ import {
   EuiSpacer,
 } from "@elastic/eui"
 import { Field, useForm } from "@mozartspa/mobx-form"
-import { useAuthContext, useTranslate, ValidationError } from "@react-mool/core"
+import {
+  useAuthContext,
+  useReturnURL,
+  useTranslate,
+  ValidationError,
+} from "@react-mool/core"
 import { observer } from "mobx-react-lite"
 import { useHistory } from "react-router"
 import { t } from "../i18n"
@@ -31,13 +36,14 @@ export const LoginForm = observer((props: LoginFormProps) => {
   const auth = useAuthContext()
   const history = useHistory()
   const translate = useTranslate()
+  const { getReturnURL } = useReturnURL()
 
   const form = useForm({
     initialValues,
     onSubmit: async (values) => {
       try {
         await auth.login(values)
-        history.replace("/")
+        history.replace(getReturnURL("/"))
         return
       } catch (error) {
         if (error instanceof ValidationError) {

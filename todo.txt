@@ -3,6 +3,4 @@ CORE:
 - custom routes (with/without layout, with/without authentication required)
 
 EUI:
-- i18n for login and the rest
-- login redirects to returnUrl
 - better login layout
