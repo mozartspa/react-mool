@@ -1,7 +1,7 @@
 import { I18nProvider, Resource } from "@react-mool/core"
 import { Admin } from "@react-mool/eui"
 import { useEffect, useState } from "react"
-import { Route } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import { authProvider, TestAuth } from "./components/TestAuth"
 import { dataProvider } from "./dataProvider"
 import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
@@ -34,9 +34,14 @@ function App() {
         list={ProductList}
       />
 
-      <Route exact path="/">
-        <TestAuth />
-      </Route>
+      <Switch>
+        <Route exact path="/custom">
+          <h1>Custom route</h1>
+        </Route>
+        <Route exact path="/">
+          <TestAuth />
+        </Route>
+      </Switch>
     </Admin>
   )
 }
