@@ -29,7 +29,6 @@ export const LoginForm = observer((props: LoginFormProps) => {
     initialValues = {
       username: "",
       password: "",
-      rememberMe: false,
     },
   } = props
 

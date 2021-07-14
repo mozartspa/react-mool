@@ -1,4 +1,4 @@
-import { EuiCard, EuiIcon, EuiPageTemplate, EuiSpacer } from "@elastic/eui"
+import { EuiCard, EuiFlexGroup, EuiPageTemplate, EuiSpacer } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode } from "react"
 import { t } from "../i18n"
@@ -13,18 +13,18 @@ export const LoginLayout = (props: LoginLayoutProps) => {
   const translate = useTranslate()
 
   return (
-    <EuiPageTemplate
-      template="centeredBody"
-      pageContentProps={{ paddingSize: "none", style: { minWidth: 400 } }}
-    >
-      <EuiCard
-        title={translate(t.eui.login.title)}
-        icon={<EuiIcon type="logoAppSearch" size="xl" />}
-        paddingSize="l"
-      >
-        <EuiSpacer />
-        {children}
-      </EuiCard>
+    <EuiPageTemplate template="default" style={{ minHeight: "100vh" }}>
+      <EuiSpacer size="xxl" />
+      <EuiFlexGroup justifyContent="center">
+        <EuiCard
+          title={translate(t.eui.login.title)}
+          paddingSize="l"
+          style={{ maxWidth: 430 }}
+        >
+          <EuiSpacer />
+          {children}
+        </EuiCard>
+      </EuiFlexGroup>
     </EuiPageTemplate>
   )
 }
