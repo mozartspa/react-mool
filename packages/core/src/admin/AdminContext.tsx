@@ -5,6 +5,7 @@ import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
 import { DataProvider, DataProviderContext } from "../dataProvider"
 import { defaultI18nProvider, I18nProvider, TranslationContextProvider } from "../i18n"
 import { NotificationContext, useNotification } from "../notify"
+import { ResourceDefinitionsContextProvider } from "../resource/definitions"
 
 export type AdminContextProps = {
   dataProvider: DataProvider
@@ -31,7 +32,9 @@ export const AdminContext = (props: AdminContextProps) => {
         <DataProviderContext.Provider value={dataProvider}>
           <NotificationContext.Provider value={notifications}>
             <TranslationContextProvider i18nProvider={i18nProvider}>
-              <BrowserRouter>{children}</BrowserRouter>
+              <ResourceDefinitionsContextProvider>
+                <BrowserRouter>{children}</BrowserRouter>
+              </ResourceDefinitionsContextProvider>
             </TranslationContextProvider>
           </NotificationContext.Provider>
         </DataProviderContext.Provider>

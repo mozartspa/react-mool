@@ -1,7 +1,7 @@
-import { I18nProvider, ResourceContext } from "@react-mool/core"
+import { I18nProvider, Resource } from "@react-mool/core"
 import { Admin } from "@react-mool/eui"
 import { useEffect, useState } from "react"
-import { Route, Switch } from "react-router-dom"
+import { Route } from "react-router-dom"
 import { authProvider, TestAuth } from "./components/TestAuth"
 import { dataProvider } from "./dataProvider"
 import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
@@ -26,22 +26,13 @@ function App() {
       authProvider={authProvider}
       layout={Layout}
     >
-      <ResourceContext.Provider value="product">
-        <Switch>
-          <Route path="/product/create">
-            <ProductCreate />
-          </Route>
-          <Route path="/product/:id/edit">
-            <ProductUpdate />
-          </Route>
-          <Route path="/product/:id">
-            <ProductDetail />
-          </Route>
-          <Route path="/product">
-            <ProductList />
-          </Route>
-        </Switch>
-      </ResourceContext.Provider>
+      <Resource
+        name="product"
+        create={ProductCreate}
+        edit={ProductUpdate}
+        detail={ProductDetail}
+        list={ProductList}
+      />
 
       <Route exact path="/">
         <TestAuth />
