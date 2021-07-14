@@ -1,4 +1,11 @@
-import React, { ComponentType, ReactNode, useCallback, useMemo, useState } from "react"
+import React, {
+  ComponentType,
+  ReactElement,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
+} from "react"
 
 export type ResourceDefinition = {
   name: string
@@ -6,6 +13,7 @@ export type ResourceDefinition = {
   edit?: ComponentType
   detail?: ComponentType
   list?: ComponentType
+  icon?: ReactElement
 }
 
 export type ResourceDefinitionsContextValue = {

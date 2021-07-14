@@ -22,15 +22,15 @@ export function useResource(resource?: ResourceContextValue) {
 export type ResourceProps = ResourceDefinition
 
 export const Resource = (props: ResourceProps) => {
-  const { name, create, edit, detail, list } = props
+  const { name, create, edit, detail, list, icon } = props
 
   const context = useResourceDefinitionsContext()
 
   // Register resource definition into context
   useEffect(() => {
-    context.add({ name, create, edit, list })
+    context.add({ name, create, edit, list, icon })
     return () => context.remove(name)
-  }, [name, create, edit, detail, list])
+  }, [name, create, edit, detail, list, icon])
 
   return (
     <ResourceContext.Provider value={name}>
