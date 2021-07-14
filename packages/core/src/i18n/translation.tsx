@@ -4,8 +4,14 @@ import { RefreshSignal } from "../helpers/refreshSignal"
 import { useNotify } from "../notify"
 import { t } from "./messages"
 
+export interface TranslateOptions {
+  defaultValue?: string
+  smart_count?: number
+  [index: string]: any
+}
+
 export type I18nProvider = {
-  translate: (key: string, options?: any) => string
+  translate: (key: string, options?: TranslateOptions) => string
   changeLocale: (locale: string) => Promise<void>
   getLocale: () => string
   getRefreshSignal?: () => RefreshSignal
@@ -87,8 +93,8 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
 }
 
 function createMaybeTranslate(translate: I18nProvider["translate"]) {
-  function t(key: string, options?: any): string
-  function t(key: ReactNode, options?: any): ReactNode
+  function t(key: string, options?: TranslateOptions): string
+  function t(key: ReactNode, options?: TranslateOptions): ReactNode
   function t(key: string | ReactNode, options?: any): string | ReactNode {
     if (typeof key === "string") {
       return translate(key, options)
