@@ -30,7 +30,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
 
   // When location changes, close nav
   useEffect(() => {
-    return history.listen((a) => {
+    return history.listen(() => {
       setNavIsOpen(false)
     })
   }, [])
