@@ -40,7 +40,7 @@ export const authProvider: AuthProvider = {
     return {}
   },
   getRefreshSignal: () => signal,
-  getInitialState: () => ({ identity: { displayName: "sti" }, permissions: "admin" }),
+  getInitialState: () => ({ identity: { displayName: "Admin" }, permissions: "admin" }),
 }
 
 export function TestAuth() {
