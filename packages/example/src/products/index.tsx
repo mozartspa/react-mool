@@ -23,7 +23,7 @@ import {
 } from "@react-mool/core"
 import { BreadcrumbsItem, TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { useQueryClient } from "react-query"
 import { GeneratedSchema, Product } from "../gqless"
 
@@ -31,19 +31,6 @@ type ProductUpdateInput = Omit<
   Parameters<GeneratedSchema["mutation"]["updateProduct"]>[0],
   "id"
 >
-
-function ShowHideBreadcrumb(props: any) {
-  const [show, setShow] = useState(true)
-
-  return (
-    <>
-      {show && <BreadcrumbsItem>{props.children}</BreadcrumbsItem>}
-      <EuiButton onClick={() => setShow((value) => !value)}>
-        {show ? "Hide" : "Show"} {props.name}
-      </EuiButton>
-    </>
-  )
-}
 
 export const ProductDetail = () => {
   return (
