@@ -21,9 +21,9 @@ import {
   useSetLocale,
   useTranslate,
 } from "@react-mool/core"
-import { TextInput } from "@react-mool/eui"
+import { BreadcrumbsItem, TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import { useQueryClient } from "react-query"
 import { GeneratedSchema, Product } from "../gqless"
 
@@ -32,11 +32,26 @@ type ProductUpdateInput = Omit<
   "id"
 >
 
+function ShowHideBreadcrumb(props: any) {
+  const [show, setShow] = useState(true)
+
+  return (
+    <>
+      {show && <BreadcrumbsItem>{props.children}</BreadcrumbsItem>}
+      <EuiButton onClick={() => setShow((value) => !value)}>
+        {show ? "Hide" : "Show"} {props.name}
+      </EuiButton>
+    </>
+  )
+}
+
 export const ProductDetail = () => {
   return (
     <DetailBase>
       {({ record }) => (
         <>
+          <ShowHideBreadcrumb id="1">Uella1</ShowHideBreadcrumb>{" "}
+          <ShowHideBreadcrumb id="2">Uella2</ShowHideBreadcrumb>
           <pre>{JSON.stringify(record, null, 2)}</pre>
         </>
       )}
