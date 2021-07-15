@@ -1,4 +1,4 @@
-import { EuiPage, EuiPageContent, EuiPageContentBody, EuiPageSideBar } from "@elastic/eui"
+import { EuiPage, EuiPageContent, EuiPageContentBody } from "@elastic/eui"
 import { ComponentType, ReactNode } from "react"
 import { Header } from "./Header"
 import { Menu } from "./Menu"
@@ -16,11 +16,8 @@ export const Layout = (props: LayoutProps) => {
 
   return (
     <>
-      <Header />
-      <EuiPage paddingSize="none" style={{ minHeight: "calc(100vh - 96px)" }}>
-        <EuiPageSideBar sticky>
-          <MenuComp />
-        </EuiPageSideBar>
+      <Header menu={<MenuComp />} />
+      <EuiPage paddingSize="none" style={{ minHeight: "calc(100vh - 48px)" }}>
         <EuiPageContent>
           <EuiPageContentBody>{children}</EuiPageContentBody>
         </EuiPageContent>

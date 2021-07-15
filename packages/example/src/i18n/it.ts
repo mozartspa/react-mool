@@ -21,6 +21,14 @@ export const italianMessages: Messages = {
       login_btn: "Accedi",
       invalid_credentials: "Credenziali non valide",
     },
+    logout: {
+      account_menu: "Account menu",
+      logout_btn: "Log out",
+    },
+    layout: {
+      dock_navigation: "Dock navigation",
+      undock_navigation: "Undock navigation",
+    },
   },
   close: "Chiudi",
   open: "Apri",

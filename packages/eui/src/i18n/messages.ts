@@ -13,6 +13,10 @@ export const englishEuiMessages = {
       account_menu: "Account menu",
       logout_btn: "Log out",
     },
+    layout: {
+      dock_navigation: "Dock navigation",
+      undock_navigation: "Undock navigation",
+    },
   },
 }
 

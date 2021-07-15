@@ -1,43 +1,33 @@
 import {
-  EuiAvatar,
   EuiHeader,
   EuiHeaderLogo,
   EuiHeaderSection,
   EuiHeaderSectionItem,
-  EuiHeaderSectionItemButton,
 } from "@elastic/eui"
+import { ReactNode } from "react"
 import { BreadcrumbsContainer } from "./Breadcrumbs"
+import { HeaderNav } from "./HeaderNav"
 import { HeaderUserMenu } from "./HeaderUserMenu"
 
-export const Header = () => {
+export type HeaderProps = {
+  menu?: ReactNode
+}
+
+export const Header = (props: HeaderProps) => {
+  const { menu } = props
+
   return (
     <>
-      <EuiHeader
-        theme="dark"
-        position="static"
-        sections={[
-          {
-            items: [<EuiHeaderLogo iconType="logoElastic">Elastic</EuiHeaderLogo>],
-            borders: "none",
-          },
-          {
-            items: [
-              <EuiHeaderSectionItemButton aria-label="Account menu">
-                <EuiAvatar name="John Username" size="s" />
-              </EuiHeaderSectionItemButton>,
-            ],
-            borders: "none",
-          },
-        ]}
-      />
-      <EuiHeader position="static">
+      <EuiHeader position="fixed">
         <EuiHeaderSection>
+          {!!menu && (
+            <EuiHeaderSectionItem border="right">
+              <HeaderNav menu={menu} />
+            </EuiHeaderSectionItem>
+          )}
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderSectionItemButton aria-label="Account menu">
-              <EuiAvatar type="space" name="Default Space" size="s" />
-            </EuiHeaderSectionItemButton>
+            <EuiHeaderLogo iconType="logoElastic">Elastic</EuiHeaderLogo>
           </EuiHeaderSectionItem>
-
           <BreadcrumbsContainer />
         </EuiHeaderSection>
 
