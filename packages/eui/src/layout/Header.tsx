@@ -5,9 +5,9 @@ import {
   EuiHeaderSection,
   EuiHeaderSectionItem,
   EuiHeaderSectionItemButton,
-  EuiIcon,
 } from "@elastic/eui"
 import { BreadcrumbsContainer } from "./Breadcrumbs"
+import { HeaderUserMenu } from "./HeaderUserMenu"
 
 export const Header = () => {
   return (
@@ -42,13 +42,8 @@ export const Header = () => {
         </EuiHeaderSection>
 
         <EuiHeaderSection>
-          <EuiHeaderSectionItem border="none">
-            <EuiHeaderSectionItemButton
-              aria-label="News feed: Updates available"
-              notification={true}
-            >
-              <EuiIcon type="cheer" size="m" />
-            </EuiHeaderSectionItemButton>
+          <EuiHeaderSectionItem border="left">
+            <HeaderUserMenu />
           </EuiHeaderSectionItem>
         </EuiHeaderSection>
       </EuiHeader>
