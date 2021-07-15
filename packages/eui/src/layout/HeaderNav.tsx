@@ -23,7 +23,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
     JSON.parse(String(localStorage.getItem("navIsDocked"))) || false
   )
   const [navIsDocked, setNavIsDocked] = useState(
-    JSON.parse(String(localStorage.getItem("navIsDocked"))) || false
+    JSON.parse(String(localStorage.getItem("navIsDocked"))) || true
   )
 
   const history = useHistory()
