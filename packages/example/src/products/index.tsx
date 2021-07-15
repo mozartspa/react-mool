@@ -50,8 +50,8 @@ export const ProductDetail = () => {
     <DetailBase>
       {({ record }) => (
         <>
-          <ShowHideBreadcrumb id="1">Uella1</ShowHideBreadcrumb>{" "}
-          <ShowHideBreadcrumb id="2">Uella2</ShowHideBreadcrumb>
+          <BreadcrumbsItem>Products</BreadcrumbsItem>
+          <BreadcrumbsItem>{record.reference}</BreadcrumbsItem>
           <pre>{JSON.stringify(record, null, 2)}</pre>
         </>
       )}
@@ -112,6 +112,7 @@ export const ProductList = () => {
     <ListBase initialPageSize={10}>
       {({ items, total, page, setPage }) => (
         <>
+          <BreadcrumbsItem>Products</BreadcrumbsItem>
           <LangTest />
           <EuiSpacer />
           <EuiButton {...redirectLink("create")} iconType="plus">

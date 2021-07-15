@@ -1,5 +1,5 @@
 import { I18nProvider, Resource } from "@react-mool/core"
-import { Admin } from "@react-mool/eui"
+import { Admin, BreadcrumbsItem } from "@react-mool/eui"
 import { useEffect, useState } from "react"
 import { Route, Switch } from "react-router-dom"
 import { authProvider, TestAuth } from "./components/TestAuth"
@@ -36,9 +36,11 @@ function App() {
 
       <Switch>
         <Route exact path="/custom">
+          <BreadcrumbsItem>Custom route</BreadcrumbsItem>
           <h1>Custom route</h1>
         </Route>
         <Route exact path="/">
+          <BreadcrumbsItem>Home</BreadcrumbsItem>
           <TestAuth />
         </Route>
       </Switch>
