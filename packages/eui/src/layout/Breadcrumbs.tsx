@@ -21,10 +21,12 @@ export const BreadcrumbsContainer = () => {
   return (
     <Consumer>
       {(items) => {
-        const breadcrumbs: EuiBreadcrumb[] = items.map((item) => ({
-          text: item.children,
-          ...(item.to ? linkProps(item.to) : {}),
-        }))
+        const breadcrumbs: EuiBreadcrumb[] = items
+          .filter((item) => item.children != null)
+          .map((item) => ({
+            text: item.children,
+            ...(item.to ? linkProps(item.to) : {}),
+          }))
 
         return <EuiHeaderBreadcrumbs breadcrumbs={breadcrumbs} />
       }}
