@@ -3,7 +3,7 @@ import { Menu } from "./Menu"
 
 export const Layout = (props: LayoutProps) => {
   return (
-    <DefaultLayout menu={Menu} {...props}>
+    <DefaultLayout menu={Menu} {...props} appTitle="MyApp">
       {props.children}
     </DefaultLayout>
   )

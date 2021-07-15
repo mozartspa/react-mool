@@ -3,6 +3,7 @@ import {
   EuiHeaderLogo,
   EuiHeaderSection,
   EuiHeaderSectionItem,
+  IconType,
 } from "@elastic/eui"
 import { useLinkProps } from "@react-mool/core"
 import { ReactNode } from "react"
@@ -12,10 +13,12 @@ import { HeaderUserMenu } from "./HeaderUserMenu"
 
 export type HeaderProps = {
   menu?: ReactNode
+  appLogo?: IconType
+  appTitle?: ReactNode
 }
 
 export const Header = (props: HeaderProps) => {
-  const { menu } = props
+  const { menu, appLogo = "logoElastic", appTitle = "Admin" } = props
   const linkProps = useLinkProps()
 
   return (
@@ -28,8 +31,8 @@ export const Header = (props: HeaderProps) => {
             </EuiHeaderSectionItem>
           )}
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderLogo iconType="logoElastic" {...linkProps("/")}>
-              Elastic
+            <EuiHeaderLogo iconType={appLogo} {...linkProps("/")}>
+              {appTitle}
             </EuiHeaderLogo>
           </EuiHeaderSectionItem>
           <BreadcrumbsContainer />
