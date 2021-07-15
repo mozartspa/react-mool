@@ -1,7 +1,7 @@
 import commonjs from "@rollup/plugin-commonjs"
 import json from "@rollup/plugin-json"
-import css from "rollup-plugin-import-css"
 import peerDepsExternal from "rollup-plugin-peer-deps-external"
+import postcss from "rollup-plugin-postcss"
 import typescript from "rollup-plugin-typescript2"
 
 // this override is needed because Module format cjs does not support top-level await
@@ -41,7 +41,7 @@ export default {
       exclude: "node_modules",
       ignoreGlobal: true,
     }),
-    css(),
+    postcss(),
     json(),
   ],
   external: Object.keys(globals),
