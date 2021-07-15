@@ -5,7 +5,7 @@ import {
   EuiListGroupItemProps,
 } from "@elastic/eui"
 import { useGetResourceLabel, useResourceDefinitionList } from "@react-mool/core"
-import { useLinkProps } from "@react-mool/eui"
+import { useLinkProps } from "../helpers/useLinkProps"
 
 export const Menu = () => {
   const getLinkProps = useLinkProps()
