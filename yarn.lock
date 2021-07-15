@@ -1241,10 +1241,10 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/eui@^34.5.2":
-  version "34.5.2"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-34.5.2.tgz#6aad49945a894fb77785a48c281cd0bd5e9e87ba"
-  integrity sha512-+ColXEaZ8Oa8lJ/ixayiLuWlYUggoTTW0Q5sWXOolR94PlekxsdSpu5f0kVyxlz7ECdkHz3ttOu9RYM7Z6ARyA==
+"@elastic/eui@^35.1.0":
+  version "35.1.0"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-35.1.0.tgz#e0326953c7e48d05d10c1f8ac1bf93c4eab7dc3b"
+  integrity sha512-5QTdxlViFMuPkD5jfepbHheW9pLkA9109uaKy2jId3+hSV2muRu47U1Av4zzKpl7qjySJKodHXDnYs9vFSshnA==
   dependencies:
     "@types/chroma-js" "^2.0.0"
     "@types/lodash" "^4.14.160"
@@ -1270,7 +1270,7 @@
     react-is "~16.3.0"
     react-virtualized-auto-sizer "^1.0.2"
     react-window "^1.8.5"
-    refractor "^3.3.1"
+    refractor "^3.4.0"
     rehype-raw "^5.0.0"
     rehype-react "^6.0.0"
     rehype-stringify "^8.0.0"
@@ -10810,7 +10810,7 @@ redux@^4.0.0, redux@^4.0.4:
   dependencies:
     "@babel/runtime" "^7.9.2"
 
-refractor@^3.3.1:
+refractor@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/refractor/-/refractor-3.4.0.tgz#62bd274b06c942041f390c371b676eb67cb0a678"
   integrity sha512-dBeD02lC5eytm9Gld2Mx0cMcnR+zhSnsTfPpWqFaMgUMJfC9A6bcN3Br/NaXrnBJcuxnLFR90k1jrkaSyV8umg==
