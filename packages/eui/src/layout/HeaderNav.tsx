@@ -37,7 +37,6 @@ export const HeaderNav = (props: HeaderNavProps) => {
 
   return (
     <EuiCollapsibleNav
-      id="guideHeaderCollapsibleNavExample"
       aria-label="Main navigation"
       isOpen={navIsOpen}
       isDocked={navIsDocked}
