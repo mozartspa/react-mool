@@ -17,13 +17,6 @@ import { Fragment } from "react"
 import { useQueryClient } from "react-query"
 
 export const ProductList = () => {
-  const deleteMutation = useDelete()
-  const queryClient = useQueryClient()
-
-  const notify = useNotify()
-  const redirect = useRedirect()
-  const redirectLink = useRedirectLink()
-
   return (
     <List>
       <ListHeader
