@@ -27,7 +27,7 @@ export const ProductList = () => {
   return (
     <List>
       <ListHeader
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
         actions={[
           <EuiButton>Just</EuiButton>,
           <EuiButton>Do</EuiButton>,
