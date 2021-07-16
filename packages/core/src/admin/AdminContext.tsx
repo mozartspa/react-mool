@@ -5,13 +5,17 @@ import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
 import { DataProvider, DataProviderContext } from "../dataProvider"
 import { defaultI18nProvider, I18nProvider, TranslationContextProvider } from "../i18n"
 import { NotificationContext, useNotification } from "../notify"
-import { ResourceDefinitionsContextProvider } from "../resource/definitions"
+import {
+  ResourceDefinitions,
+  ResourceDefinitionsContextProvider,
+} from "../resource/definitions"
 
 export type AdminContextProps = {
   dataProvider: DataProvider
   i18nProvider?: I18nProvider
   authProvider?: AuthProvider
   queryClient?: QueryClient
+  resources?: ResourceDefinitions
   children?: ReactNode
 }
 
@@ -20,6 +24,7 @@ export const AdminContext = (props: AdminContextProps) => {
     dataProvider,
     i18nProvider = defaultI18nProvider,
     authProvider = defaultAuthProvider,
+    resources = [],
     children,
   } = props
 
@@ -32,7 +37,7 @@ export const AdminContext = (props: AdminContextProps) => {
         <DataProviderContext.Provider value={dataProvider}>
           <NotificationContext.Provider value={notifications}>
             <TranslationContextProvider i18nProvider={i18nProvider}>
-              <ResourceDefinitionsContextProvider>
+              <ResourceDefinitionsContextProvider definitions={resources}>
                 <BrowserRouter>{children}</BrowserRouter>
               </ResourceDefinitionsContextProvider>
             </TranslationContextProvider>

@@ -1,4 +1,4 @@
-import { I18nProvider, Resource } from "@react-mool/core"
+import { I18nProvider } from "@react-mool/core"
 import { Admin, BreadcrumbsItem } from "@react-mool/eui"
 import { useEffect, useState } from "react"
 import { Route, Switch } from "react-router-dom"
@@ -25,15 +25,16 @@ function App() {
       i18nProvider={i18nProvider}
       authProvider={authProvider}
       layout={Layout}
+      resources={[
+        {
+          name: "product",
+          create: ProductCreate,
+          edit: ProductUpdate,
+          detail: ProductDetail,
+          list: ProductList,
+        },
+      ]}
     >
-      <Resource
-        name="product"
-        create={ProductCreate}
-        edit={ProductUpdate}
-        detail={ProductDetail}
-        list={ProductList}
-      />
-
       <Switch>
         <Route exact path="/custom">
           <BreadcrumbsItem>Custom route</BreadcrumbsItem>
