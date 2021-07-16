@@ -1,57 +1,48 @@
 import {
-  EuiAvatar,
   EuiHeader,
   EuiHeaderLogo,
   EuiHeaderSection,
   EuiHeaderSectionItem,
-  EuiHeaderSectionItemButton,
-  EuiIcon,
+  IconType,
 } from "@elastic/eui"
+import { useLinkProps } from "@react-mool/core"
+import { ReactNode } from "react"
 import { BreadcrumbsContainer } from "./Breadcrumbs"
+import { HeaderNav } from "./HeaderNav"
+import { HeaderUserMenu } from "./HeaderUserMenu"
 
-export const Header = () => {
+export type HeaderProps = {
+  menu?: ReactNode
+  menuSize?: number
+  appLogo?: IconType
+  appTitle?: ReactNode
+}
+
+export const Header = (props: HeaderProps) => {
+  const { menu, menuSize, appLogo = "logoElastic", appTitle = "Admin" } = props
+  const linkProps = useLinkProps()
+
   return (
-    <>
-      <EuiHeader
-        theme="dark"
-        position="static"
-        sections={[
-          {
-            items: [<EuiHeaderLogo iconType="logoElastic">Elastic</EuiHeaderLogo>],
-            borders: "none",
-          },
-          {
-            items: [
-              <EuiHeaderSectionItemButton aria-label="Account menu">
-                <EuiAvatar name="John Username" size="s" />
-              </EuiHeaderSectionItemButton>,
-            ],
-            borders: "none",
-          },
-        ]}
-      />
-      <EuiHeader position="static">
-        <EuiHeaderSection>
+    <EuiHeader position="fixed">
+      <EuiHeaderSection>
+        {!!menu && (
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderSectionItemButton aria-label="Account menu">
-              <EuiAvatar type="space" name="Default Space" size="s" />
-            </EuiHeaderSectionItemButton>
+            <HeaderNav menu={menu} size={menuSize} />
           </EuiHeaderSectionItem>
+        )}
+        <EuiHeaderSectionItem border="right">
+          <EuiHeaderLogo iconType={appLogo} {...linkProps("/")}>
+            {appTitle}
+          </EuiHeaderLogo>
+        </EuiHeaderSectionItem>
+        <BreadcrumbsContainer />
+      </EuiHeaderSection>
 
-          <BreadcrumbsContainer />
-        </EuiHeaderSection>
-
-        <EuiHeaderSection>
-          <EuiHeaderSectionItem border="none">
-            <EuiHeaderSectionItemButton
-              aria-label="News feed: Updates available"
-              notification={true}
-            >
-              <EuiIcon type="cheer" size="m" />
-            </EuiHeaderSectionItemButton>
-          </EuiHeaderSectionItem>
-        </EuiHeaderSection>
-      </EuiHeader>
-    </>
+      <EuiHeaderSection>
+        <EuiHeaderSectionItem border="left">
+          <HeaderUserMenu />
+        </EuiHeaderSectionItem>
+      </EuiHeaderSection>
+    </EuiHeader>
   )
 }

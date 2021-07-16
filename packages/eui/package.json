@@ -21,19 +21,29 @@
   },
   "license": "MIT",
   "scripts": {
-    "dev": "yarn build-esm --watch",
-    "build": "rimraf ./dist && yarn build-cjs && yarn build-esm",
-    "build-cjs": "rimraf ./dist/lib && tsc",
-    "build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
+    "dev": "yarn build --watch",
+    "build": "rimraf ./dist && rollup -c",
     "lint": "eslint .",
     "prepublishOnly": "yarn build"
   },
   "devDependencies": {
+    "@mozartspa/mobx-form": "^0.5.0",
     "@react-mool/core": "0.1.0",
+    "@rollup/plugin-commonjs": "^19.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.1",
     "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
+    "mobx-react-lite": "^3.2.0",
+    "postcss": "^8.3.5",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "rollup": "^2.53.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.30.0"
   },
   "peerDependencies": {
     "@react-mool/core": "^0.1.0",
@@ -41,7 +51,7 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
-    "@elastic/eui": "^34.5.2",
+    "@elastic/eui": "^35.1.0",
     "moment": "^2.29.1"
   }
 }

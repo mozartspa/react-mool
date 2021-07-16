@@ -9,6 +9,14 @@ export const englishEuiMessages = {
       invalid_credentials: "Invalid credentials",
       login_btn: "Log in",
     },
+    logout: {
+      account_menu: "Account menu",
+      logout_btn: "Log out",
+    },
+    layout: {
+      dock_navigation: "Dock navigation",
+      undock_navigation: "Undock navigation",
+    },
   },
 }
 

@@ -6,6 +6,7 @@ import {
   AdminRouterProps,
 } from "@react-mool/core"
 import { ComponentType, ReactNode } from "react"
+import "./Admin.css"
 import { Layout } from "./layout/Layout"
 import { Login } from "./login"
 
