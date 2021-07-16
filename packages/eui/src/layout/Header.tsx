@@ -13,37 +13,36 @@ import { HeaderUserMenu } from "./HeaderUserMenu"
 
 export type HeaderProps = {
   menu?: ReactNode
+  menuSize?: number
   appLogo?: IconType
   appTitle?: ReactNode
 }
 
 export const Header = (props: HeaderProps) => {
-  const { menu, appLogo = "logoElastic", appTitle = "Admin" } = props
+  const { menu, menuSize, appLogo = "logoElastic", appTitle = "Admin" } = props
   const linkProps = useLinkProps()
 
   return (
-    <>
-      <EuiHeader position="fixed">
-        <EuiHeaderSection>
-          {!!menu && (
-            <EuiHeaderSectionItem border="right">
-              <HeaderNav menu={menu} />
-            </EuiHeaderSectionItem>
-          )}
+    <EuiHeader position="fixed">
+      <EuiHeaderSection>
+        {!!menu && (
           <EuiHeaderSectionItem border="right">
-            <EuiHeaderLogo iconType={appLogo} {...linkProps("/")}>
-              {appTitle}
-            </EuiHeaderLogo>
+            <HeaderNav menu={menu} size={menuSize} />
           </EuiHeaderSectionItem>
-          <BreadcrumbsContainer />
-        </EuiHeaderSection>
+        )}
+        <EuiHeaderSectionItem border="right">
+          <EuiHeaderLogo iconType={appLogo} {...linkProps("/")}>
+            {appTitle}
+          </EuiHeaderLogo>
+        </EuiHeaderSectionItem>
+        <BreadcrumbsContainer />
+      </EuiHeaderSection>
 
-        <EuiHeaderSection>
-          <EuiHeaderSectionItem border="left">
-            <HeaderUserMenu />
-          </EuiHeaderSectionItem>
-        </EuiHeaderSection>
-      </EuiHeader>
-    </>
+      <EuiHeaderSection>
+        <EuiHeaderSectionItem border="left">
+          <HeaderUserMenu />
+        </EuiHeaderSectionItem>
+      </EuiHeaderSection>
+    </EuiHeader>
   )
 }

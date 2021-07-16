@@ -15,14 +15,15 @@ import { t } from "../i18n"
 
 export type HeaderNavProps = {
   menu?: ReactNode
+  size?: number
 }
 
 export const HeaderNav = (props: HeaderNavProps) => {
-  const { menu } = props
+  const { menu, size } = props
+
   const translate = useTranslate()
   const [navIsDocked, setNavIsDocked] = useLocalstorageState("navIsDocked", true)
   const [navIsOpen, setNavIsOpen] = useState(navIsDocked)
-
   const history = useHistory()
 
   // When location changes, close nav
@@ -46,6 +47,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
         </EuiHeaderSectionItemButton>
       }
       onClose={() => setNavIsOpen(false)}
+      size={size}
     >
       <EuiFlexItem className="eui-yScroll">{menu}</EuiFlexItem>
       <EuiFlexItem grow={false}>
