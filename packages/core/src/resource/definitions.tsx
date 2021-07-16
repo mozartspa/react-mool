@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement, ReactNode, useMemo } from "react"
+import React, { ComponentType, ReactNode, useMemo } from "react"
 import { AuthPermissions, useAuthPermissions } from "../auth"
 
 export type ResourceDefinition = {
@@ -7,7 +7,7 @@ export type ResourceDefinition = {
   edit?: ComponentType
   detail?: ComponentType
   list?: ComponentType
-  icon?: ReactElement
+  icon?: string | ComponentType
 }
 
 export type ResourceDefinitionsArgs = {

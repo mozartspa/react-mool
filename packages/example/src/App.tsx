@@ -6,7 +6,8 @@ import { authProvider, TestAuth } from "./components/TestAuth"
 import { dataProvider } from "./dataProvider"
 import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
 import { Layout } from "./layout/Layout"
-import { ProductCreate, ProductDetail, ProductList, ProductUpdate } from "./products"
+import { ProductCreate, ProductDetail, ProductUpdate } from "./products"
+import { ProductList } from "./products/ProductList"
 
 function App() {
   const [i18nProvider, setI18nProvider] = useState<I18nProvider | undefined>(undefined)
@@ -32,6 +33,7 @@ function App() {
           edit: ProductUpdate,
           detail: ProductDetail,
           list: ProductList,
+          icon: "database",
         },
       ]}
     >

@@ -2,8 +2,6 @@ import {
   EuiButton,
   EuiButtonGroup,
   EuiDescriptionList,
-  EuiDescriptionListDescription,
-  EuiDescriptionListTitle,
   EuiFlexGroup,
   EuiFlexItem,
   EuiSpacer,
@@ -12,19 +10,12 @@ import {
   CreateBase,
   DetailBase,
   EditBase,
-  ListBase,
-  useDelete,
   useLocale,
-  useNotify,
-  useRedirect,
-  useRedirectLink,
   useSetLocale,
   useTranslate,
 } from "@react-mool/core"
 import { BreadcrumbsItem, TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
-import { Fragment } from "react"
-import { useQueryClient } from "react-query"
 import { GeneratedSchema, Product } from "../gqless"
 
 type ProductUpdateInput = Omit<
@@ -84,81 +75,6 @@ function LangTest() {
         />
       </EuiFlexItem>
     </EuiFlexGroup>
-  )
-}
-
-export const ProductList = () => {
-  const deleteMutation = useDelete()
-  const queryClient = useQueryClient()
-
-  const notify = useNotify()
-  const redirect = useRedirect()
-  const redirectLink = useRedirectLink()
-
-  return (
-    <ListBase initialPageSize={10}>
-      {({ items, total, page, setPage }) => (
-        <>
-          <BreadcrumbsItem>Products</BreadcrumbsItem>
-          <LangTest />
-          <EuiSpacer />
-          <EuiButton {...redirectLink("create")} iconType="plus">
-            Add
-          </EuiButton>
-          <EuiSpacer />
-          <p>Total: {total}</p>
-          <EuiSpacer />
-          <EuiDescriptionList>
-            {items.map((item) => (
-              <Fragment key={item.id}>
-                <EuiDescriptionListTitle>{item.reference}</EuiDescriptionListTitle>
-                <EuiDescriptionListDescription>
-                  <a {...redirectLink("edit", { id: item.id })}>Update</a>
-                  {" | "}
-                  <a {...redirectLink("detail", { id: item.id })}>Detail</a>
-                  {" | "}
-                  <a
-                    href="#delete"
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      deleteMutation.mutateAsync({ id: String(item.id) }).then(() => {
-                        console.log("removed!")
-                        queryClient.invalidateQueries("product")
-                      })
-                    }}
-                  >
-                    Delete
-                  </a>
-                  {" | "}
-                  <a
-                    href="#notify"
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      notify(item.reference)
-                    }}
-                  >
-                    Notify
-                  </a>
-                  {" | "}
-                  <a
-                    href="#go"
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      redirect("detail", { id: item.id })
-                    }}
-                  >
-                    Go
-                  </a>
-                </EuiDescriptionListDescription>
-              </Fragment>
-            ))}
-          </EuiDescriptionList>
-          <p>Page: {page}</p>
-          <EuiButton onClick={() => setPage(page - 1)}>Prev</EuiButton>{" "}
-          <EuiButton onClick={() => setPage(page + 1)}>Next</EuiButton>
-        </>
-      )}
-    </ListBase>
   )
 }
 
