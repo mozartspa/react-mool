@@ -39,7 +39,7 @@ export const ListHeader = (props: ListHeaderProps) => {
 
   return (
     <>
-      <EuiFlexGroup alignItems="center" responsive={false}>
+      <EuiFlexGroup alignItems="center" gutterSize="m" responsive={false}>
         <EuiHideFor sizes={mobileBreakpoints}>
           <EuiFlexItem grow={false}>
             <EuiIcon type={icon} size="xl" />
