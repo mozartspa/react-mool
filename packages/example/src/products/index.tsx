@@ -38,7 +38,7 @@ export const ProductDetail = () => {
       {({ record }) => (
         <>
           <BreadcrumbsItem>Products</BreadcrumbsItem>
-          <BreadcrumbsItem>{record.reference}</BreadcrumbsItem>
+          <BreadcrumbsItem>{record?.reference}</BreadcrumbsItem>
           <pre>{JSON.stringify(record, null, 2)}</pre>
         </>
       )}
