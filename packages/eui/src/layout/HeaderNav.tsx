@@ -10,6 +10,7 @@ import {
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useEffect, useState } from "react"
 import { useHistory } from "react-router"
+import { useLocalstorageState } from "rooks"
 import { t } from "../i18n"
 
 export type HeaderNavProps = {
@@ -19,12 +20,8 @@ export type HeaderNavProps = {
 export const HeaderNav = (props: HeaderNavProps) => {
   const { menu } = props
   const translate = useTranslate()
-  const [navIsOpen, setNavIsOpen] = useState(
-    JSON.parse(String(localStorage.getItem("navIsDocked"))) || false
-  )
-  const [navIsDocked, setNavIsDocked] = useState(
-    JSON.parse(String(localStorage.getItem("navIsDocked"))) || true
-  )
+  const [navIsDocked, setNavIsDocked] = useLocalstorageState("navIsDocked", true)
+  const [navIsOpen, setNavIsOpen] = useState(navIsDocked)
 
   const history = useHistory()
 
@@ -65,7 +62,6 @@ export const HeaderNav = (props: HeaderNavProps) => {
               )}
               onClick={() => {
                 setNavIsDocked(!navIsDocked)
-                localStorage.setItem("navIsDocked", JSON.stringify(!navIsDocked))
               }}
               iconType={navIsDocked ? "lock" : "lockOpen"}
             />
