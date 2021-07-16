@@ -33,6 +33,7 @@ function App() {
           edit: ProductUpdate,
           detail: ProductDetail,
           list: ProductList,
+          icon: "database",
         },
       ]}
     >

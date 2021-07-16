@@ -1,9 +1,4 @@
-import {
-  EuiCollapsibleNavGroup,
-  EuiIcon,
-  EuiListGroup,
-  EuiListGroupItemProps,
-} from "@elastic/eui"
+import { EuiCollapsibleNavGroup, EuiListGroup, EuiListGroupItemProps } from "@elastic/eui"
 import { useGetResourceLabel, useResourceDefinitionList } from "@react-mool/core"
 import { useLinkProps } from "../helpers/useLinkProps"
 
@@ -16,7 +11,7 @@ export const Menu = () => {
     .filter((def) => def.list != null)
     .map((def) => ({
       label: getResourceLabel(def.name, 2),
-      icon: def.icon || <EuiIcon type="list" />,
+      iconType: def.icon || "list",
       ...getLinkProps(`/${def.name}`),
     }))
 
