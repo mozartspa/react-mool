@@ -1,11 +1,5 @@
-import React, {
-  ComponentType,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useMemo,
-  useState,
-} from "react"
+import React, { ComponentType, ReactElement, ReactNode, useMemo } from "react"
+import { AuthPermissions, useAuthPermissions } from "../auth"
 
 export type ResourceDefinition = {
   name: string
@@ -16,47 +10,16 @@ export type ResourceDefinition = {
   icon?: ReactElement
 }
 
-export type ResourceDefinitionsContextValue = {
-  definitions: ResourceDefinition[]
-  add: (definition: ResourceDefinition) => void
-  remove: (resourceName: string) => void
+export type ResourceDefinitionsArgs = {
+  permissions: AuthPermissions | undefined
 }
 
-export function useResourceDefinitionsContextProvider(): ResourceDefinitionsContextValue {
-  const [definitions, setDefinitions] = useState([] as ResourceDefinition[])
+export type ResourceDefinitions =
+  | ResourceDefinition[]
+  | ((args: ResourceDefinitionsArgs) => ResourceDefinition[])
 
-  const add = useCallback(
-    (definition: ResourceDefinition) => {
-      setDefinitions((value) => {
-        if (value.find((o) => o.name === definition.name)) {
-          return value
-        } else {
-          return [...value, definition]
-        }
-      })
-    },
-    [setDefinitions]
-  )
-
-  const remove = useCallback(
-    (name: string) => {
-      setDefinitions((value) => {
-        return value.filter((o) => o.name !== name)
-      })
-    },
-    [setDefinitions]
-  )
-
-  const context = useMemo(
-    () => ({
-      definitions,
-      add,
-      remove,
-    }),
-    [definitions, add, remove]
-  )
-
-  return context
+export type ResourceDefinitionsContextValue = {
+  definitions: ResourceDefinition[]
 }
 
 export const ResourceDefinitionsContext = React.createContext<
@@ -75,25 +38,38 @@ export function useResourceDefinitionList() {
   return useResourceDefinitionsContext().definitions
 }
 
-export function useResourceDefinition(resourceName: string) {
+export function useResourceDefinition(resource: string) {
   const list = useResourceDefinitionList()
-  const def = list.find((o) => o.name === resourceName)
+  const def = list.find((o) => o.name === resource)
   if (!def) {
-    throw new Error(`Resource definition not found for "${resourceName}".`)
+    throw new Error(`Resource definition not found for "${resource}".`)
   }
   return def
 }
 
 export type ResourceDefinitionsContextProviderProps = {
+  definitions: ResourceDefinitions
   children?: ReactNode
 }
 
 export const ResourceDefinitionsContextProvider = (
   props: ResourceDefinitionsContextProviderProps
 ) => {
-  const { children } = props
+  const { definitions, children } = props
 
-  const context = useResourceDefinitionsContextProvider()
+  const permissions = useAuthPermissions()
+
+  const defs = useMemo(
+    () => (definitions instanceof Function ? definitions({ permissions }) : definitions),
+    [definitions, permissions]
+  )
+
+  const context = useMemo(
+    () => ({
+      definitions: defs,
+    }),
+    [defs]
+  )
 
   return <ResourceDefinitionsContext.Provider value={context} children={children} />
 }

@@ -19,12 +19,12 @@ export type AdminProps = AdminContextProps &
 export const Admin = (props: AdminProps) => {
   const { layout, children, loginPage = Login, ...coreProps } = props
 
-  const AppLayout = layout || Layout
+  const AppLayout = layout ?? Layout
 
   return (
     <AdminContext {...coreProps}>
-      <AdminRouter loginPage={loginPage}>
-        <AppLayout>{children}</AppLayout>
+      <AdminRouter layout={AppLayout} loginPage={loginPage}>
+        {children}
       </AdminRouter>
     </AdminContext>
   )

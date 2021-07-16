@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Route, Switch } from "react-router-dom"
-import { ResourceDefinition, useResourceDefinitionsContext } from "./definitions"
+import { ResourceDefinition } from "./definitions"
 
 export type ResourceContextValue = string
 
@@ -19,18 +19,12 @@ export function useResource(resource?: ResourceContextValue) {
   return result
 }
 
-export type ResourceProps = ResourceDefinition
+export type ResourceProps = {
+  definition: ResourceDefinition
+}
 
-export const Resource = (props: ResourceProps) => {
-  const { name, create, edit, detail, list, icon } = props
-
-  const context = useResourceDefinitionsContext()
-
-  // Register resource definition into context
-  useEffect(() => {
-    context.add({ name, create, edit, list, icon })
-    return () => context.remove(name)
-  }, [name, create, edit, detail, list, icon])
+export const ResourceRoutes = (props: ResourceProps) => {
+  const { name, create, edit, detail, list } = props.definition
 
   return (
     <ResourceContext.Provider value={name}>
