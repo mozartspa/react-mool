@@ -1,6 +1,10 @@
 import { Messages } from "./en"
 
-export const italianMessages: Messages = {
+type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>
+}
+
+export const italianMessages: DeepPartial<Messages> = {
   core: {
     crud: {
       created: "Elemento creato",

@@ -12,7 +12,7 @@ import {
   useRedirect,
   useRedirectLink,
 } from "@react-mool/core"
-import { BreadcrumbsItem, List, ListHeader } from "@react-mool/eui"
+import { BreadcrumbsItem, CreateButton, List, ListHeader } from "@react-mool/eui"
 import { Fragment } from "react"
 import { useQueryClient } from "react-query"
 
@@ -28,11 +28,7 @@ export const ProductList = () => {
     <List>
       <ListHeader
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
-        actions={[
-          <EuiButton>Just</EuiButton>,
-          <EuiButton>Do</EuiButton>,
-          <EuiButton>It</EuiButton>,
-        ]}
+        actions={[<CreateButton />]}
       />
       {/*<Datagrid filters columns bulkActions actions />*/}
     </List>

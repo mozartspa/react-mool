@@ -17,6 +17,9 @@ export const englishEuiMessages = {
       dock_navigation: "Dock navigation",
       undock_navigation: "Undock navigation",
     },
+    action: {
+      create: "Create",
+    },
   },
 }
 
