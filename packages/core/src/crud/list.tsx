@@ -216,7 +216,7 @@ export function useList<TRecord = any, TFilter = any>(
     total: query.data?.total ?? 0,
     ...listParams,
     ...setters,
-    isLoading: query.isLoading,
+    isLoading: query.isLoading || (query.isPreviousData && query.isFetching),
     isLoaded: !query.isLoading && !query.isError,
     query,
     defaults,
