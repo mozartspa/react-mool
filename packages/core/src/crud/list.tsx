@@ -7,7 +7,13 @@ import React, {
   useState,
 } from "react"
 import { UseQueryResult } from "react-query"
-import { GetListOutput, GetListParams, SortOrder, useGetList } from "../dataProvider"
+import {
+  GetListOutput,
+  GetListParams,
+  RecordID,
+  SortOrder,
+  useGetList,
+} from "../dataProvider"
 import { useLastListParams } from "../helpers/useLastListParams"
 import { useSyncListParamsWithURL } from "../helpers/useSyncListParamsWithURL"
 import { useNotify } from "../notify"
@@ -28,6 +34,7 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   initialSortField?: string
   initialSortOrder?: SortOrder
   initialFilter?: TFilter
+  initialSelectedIds?: RecordID[]
   baseFilter?: TFilter
   onLoadSuccess?: LoadListSuccessHandler<TRecord>
   onLoadError?: LoadListErrorHandler<TFilter>
@@ -45,6 +52,7 @@ export type UseListResult<TRecord = any, TFilter = any> = {
   sortField?: string | undefined
   sortOrder: SortOrder
   filter?: TFilter | undefined
+  selectedIds: RecordID[]
   isLoading: boolean
   isLoaded: boolean
   query: UseQueryResult<GetListOutput<TRecord>>
@@ -59,6 +67,7 @@ export type UseListResult<TRecord = any, TFilter = any> = {
   setPageSize: (pageSize: number) => void
   setSort: (field: string | undefined, order?: SortOrder) => void
   setFilter: (filter: TFilter) => void
+  setSelectedIds: (ids: RecordID[]) => void
   reset: () => void
 }
 
@@ -72,6 +81,7 @@ export function useList<TRecord = any, TFilter = any>(
     initialSortField,
     initialSortOrder = "asc",
     initialFilter,
+    initialSelectedIds = [],
     baseFilter,
     onLoadSuccess,
     onLoadError,
@@ -88,6 +98,7 @@ export function useList<TRecord = any, TFilter = any>(
   const [sortField, setSortField] = useState(initialSortField)
   const [sortOrder, setSortOrder] = useState(initialSortOrder)
   const [filter, setFilter] = useState(initialFilter)
+  const [selectedIds, setSelectedIds] = useState(initialSelectedIds)
 
   const mergedFilter = useMemo(
     () => mergeFilters(baseFilter, filter),
@@ -193,6 +204,7 @@ export function useList<TRecord = any, TFilter = any>(
     setPageSize: updatePageSize,
     setSort,
     setFilter,
+    setSelectedIds,
     reset,
   }
 
@@ -214,6 +226,7 @@ export function useList<TRecord = any, TFilter = any>(
     resource,
     items: query.data?.items ?? [],
     total: query.data?.total ?? 0,
+    selectedIds,
     ...listParams,
     ...setters,
     isLoading: query.isLoading || (query.isPreviousData && query.isFetching),
