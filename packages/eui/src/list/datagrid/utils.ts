@@ -74,11 +74,45 @@ export function guessColumns(
   })
 }
 
+function isOrHasAncestors(
+  element: Element,
+  predicate: (el: Element) => boolean
+): boolean {
+  if (predicate(element)) {
+    return true
+  }
+
+  const parent = element.parentElement
+
+  if (!parent) {
+    return false
+  } else {
+    return isOrHasAncestors(parent, predicate)
+  }
+}
+
 export function canHandleRowClick(ev?: SyntheticEvent) {
   if (ev && ev.target) {
-    const tagName = (ev.target as any).tagName
-    if (tagName === "A" || tagName === "BUTTON" || tagName === "INPUT") {
-      return false
+    const target = ev.target
+    if (target instanceof Element) {
+      if (
+        isOrHasAncestors(target, (el) => {
+          // Skip clicks on anchors, inputs and buttons,
+          const tagName = el.tagName
+          if (tagName === "A" || tagName === "BUTTON" || tagName === "INPUT") {
+            return true
+          }
+
+          // Skip if click was inside popover
+          if (el.classList.contains("euiPopover__panel")) {
+            return true
+          }
+
+          return false
+        })
+      ) {
+        return false
+      }
     }
   }
 
