@@ -1,5 +1,7 @@
 import {
   CriteriaWithPagination,
+  CustomItemAction,
+  DefaultItemAction,
   EuiBasicTable,
   EuiTableDataType,
   EuiTableSelectionType,
@@ -54,13 +56,18 @@ export type DatagridRowProps = {
   [index: string]: any
 }
 
+export type DatagridAction<TRecord = any> =
+  | DefaultItemAction<TRecord>
+  | CustomItemAction<TRecord>
+
 export type DatagridProps<TRecord = any> = {
-  //filters bulkActions actions
+  //filters bulkActions
   columns?: DatagridColumnType<TRecord>[]
   rowClick?: DatagridRowClick<TRecord>
   rowProps?: (item: TRecord) => object
   sortable?: boolean
   selectable?: boolean
+  actions?: DatagridAction<TRecord>[]
   empty?: ReactNode
 }
 
@@ -71,6 +78,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     rowProps: rowPropsProp,
     sortable = true,
     selectable: selectableProp,
+    actions,
     empty,
   } = props
 
@@ -189,7 +197,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
       <EuiBasicTable
         ref={tableRef}
         items={items}
-        columns={columns}
+        columns={actions ? [...columns, { actions }] : columns}
         loading={isLoading}
         pagination={{ pageIndex: page - 1, pageSize, totalItemCount: total }}
         sorting={{
