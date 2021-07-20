@@ -3,3 +3,6 @@ CORE:
 
 EUI:
 - list
+- catchAll
+- error boundary
+- empty

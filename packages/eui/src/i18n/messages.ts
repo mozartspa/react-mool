@@ -17,6 +17,28 @@ export const englishEuiMessages = {
       dock_navigation: "Dock navigation",
       undock_navigation: "Undock navigation",
     },
+    action: {
+      create: "Create",
+      view: "View",
+      edit: "Edit",
+      delete: "Delete",
+    },
+    bulk: {
+      actions: "Bulk actions",
+      delete_confirm: "Delete 1 element? |||| Delete %{smart_count} elements?",
+      deleted_items: "Element deleted |||| %{smart_count} elements deleted",
+    },
+    grid: {
+      showing: "Showing %{count} of %{total}",
+      selected: "Selected",
+    },
+    confirm: {
+      cancel: "Cancel",
+      ok: "OK",
+    },
+    error: {
+      general: "Ooops, something went wrong",
+    },
   },
 }
 

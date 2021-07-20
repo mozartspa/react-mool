@@ -1,40 +1,72 @@
 import {
+  EuiBadge,
   EuiButton,
   EuiDescriptionList,
   EuiDescriptionListDescription,
   EuiDescriptionListTitle,
+  EuiLink,
   EuiSpacer,
+  EuiTab,
+  EuiTabs,
 } from "@elastic/eui"
 import {
   ListBase,
   useDelete,
+  useLinkProps,
   useNotify,
   useRedirect,
   useRedirectLink,
 } from "@react-mool/core"
-import { BreadcrumbsItem, List, ListHeader } from "@react-mool/eui"
+import {
+  BreadcrumbsItem,
+  CreateButton,
+  Datagrid,
+  List,
+  ListHeader,
+  useDefaultDatagridActions,
+} from "@react-mool/eui"
 import { Fragment } from "react"
 import { useQueryClient } from "react-query"
 
 export const ProductList = () => {
-  const deleteMutation = useDelete()
-  const queryClient = useQueryClient()
-
-  const notify = useNotify()
-  const redirect = useRedirect()
-  const redirectLink = useRedirectLink()
+  const linkProps = useLinkProps()
+  const defaultActions = useDefaultDatagridActions()
 
   return (
     <List>
       <ListHeader
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
-        actions={[
-          <EuiButton>Just</EuiButton>,
-          <EuiButton>Do</EuiButton>,
-          <EuiButton>It</EuiButton>,
-        ]}
+        actions={[<CreateButton />]}
       />
-      {/*<Datagrid filters columns bulkActions actions />*/}
+      <EuiSpacer size="s" />
+      <EuiTabs display="default">
+        <EuiTab isSelected>
+          All <EuiBadge color="hollow">58</EuiBadge>{" "}
+        </EuiTab>
+        <EuiTab>Some</EuiTab>
+        <EuiTab>Others</EuiTab>
+      </EuiTabs>
+      <EuiSpacer size="l" />
+      <Datagrid
+        columns={[
+          { name: "id", sortable: true },
+          {
+            name: "Category",
+            sortable: "category_id",
+            render: (value: any) => (
+              <EuiLink {...linkProps(`/product/${value?.id}`)}>{value?.name}</EuiLink>
+            ),
+          },
+          { name: "reference", sortable: true },
+          { name: "width", sortable: true, align: "right" },
+          { name: "height", sortable: true, align: "right" },
+          { name: "price", sortable: true, align: "right" },
+        ]}
+        rowClick="detail"
+        selectable
+        actions={[defaultActions.view, defaultActions.edit, defaultActions.remove]}
+        bulkActions={[defaultActions.remove]}
+      />
     </List>
   )
 }

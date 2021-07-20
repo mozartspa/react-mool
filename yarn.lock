@@ -2212,6 +2212,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-confirm@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@types/react-confirm/-/react-confirm-0.1.4.tgz#e618562febf8f6e87a878aa9cec1378ac0d94ccc"
+  integrity sha512-WL24KCSFgH0IkJVUmJuHfogflQpY9TUxS1Tso1AtkP0BgmDrFMZcRvAJ+JHj0BcMBwordyiKhj4f+2OJHDwq+Q==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@^17.0.0", "@types/react-dom@^17.0.8":
   version "17.0.8"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.8.tgz#3180de6d79bf53762001ad854e3ce49f36dd71fc"
@@ -10610,6 +10617,11 @@ react-clientside-effect@^1.2.2:
   integrity sha512-2bL8qFW1TGBHozGGbVeyvnggRpMjibeZM2536AKNENLECutp2yfs44IL8Hmpn8qjFQ2K7A9PnYf3vc7aQq/cPA==
   dependencies:
     "@babel/runtime" "^7.12.13"
+
+react-confirm@^0.1.24:
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/react-confirm/-/react-confirm-0.1.24.tgz#789a8ca5bc9ae52a4bbe6fd75c6b4b9ef69a60fd"
+  integrity sha512-96qA+mbZyBRmh/3Y5aDgrYLwLndbaRjkP3GlXQtPEQbIH0P66xGcHJ7ui6y/MN85AZWq/V3drA1fJOiEcVkAVA==
 
 react-dev-utils@^11.0.3:
   version "11.0.4"

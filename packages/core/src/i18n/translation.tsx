@@ -106,6 +106,8 @@ function createMaybeTranslate(translate: I18nProvider["translate"]) {
   return t
 }
 
+export type UseTranslateResult = ReturnType<typeof useTranslate>
+
 export function useTranslate() {
   const { i18nProvider } = useTranslationContext()
 
