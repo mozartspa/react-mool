@@ -1,7 +1,8 @@
-import { EuiBasicTableColumn } from "@elastic/eui"
+import { DefaultItemAction, EuiBasicTableColumn } from "@elastic/eui"
 import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
 import inflection from "inflection"
 import { SyntheticEvent } from "react"
+import { DatagridAction } from "./actions"
 import { DatagridColumnType, DatagridRowClick } from "./Datagrid"
 
 export function toEuiColumn(
@@ -72,6 +73,24 @@ export function guessColumns(
       },
     }
   })
+}
+
+export function toEuiAction(action: DatagridAction): DefaultItemAction<any> {
+  const { name, run, available, color, description, enabled, icon, isPrimary } = action
+
+  return {
+    name,
+    description: description ?? typeof name === "string" ? String(name) : "",
+    type: "icon",
+    icon: (icon ?? "empty") as any,
+    color,
+    available,
+    enabled,
+    isPrimary,
+    onClick: (item: any) => {
+      return run([item])
+    },
+  }
 }
 
 function isOrHasAncestors(

@@ -19,6 +19,19 @@ export const englishEuiMessages = {
     },
     action: {
       create: "Create",
+      view: "View",
+      edit: "Edit",
+      delete: "Delete",
+    },
+    bulk: {
+      deleted_items: "Element deleted |||| %{smart_count} elements deleted",
+    },
+    grid: {
+      showing: "Showing %{count} of %{total}",
+      selected: "Selected",
+    },
+    error: {
+      general: "Ooops, something went wrong",
     },
   },
 }

@@ -1,7 +1,5 @@
 import {
   CriteriaWithPagination,
-  CustomItemAction,
-  DefaultItemAction,
   EuiBasicTable,
   EuiTableDataType,
   EuiTableSelectionType,
@@ -16,12 +14,14 @@ import {
 } from "@react-mool/core"
 import { ReactNode, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from "react"
 import isEqual from "react-fast-compare"
+import { DatagridAction } from "./actions"
 import {
   canHandleRowClick,
   getDefaultRowClick,
   getEuiSortField,
   getSortField,
   guessColumns,
+  toEuiAction,
   toEuiColumn,
 } from "./utils"
 
@@ -56,10 +56,6 @@ export type DatagridRowProps = {
   [index: string]: any
 }
 
-export type DatagridAction<TRecord = any> =
-  | DefaultItemAction<TRecord>
-  | CustomItemAction<TRecord>
-
 export type DatagridProps<TRecord = any> = {
   //filters bulkActions
   columns?: DatagridColumnType<TRecord>[]
@@ -78,7 +74,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     rowProps: rowPropsProp,
     sortable = true,
     selectable: selectableProp,
-    actions,
+    actions: actionsProp,
     empty,
   } = props
 
@@ -106,6 +102,10 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
   const columns = columnsProp
     ? columnsProp.map((col) => toEuiColumn(col, resource, translate))
     : guessColumns(items, resource, translate)
+
+  const actions = actionsProp
+    ? actionsProp.map((action) => toEuiAction(action))
+    : undefined
 
   const handleChange = useCallback(
     ({ page, sort }: CriteriaWithPagination<any>) => {
