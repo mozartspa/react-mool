@@ -24,6 +24,7 @@ export const englishEuiMessages = {
       delete: "Delete",
     },
     bulk: {
+      actions: "Bulk actions",
       deleted_items: "Element deleted |||| %{smart_count} elements deleted",
     },
     grid: {

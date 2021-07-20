@@ -1,6 +1,7 @@
 import {
   CriteriaWithPagination,
   EuiBasicTable,
+  EuiSpacer,
   EuiTableDataType,
   EuiTableSelectionType,
   HorizontalAlignment,
@@ -15,6 +16,7 @@ import {
 import { ReactNode, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from "react"
 import isEqual from "react-fast-compare"
 import { DatagridAction } from "./actions"
+import { Toolbar } from "./Toolbar"
 import {
   canHandleRowClick,
   getDefaultRowClick,
@@ -57,13 +59,14 @@ export type DatagridRowProps = {
 }
 
 export type DatagridProps<TRecord = any> = {
-  //filters bulkActions
+  //filters
   columns?: DatagridColumnType<TRecord>[]
   rowClick?: DatagridRowClick<TRecord>
   rowProps?: (item: TRecord) => object
   sortable?: boolean
   selectable?: boolean
   actions?: DatagridAction<TRecord>[]
+  bulkActions?: DatagridAction<TRecord>[]
   empty?: ReactNode
 }
 
@@ -75,6 +78,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     sortable = true,
     selectable: selectableProp,
     actions: actionsProp,
+    bulkActions,
     empty,
   } = props
 
@@ -185,15 +189,26 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     }
   }, [selectedIds, resourceDataProvider, resourceDataProvider.id])
 
-  useEffect(() => {
-    const selectedItems = selectedIds.map((id) =>
-      items.find((item) => resourceDataProvider.id(item) === id)
-    )
-    tableRef.current?.setSelection(selectedItems)
+  const selectedItems = useMemo(() => {
+    return selectedIds
+      .map((id) => items.find((item) => resourceDataProvider.id(item) === id))
+      .filter(Boolean)
   }, [selectedIds, items, resourceDataProvider, resourceDataProvider.id])
+
+  useEffect(() => {
+    tableRef.current?.setSelection(selectedItems)
+  }, [tableRef.current, selectedItems])
 
   return (
     <>
+      <Toolbar
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        selectedItems={selectedItems}
+        bulkActions={bulkActions}
+      />
+      <EuiSpacer size="l" />
       <EuiBasicTable
         ref={tableRef}
         items={items}

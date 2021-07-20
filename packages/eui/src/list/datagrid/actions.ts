@@ -12,7 +12,7 @@ import { logError } from "../../helpers/console"
 import { t } from "../../i18n"
 
 export type DatagridAction<TRecord = any> = {
-  name: ReactNode | ((item: TRecord) => ReactNode)
+  name: ReactNode
   run: (items: TRecord[]) => void
   description?: string
   icon?: string
