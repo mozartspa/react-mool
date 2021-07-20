@@ -31,6 +31,10 @@ export const englishEuiMessages = {
       showing: "Showing %{count} of %{total}",
       selected: "Selected",
     },
+    confirm: {
+      cancel: "Cancel",
+      ok: "OK",
+    },
     error: {
       general: "Ooops, something went wrong",
     },
