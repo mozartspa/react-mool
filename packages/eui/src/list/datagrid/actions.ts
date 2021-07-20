@@ -8,6 +8,7 @@ import {
   useTranslate,
 } from "@react-mool/core"
 import { ReactNode, useMemo } from "react"
+import { useConfirmation } from "../../confirm"
 import { logError } from "../../helpers/console"
 import { t } from "../../i18n"
 
@@ -29,6 +30,7 @@ export function useDefaultDatagridActions<TRecord = any>() {
   const redirect = useRedirect({ resource })
   const dataprovider = useDataProvider()
   const refresh = useRefresh()
+  const confirm = useConfirmation()
 
   const view: DatagridAction<TRecord> = useMemo(
     () => ({
@@ -61,27 +63,36 @@ export function useDefaultDatagridActions<TRecord = any>() {
       icon: "trash",
       color: "danger",
       run: async (items) => {
-        // TODO: ask confirmation
-        Promise.all(
-          items.map((item) => {
-            const id = dataprovider.id(resource, item)
-            return dataprovider.delete(resource, { id })
-          })
-        )
-          .then(() => {
-            notify(translate(t.eui.bulk.deleted_items, { smart_count: items.length }), {
-              type: "success",
+        if (
+          await confirm(
+            translate(t.eui.bulk.delete_confirm, { smart_count: items.length }),
+            { confirmLabel: translate(t.eui.action.delete), buttonColor: "danger" }
+          )
+        ) {
+          return Promise.all(
+            items.map((item) => {
+              const id = dataprovider.id(resource, item)
+              return dataprovider.delete(resource, { id })
             })
-          })
-          .catch((err) => {
-            logError(err)
-            notify(err instanceof Error ? err.message : translate(t.eui.error.general), {
-              type: "danger",
+          )
+            .then(() => {
+              notify(translate(t.eui.bulk.deleted_items, { smart_count: items.length }), {
+                type: "success",
+              })
             })
-          })
-          .finally(() => {
-            refresh()
-          })
+            .catch((err) => {
+              logError(err)
+              notify(
+                err instanceof Error ? err.message : translate(t.eui.error.general),
+                {
+                  type: "danger",
+                }
+              )
+            })
+            .finally(() => {
+              refresh()
+            })
+        }
       },
     }),
     [translate, resource, dataprovider, redirect, refresh]
