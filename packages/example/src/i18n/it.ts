@@ -1,4 +1,4 @@
-import { buildPartialTranslations } from "../../../core/dist/esm"
+import { buildPartialTranslations } from "@react-mool/core"
 import { englishMessages, Messages } from "./en"
 
 export const italianMessages: Messages = buildPartialTranslations(englishMessages, {
