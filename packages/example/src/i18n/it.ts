@@ -1,10 +1,7 @@
-import { Messages } from "./en"
+import { buildPartialTranslations } from "../../../core/dist/esm"
+import { englishMessages, Messages } from "./en"
 
-type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>
-}
-
-export const italianMessages: DeepPartial<Messages> = {
+export const italianMessages: Messages = buildPartialTranslations(englishMessages, {
   core: {
     crud: {
       created: "Elemento creato",
@@ -37,4 +34,4 @@ export const italianMessages: DeepPartial<Messages> = {
   close: "Chiudi",
   open: "Apri",
   show: "Mostra",
-}
+})

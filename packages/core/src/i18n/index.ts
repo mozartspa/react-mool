@@ -1,3 +1,4 @@
+export * from "./buildPartialTranslations"
 export * from "./buildTranslationKeys"
 export * from "./defaultI18nProvider"
 export * from "./messages"
