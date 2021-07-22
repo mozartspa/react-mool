@@ -4,28 +4,18 @@ import { useHistory, useLocation } from "react-router-dom"
 import { useUpdateEffect } from "rooks"
 import { GetListParams, SortOrder } from "../dataProvider"
 
-function isEmpty(value: any) {
-  if (value == null || value === "" || Object.keys(value).length === 0) {
-    return true
-  } else {
-    return false
-  }
-}
-
 function removeDefaults(params: GetListParams, defaults: GetListParams | undefined) {
   if (defaults == null) {
     return params
   }
 
-  const { page, pageSize, sortField, sortOrder, filter } = params
+  const { page, pageSize, sortField, sortOrder } = params
 
   return {
     page: page !== defaults.page ? page : undefined,
     pageSize: pageSize !== defaults.pageSize ? pageSize : undefined,
     sortField: sortField !== defaults.sortField ? sortField : undefined,
     sortOrder: sortOrder !== defaults.sortOrder ? sortOrder : undefined,
-    filter:
-      JSON.stringify(filter) !== JSON.stringify(defaults.filter) ? filter : undefined,
   }
 }
 
@@ -34,7 +24,7 @@ function getParamsToUpdate(
   current: GetListParams,
   defaults: GetListParams | undefined
 ): Partial<GetListParams> {
-  let { page, pageSize, sortField, sortOrder, filter } = values
+  let { page, pageSize, sortField, sortOrder } = values
 
   // Check that incoming values have correct type, otherwise use defaults
   page = typeof page === "number" ? page : defaults?.page
@@ -42,7 +32,6 @@ function getParamsToUpdate(
   sortField = typeof sortField === "string" ? sortField : defaults?.sortField
   sortOrder =
     sortOrder === "asc" ? "asc" : sortOrder === "desc" ? "desc" : defaults?.sortOrder
-  filter = filter ? filter : defaults?.filter
 
   // Clear the values that should not be changed
   if (page === current.page) {
@@ -57,26 +46,21 @@ function getParamsToUpdate(
   if (sortOrder === current.sortOrder) {
     sortOrder = undefined
   }
-  if (JSON.stringify(filter) === JSON.stringify(current.filter)) {
-    filter = undefined
-  }
 
   return {
     page,
     pageSize,
     sortField,
     sortOrder,
-    filter,
   }
 }
 
-export type UseSyncListParamsWithURLOptions<TFilter = any> = {
+export type UseSyncListParamsWithURLOptions = {
   params: GetListParams
   setters: {
     setPage: (page: number) => void
     setPageSize: (pageSize: number) => void
     setSort: (field: string | undefined, order?: SortOrder) => void
-    setFilter: (filter: TFilter) => void
   }
   defaults?: GetListParams
   enabled?: boolean
@@ -85,8 +69,8 @@ export type UseSyncListParamsWithURLOptions<TFilter = any> = {
 export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOptions) {
   const { params, setters, defaults, enabled = true } = options
 
-  const { page, pageSize, sortField, sortOrder, filter } = params
-  const { setPage, setPageSize, setSort, setFilter } = setters
+  const { page, pageSize, sortField, sortOrder } = params
+  const { setPage, setPageSize, setSort } = setters
 
   const history = useHistory()
   const location = useLocation()
@@ -102,7 +86,7 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
       parseBooleans: true,
     })
 
-    const { page, pageSize, sortField, sortOrder, filter } = getParamsToUpdate(
+    const { page, pageSize, sortField, sortOrder } = getParamsToUpdate(
       query,
       params,
       options.defaults
@@ -118,9 +102,6 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
     if (sortField != null) {
       setSort(sortField, sortOrder)
     }
-    if (filter != null) {
-      setFilter(filter)
-    }
   }, [location.search, enabled])
 
   // Update location from params
@@ -134,7 +115,6 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
       pageSize,
       sortField,
       sortOrder,
-      filter: isEmpty(filter) ? undefined : filter,
     }
 
     const search = stringify({
@@ -147,5 +127,5 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
         search,
       })
     }
-  }, [page, pageSize, sortField, sortOrder, JSON.stringify(filter), enabled])
+  }, [page, pageSize, sortField, sortOrder, enabled])
 }
