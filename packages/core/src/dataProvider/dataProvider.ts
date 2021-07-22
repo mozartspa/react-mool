@@ -13,7 +13,7 @@ export interface GetListParams<TFilter = any> {
   page: number
   pageSize: number
   sortField?: string
-  sortOrder: SortOrder
+  sortOrder?: SortOrder
   filter?: TFilter
 }
 

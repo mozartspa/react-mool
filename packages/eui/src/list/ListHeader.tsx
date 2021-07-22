@@ -22,7 +22,7 @@ export const ListHeader = (props: ListHeaderProps) => {
     icon = definition.icon ?? "list",
     description,
     actions,
-    showHorizontalRule = true,
+    showHorizontalRule = false,
     children,
   } = props
 

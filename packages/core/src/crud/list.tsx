@@ -53,7 +53,7 @@ export type UseListResult<TRecord = any, TFilter = any> = {
   page: number
   pageSize: number
   sortField?: string | undefined
-  sortOrder: SortOrder
+  sortOrder?: SortOrder
   filter?: TFilter | undefined
   selectedIds: RecordID[]
   isLoading: boolean

@@ -1,16 +1,17 @@
 import {
-  EuiBadge,
   EuiButton,
   EuiDescriptionList,
   EuiDescriptionListDescription,
   EuiDescriptionListTitle,
+  EuiFieldSearch,
+  EuiFlexGroup,
+  EuiFlexItem,
   EuiLink,
   EuiSpacer,
-  EuiTab,
-  EuiTabs,
 } from "@elastic/eui"
 import {
   ListBase,
+  useAddFilter,
   useDelete,
   useLinkProps,
   useNotify,
@@ -23,10 +24,40 @@ import {
   Datagrid,
   List,
   ListHeader,
+  TabbedFilterGroups,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import { useQueryClient } from "react-query"
+import { ProductFilter } from "../gqless"
+
+const Toggler = ({ children }: any) => {
+  const [show, setShow] = useState(true)
+
+  const button = (
+    <EuiButton onClick={() => setShow(!show)}>{show ? "Off" : "On"}</EuiButton>
+  )
+
+  return (
+    <EuiFlexGroup>
+      <EuiFlexItem>{show ? children : null}</EuiFlexItem>
+      <EuiFlexItem>{button}</EuiFlexItem>
+    </EuiFlexGroup>
+  )
+}
+
+const Filter = () => {
+  const [filter, setFilter] = useAddFilter<ProductFilter>({ q: "" }, { debounce: true })
+
+  return (
+    <EuiFieldSearch
+      value={filter?.q || ""}
+      onChange={(ev) => {
+        setFilter({ q: ev.target.value })
+      }}
+    />
+  )
+}
 
 export const ProductList = () => {
   const linkProps = useLinkProps()
@@ -38,15 +69,19 @@ export const ProductList = () => {
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
         actions={[<CreateButton />]}
       />
-      <EuiSpacer size="s" />
-      <EuiTabs display="default">
-        <EuiTab isSelected>
-          All <EuiBadge color="hollow">58</EuiBadge>{" "}
-        </EuiTab>
-        <EuiTab>Some</EuiTab>
-        <EuiTab>Others</EuiTab>
-      </EuiTabs>
       <EuiSpacer size="l" />
+      <TabbedFilterGroups
+        groups={[
+          { name: "All" },
+          { name: "Cheap", filter: { price_lt: 40 } },
+          { name: "Medium", filter: { price_gte: 40, price_lt: 80 } },
+          { name: "Expensive", filter: { price_gte: 80 } },
+        ]}
+      />
+      <EuiSpacer size="xxl" />
+      <Toggler>
+        <Filter></Filter>
+      </Toggler>
       <Datagrid
         columns={[
           { name: "id", sortable: true },
