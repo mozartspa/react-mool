@@ -175,8 +175,11 @@ export function useList<TRecord = any, TFilter = any>(
   // Ensure page value is within the bounds
   useEffect(() => {
     if (query.data?.total != null) {
-      const maxPage = Math.ceil(query.data.total / pageSize)
-      if (page > maxPage) {
+      const minPage = 1
+      const maxPage = Math.max(1, Math.ceil(query.data.total / pageSize))
+      if (page < minPage) {
+        setPage(minPage)
+      } else if (page > maxPage) {
         setPage(maxPage)
       }
     }
