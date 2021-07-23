@@ -3,15 +3,11 @@ import {
   EuiDescriptionList,
   EuiDescriptionListDescription,
   EuiDescriptionListTitle,
-  EuiFieldSearch,
-  EuiFlexGroup,
-  EuiFlexItem,
   EuiLink,
   EuiSpacer,
 } from "@elastic/eui"
 import {
   ListBase,
-  useAddFilter,
   useDelete,
   useLinkProps,
   useNotify,
@@ -29,37 +25,8 @@ import {
   TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import { useQueryClient } from "react-query"
-import { ProductFilter } from "../gqless"
-
-const Toggler = ({ children }: any) => {
-  const [show, setShow] = useState(true)
-
-  const button = (
-    <EuiButton onClick={() => setShow(!show)}>{show ? "Off" : "On"}</EuiButton>
-  )
-
-  return (
-    <EuiFlexGroup>
-      <EuiFlexItem>{show ? children : null}</EuiFlexItem>
-      <EuiFlexItem>{button}</EuiFlexItem>
-    </EuiFlexGroup>
-  )
-}
-
-const EasyFilter = () => {
-  const [filter, setFilter] = useAddFilter<ProductFilter>({ q: "" }, { debounce: true })
-
-  return (
-    <EuiFieldSearch
-      value={filter?.q || ""}
-      onChange={(ev) => {
-        setFilter({ q: ev.target.value })
-      }}
-    />
-  )
-}
 
 export const ProductList = () => {
   const linkProps = useLinkProps()
@@ -82,22 +49,6 @@ export const ProductList = () => {
         ]}
       />
       <EuiSpacer size="xxl" />
-      {/*<FilterBar
-        filters={[
-          {
-            name: "q",
-            grow: true,
-            render: (field) => <EuiFieldSearch {...field.input} fullWidth />,
-          },
-          {
-            name: "price_lt",
-            grow: false,
-            render: (field) => (
-              <EuiFieldSearch {...field.input} fullWidth type="number" />
-            ),
-          },
-        ]}
-      />*/}
       <FilterBar
         filters={[
           <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
