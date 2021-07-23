@@ -6,6 +6,7 @@ import {
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
 import { useAddFilter, useResource, useTranslate } from "@react-mool/core"
+import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState } from "react"
 import { t } from "../../i18n"
@@ -22,7 +23,7 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
 
   const translate = useTranslate()
   const resource = useResource()
-  const [_, setFilter] = useAddFilter(initialValues, { debounce: true })
+  const setFilter = useAddFilter(initialValues, { debounce: true })
   const [visibleFilters, setVisibleFilters] = useState([] as string[])
 
   // Form values
@@ -30,12 +31,17 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
     initialValues,
   })
 
-  // Sync filter with form values
-  useEffect(() => {
-    if (form.isValid) {
-      setFilter(form.values)
-    }
-  }, [form.values, form.isValid])
+  // Sync filter with form values.
+  // Use mobx autorun for better performances.
+  useEffect(
+    () =>
+      autorun(() => {
+        if (form.isValid) {
+          setFilter(form.values)
+        }
+      }),
+    []
+  )
 
   // Translate filter name
   const translateFilterName = (name: string) => {

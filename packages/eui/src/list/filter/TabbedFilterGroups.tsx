@@ -25,7 +25,7 @@ export function TabbedFilterGroups<TFilter = any>(
     ? groups.find((o) => o.name === initialSelected)?.filter
     : undefined
 
-  const [_, setFilter] = useAddFilter(initialFilter)
+  const setFilter = useAddFilter(initialFilter)
   const [selectedName, setSelectedName] = useState(initialSelected)
 
   const selectedFilter = groups.find((o) => o.name === selectedName)?.filter

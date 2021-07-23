@@ -72,17 +72,14 @@ export type UseAddFilterOptions = {
   debounce?: boolean | number
 }
 
-export type UseAddFilterResult<TFilter = any> = [TFilter, (filter: TFilter) => void]
-
 export function useAddFilter<TFilter = any>(
   initialFilter: TFilter,
   options: UseAddFilterOptions = {}
-): UseAddFilterResult<TFilter> {
+) {
   const { debounce = false } = options
 
   const list = useListContext<any, TFilter>()
 
-  const [filter, setFilter] = useState(initialFilter)
   const operations = useRef<UseFilterStackAddResult<TFilter> | undefined>(undefined)
 
   // Add/remove filter to stack on mount/unmount
@@ -106,10 +103,30 @@ export function useAddFilter<TFilter = any>(
     }
   }, [debounce])
 
-  // Update filter when it changes
+  // Updater func ref
+  const updaterRef = useImmediateRef(updater)
+
+  // Updater func stable
+  const setFilter = useCallback((filter: TFilter) => {
+    updaterRef.current(filter)
+  }, [])
+
+  return setFilter
+}
+
+export type UseAddFilterStateResult<TFilter = any> = [TFilter, (filter: TFilter) => void]
+
+export function useAddFilterState<TFilter = any>(
+  initialFilter: TFilter,
+  options?: UseAddFilterOptions
+): UseAddFilterStateResult<TFilter> {
+  const update = useAddFilter(initialFilter, options)
+
+  const [filter, setFilter] = useState(initialFilter)
+
   useUpdateEffect(() => {
-    updater(filter)
-  }, [filter])
+    update(filter)
+  }, [filter, update])
 
   return [filter, setFilter]
 }
