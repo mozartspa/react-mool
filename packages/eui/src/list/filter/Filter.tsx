@@ -3,6 +3,7 @@ import { Field, FieldComponentProps, FieldProps } from "@mozartspa/mobx-form"
 
 export type FilterBaseProps = {
   name: string
+  label?: string
   alwaysOn?: boolean
   grow?: EuiFlexItemProps["grow"]
 }

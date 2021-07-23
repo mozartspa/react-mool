@@ -7,6 +7,14 @@ export const englishMessages = {
   show: "Show",
   open: "Open",
   close: "Close",
+  resources: {
+    product: {
+      filter: {
+        q: "Search",
+        price_lt: "Price lower than",
+      },
+    },
+  },
 }
 
 export const t = buildTranslationKeys(englishMessages)

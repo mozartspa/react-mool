@@ -22,9 +22,11 @@ import {
   BreadcrumbsItem,
   CreateButton,
   Datagrid,
+  FilterBar,
   List,
   ListHeader,
   TabbedFilterGroups,
+  TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
 import { Fragment, useState } from "react"
@@ -46,7 +48,7 @@ const Toggler = ({ children }: any) => {
   )
 }
 
-const Filter = () => {
+const EasyFilter = () => {
   const [filter, setFilter] = useAddFilter<ProductFilter>({ q: "" }, { debounce: true })
 
   return (
@@ -76,12 +78,32 @@ export const ProductList = () => {
           { name: "Cheap", filter: { price_lt: 40 } },
           { name: "Medium", filter: { price_gte: 40, price_lt: 80 } },
           { name: "Expensive", filter: { price_gte: 80 } },
+          { name: "Night", filter: { q: "night" } },
         ]}
       />
       <EuiSpacer size="xxl" />
-      <Toggler>
-        <Filter></Filter>
-      </Toggler>
+      {/*<FilterBar
+        filters={[
+          {
+            name: "q",
+            grow: true,
+            render: (field) => <EuiFieldSearch {...field.input} fullWidth />,
+          },
+          {
+            name: "price_lt",
+            grow: false,
+            render: (field) => (
+              <EuiFieldSearch {...field.input} fullWidth type="number" />
+            ),
+          },
+        ]}
+      />*/}
+      <FilterBar
+        filters={[
+          <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
+          <TextFilter name="price_lt" placeholder="Price lower than" type="number" />,
+        ]}
+      />
       <Datagrid
         columns={[
           { name: "id", sortable: true },

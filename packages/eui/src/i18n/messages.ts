@@ -32,6 +32,9 @@ export const englishEuiMessages = {
       showing: "Showing %{count} of %{total}",
       selected: "Selected",
     },
+    filter: {
+      title: "Filters",
+    },
     confirm: {
       cancel: "Cancel",
       ok: "OK",
