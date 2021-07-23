@@ -33,7 +33,9 @@ export const englishEuiMessages = {
       selected: "Selected",
     },
     filter: {
-      title: "Filters",
+      add_filter: "Add filter",
+      remove_filter: "Remove filter",
+      reset_filters: "Reset filters",
     },
     confirm: {
       cancel: "Cancel",

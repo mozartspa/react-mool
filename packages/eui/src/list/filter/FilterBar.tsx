@@ -1,8 +1,14 @@
-import { EuiFlexGroup, EuiFlexItem, EuiSelectableOption } from "@elastic/eui"
+import {
+  EuiButtonIcon,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiSelectableOption,
+} from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
 import { useAddFilter, useResource, useTranslate } from "@react-mool/core"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useState } from "react"
+import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
 
@@ -44,19 +50,32 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
   })
 
   // Filter options
-  const filterOptions: EuiSelectableOption[] = filters.map((filter) => {
-    return {
-      key: filter.props.name,
-      label: filter.props.label || translateFilterName(filter.props.name),
-      checked: visibleFilters.includes(filter.props.name) ? "on" : undefined,
-      disabled: filter.props.alwaysOn,
-    }
-  })
+  const filterOptions: EuiSelectableOption[] = filters
+    .filter(
+      (filter) => !filter.props.alwaysOn && !visibleFilters.includes(filter.props.name)
+    )
+    .map((filter) => {
+      return {
+        key: filter.props.name,
+        label: filter.props.label || translateFilterName(filter.props.name),
+      }
+    })
 
-  // Handle change filters
-  const handleChangeFilters = useCallback((options: EuiSelectableOption[]) => {
-    const visibleNames = options.filter((o) => o.checked === "on").map((o) => o.key!)
-    setVisibleFilters(visibleNames)
+  // Add filter
+  const handleAddFilter = useCallback((option: EuiSelectableOption) => {
+    setVisibleFilters((names) => [...names, option.key!])
+  }, [])
+
+  // Remove filter
+  const handleRemoveFilter = useCallback((filterName: string) => {
+    form.resetField(filterName)
+    setVisibleFilters((names) => names.filter((o) => o !== filterName))
+  }, [])
+
+  // Reset filters
+  const handleResetFilters = useCallback(() => {
+    form.reset()
+    setVisibleFilters([])
   }, [])
 
   return (
@@ -66,14 +85,30 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
           <EuiFlexGroup>
             {shownFilters.map((filter, i) => (
               <EuiFlexItem key={filter.props.name || i} grow={filter.props.grow || false}>
-                {filter}
+                <EuiFlexGroup alignItems="center" gutterSize="xs">
+                  <EuiFlexItem>{filter}</EuiFlexItem>
+
+                  {!filter.props.alwaysOn && (
+                    <EuiFlexItem grow={false}>
+                      <EuiButtonIcon
+                        iconType="minusInCircle"
+                        aria-label={translate(t.eui.filter.remove_filter)}
+                        onClick={() => handleRemoveFilter(filter.props.name)}
+                      />
+                    </EuiFlexItem>
+                  )}
+                </EuiFlexGroup>
               </EuiFlexItem>
             ))}
           </EuiFlexGroup>
         </EuiFlexItem>
 
         <EuiFlexItem grow={false}>
-          <FilterBarButton filterOptions={filterOptions} onChange={handleChangeFilters} />
+          <FilterBarButton
+            filterOptions={filterOptions}
+            onSelect={handleAddFilter}
+            onReset={handleResetFilters}
+          />
         </EuiFlexItem>
       </EuiFlexGroup>
     </form.FormContext>

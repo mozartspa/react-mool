@@ -1,10 +1,11 @@
 import {
   EuiButton,
   EuiButtonIcon,
+  EuiContextMenuItem,
+  EuiContextMenuPanel,
   EuiPopover,
   EuiPopoverFooter,
   EuiPopoverTitle,
-  EuiSelectable,
   EuiSelectableOption,
   EuiTextAlign,
 } from "@elastic/eui"
@@ -14,16 +15,21 @@ import { t } from "../../i18n"
 
 export type FilterBarButtonProps = {
   filterOptions: EuiSelectableOption[]
-  onChange?: (options: EuiSelectableOption[]) => void
+  onSelect?: (option: EuiSelectableOption) => void
   onReset?: () => void
 }
 
 export const FilterBarButton = (props: FilterBarButtonProps) => {
-  const { filterOptions, onChange, onReset } = props
+  const { filterOptions, onSelect, onReset } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
 
   const translate = useTranslate()
+
+  const handleReset = useCallback(() => {
+    setPopoverOpen(false)
+    onReset?.()
+  }, [onReset])
 
   const button = (
     <EuiButtonIcon
@@ -36,17 +42,18 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
     />
   )
 
-  const handleChange = useCallback(
-    (options: EuiSelectableOption[]) => {
-      setPopoverOpen(false)
-      onChange?.(options)
-    },
-    [onChange]
-  )
-
-  const handleReset = useCallback(() => {
-    onReset?.()
-  }, [onReset])
+  const items = filterOptions.map((filter) => (
+    <EuiContextMenuItem
+      key={filter.key}
+      icon="plusInCircleFilled"
+      onClick={() => {
+        setPopoverOpen(false)
+        onSelect?.(filter)
+      }}
+    >
+      {filter.label}
+    </EuiContextMenuItem>
+  ))
 
   return (
     <EuiPopover
@@ -54,16 +61,23 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
       isOpen={isPopoverOpen}
       closePopover={() => setPopoverOpen(false)}
       panelPaddingSize="none"
+      repositionOnScroll
     >
-      <EuiPopoverTitle paddingSize="s">
-        <EuiTextAlign textAlign="center">{translate(t.eui.filter.title)}</EuiTextAlign>
-      </EuiPopoverTitle>
-      <EuiSelectable options={filterOptions} onChange={handleChange}>
-        {(list) => <div style={{ width: 240 }}>{list}</div>}
-      </EuiSelectable>
+      {items.length > 0 && (
+        <EuiPopoverTitle paddingSize="s">
+          <EuiTextAlign textAlign="center">
+            {translate(t.eui.filter.add_filter)}
+          </EuiTextAlign>
+        </EuiPopoverTitle>
+      )}
+
+      <div style={{ width: 240 }}>
+        <EuiContextMenuPanel size="s" items={items} />
+      </div>
+
       <EuiPopoverFooter paddingSize="s">
         <EuiButton size="s" fullWidth onClick={handleReset}>
-          Reset
+          {translate(t.eui.filter.reset_filters)}
         </EuiButton>
       </EuiPopoverFooter>
     </EuiPopover>
