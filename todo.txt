@@ -2,7 +2,16 @@ CORE:
 - custom routes (with/without layout, with/without authentication required)
 
 EUI:
-- list
+- select filter (single or multiple)
+- select reference filter (single or multiple)
+- restoreFromLast generic + sync with url
+- keep filters
+- refactor columns with components
+- edit
+- create
+- detail
+- prop system?
+
 - catchAll
 - error boundary
 - empty
