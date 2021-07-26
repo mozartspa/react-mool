@@ -1,4 +1,5 @@
 export * from "./Filter"
 export * from "./FilterBar"
+export * from "./NumberFilter"
 export * from "./TabbedFilterGroups"
 export * from "./TextFilter"

@@ -21,6 +21,7 @@ import {
   FilterBar,
   List,
   ListHeader,
+  NumberFilter,
   TabbedFilterGroups,
   TextFilter,
   useDefaultDatagridActions,
@@ -52,7 +53,7 @@ export const ProductList = () => {
       <FilterBar
         filters={[
           <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
-          <TextFilter name="price_lt" placeholder="Price lower than" type="number" />,
+          <NumberFilter name="price_lt" placeholder="Price lower than" />,
         ]}
       />
       <Datagrid
