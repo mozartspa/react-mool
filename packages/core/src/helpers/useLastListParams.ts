@@ -46,13 +46,12 @@ function getParamsToUpdate(
   }
 }
 
-export type UseLastListParamsOptions<TFilter = any> = {
+export type UseLastListParamsOptions = {
   params: GetListParams
   setters: {
     setPage: (page: number) => void
     setPageSize: (pageSize: number) => void
     setSort: (field: string | undefined, order?: SortOrder) => void
-    setFilter: (filter: TFilter) => void
   }
   storageKey: string
   enabled?: boolean
@@ -71,10 +70,7 @@ export function useLastListParams(options: UseLastListParamsOptions) {
       return
     }
 
-    const { page, pageSize, sortField, sortOrder, filter } = getParamsToUpdate(
-      value,
-      params
-    )
+    const { page, pageSize, sortField, sortOrder } = getParamsToUpdate(value, params)
 
     if (page != null) {
       setters.setPage(page)
@@ -84,9 +80,6 @@ export function useLastListParams(options: UseLastListParamsOptions) {
     }
     if (sortField != null) {
       setters.setSort(sortField, sortOrder)
-    }
-    if (filter != null) {
-      setters.setFilter(filter)
     }
 
     return () => {

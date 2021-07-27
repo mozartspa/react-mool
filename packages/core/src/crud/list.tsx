@@ -1,3 +1,4 @@
+import merge from "lodash.merge"
 import React, {
   ReactElement,
   ReactNode,
@@ -18,14 +19,16 @@ import { useLastListParams } from "../helpers/useLastListParams"
 import { useSyncListParamsWithURL } from "../helpers/useSyncListParamsWithURL"
 import { useNotify } from "../notify"
 import { ResourceContext, useResource } from "../resource"
+import { useFilterStack, UseFilterStackAdd } from "./filter"
 import { LoadListErrorHandler, LoadListSuccessHandler } from "./types"
 
-function mergeFilters<TFilter = any>(filter1: TFilter, filter2: TFilter) {
-  return {
-    ...filter1,
-    ...filter2,
-  }
+function defaultMergeFilters<TFilter = any>(...filters: TFilter[]): TFilter {
+  return merge({}, ...filters)
 }
+
+export type MergeFiltersFunc<TFilter = any> = (
+  ...filters: Array<TFilter | undefined>
+) => TFilter | undefined
 
 export type UseListOptions<TRecord = any, TFilter = any> = {
   resource?: string
@@ -33,9 +36,9 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   initialPageSize?: number
   initialSortField?: string
   initialSortOrder?: SortOrder
-  initialFilter?: TFilter
   initialSelectedIds?: RecordID[]
   baseFilter?: TFilter
+  mergeFilters?: MergeFiltersFunc<TFilter>
   onLoadSuccess?: LoadListSuccessHandler<TRecord>
   onLoadError?: LoadListErrorHandler<TFilter>
   syncWithURL?: boolean
@@ -50,7 +53,7 @@ export type UseListResult<TRecord = any, TFilter = any> = {
   page: number
   pageSize: number
   sortField?: string | undefined
-  sortOrder: SortOrder
+  sortOrder?: SortOrder
   filter?: TFilter | undefined
   selectedIds: RecordID[]
   isLoading: boolean
@@ -61,14 +64,15 @@ export type UseListResult<TRecord = any, TFilter = any> = {
     pageSize: number
     sortField?: string | undefined
     sortOrder: SortOrder
-    filter?: TFilter | undefined
   }
   setPage: (page: number) => void
   setPageSize: (pageSize: number) => void
   setSort: (field: string | undefined, order?: SortOrder) => void
-  setFilter: (filter: TFilter) => void
   setSelectedIds: (ids: RecordID[]) => void
   reset: () => void
+  addFilter: UseFilterStackAdd<TFilter>
+  baseFilter: TFilter | undefined
+  mergeFilters: MergeFiltersFunc<TFilter>
 }
 
 export function useList<TRecord = any, TFilter = any>(
@@ -80,9 +84,9 @@ export function useList<TRecord = any, TFilter = any>(
     initialPageSize = 20,
     initialSortField,
     initialSortOrder = "asc",
-    initialFilter,
     initialSelectedIds = [],
     baseFilter,
+    mergeFilters = defaultMergeFilters,
     onLoadSuccess,
     onLoadError,
     syncWithURL = true,
@@ -97,12 +101,13 @@ export function useList<TRecord = any, TFilter = any>(
   const [pageSize, setPageSize] = useState(Math.max(1, initialPageSize))
   const [sortField, setSortField] = useState(initialSortField)
   const [sortOrder, setSortOrder] = useState(initialSortOrder)
-  const [filter, setFilter] = useState(initialFilter)
   const [selectedIds, setSelectedIds] = useState(initialSelectedIds)
+  const filterStack = useFilterStack()
 
+  // Merge filters in reverse order, so the first filter takes precedence over the others.
   const mergedFilter = useMemo(
-    () => mergeFilters(baseFilter, filter),
-    [baseFilter, filter]
+    () => mergeFilters(...filterStack.entries.reverse(), baseFilter),
+    [baseFilter, filterStack.entries]
   )
 
   const listParams: GetListParams<TFilter> = {
@@ -169,14 +174,16 @@ export function useList<TRecord = any, TFilter = any>(
     setPageSize(initialPageSize)
     setSortField(initialSortField)
     setSortOrder(initialSortOrder)
-    setFilter(initialFilter)
   }, [])
 
   // Ensure page value is within the bounds
   useEffect(() => {
     if (query.data?.total != null) {
-      const maxPage = Math.ceil(query.data.total / pageSize)
-      if (page > maxPage) {
+      const minPage = 1
+      const maxPage = Math.max(1, Math.ceil(query.data.total / pageSize))
+      if (page < minPage) {
+        setPage(minPage)
+      } else if (page > maxPage) {
         setPage(maxPage)
       }
     }
@@ -188,22 +195,14 @@ export function useList<TRecord = any, TFilter = any>(
       pageSize: initialPageSize,
       sortField: initialSortField,
       sortOrder: initialSortOrder,
-      filter: initialFilter,
     }),
-    [
-      initialPage,
-      initialPageSize,
-      initialSortField,
-      initialSortOrder,
-      JSON.stringify(initialFilter),
-    ]
+    [initialPage, initialPageSize, initialSortField, initialSortOrder]
   )
 
   const setters = {
     setPage: updatePage,
     setPageSize: updatePageSize,
     setSort,
-    setFilter,
     setSelectedIds,
     reset,
   }
@@ -233,6 +232,9 @@ export function useList<TRecord = any, TFilter = any>(
     isLoaded: !query.isLoading && !query.isError,
     query,
     defaults,
+    addFilter: filterStack.add,
+    baseFilter,
+    mergeFilters,
   }
 }
 

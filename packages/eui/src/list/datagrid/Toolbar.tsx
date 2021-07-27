@@ -5,7 +5,7 @@ import { DatagridAction } from "./actions"
 import { BulkActions } from "./BulkActions"
 
 function getShowingRange(page: number, pageSize: number, total: number) {
-  if (page === 1) {
+  if (page <= 1) {
     const value = Math.min(pageSize, total)
     return `${value}`
   } else {

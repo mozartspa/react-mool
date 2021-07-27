@@ -218,7 +218,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         sorting={{
           sort: {
             field: getEuiSortField(sortField, columnsProp) as any,
-            direction: sortOrder,
+            direction: sortOrder ?? "asc",
           },
           readOnly: !sortable,
         }}

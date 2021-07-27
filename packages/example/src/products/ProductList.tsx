@@ -1,36 +1,61 @@
 import {
-  EuiBadge,
   EuiButton,
   EuiDescriptionList,
   EuiDescriptionListDescription,
   EuiDescriptionListTitle,
   EuiLink,
   EuiSpacer,
-  EuiTab,
-  EuiTabs,
 } from "@elastic/eui"
 import {
   ListBase,
   useDelete,
+  useGetList,
   useLinkProps,
   useNotify,
   useRedirect,
   useRedirectLink,
+  useTranslate,
 } from "@react-mool/core"
 import {
   BreadcrumbsItem,
   CreateButton,
   Datagrid,
+  FilterBar,
   List,
   ListHeader,
+  NumberFilter,
+  SelectFilter,
+  SelectOption,
+  TabbedFilterGroups,
+  TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
-import { Fragment } from "react"
+import { Fragment, useMemo } from "react"
 import { useQueryClient } from "react-query"
+import { Category } from "../gqless"
+import { t } from "../i18n/en"
 
 export const ProductList = () => {
   const linkProps = useLinkProps()
   const defaultActions = useDefaultDatagridActions()
+  const translate = useTranslate()
+
+  const categoryList = useGetList<Category>(
+    { page: 1, pageSize: 1000, sortField: "name" },
+    {
+      resource: "category",
+    }
+  )
+
+  const categoryOptions = useMemo(() => {
+    return categoryList.data?.items.map((item) => {
+      const opt: SelectOption = {
+        value: item.id,
+        label: item.name || "",
+      }
+      return opt
+    })
+  }, [categoryList.data])
 
   return (
     <List>
@@ -38,15 +63,29 @@ export const ProductList = () => {
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
         actions={[<CreateButton />]}
       />
-      <EuiSpacer size="s" />
-      <EuiTabs display="default">
-        <EuiTab isSelected>
-          All <EuiBadge color="hollow">58</EuiBadge>{" "}
-        </EuiTab>
-        <EuiTab>Some</EuiTab>
-        <EuiTab>Others</EuiTab>
-      </EuiTabs>
       <EuiSpacer size="l" />
+      <TabbedFilterGroups
+        groups={[
+          { name: "All" },
+          { name: "Cheap", filter: { price_lt: 40 } },
+          { name: "Medium", filter: { price_gte: 40, price_lt: 80 } },
+          { name: "Expensive", filter: { price_gte: 80 } },
+          { name: "Night", filter: { q: "night" } },
+        ]}
+      />
+      <EuiSpacer size="xxl" />
+      <FilterBar
+        filters={[
+          <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
+          <SelectFilter
+            name="category_id"
+            placeholder={translate(t.resources.product.filter.category_id_placeholder)}
+            options={categoryOptions || []}
+            searchable
+          />,
+          <NumberFilter name="price_lt" placeholder="Price lower than" />,
+        ]}
+      />
       <Datagrid
         columns={[
           { name: "id", sortable: true },
