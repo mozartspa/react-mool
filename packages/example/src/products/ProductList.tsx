@@ -9,10 +9,12 @@ import {
 import {
   ListBase,
   useDelete,
+  useGetList,
   useLinkProps,
   useNotify,
   useRedirect,
   useRedirectLink,
+  useTranslate,
 } from "@react-mool/core"
 import {
   BreadcrumbsItem,
@@ -22,16 +24,38 @@ import {
   List,
   ListHeader,
   NumberFilter,
+  SelectFilter,
+  SelectOption,
   TabbedFilterGroups,
   TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
-import { Fragment } from "react"
+import { Fragment, useMemo } from "react"
 import { useQueryClient } from "react-query"
+import { Category } from "../gqless"
+import { t } from "../i18n/en"
 
 export const ProductList = () => {
   const linkProps = useLinkProps()
   const defaultActions = useDefaultDatagridActions()
+  const translate = useTranslate()
+
+  const categoryList = useGetList<Category>(
+    { page: 1, pageSize: 1000, sortField: "name" },
+    {
+      resource: "category",
+    }
+  )
+
+  const categoryOptions = useMemo(() => {
+    return categoryList.data?.items.map((item) => {
+      const opt: SelectOption = {
+        value: item.id,
+        label: item.name || "",
+      }
+      return opt
+    })
+  }, [categoryList.data])
 
   return (
     <List>
@@ -53,6 +77,12 @@ export const ProductList = () => {
       <FilterBar
         filters={[
           <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
+          <SelectFilter
+            name="category_id"
+            placeholder={translate(t.resources.product.filter.category_id_placeholder)}
+            options={categoryOptions || []}
+            searchable
+          />,
           <NumberFilter name="price_lt" placeholder="Price lower than" />,
         ]}
       />

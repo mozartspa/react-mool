@@ -12,6 +12,8 @@ export const englishMessages = {
       filter: {
         q: "Search",
         price_lt: "Price lower than",
+        category_id: "Category",
+        category_id_placeholder: "Select a category...",
       },
     },
   },
