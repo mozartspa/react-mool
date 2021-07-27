@@ -15,7 +15,7 @@ import {
   SortOrder,
   useGetList,
 } from "../dataProvider"
-import { useLastListParams } from "../helpers/useLastListParams"
+import { useStorage } from "../helpers/useStorage"
 import { useSyncListParamsWithURL } from "../helpers/useSyncListParamsWithURL"
 import { useNotify } from "../notify"
 import { ResourceContext, useResource } from "../resource"
@@ -44,6 +44,7 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   syncWithURL?: boolean
   restoreFromLast?: boolean
   restoreKey?: string
+  restoreStorage?: Storage
 }
 
 export type UseListResult<TRecord = any, TFilter = any> = {
@@ -92,16 +93,32 @@ export function useList<TRecord = any, TFilter = any>(
     syncWithURL = true,
     restoreFromLast = true,
     restoreKey,
+    restoreStorage,
   } = options
 
   const resource = useResource(resourceOpt)
   const notify = useNotify()
+  const storage = useStorage(restoreKey ?? `${resource}-lastparams`, {
+    enabled: restoreFromLast,
+    storage: restoreStorage,
+  })
 
-  const [page, setPage] = useState(Math.max(1, initialPage))
-  const [pageSize, setPageSize] = useState(Math.max(1, initialPageSize))
-  const [sortField, setSortField] = useState(initialSortField)
-  const [sortOrder, setSortOrder] = useState(initialSortOrder)
-  const [selectedIds, setSelectedIds] = useState(initialSelectedIds)
+  // Restored values take precedence over user initial values
+  const initialValues = useMemo(() => {
+    return {
+      page: storage.getValue("page", Math.max(1, initialPage)),
+      pageSize: storage.getValue("pageSize", Math.max(1, initialPageSize)),
+      sortField: storage.getValue("sortField", initialSortField),
+      sortOrder: storage.getValue("sortOrder", initialSortOrder),
+      selectedIds: storage.getValue("selectedIds", initialSelectedIds),
+    }
+  }, [])
+
+  const [page, setPage] = useState(initialValues.page)
+  const [pageSize, setPageSize] = useState(initialValues.pageSize)
+  const [sortField, setSortField] = useState(initialValues.sortField)
+  const [sortOrder, setSortOrder] = useState(initialValues.sortOrder)
+  const [selectedIds, setSelectedIds] = useState(initialValues.selectedIds)
   const filterStack = useFilterStack()
 
   // Merge filters in reverse order, so the first filter takes precedence over the others.
@@ -214,12 +231,10 @@ export function useList<TRecord = any, TFilter = any>(
     enabled: syncWithURL,
   })
 
-  useLastListParams({
-    params: listParams,
-    setters,
-    storageKey: restoreKey ?? `${resource}-lastparams`,
-    enabled: restoreFromLast,
-  })
+  // Update values to be restored
+  useEffect(() => {
+    storage.set({ page, pageSize, sortField, sortOrder, selectedIds })
+  }, [storage, page, pageSize, sortField, sortOrder, selectedIds])
 
   return {
     resource,
