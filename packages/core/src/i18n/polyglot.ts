@@ -20,6 +20,19 @@ export type PolyglotI18nProviderConfigAsync = Omit<
 
 const DEFAULT_PERSIST_LOCALE_KEY = "polyglotI18nProviderLocale"
 
+function createPolyglotInstance(
+  locale: string,
+  phrases: PolyglotMessages,
+  options?: PolyglotOptions
+) {
+  return new Polyglot({
+    locale,
+    phrases,
+    allowMissing: true,
+    ...options,
+  })
+}
+
 export function createPolyglotI18nProvider(config: PolyglotI18nProviderConfig) {
   const {
     defaultLocale,
@@ -34,10 +47,7 @@ export function createPolyglotI18nProvider(config: PolyglotI18nProviderConfig) {
 
   let locale = storedLocale || defaultLocale
 
-  let polyglot = new Polyglot({
-    locale,
-    phrases: getMessages(locale),
-  })
+  let polyglot = createPolyglotInstance(locale, getMessages(locale), polyglotOptions)
 
   const provider: I18nProvider = {
     translate: (key, options) => {
@@ -47,13 +57,11 @@ export function createPolyglotI18nProvider(config: PolyglotI18nProviderConfig) {
       return locale
     },
     changeLocale: async (newLocale) => {
-      const messages = getMessages(newLocale)
-
-      polyglot = new Polyglot({
-        locale: newLocale,
-        phrases: messages,
-        ...polyglotOptions,
-      })
+      polyglot = createPolyglotInstance(
+        newLocale,
+        getMessages(newLocale),
+        polyglotOptions
+      )
 
       locale = newLocale
 
@@ -82,11 +90,11 @@ export async function createPolyglotI18nProviderAsync(
 
   let locale = storedLocale || defaultLocale
 
-  let polyglot = new Polyglot({
+  let polyglot = createPolyglotInstance(
     locale,
-    phrases: await getMessages(locale),
-    ...polyglotOptions,
-  })
+    await getMessages(locale),
+    polyglotOptions
+  )
 
   const provider: I18nProvider = {
     translate: (key, options) => {
@@ -96,13 +104,11 @@ export async function createPolyglotI18nProviderAsync(
       return locale
     },
     changeLocale: async (newLocale) => {
-      const messages = await getMessages(newLocale)
-
-      polyglot = new Polyglot({
-        locale: newLocale,
-        phrases: messages,
-        ...polyglotOptions,
-      })
+      polyglot = createPolyglotInstance(
+        newLocale,
+        await getMessages(newLocale),
+        polyglotOptions
+      )
 
       locale = newLocale
 
