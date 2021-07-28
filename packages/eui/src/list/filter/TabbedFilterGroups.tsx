@@ -1,5 +1,11 @@
 import { EuiBadge, EuiTab, EuiTabs } from "@elastic/eui"
-import { useAddFilter, useGetList, useListContext } from "@react-mool/core"
+import {
+  useAddFilter,
+  useGetList,
+  useListContext,
+  useResource,
+  useStorage,
+} from "@react-mool/core"
 import { ReactNode, useState } from "react"
 import { useUpdateEffect } from "rooks"
 
@@ -13,26 +19,45 @@ export type TabbedFilterGroupsProps<TFilter = any> = {
   groups: TabbedFilterGroup<TFilter>[]
   initialSelected?: string
   showCount?: boolean
+  restoreFromLast?: boolean
+  restoreKey?: string
+  restoreStorage?: Storage
 }
 
 export function TabbedFilterGroups<TFilter = any>(
   props: TabbedFilterGroupsProps<TFilter>
 ) {
-  const { groups, showCount = true } = props
+  const {
+    groups,
+    showCount = true,
+    restoreFromLast = true,
+    restoreKey,
+    restoreStorage,
+  } = props
 
-  const initialSelected = props.initialSelected ?? groups[0]?.name
-  const initialFilter = initialSelected
-    ? groups.find((o) => o.name === initialSelected)?.filter
-    : undefined
+  const resource = useResource()
+  const storage = useStorage(restoreKey ?? `${resource}-tabbedfiltergroup`, {
+    enabled: restoreFromLast,
+    storage: restoreStorage,
+  })
 
-  const setFilter = useAddFilter(initialFilter)
-  const [selectedName, setSelectedName] = useState(initialSelected)
+  const [selectedName, setSelectedName] = useState(() =>
+    storage.get(props.initialSelected ?? groups[0]?.name)
+  )
+
+  const setFilter = useAddFilter(() => {
+    return selectedName ? groups.find((o) => o.name === selectedName)?.filter : undefined
+  })
 
   const selectedFilter = groups.find((o) => o.name === selectedName)?.filter
 
   useUpdateEffect(() => {
     setFilter(selectedFilter)
   }, [JSON.stringify(selectedFilter)])
+
+  useUpdateEffect(() => {
+    storage.set(selectedName)
+  }, [selectedName])
 
   return (
     <EuiTabs display="default">
