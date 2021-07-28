@@ -28,6 +28,7 @@ import {
   SelectFilter,
   SelectOption,
   TabbedFilterGroups,
+  TextColumn,
   TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
@@ -89,7 +90,7 @@ export const ProductList = () => {
       />
       <Datagrid
         columns={[
-          <Column name="id" sortable />,
+          <TextColumn name="id" sortable />,
           <Column name="Category" sortable="category_id">
             {(value) => (
               <EuiLink {...linkProps(`/product/${value?.id}`)}>{value?.name}</EuiLink>
