@@ -73,7 +73,7 @@ export type UseAddFilterOptions = {
 }
 
 export function useAddFilter<TFilter = any>(
-  initialFilter: TFilter,
+  initialFilter: TFilter | (() => TFilter),
   options: UseAddFilterOptions = {}
 ) {
   const { debounce = false } = options
@@ -84,7 +84,9 @@ export function useAddFilter<TFilter = any>(
 
   // Add/remove filter to stack on mount/unmount
   useIsomorphicEffect(() => {
-    operations.current = list.addFilter(initialFilter)
+    operations.current = list.addFilter(
+      initialFilter instanceof Function ? initialFilter() : initialFilter
+    )
 
     return () => {
       operations.current?.remove()
