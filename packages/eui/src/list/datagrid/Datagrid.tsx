@@ -59,7 +59,6 @@ export type DatagridRowProps = {
 }
 
 export type DatagridProps<TRecord = any> = {
-  //filters
   columns?: DatagridColumnType<TRecord>[]
   rowClick?: DatagridRowClick<TRecord>
   rowProps?: (item: TRecord) => object
@@ -68,6 +67,7 @@ export type DatagridProps<TRecord = any> = {
   actions?: DatagridAction<TRecord>[]
   bulkActions?: DatagridAction<TRecord>[]
   empty?: ReactNode
+  responsive?: boolean
 }
 
 export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
@@ -80,6 +80,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     actions: actionsProp,
     bulkActions,
     empty,
+    responsive,
   } = props
 
   const {
@@ -227,6 +228,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         onChange={handleChange}
         rowProps={rowProps}
         noItemsMessage={empty}
+        responsive={responsive}
       />
     </>
   )
