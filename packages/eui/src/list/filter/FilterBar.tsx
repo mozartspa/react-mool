@@ -5,10 +5,11 @@ import {
   EuiSelectableOption,
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
-import { useAddFilter, useResource, useTranslate } from "@react-mool/core"
+import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
 import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import { useFreshRef } from "rooks"
 import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
@@ -16,15 +17,33 @@ import { FilterBarButton } from "./FilterBarButton"
 export type FilterBarProps<TFilter = any> = {
   initialValues?: TFilter
   filters: React.ReactElement<FilterBaseProps>[]
+  restoreFromLast?: boolean
+  restoreKey?: string
+  restoreStorage?: Storage
 }
 
 function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
-  const { initialValues, filters } = props
+  const { filters, restoreFromLast, restoreKey, restoreStorage } = props
 
   const translate = useTranslate()
   const resource = useResource()
+
+  const storage = useStorage(restoreKey ?? `${resource}-filterbar`, {
+    enabled: restoreFromLast,
+    storage: restoreStorage,
+  })
+
+  const initialValues = useMemo(
+    () => storage.getValue("filterValues", props.initialValues),
+    []
+  )
+  const initialVisibleFilters = useMemo(
+    () => storage.getValue("visibleFilters", [] as string[]),
+    []
+  )
+
   const setFilter = useAddFilter(initialValues, { debounce: true })
-  const [visibleFilters, setVisibleFilters] = useState([] as string[])
+  const [visibleFilters, setVisibleFilters] = useState(initialVisibleFilters)
 
   // Form values
   const form = useForm({
@@ -75,13 +94,27 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
   // Remove filter
   const handleRemoveFilter = useCallback((filterName: string) => {
     form.resetField(filterName)
+    // force field to be undefined, since `resetField` resets the field to its initial value
+    form.setFieldValue(filterName, undefined)
     setVisibleFilters((names) => names.filter((o) => o !== filterName))
   }, [])
 
   // Reset filters
   const handleResetFilters = useCallback(() => {
-    form.reset()
+    form.reset({} as TFilter)
     setVisibleFilters([])
+  }, [])
+
+  // On unmount, store state that will be restored
+  const visibleFiltersRef = useFreshRef(visibleFilters)
+  const storageRef = useFreshRef(storage)
+  useEffect(() => {
+    return () => {
+      storageRef.current?.set({
+        filterValues: form.values,
+        visibleFilters: visibleFiltersRef.current,
+      })
+    }
   }, [])
 
   return (
