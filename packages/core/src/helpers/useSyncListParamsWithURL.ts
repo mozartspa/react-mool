@@ -2,18 +2,20 @@ import { parse, stringify } from "query-string"
 import { useLayoutEffect } from "react"
 import { useHistory, useLocation } from "react-router-dom"
 import { useUpdateEffect } from "rooks"
-import { GetListParams, SortOrder } from "../dataProvider"
+import { SortOrder } from "../dataProvider"
 
-function removeDefaults(params: GetListParams, defaults: GetListParams | undefined) {
+function removeDefaults(
+  params: UseSyncListParams,
+  defaults: UseSyncListParams | undefined
+) {
   if (defaults == null) {
     return params
   }
 
-  const { page, pageSize, sortField, sortOrder } = params
+  const { page, sortField, sortOrder } = params
 
   return {
     page: page !== defaults.page ? page : undefined,
-    pageSize: pageSize !== defaults.pageSize ? pageSize : undefined,
     sortField: sortField !== defaults.sortField ? sortField : undefined,
     sortOrder: sortOrder !== defaults.sortOrder ? sortOrder : undefined,
   }
@@ -21,14 +23,13 @@ function removeDefaults(params: GetListParams, defaults: GetListParams | undefin
 
 function getParamsToUpdate(
   values: Record<string, any>,
-  current: GetListParams,
-  defaults: GetListParams | undefined
-): Partial<GetListParams> {
-  let { page, pageSize, sortField, sortOrder } = values
+  current: UseSyncListParams,
+  defaults: UseSyncListParams | undefined
+): UseSyncListParams {
+  let { page, sortField, sortOrder } = values
 
   // Check that incoming values have correct type, otherwise use defaults
   page = typeof page === "number" ? page : defaults?.page
-  pageSize = typeof pageSize === "number" ? pageSize : defaults?.pageSize
   sortField = typeof sortField === "string" ? sortField : defaults?.sortField
   sortOrder =
     sortOrder === "asc" ? "asc" : sortOrder === "desc" ? "desc" : defaults?.sortOrder
@@ -36,9 +37,6 @@ function getParamsToUpdate(
   // Clear the values that should not be changed
   if (page === current.page) {
     page = undefined
-  }
-  if (pageSize === current.pageSize) {
-    pageSize = undefined
   }
   if (sortField === current.sortField) {
     sortField = undefined
@@ -49,28 +47,32 @@ function getParamsToUpdate(
 
   return {
     page,
-    pageSize,
     sortField,
     sortOrder,
   }
 }
 
+export type UseSyncListParams = {
+  page: number
+  sortField?: string
+  sortOrder?: SortOrder
+}
+
 export type UseSyncListParamsWithURLOptions = {
-  params: GetListParams
+  params: UseSyncListParams
   setters: {
     setPage: (page: number) => void
-    setPageSize: (pageSize: number) => void
     setSort: (field: string | undefined, order?: SortOrder) => void
   }
-  defaults?: GetListParams
+  defaults?: UseSyncListParams
   enabled?: boolean
 }
 
 export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOptions) {
   const { params, setters, defaults, enabled = true } = options
 
-  const { page, pageSize, sortField, sortOrder } = params
-  const { setPage, setPageSize, setSort } = setters
+  const { page, sortField, sortOrder } = params
+  const { setPage, setSort } = setters
 
   const history = useHistory()
   const location = useLocation()
@@ -86,7 +88,7 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
       parseBooleans: true,
     })
 
-    const { page, pageSize, sortField, sortOrder } = getParamsToUpdate(
+    const { page, sortField, sortOrder } = getParamsToUpdate(
       query,
       params,
       options.defaults
@@ -95,9 +97,6 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
     // update only the params that should be changed
     if (page != null) {
       setPage(page)
-    }
-    if (pageSize != null) {
-      setPageSize(pageSize)
     }
     if (sortField != null) {
       setSort(sortField, sortOrder)
@@ -112,7 +111,6 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
 
     const params = {
       page,
-      pageSize,
       sortField,
       sortOrder,
     }
@@ -127,5 +125,5 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
         search,
       })
     }
-  }, [page, pageSize, sortField, sortOrder, enabled])
+  }, [page, sortField, sortOrder, enabled])
 }
