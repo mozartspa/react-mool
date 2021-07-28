@@ -13,8 +13,17 @@ import {
   useResourceDefinition,
   useTranslate,
 } from "@react-mool/core"
-import { ReactNode, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from "react"
+import {
+  ReactElement,
+  ReactNode,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react"
 import isEqual from "react-fast-compare"
+import { ColumnComponentProps } from "../column"
 import { DatagridAction } from "./actions"
 import { Toolbar } from "./Toolbar"
 import {
@@ -59,7 +68,7 @@ export type DatagridRowProps = {
 }
 
 export type DatagridProps<TRecord = any> = {
-  columns?: DatagridColumnType<TRecord>[]
+  columns?: ReactElement<ColumnComponentProps>[]
   rowClick?: DatagridRowClick<TRecord>
   rowProps?: (item: TRecord) => object
   sortable?: boolean
