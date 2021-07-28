@@ -1,12 +1,14 @@
 import { DefaultItemAction, EuiBasicTableColumn } from "@elastic/eui"
 import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
+import get from "dlv"
 import inflection from "inflection"
-import { SyntheticEvent } from "react"
+import { cloneElement, ReactElement, SyntheticEvent } from "react"
+import { ColumnComponentProps } from "../column"
 import { DatagridAction } from "./actions"
-import { DatagridColumnType, DatagridRowClick } from "./Datagrid"
+import { DatagridRowClick } from "./Datagrid"
 
 export function toEuiColumn(
-  col: DatagridColumnType,
+  col: ReactElement<ColumnComponentProps>,
   resource: string,
   translate: UseTranslateResult
 ): EuiBasicTableColumn<any> {
@@ -14,7 +16,6 @@ export function toEuiColumn(
     name,
     header,
     description,
-    dataType,
     width,
     sortable,
     align,
@@ -22,8 +23,7 @@ export function toEuiColumn(
     isMobileHeader,
     mobileOptions,
     hideForMobile,
-    render,
-  } = col
+  } = col.props
 
   return {
     field: name,
@@ -33,15 +33,34 @@ export function toEuiColumn(
         defaultValue: inflection.humanize(name),
       }),
     description,
-    dataType,
     width,
     sortable: typeof sortable === "string" ? true : sortable,
     align,
     truncateText,
     isMobileHeader,
-    mobileOptions,
+    mobileOptions: mobileOptions
+      ? {
+          ...mobileOptions,
+          render: (record) => {
+            const value = get(record, name)
+            return cloneElement(col, {
+              ...col.props,
+              value,
+              record,
+              isMobile: true,
+            })
+          },
+        }
+      : undefined,
     hideForMobile,
-    render,
+    render: (value, record) => {
+      return cloneElement(col, {
+        ...col.props,
+        value,
+        record,
+        isMobile: false,
+      })
+    },
   }
 }
 
@@ -161,11 +180,11 @@ export function getDefaultRowClick(
 
 export function getSortField(
   sortField: string,
-  columns: DatagridColumnType[] | undefined
+  columns: ReactElement<ColumnComponentProps>[] | undefined
 ) {
-  const col = columns?.find((o) => o.name === sortField)
-  if (col && col.sortable && typeof col.sortable === "string") {
-    return col.sortable ?? sortField
+  const col = columns?.find((o) => o.props.name === sortField)
+  if (col && col.props.sortable && typeof col.props.sortable === "string") {
+    return col.props.sortable ?? sortField
   } else {
     return sortField
   }
@@ -173,11 +192,11 @@ export function getSortField(
 
 export function getEuiSortField(
   sortField: string,
-  columns: DatagridColumnType[] | undefined
+  columns: ReactElement<ColumnComponentProps>[] | undefined
 ) {
-  const col = columns?.find((o) => o.sortable === sortField)
+  const col = columns?.find((o) => o.props.sortable === sortField)
   if (col) {
-    return col.name
+    return col.props.name
   } else {
     return sortField
   }

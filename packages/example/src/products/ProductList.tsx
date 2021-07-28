@@ -18,6 +18,7 @@ import {
 } from "@react-mool/core"
 import {
   BreadcrumbsItem,
+  Column,
   CreateButton,
   Datagrid,
   FilterBar,
@@ -27,6 +28,7 @@ import {
   SelectFilter,
   SelectOption,
   TabbedFilterGroups,
+  TextColumn,
   TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
@@ -88,18 +90,16 @@ export const ProductList = () => {
       />
       <Datagrid
         columns={[
-          { name: "id", sortable: true },
-          {
-            name: "Category",
-            sortable: "category_id",
-            render: (value: any) => (
+          <TextColumn name="id" sortable />,
+          <Column name="Category" sortable="category_id">
+            {(value) => (
               <EuiLink {...linkProps(`/product/${value?.id}`)}>{value?.name}</EuiLink>
-            ),
-          },
-          { name: "reference", sortable: true },
-          { name: "width", sortable: true, align: "right" },
-          { name: "height", sortable: true, align: "right" },
-          { name: "price", sortable: true, align: "right" },
+            )}
+          </Column>,
+          <Column name="reference" sortable />,
+          <Column name="width" sortable align="right" />,
+          <Column name="height" sortable align="right" />,
+          <Column name="price" sortable />,
         ]}
         rowClick="detail"
         selectable
