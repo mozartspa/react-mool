@@ -1,13 +1,14 @@
 import React, { ComponentType, ReactNode, useMemo } from "react"
 import { AuthPermissions, useAuthPermissions } from "../auth"
 
-export type ResourceDefinition = {
+export type ResourceDefinition<TRecord = any> = {
   name: string
   create?: ComponentType
   edit?: ComponentType
   detail?: ComponentType
   list?: ComponentType
   icon?: string | ComponentType
+  recordName?: (record: TRecord) => string
 }
 
 export type ResourceDefinitionsArgs = {
