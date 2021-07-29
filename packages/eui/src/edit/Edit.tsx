@@ -1,7 +1,22 @@
 import { EditBase, EditBaseProps } from "@react-mool/core"
+import { ReactNode } from "react"
+import { EditBreadcrumbs } from "./EditBreadcrumbs"
 
-export type EditProps<TRecord = any, TUpdate = any> = EditBaseProps<TRecord, TUpdate>
+export type EditProps<TRecord = any, TUpdate = any> = EditBaseProps<TRecord, TUpdate> & {
+  breadcrumbs?: ReactNode
+}
 
 export const Edit = (props: EditProps) => {
-  return <EditBase {...props} />
+  const { breadcrumbs = <EditBreadcrumbs />, children, ...editProps } = props
+
+  return (
+    <EditBase {...editProps}>
+      {(edit) => (
+        <>
+          {breadcrumbs}
+          {children instanceof Function ? children(edit) : children}
+        </>
+      )}
+    </EditBase>
+  )
 }
