@@ -1,23 +1,6 @@
+import { EuiLink, EuiSpacer } from "@elastic/eui"
+import { useGetList, useLinkProps, useTranslate } from "@react-mool/core"
 import {
-  EuiButton,
-  EuiDescriptionList,
-  EuiDescriptionListDescription,
-  EuiDescriptionListTitle,
-  EuiLink,
-  EuiSpacer,
-} from "@elastic/eui"
-import {
-  ListBase,
-  useDelete,
-  useGetList,
-  useLinkProps,
-  useNotify,
-  useRedirect,
-  useRedirectLink,
-  useTranslate,
-} from "@react-mool/core"
-import {
-  BreadcrumbsItem,
   Column,
   CreateButton,
   Datagrid,
@@ -33,8 +16,7 @@ import {
   TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
-import { Fragment, useMemo } from "react"
-import { useQueryClient } from "react-query"
+import { useMemo } from "react"
 import { Category } from "../gqless"
 import { t } from "../i18n/en"
 
@@ -112,79 +94,5 @@ export const ProductList = () => {
         bulkActions={[defaultActions.remove]}
       />
     </List>
-  )
-}
-
-export const ProductListOld = () => {
-  const deleteMutation = useDelete()
-  const queryClient = useQueryClient()
-
-  const notify = useNotify()
-  const redirect = useRedirect()
-  const redirectLink = useRedirectLink()
-
-  return (
-    <ListBase initialPageSize={10}>
-      {({ items, total, page, setPage }) => (
-        <>
-          <BreadcrumbsItem>Products</BreadcrumbsItem>
-          <EuiSpacer />
-          <EuiButton {...redirectLink("create")} iconType="plus">
-            Add
-          </EuiButton>
-          <EuiSpacer />
-          <p>Total: {total}</p>
-          <EuiSpacer />
-          <EuiDescriptionList>
-            {items.map((item) => (
-              <Fragment key={item.id}>
-                <EuiDescriptionListTitle>{item.reference}</EuiDescriptionListTitle>
-                <EuiDescriptionListDescription>
-                  <a {...redirectLink("edit", { id: item.id })}>Update</a>
-                  {" | "}
-                  <a {...redirectLink("detail", { id: item.id })}>Detail</a>
-                  {" | "}
-                  <a
-                    href="#delete"
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      deleteMutation.mutateAsync({ id: String(item.id) }).then(() => {
-                        console.log("removed!")
-                        queryClient.invalidateQueries("product")
-                      })
-                    }}
-                  >
-                    Delete
-                  </a>
-                  {" | "}
-                  <a
-                    href="#notify"
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      notify(item.reference)
-                    }}
-                  >
-                    Notify
-                  </a>
-                  {" | "}
-                  <a
-                    href="#go"
-                    onClick={(ev) => {
-                      ev.preventDefault()
-                      redirect("detail", { id: item.id })
-                    }}
-                  >
-                    Go
-                  </a>
-                </EuiDescriptionListDescription>
-              </Fragment>
-            ))}
-          </EuiDescriptionList>
-          <p>Page: {page}</p>
-          <EuiButton onClick={() => setPage(page - 1)}>Prev</EuiButton>{" "}
-          <EuiButton onClick={() => setPage(page + 1)}>Next</EuiButton>
-        </>
-      )}
-    </ListBase>
   )
 }
