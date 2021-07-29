@@ -1,6 +1,7 @@
 export * from "./Admin"
 export * from "./button"
 export * from "./confirm"
+export * from "./edit"
 export * from "./form"
 export * from "./i18n"
 export * from "./input"
