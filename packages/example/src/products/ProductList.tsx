@@ -88,7 +88,7 @@ export const ProductList = () => {
             formatOptions={{ style: "currency", currency: "EUR" }}
           />,
         ]}
-        rowClick="detail"
+        rowClick="edit"
         selectable
         actions={[defaultActions.view, defaultActions.edit, defaultActions.remove]}
         bulkActions={[defaultActions.remove]}
