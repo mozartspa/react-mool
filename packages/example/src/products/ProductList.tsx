@@ -24,6 +24,7 @@ import {
   FilterBar,
   List,
   ListHeader,
+  NumberColumn,
   NumberFilter,
   SelectFilter,
   SelectOption,
@@ -99,7 +100,11 @@ export const ProductList = () => {
           <Column name="reference" sortable />,
           <Column name="width" sortable align="right" />,
           <Column name="height" sortable align="right" />,
-          <Column name="price" sortable />,
+          <NumberColumn
+            name="price"
+            sortable
+            formatOptions={{ style: "currency", currency: "EUR" }}
+          />,
         ]}
         rowClick="detail"
         selectable
