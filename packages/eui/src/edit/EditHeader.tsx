@@ -1,5 +1,10 @@
 import { EuiHorizontalRule, EuiPageHeader, IconType } from "@elastic/eui"
-import { useGetResourceLabel, useResource, useResourceDefinition } from "@react-mool/core"
+import {
+  useGetRecordName,
+  useRecord,
+  useResource,
+  useResourceDefinition,
+} from "@react-mool/core"
 import { ReactNode } from "react"
 
 export type EditHeaderProps = {
@@ -16,10 +21,11 @@ export type EditHeaderProps = {
 export const EditHeader = (props: EditHeaderProps) => {
   const resource = useResource(props.resource)
   const definition = useResourceDefinition(resource)
-  const getLabel = useGetResourceLabel()
+  const getName = useGetRecordName(resource)
+  const record = useRecord()
 
   const {
-    title = getLabel(resource, 2),
+    title = record ? getName(record) : "",
     icon = definition.icon ?? "list",
     description,
     actions,
