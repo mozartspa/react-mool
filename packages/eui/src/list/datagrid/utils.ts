@@ -146,6 +146,11 @@ export function canHandleRowClick(ev?: SyntheticEvent) {
             return true
           }
 
+          // Skip if on an action cell
+          if (el.classList.contains("euiTableRowCell--hasActions")) {
+            return true
+          }
+
           return false
         })
       ) {
