@@ -1,19 +1,5 @@
-import {
-  EuiButton,
-  EuiButtonGroup,
-  EuiDescriptionList,
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiSpacer,
-} from "@elastic/eui"
-import {
-  CreateBase,
-  DetailBase,
-  EditBase,
-  useLocale,
-  useSetLocale,
-  useTranslate,
-} from "@react-mool/core"
+import { EuiButton, EuiSpacer } from "@elastic/eui"
+import { CreateBase, DetailBase, EditBase } from "@react-mool/core"
 import { BreadcrumbsItem, TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { GeneratedSchema, Product } from "../gqless"
@@ -34,47 +20,6 @@ export const ProductDetail = () => {
         </>
       )}
     </DetailBase>
-  )
-}
-
-function LangTest() {
-  const translate = useTranslate()
-  const locale = useLocale()
-  const setLocale = useSetLocale()
-
-  const items = ["open", "close", "show"].map((key) => ({
-    title: key,
-    description: translate(key),
-  }))
-
-  return (
-    <EuiFlexGroup>
-      <EuiFlexItem grow={true}>
-        <EuiDescriptionList listItems={items} textStyle="reverse" />
-      </EuiFlexItem>
-
-      <EuiFlexItem grow={false}>
-        <EuiButtonGroup
-          legend="Choose language"
-          options={[
-            {
-              id: "en",
-              label: "EN",
-            },
-            {
-              id: "fr",
-              label: "FR",
-            },
-            {
-              id: "it",
-              label: "IT",
-            },
-          ]}
-          idSelected={locale}
-          onChange={(id) => setLocale(id)}
-        />
-      </EuiFlexItem>
-    </EuiFlexGroup>
   )
 }
 
