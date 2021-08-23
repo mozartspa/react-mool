@@ -1,5 +1,12 @@
 import { EuiSpacer } from "@elastic/eui"
-import { Edit, EditHeader, TextInput, UpdateButton } from "@react-mool/eui"
+import {
+  DeleteButton,
+  Edit,
+  EditHeader,
+  Row,
+  TextInput,
+  UpdateButton,
+} from "@react-mool/eui"
 import { GeneratedSchema, Product } from "../gqless"
 
 type ProductUpdateInput = Omit<
@@ -22,20 +29,28 @@ function initialValues(data: Product): ProductUpdateInput {
 }
 
 export const ProductUpdate = () => {
-  //const translate = useTranslate()
-
   return (
     <Edit initialValues={initialValues}>
-      <EditHeader title="Risk index" icon={false} />
-      <TextInput name="reference" />
-      <TextInput name="category_id" />
-      <TextInput name="thumbnail" />
-      <TextInput name="image" />
-      <TextInput name="description" />
-      <TextInput name="height" type="number" />
-      <TextInput name="width" type="number" />
-      <TextInput name="price" type="number" />
-      <TextInput name="stock" type="number" />
+      <EditHeader actions={[<DeleteButton />]} showHorizontalRule />
+      <div style={{ maxWidth: 900 }}>
+        <Row>
+          <TextInput name="reference" />
+          <TextInput name="category_id" />
+        </Row>
+        <Row spacer>
+          <TextInput name="price" type="number" />
+          <TextInput name="stock" type="number" />
+        </Row>
+        <Row spacer>
+          <TextInput name="image" />
+          <TextInput name="thumbnail" />
+        </Row>
+        <Row spacer>
+          <TextInput name="height" type="number" />
+          <TextInput name="width" type="number" />
+        </Row>
+        <TextInput name="description" />
+      </div>
       <EuiSpacer />
       <UpdateButton />
     </Edit>
