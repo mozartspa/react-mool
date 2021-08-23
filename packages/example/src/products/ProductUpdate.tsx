@@ -4,6 +4,7 @@ import {
   Edit,
   EditHeader,
   Row,
+  TextAreaInput,
   TextInput,
   UpdateButton,
 } from "@react-mool/eui"
@@ -49,7 +50,7 @@ export const ProductUpdate = () => {
           <TextInput name="height" type="number" />
           <TextInput name="width" type="number" />
         </Row>
-        <TextInput name="description" />
+        <TextAreaInput name="description" fullWidth />
       </div>
       <EuiSpacer />
       <UpdateButton />
