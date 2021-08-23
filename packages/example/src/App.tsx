@@ -35,6 +35,7 @@ function App() {
           detail: ProductDetail,
           list: ProductList,
           icon: "database",
+          recordName: (record) => record.reference,
         },
       ]}
     >
