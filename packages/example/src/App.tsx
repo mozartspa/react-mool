@@ -6,10 +6,7 @@ import { authProvider, TestAuth } from "./components/TestAuth"
 import { dataProvider } from "./dataProvider"
 import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
 import { Layout } from "./layout/Layout"
-import { ProductDetail } from "./products"
-import { ProductCreate } from "./products/ProductCreate"
-import { ProductList } from "./products/ProductList"
-import { ProductUpdate } from "./products/ProductUpdate"
+import { ProductResource } from "./products"
 
 function App() {
   const [i18nProvider, setI18nProvider] = useState<I18nProvider | undefined>(undefined)
@@ -28,17 +25,7 @@ function App() {
       i18nProvider={i18nProvider}
       authProvider={authProvider}
       layout={Layout}
-      resources={[
-        {
-          name: "product",
-          create: ProductCreate,
-          edit: ProductUpdate,
-          detail: ProductDetail,
-          list: ProductList,
-          icon: "database",
-          recordName: (record) => record.reference,
-        },
-      ]}
+      resources={[ProductResource]}
     >
       <Switch>
         <Route exact path="/custom">
