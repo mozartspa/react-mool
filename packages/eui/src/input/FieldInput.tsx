@@ -14,6 +14,8 @@ function defaultLabel(name: string) {
 
 export type InputProps = FieldComponentProps & {
   label?: string | false
+  fullWidth?: boolean
+  helpText?: ReactNode | ReactNode[]
 }
 
 export type FieldInputProps = InputProps & {
@@ -21,7 +23,7 @@ export type FieldInputProps = InputProps & {
 }
 
 export const FieldInput = (props: FieldInputProps) => {
-  const { label, children, ...fieldOptions } = props
+  const { label, fullWidth, helpText, children, ...fieldOptions } = props
 
   return (
     <Field {...fieldOptions}>
@@ -34,7 +36,13 @@ export const FieldInput = (props: FieldInputProps) => {
           const errors = isInvalid ? field.errors : undefined
           const inputLabel = label || defaultLabel(field.name)
           return (
-            <EuiFormRow label={inputLabel} isInvalid={isInvalid} error={errors}>
+            <EuiFormRow
+              label={inputLabel}
+              isInvalid={isInvalid}
+              error={errors}
+              fullWidth={fullWidth}
+              helpText={helpText}
+            >
               {content}
             </EuiFormRow>
           )
