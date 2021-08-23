@@ -5,9 +5,9 @@ import {
   EditHeader,
   NumberInput,
   Row,
+  SaveButton,
   TextAreaInput,
   TextInput,
-  UpdateButton,
 } from "@react-mool/eui"
 import { GeneratedSchema, Product } from "../gqless"
 
@@ -54,7 +54,7 @@ export const ProductUpdate = () => {
         <TextAreaInput name="description" fullWidth />
       </div>
       <EuiSpacer />
-      <UpdateButton />
+      <SaveButton />
     </Edit>
   )
 }

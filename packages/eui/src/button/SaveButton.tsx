@@ -4,11 +4,11 @@ import { useResource, useTranslate } from "@react-mool/core"
 import { observer } from "mobx-react-lite"
 import { t } from "../i18n"
 
-export type UpdateButtonProps = EuiButtonProps & {
+export type SaveButtonProps = EuiButtonProps & {
   disableIfPristine?: boolean
 }
 
-export const UpdateButton = observer((props: UpdateButtonProps) => {
+export const SaveButton = observer((props: SaveButtonProps) => {
   const { disableIfPristine = true, children, ...buttonProps } = props
 
   const resource = useResource()
