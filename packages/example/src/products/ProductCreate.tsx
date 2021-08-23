@@ -1,39 +1,31 @@
 import { EuiSpacer } from "@elastic/eui"
 import {
-  DeleteButton,
-  Edit,
-  EditHeader,
+  Create,
+  CreateHeader,
   NumberInput,
   Row,
   SaveButton,
   TextAreaInput,
   TextInput,
 } from "@react-mool/eui"
-import { GeneratedSchema, Product } from "../gqless"
+import { observer } from "mobx-react-lite"
 
-type ProductUpdateInput = Omit<
-  Parameters<GeneratedSchema["mutation"]["updateProduct"]>[0],
-  "id"
->
-
-function initialValues(data: Product): ProductUpdateInput {
-  return {
-    category_id: data.category_id,
-    description: data.description,
-    height: data.height,
-    image: data.image,
-    price: data.price,
-    reference: data.reference,
-    stock: data.stock,
-    thumbnail: data.thumbnail,
-    width: data.width,
-  }
+const initialValues = {
+  category_id: "1",
+  description: "",
+  height: 100,
+  image: "",
+  price: 0,
+  reference: "",
+  stock: 0,
+  thumbnail: "",
+  width: 0,
 }
 
-export const ProductUpdate = () => {
+export const ProductCreate = observer(() => {
   return (
-    <Edit initialValues={initialValues}>
-      <EditHeader actions={[<DeleteButton />]} />
+    <Create initialValues={initialValues} redirectTo="detail">
+      <CreateHeader showHorizontalRule />
       <div style={{ maxWidth: 900 }}>
         <Row>
           <TextInput name="reference" />
@@ -55,6 +47,6 @@ export const ProductUpdate = () => {
       </div>
       <EuiSpacer />
       <SaveButton />
-    </Edit>
+    </Create>
   )
-}
+})

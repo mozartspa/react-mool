@@ -1,5 +1,5 @@
 import { EuiButton, EuiSpacer } from "@elastic/eui"
-import { CreateBase, DetailBase, EditBase } from "@react-mool/core"
+import { DetailBase, EditBase } from "@react-mool/core"
 import { BreadcrumbsItem, TextInput } from "@react-mool/eui"
 import { observer } from "mobx-react-lite"
 import { GeneratedSchema, Product } from "../gqless"
@@ -22,34 +22,6 @@ export const ProductDetail = () => {
     </DetailBase>
   )
 }
-
-export const ProductCreate = observer(() => {
-  const initialValues = {
-    category_id: "1",
-    description: "",
-    height: 100,
-    image: "",
-    price: 0,
-    reference: "",
-    stock: 0,
-    thumbnail: "",
-    width: 0,
-  }
-
-  return (
-    <CreateBase initialValues={initialValues} redirectTo="detail">
-      {({ form }) => (
-        <>
-          <TextInput name="reference" />
-          <EuiSpacer />
-          <EuiButton onClick={form.submit} isLoading={form.isSubmitting}>
-            Create
-          </EuiButton>
-        </>
-      )}
-    </CreateBase>
-  )
-})
 
 function initialValues(data: Product): ProductUpdateInput {
   return {

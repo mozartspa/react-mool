@@ -1,13 +1,8 @@
 import { EuiHorizontalRule, EuiPageHeader, IconType } from "@elastic/eui"
-import {
-  useGetRecordName,
-  useRecord,
-  useResource,
-  useResourceDefinition,
-} from "@react-mool/core"
+import { useGetResourceLabel, useResource, useResourceDefinition } from "@react-mool/core"
 import { ReactNode } from "react"
 
-export type EditHeaderProps = {
+export type CreateHeaderProps = {
   resource?: string
   title?: ReactNode
   icon?: IconType
@@ -18,14 +13,13 @@ export type EditHeaderProps = {
   children?: ReactNode
 }
 
-export const EditHeader = (props: EditHeaderProps) => {
+export const CreateHeader = (props: CreateHeaderProps) => {
   const resource = useResource(props.resource)
   const definition = useResourceDefinition(resource)
-  const getName = useGetRecordName(resource)
-  const record = useRecord()
+  const getLabel = useGetResourceLabel()
 
   const {
-    title = record ? getName(record) : "",
+    title = getLabel(resource, 1),
     icon = definition.icon ?? "list",
     description,
     actions,
