@@ -3,6 +3,7 @@ import {
   DeleteButton,
   Edit,
   EditHeader,
+  NumberInput,
   Row,
   TextAreaInput,
   TextInput,
@@ -39,16 +40,16 @@ export const ProductUpdate = () => {
           <TextInput name="category_id" />
         </Row>
         <Row spacer>
-          <TextInput name="price" type="number" />
-          <TextInput name="stock" type="number" />
+          <NumberInput name="price" />
+          <NumberInput name="stock" />
         </Row>
         <Row spacer>
           <TextInput name="image" />
           <TextInput name="thumbnail" />
         </Row>
         <Row spacer>
-          <TextInput name="height" type="number" />
-          <TextInput name="width" type="number" />
+          <NumberInput name="height" />
+          <NumberInput name="width" />
         </Row>
         <TextAreaInput name="description" fullWidth />
       </div>
