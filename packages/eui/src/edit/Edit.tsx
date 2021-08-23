@@ -2,7 +2,10 @@ import { EditBase, EditBaseProps } from "@react-mool/core"
 import { ReactNode } from "react"
 import { EditBreadcrumbs } from "./EditBreadcrumbs"
 
-export type EditProps<TRecord = any, TUpdate = any> = EditBaseProps<TRecord, TUpdate> & {
+export type EditProps<TRecord = any, TUpdate = TRecord> = EditBaseProps<
+  TRecord,
+  TUpdate
+> & {
   breadcrumbs?: ReactNode
 }
 
