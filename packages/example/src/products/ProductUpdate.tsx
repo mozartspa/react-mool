@@ -33,7 +33,7 @@ function initialValues(data: Product): ProductUpdateInput {
 export const ProductUpdate = () => {
   return (
     <Edit initialValues={initialValues}>
-      <EditHeader actions={[<DeleteButton />]} showHorizontalRule />
+      <EditHeader actions={[<DeleteButton />]} />
       <div style={{ maxWidth: 900 }}>
         <Row>
           <TextInput name="reference" />

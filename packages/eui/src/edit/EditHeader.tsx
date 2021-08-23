@@ -30,7 +30,7 @@ export const EditHeader = (props: EditHeaderProps) => {
     description,
     actions,
     showIcon = false,
-    showHorizontalRule = false,
+    showHorizontalRule = true,
     children,
   } = props
 
