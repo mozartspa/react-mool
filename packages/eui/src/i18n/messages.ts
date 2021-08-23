@@ -21,6 +21,7 @@ export const englishEuiMessages = {
       create: "Create",
       view: "View",
       edit: "Edit",
+      save: "Save",
       delete: "Delete",
     },
     bulk: {
