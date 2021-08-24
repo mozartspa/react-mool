@@ -41,6 +41,6 @@ export function getFieldLabel(
   translate: UseTranslateResult
 ) {
   return translate(`resources.${resource}.fields.${name}`, {
-    defaultValue: inflection.humanize(name),
+    defaultValue: inflection.humanize(name.replace(".", " ")),
   })
 }
