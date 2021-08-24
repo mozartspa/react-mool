@@ -1,4 +1,4 @@
-import { useTranslate, UseTranslateResult } from "@react-mool/core"
+import { useResource, useTranslate, UseTranslateResult } from "@react-mool/core"
 import inflection from "inflection"
 import { useCallback } from "react"
 
@@ -10,6 +10,24 @@ export function useGetFieldLabel(): UseGetFieldLabelResult {
   const getLabel = useCallback(
     (resource: string, name: string) => {
       return getFieldLabel(resource, name, translate)
+    },
+    [translate]
+  )
+
+  return getLabel
+}
+
+export type UseGetResourceFieldLabelResult = (name: string) => string
+
+export function useGetResourceFieldLabel(
+  resource?: string
+): UseGetResourceFieldLabelResult {
+  const translate = useTranslate()
+  const res = useResource(resource)
+
+  const getLabel = useCallback(
+    (name: string) => {
+      return getFieldLabel(res, name, translate)
     },
     [translate]
   )
