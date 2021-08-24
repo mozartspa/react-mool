@@ -7,7 +7,7 @@ import { ValidationError } from "../errors"
 import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
-import { ResourceContext, useResource } from "../resource"
+import { ResourceContext, useResource, useResourceDefinition } from "../resource"
 import { getRedirectTo, getSuccessMessage } from "./helpers"
 import { SaveErrorHandler, SaveSuccessHandler } from "./types"
 
@@ -49,6 +49,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
   } = options
 
   const resource = useResource(resourceOpt)
+  const resourceDef = useResourceDefinition(resource)
   const dataProvider = useResourceDataProvider(resource)
   const mutation = useCreate<TRecord, TCreate>({ resource })
   const redirect = useRedirect({ resource })
@@ -66,7 +67,13 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
         const message = getSuccessMessage(successMessage, record, t.core.crud.created)
         notify(message, { type: "success" })
 
-        const redirectArgs = getRedirectTo(redirectTo ?? "list")
+        const defaultRedirectTo = resourceDef.detail
+          ? "detail"
+          : resourceDef.edit
+          ? "edit"
+          : "list"
+
+        const redirectArgs = getRedirectTo(redirectTo ?? defaultRedirectTo)
 
         if (redirectArgs) {
           redirect(redirectArgs.to, {

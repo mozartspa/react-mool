@@ -10,7 +10,7 @@ import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
-import { ResourceContext, useResource } from "../resource"
+import { ResourceContext, useResource, useResourceDefinition } from "../resource"
 import { getRedirectTo, getSuccessMessage } from "./helpers"
 import {
   LoadErrorHandler,
@@ -82,6 +82,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
   } = options
 
   const resource = useResource(resourceOpt)
+  const resourceDef = useResourceDefinition(resource)
   const { id: idParam } = useParams<{ id: string }>()
   const id = idOpt || idParam
 
@@ -124,7 +125,8 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
         const message = getSuccessMessage(successMessage, record, t.core.crud.updated)
         notify(message, { type: "success" })
 
-        const redirectArgs = getRedirectTo(redirectTo ?? "list")
+        const defaultRedirectTo = resourceDef.detail ? "detail" : "list"
+        const redirectArgs = getRedirectTo(redirectTo ?? defaultRedirectTo)
 
         if (redirectArgs) {
           redirect(redirectArgs.to, {
