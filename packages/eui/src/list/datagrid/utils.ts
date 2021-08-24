@@ -1,8 +1,8 @@
 import { DefaultItemAction, EuiBasicTableColumn } from "@elastic/eui"
 import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
 import get from "dlv"
-import inflection from "inflection"
 import { cloneElement, ReactElement, SyntheticEvent } from "react"
+import { getFieldLabel } from "../../helpers/useGetFieldLabel"
 import { ColumnComponentProps } from "../column"
 import { DatagridAction } from "./actions"
 import { DatagridRowClick } from "./Datagrid"
@@ -27,11 +27,7 @@ export function toEuiColumn(
 
   return {
     field: name,
-    name:
-      header ??
-      translate(`resources.${resource}.fields.${name}`, {
-        defaultValue: inflection.humanize(name),
-      }),
+    name: header ?? getFieldLabel(resource, name, translate),
     description,
     width,
     sortable: typeof sortable === "string" ? true : sortable,
@@ -78,9 +74,7 @@ export function guessColumns(
   return Object.keys(item).map((key) => {
     return {
       field: key,
-      name: translate(`resources.${resource}.fields.${key}`, {
-        defaultValue: inflection.humanize(key),
-      }),
+      name: getFieldLabel(resource, key, translate),
       render: (value: any) => {
         if (typeof value === "object") {
           return JSON.stringify(value).substring(0, 50)
