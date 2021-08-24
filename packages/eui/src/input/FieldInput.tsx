@@ -1,16 +1,7 @@
 import { EuiFormRow } from "@elastic/eui"
 import { Field, FieldComponentProps, FieldRenderProps } from "@mozartspa/mobx-form"
 import { ReactNode } from "react"
-
-function defaultLabel(name: string) {
-  const label = name
-    .substring(name.lastIndexOf(".") + 1)
-    .replace(/-/gi, " ")
-    .replace(/_/gi, " ")
-    .replace(/\./gi, " ")
-
-  return label.charAt(0).toUpperCase() + label.substring(1)
-}
+import { useGetResourceFieldLabel } from "../helpers"
 
 export type InputProps = FieldComponentProps & {
   label?: string | false
@@ -25,6 +16,8 @@ export type FieldInputProps = InputProps & {
 export const FieldInput = (props: FieldInputProps) => {
   const { label, fullWidth, helpText, children, ...fieldOptions } = props
 
+  const getFieldLabel = useGetResourceFieldLabel()
+
   return (
     <Field {...fieldOptions}>
       {(field) => {
@@ -34,7 +27,7 @@ export const FieldInput = (props: FieldInputProps) => {
         } else {
           const isInvalid = field.isTouched && !field.isValid
           const errors = isInvalid ? field.errors : undefined
-          const inputLabel = label || defaultLabel(field.name)
+          const inputLabel = label ?? getFieldLabel(field.name)
           return (
             <EuiFormRow
               label={inputLabel}
