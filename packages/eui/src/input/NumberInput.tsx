@@ -1,10 +1,8 @@
 import { EuiFieldNumber, EuiFieldNumberProps } from "@elastic/eui"
-import { FieldInput, InputProps } from "./FieldInput"
+import { Input, InputProps } from "./Input"
 
 export type NumberInputProps = InputProps & EuiFieldNumberProps
 
 export const NumberInput = (props: NumberInputProps) => (
-  <FieldInput {...props}>
-    {(field) => <EuiFieldNumber {...field.input} {...props} />}
-  </FieldInput>
+  <Input {...props}>{(field) => <EuiFieldNumber {...field.input} {...props} />}</Input>
 )

@@ -9,11 +9,11 @@ export type InputProps = FieldComponentProps & {
   helpText?: ReactNode | ReactNode[]
 }
 
-export type FieldInputProps = InputProps & {
+export type InputComponentProps = InputProps & {
   children: (props: FieldRenderProps) => ReactNode
 }
 
-export const FieldInput = (props: FieldInputProps) => {
+export const Input = (props: InputComponentProps) => {
   const { label, fullWidth, helpText, children, ...fieldOptions } = props
 
   const getFieldLabel = useGetResourceFieldLabel()

@@ -1,10 +1,8 @@
 import { EuiFieldText, EuiFieldTextProps } from "@elastic/eui"
-import { FieldInput, InputProps } from "./FieldInput"
+import { Input, InputProps } from "./Input"
 
 export type TextInputProps = InputProps & EuiFieldTextProps
 
 export const TextInput = (props: TextInputProps) => (
-  <FieldInput {...props}>
-    {(field) => <EuiFieldText {...field.input} {...props} />}
-  </FieldInput>
+  <Input {...props}>{(field) => <EuiFieldText {...field.input} {...props} />}</Input>
 )
