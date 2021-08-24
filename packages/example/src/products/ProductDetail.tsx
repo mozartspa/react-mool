@@ -1,14 +1,38 @@
-import { Detail, DetailHeader } from "@react-mool/eui"
+import { EuiSpacer } from "@elastic/eui"
+import {
+  Detail,
+  DetailHeader,
+  EditButton,
+  NumberValue,
+  Row,
+  TextValue,
+} from "@react-mool/eui"
 
 export const ProductDetail = () => {
   return (
     <Detail>
-      {({ record }) => (
-        <>
-          <DetailHeader />
-          <pre>{JSON.stringify(record, null, 2)}</pre>
-        </>
-      )}
+      <DetailHeader />
+      <div style={{ maxWidth: 900 }}>
+        <Row>
+          <TextValue name="reference" />
+          <TextValue name="category_id" />
+        </Row>
+        <Row spacer>
+          <NumberValue name="price" />
+          <NumberValue name="stock" />
+        </Row>
+        <Row spacer>
+          <TextValue name="image" />
+          <TextValue name="thumbnail" />
+        </Row>
+        <Row spacer>
+          <NumberValue name="height" />
+          <NumberValue name="width" />
+        </Row>
+        <TextValue name="description" fullWidth />
+      </div>
+      <EuiSpacer />
+      <EditButton />
     </Detail>
   )
 }
