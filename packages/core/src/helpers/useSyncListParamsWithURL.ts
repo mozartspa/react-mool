@@ -123,6 +123,10 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
     if (history.location.search !== `?${search}`) {
       history.push({
         search,
+        state: {
+          // Disable scrollToTop when changing location
+          _scrollToTop: false,
+        },
       })
     }
   }, [page, sortField, sortOrder, enabled])
