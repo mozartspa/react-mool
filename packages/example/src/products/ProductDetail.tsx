@@ -5,6 +5,7 @@ import {
   EditButton,
   NumberValue,
   Row,
+  TextAreaValue,
   TextValue,
 } from "@react-mool/eui"
 
@@ -29,7 +30,7 @@ export const ProductDetail = () => {
           <NumberValue name="height" />
           <NumberValue name="width" />
         </Row>
-        <TextValue name="description" fullWidth />
+        <TextAreaValue name="description" fullWidth />
       </div>
       <EuiSpacer />
       <EditButton />
