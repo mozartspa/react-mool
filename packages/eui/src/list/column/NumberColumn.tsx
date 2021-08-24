@@ -1,23 +1,6 @@
 import { useLocale } from "@react-mool/core"
+import { formatNumber } from "../../helpers/formatNumber"
 import { ColumnComponentProps } from "./Column"
-
-const hasNumberFormat = !!(
-  typeof Intl === "object" &&
-  Intl &&
-  typeof Intl.NumberFormat === "function"
-)
-
-function formatNumber(
-  value: number,
-  locale: string | string[],
-  formatOptions?: Intl.NumberFormatOptions
-) {
-  if (hasNumberFormat) {
-    return value.toLocaleString(locale, formatOptions)
-  } else {
-    return value
-  }
-}
 
 export type NumberColumnProps = ColumnComponentProps & {
   locale?: string | string[]
