@@ -1,8 +1,8 @@
 import { useLocale } from "@react-mool/core"
 import { formatNumber } from "../../helpers/formatNumber"
-import { ColumnComponentProps } from "./Column"
+import { ColumnProps } from "./Column"
 
-export type NumberColumnProps = ColumnComponentProps & {
+export type NumberColumnProps = ColumnProps & {
   locale?: string | string[]
   formatOptions?: Intl.NumberFormatOptions
 }

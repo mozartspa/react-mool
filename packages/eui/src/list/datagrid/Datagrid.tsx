@@ -23,7 +23,7 @@ import {
   useRef,
 } from "react"
 import isEqual from "react-fast-compare"
-import { ColumnComponentProps } from "../column"
+import { ColumnProps } from "../column"
 import { DatagridAction } from "./actions"
 import { Toolbar } from "./Toolbar"
 import {
@@ -68,7 +68,7 @@ export type DatagridRowProps = {
 }
 
 export type DatagridProps<TRecord = any> = {
-  columns?: ReactElement<ColumnComponentProps>[]
+  columns?: ReactElement<ColumnProps>[]
   rowClick?: DatagridRowClick<TRecord>
   rowProps?: (item: TRecord) => object
   sortable?: boolean

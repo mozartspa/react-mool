@@ -3,12 +3,12 @@ import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
 import get from "dlv"
 import { cloneElement, ReactElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
-import { ColumnComponentProps } from "../column"
+import { ColumnProps } from "../column"
 import { DatagridAction } from "./actions"
 import { DatagridRowClick } from "./Datagrid"
 
 export function toEuiColumn(
-  col: ReactElement<ColumnComponentProps>,
+  col: ReactElement<ColumnProps>,
   resource: string,
   translate: UseTranslateResult
 ): EuiBasicTableColumn<any> {
@@ -179,7 +179,7 @@ export function getDefaultRowClick(
 
 export function getSortField(
   sortField: string,
-  columns: ReactElement<ColumnComponentProps>[] | undefined
+  columns: ReactElement<ColumnProps>[] | undefined
 ) {
   const col = columns?.find((o) => o.props.name === sortField)
   if (col && col.props.sortable && typeof col.props.sortable === "string") {
@@ -191,7 +191,7 @@ export function getSortField(
 
 export function getEuiSortField(
   sortField: string,
-  columns: ReactElement<ColumnComponentProps>[] | undefined
+  columns: ReactElement<ColumnProps>[] | undefined
 ) {
   const col = columns?.find((o) => o.props.sortable === sortField)
   if (col) {

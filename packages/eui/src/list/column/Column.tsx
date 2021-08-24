@@ -24,10 +24,10 @@ export type ColumnRenderProps<TValue = any, TRecord = any> = {
   isMobile?: boolean
 }
 
-export type ColumnComponentProps<TValue = any, TRecord = any> = ColumnBaseProps &
+export type ColumnProps<TValue = any, TRecord = any> = ColumnBaseProps &
   ColumnRenderProps<TValue, TRecord>
 
-export type ColumnProps<TValue = any, TRecord = any> = ColumnComponentProps<
+export type ColumnComponentProps<TValue = any, TRecord = any> = ColumnProps<
   TValue,
   TRecord
 > & {
@@ -38,7 +38,7 @@ export type ColumnProps<TValue = any, TRecord = any> = ColumnComponentProps<
   ) => ReactNode
 }
 
-export const Column = (props: ColumnProps) => {
+export const Column = (props: ColumnComponentProps) => {
   const { value, record, isMobile, children } = props
 
   return <>{children ? children(value, record, !!isMobile) : formatAuto(value)}</>

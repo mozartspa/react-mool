@@ -1,7 +1,7 @@
 import { formatText } from "@elastic/eui"
-import { ColumnComponentProps } from "./Column"
+import { ColumnProps } from "./Column"
 
-export type TextColumnProps = ColumnComponentProps
+export type TextColumnProps = ColumnProps
 
 export const TextColumn = (props: TextColumnProps) => {
   const { value } = props
