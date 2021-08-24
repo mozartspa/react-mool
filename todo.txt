@@ -2,8 +2,6 @@ CORE:
 - custom routes (with/without layout, with/without authentication required)
 
 EUI:
-- fix props naming in columns and input (as in value)
-- fix return url issue
 - prop system?
 
 - catchAll
