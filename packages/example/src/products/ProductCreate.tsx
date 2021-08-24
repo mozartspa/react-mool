@@ -24,7 +24,7 @@ const initialValues = {
 
 export const ProductCreate = observer(() => {
   return (
-    <Create initialValues={initialValues} redirectTo="detail">
+    <Create initialValues={initialValues}>
       <CreateHeader showHorizontalRule />
       <div style={{ maxWidth: 900 }}>
         <Row>
