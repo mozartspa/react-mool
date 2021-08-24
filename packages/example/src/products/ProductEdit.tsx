@@ -30,7 +30,7 @@ function initialValues(data: Product): ProductUpdateInput {
   }
 }
 
-export const ProductUpdate = () => {
+export const ProductEdit = () => {
   return (
     <Edit initialValues={initialValues}>
       <EditHeader actions={[<DeleteButton />]} />
