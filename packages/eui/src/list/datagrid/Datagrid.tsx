@@ -1,5 +1,5 @@
 import {
-  CriteriaWithPagination,
+  Criteria,
   EuiBasicTable,
   EuiSpacer,
   EuiTableDataType,
@@ -80,6 +80,13 @@ export type DatagridProps<TRecord = any> = {
   responsive?: boolean
   scrollToTop?: boolean
   scrollToTopOffset?: number
+  showPagination?: boolean
+  showTopPagination?: boolean
+  showBottomPagination?: boolean
+  showPageSize?: boolean
+  showToolbar?: boolean
+  showBulkActions?: boolean
+  showSelectedCount?: boolean
 }
 
 export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
@@ -95,6 +102,13 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     responsive,
     scrollToTop = true,
     scrollToTopOffset = 50,
+    showPagination = true,
+    showTopPagination = true,
+    showBottomPagination = true,
+    showPageSize = true,
+    showToolbar = true,
+    showBulkActions = bulkActions ? true : false,
+    showSelectedCount = selectableProp ? true : false,
   } = props
 
   const {
@@ -128,9 +142,11 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
 
   // handle EuiBasicTable onChange
   const handleChange = useCallback(
-    ({ page, sort }: CriteriaWithPagination<any>) => {
-      setPage(page.index + 1)
-      setPageSize(page.size)
+    ({ page, sort }: Criteria<any>) => {
+      if (page) {
+        setPage(page.index + 1)
+        setPageSize(page.size)
+      }
       if (sort) {
         setSort(getSortField(String(sort.field), columnsProp), sort.direction)
       }
@@ -236,21 +252,35 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
   return (
     <div>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
-      <Toolbar
-        page={page}
-        pageSize={pageSize}
-        total={total}
-        selectedItems={selectedItems}
-        bulkActions={bulkActions}
-        onChangePage={handleChangePage}
-      />
-      <EuiSpacer size="l" />
+      {showToolbar && (
+        <Toolbar
+          page={page}
+          pageSize={pageSize}
+          total={total}
+          selectedItems={selectedItems}
+          bulkActions={bulkActions}
+          onChangePage={handleChangePage}
+          showBulkActions={showBulkActions}
+          showPagination={showPagination && showTopPagination}
+          showSelectedCount={showSelectedCount}
+        />
+      )}
+      {showToolbar && <EuiSpacer size="l" />}
       <EuiBasicTable
         ref={tableRef}
         items={items}
         columns={actions ? [...columns, { actions }] : columns}
         loading={isLoading}
-        pagination={{ pageIndex: page - 1, pageSize, totalItemCount: total }}
+        pagination={
+          showPagination && showBottomPagination
+            ? {
+                pageIndex: page - 1,
+                pageSize,
+                totalItemCount: total,
+                hidePerPageOptions: !showPageSize,
+              }
+            : undefined
+        }
         sorting={{
           sort: {
             field: getEuiSortField(sortField, columnsProp) as any,
