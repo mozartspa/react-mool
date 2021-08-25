@@ -3,6 +3,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiSelectableOption,
+  EuiShowFor,
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
 import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
@@ -117,15 +118,17 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
     }
   }, [])
 
-  return (
-    <form.FormContext>
-      <EuiFlexGroup>
+  const renderBar = (isMobile: boolean) => {
+    return (
+      <EuiFlexGroup responsive={false}>
         <EuiFlexItem grow={true}>
-          <EuiFlexGroup>
+          <EuiFlexGroup gutterSize={isMobile ? "none" : "l"}>
             {shownFilters.map((filter, i) => (
               <EuiFlexItem key={filter.props.name || i} grow={filter.props.grow || false}>
-                <EuiFlexGroup alignItems="center" gutterSize="xs">
-                  <EuiFlexItem>{filter}</EuiFlexItem>
+                <EuiFlexGroup alignItems="center" gutterSize="xs" responsive={false}>
+                  <EuiFlexItem grow={isMobile ? true : filter.props.grow || false}>
+                    {filter}
+                  </EuiFlexItem>
 
                   {!filter.props.alwaysOn && (
                     <EuiFlexItem grow={false}>
@@ -150,6 +153,13 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
           />
         </EuiFlexItem>
       </EuiFlexGroup>
+    )
+  }
+
+  return (
+    <form.FormContext>
+      <EuiShowFor sizes={["s", "m", "l", "xl"]}>{renderBar(false)}</EuiShowFor>
+      <EuiShowFor sizes={["xs"]}>{renderBar(true)}</EuiShowFor>
     </form.FormContext>
   )
 }
