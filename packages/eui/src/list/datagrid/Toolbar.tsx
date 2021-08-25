@@ -28,10 +28,23 @@ export type ToolbarProps<TRecord = any> = {
   selectedItems: TRecord[]
   bulkActions?: DatagridAction<TRecord>[]
   onChangePage?: (page: number) => void
+  showBulkActions?: boolean
+  showPagination?: boolean
+  showSelectedCount?: boolean
 }
 
 export const Toolbar = (props: ToolbarProps) => {
-  const { total, page, pageSize, selectedItems, bulkActions = [], onChangePage } = props
+  const {
+    total,
+    page,
+    pageSize,
+    selectedItems,
+    bulkActions = [],
+    onChangePage,
+    showBulkActions = true,
+    showPagination = true,
+    showSelectedCount = true,
+  } = props
 
   const translate = useTranslate()
 
@@ -49,27 +62,36 @@ export const Toolbar = (props: ToolbarProps) => {
       <EuiFlexItem grow={false}>
         <EuiText color="subdued" size="xs">
           <span style={{ whiteSpace: "nowrap" }}>{showingLabel}</span>
-          <span style={{ paddingLeft: 8, paddingRight: 8 }}>|</span>
-          <span style={{ whiteSpace: "nowrap" }}>
-            {selectedLabel} {selectedCount === 0 ? "0" : <strong>{selectedCount}</strong>}
-          </span>
+          {showSelectedCount && (
+            <span style={{ paddingLeft: 8, paddingRight: 8 }}>|</span>
+          )}
+          {showSelectedCount && (
+            <span style={{ whiteSpace: "nowrap" }}>
+              {selectedLabel}{" "}
+              {selectedCount === 0 ? "0" : <strong>{selectedCount}</strong>}
+            </span>
+          )}
         </EuiText>
       </EuiFlexItem>
 
-      <EuiFlexItem grow={false}>
-        <BulkActions actions={bulkActions} selectedItems={selectedItems} />
-      </EuiFlexItem>
-
-      <EuiHideFor sizes={["xs"]}>
-        <EuiFlexItem grow={true}>
-          <EuiTablePagination
-            activePage={page - 1}
-            pageCount={pageCount}
-            hidePerPageOptions={true}
-            onChangePage={onChangePage}
-          />
+      {showBulkActions && (
+        <EuiFlexItem grow={false}>
+          <BulkActions actions={bulkActions} selectedItems={selectedItems} />
         </EuiFlexItem>
-      </EuiHideFor>
+      )}
+
+      {showPagination && (
+        <EuiHideFor sizes={["xs"]}>
+          <EuiFlexItem grow={true}>
+            <EuiTablePagination
+              activePage={page - 1}
+              pageCount={pageCount}
+              hidePerPageOptions={true}
+              onChangePage={onChangePage}
+            />
+          </EuiFlexItem>
+        </EuiHideFor>
+      )}
     </EuiFlexGroup>
   )
 }
