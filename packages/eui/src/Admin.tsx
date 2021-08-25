@@ -5,9 +5,13 @@ import {
   AdminRouter,
   AdminRouterProps,
 } from "@react-mool/core"
+import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.css"
 import { Layout } from "./layout/Layout"
 import { Login } from "./login"
+
+// apply smoothscroll polyfill
+smoothscroll.polyfill()
 
 export type AdminProps = AdminContextProps & AdminRouterProps
 
