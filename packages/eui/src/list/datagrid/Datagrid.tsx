@@ -126,6 +126,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     ? actionsProp.map((action) => toEuiAction(action))
     : undefined
 
+  // handle EuiBasicTable onChange
   const handleChange = useCallback(
     ({ page, sort }: CriteriaWithPagination<any>) => {
       setPage(page.index + 1)
@@ -135,6 +136,14 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
       }
     },
     [setPage, setPageSize, setSort, columnsProp]
+  )
+
+  // handle Toolbar onChangePage
+  const handleChangePage = useCallback(
+    (page: number) => {
+      setPage(page + 1)
+    },
+    [setPage]
   )
 
   const rowClick = getDefaultRowClick(rowClickProp, resourceDefinition)
@@ -233,6 +242,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         total={total}
         selectedItems={selectedItems}
         bulkActions={bulkActions}
+        onChangePage={handleChangePage}
       />
       <EuiSpacer size="l" />
       <EuiBasicTable

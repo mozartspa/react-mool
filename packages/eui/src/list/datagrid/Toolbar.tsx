@@ -1,4 +1,4 @@
-import { EuiFlexGroup, EuiFlexItem, EuiText } from "@elastic/eui"
+import { EuiFlexGroup, EuiFlexItem, EuiTablePagination, EuiText } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { t } from "../../i18n"
 import { DatagridAction } from "./actions"
@@ -21,10 +21,11 @@ export type ToolbarProps<TRecord = any> = {
   pageSize: number
   selectedItems: TRecord[]
   bulkActions?: DatagridAction<TRecord>[]
+  onChangePage?: (page: number) => void
 }
 
 export const Toolbar = (props: ToolbarProps) => {
-  const { total, page, pageSize, selectedItems, bulkActions = [] } = props
+  const { total, page, pageSize, selectedItems, bulkActions = [], onChangePage } = props
 
   const translate = useTranslate()
 
@@ -35,6 +36,7 @@ export const Toolbar = (props: ToolbarProps) => {
 
   const selectedLabel = translate(t.eui.grid.selected)
   const selectedCount = selectedItems.length
+  const pageCount = Math.ceil(total / pageSize)
 
   return (
     <EuiFlexGroup alignItems="center">
@@ -48,6 +50,15 @@ export const Toolbar = (props: ToolbarProps) => {
 
       <EuiFlexItem grow={false}>
         <BulkActions actions={bulkActions} selectedItems={selectedItems} />
+      </EuiFlexItem>
+
+      <EuiFlexItem grow={true}>
+        <EuiTablePagination
+          activePage={page - 1}
+          pageCount={pageCount}
+          hidePerPageOptions={true}
+          onChangePage={onChangePage}
+        />
       </EuiFlexItem>
     </EuiFlexGroup>
   )
