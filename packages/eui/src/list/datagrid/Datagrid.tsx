@@ -23,6 +23,7 @@ import {
   useRef,
 } from "react"
 import isEqual from "react-fast-compare"
+import { useUpdateEffect } from "rooks"
 import { ColumnProps } from "../column"
 import { DatagridAction } from "./actions"
 import { Toolbar } from "./Toolbar"
@@ -77,6 +78,8 @@ export type DatagridProps<TRecord = any> = {
   bulkActions?: DatagridAction<TRecord>[]
   empty?: ReactNode
   responsive?: boolean
+  scrollToTop?: boolean
+  scrollToTopOffset?: number
 }
 
 export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
@@ -90,6 +93,8 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     bulkActions,
     empty,
     responsive,
+    scrollToTop = true,
+    scrollToTopOffset = 50,
   } = props
 
   const {
@@ -121,6 +126,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     ? actionsProp.map((action) => toEuiAction(action))
     : undefined
 
+  // handle EuiBasicTable onChange
   const handleChange = useCallback(
     ({ page, sort }: CriteriaWithPagination<any>) => {
       setPage(page.index + 1)
@@ -130,6 +136,14 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
       }
     },
     [setPage, setPageSize, setSort, columnsProp]
+  )
+
+  // handle Toolbar onChangePage
+  const handleChangePage = useCallback(
+    (page: number) => {
+      setPage(page + 1)
+    },
+    [setPage]
   )
 
   const rowClick = getDefaultRowClick(rowClickProp, resourceDefinition)
@@ -209,14 +223,26 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     tableRef.current?.setSelection(selectedItems)
   }, [tableRef.current, selectedItems])
 
+  // Top ref
+  const topRef = useRef<HTMLDivElement>(null)
+
+  // When page changes, scroll to the top
+  useUpdateEffect(() => {
+    if (scrollToTop && topRef.current) {
+      topRef.current.scrollIntoView({ block: "nearest", behavior: "smooth" })
+    }
+  }, [page])
+
   return (
-    <>
+    <div>
+      <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
       <Toolbar
         page={page}
         pageSize={pageSize}
         total={total}
         selectedItems={selectedItems}
         bulkActions={bulkActions}
+        onChangePage={handleChangePage}
       />
       <EuiSpacer size="l" />
       <EuiBasicTable
@@ -239,6 +265,6 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         noItemsMessage={empty}
         responsive={responsive}
       />
-    </>
+    </div>
   )
 }

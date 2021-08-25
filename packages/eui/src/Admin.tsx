@@ -5,25 +5,28 @@ import {
   AdminRouter,
   AdminRouterProps,
 } from "@react-mool/core"
-import { ComponentType, ReactNode } from "react"
+import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.css"
 import { Layout } from "./layout/Layout"
 import { Login } from "./login"
 
-export type AdminProps = AdminContextProps &
-  AdminRouterProps & {
-    layout?: ComponentType
-    children?: ReactNode
-  }
+// apply smoothscroll polyfill
+smoothscroll.polyfill()
+
+export type AdminProps = AdminContextProps & AdminRouterProps
 
 export const Admin = (props: AdminProps) => {
-  const { layout, children, loginPage = Login, ...coreProps } = props
+  const { layout, children, loginPage = Login, autoScrollToTop, ...coreProps } = props
 
   const AppLayout = layout ?? Layout
 
   return (
     <AdminContext {...coreProps}>
-      <AdminRouter layout={AppLayout} loginPage={loginPage}>
+      <AdminRouter
+        layout={AppLayout}
+        loginPage={loginPage}
+        autoScrollToTop={autoScrollToTop}
+      >
         {children}
       </AdminRouter>
     </AdminContext>

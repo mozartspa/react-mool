@@ -9,3 +9,8 @@
 .euiBody--headerIsFixed .euiOverlayMask--belowHeader {
   top: 48px;
 }
+
+/* disable focus outline on table (Safari) */
+.euiTable:focus {
+  outline: none;
+}
