@@ -1,4 +1,10 @@
-import { EuiFlexGroup, EuiFlexItem, EuiTablePagination, EuiText } from "@elastic/eui"
+import {
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiHideFor,
+  EuiTablePagination,
+  EuiText,
+} from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { t } from "../../i18n"
 import { DatagridAction } from "./actions"
@@ -39,12 +45,14 @@ export const Toolbar = (props: ToolbarProps) => {
   const pageCount = Math.ceil(total / pageSize)
 
   return (
-    <EuiFlexGroup alignItems="center">
+    <EuiFlexGroup alignItems="center" responsive={false}>
       <EuiFlexItem grow={false}>
         <EuiText color="subdued" size="xs">
-          {showingLabel}
+          <span style={{ whiteSpace: "nowrap" }}>{showingLabel}</span>
           <span style={{ paddingLeft: 8, paddingRight: 8 }}>|</span>
-          {selectedLabel} {selectedCount === 0 ? "0" : <strong>{selectedCount}</strong>}
+          <span style={{ whiteSpace: "nowrap" }}>
+            {selectedLabel} {selectedCount === 0 ? "0" : <strong>{selectedCount}</strong>}
+          </span>
         </EuiText>
       </EuiFlexItem>
 
@@ -52,14 +60,16 @@ export const Toolbar = (props: ToolbarProps) => {
         <BulkActions actions={bulkActions} selectedItems={selectedItems} />
       </EuiFlexItem>
 
-      <EuiFlexItem grow={true}>
-        <EuiTablePagination
-          activePage={page - 1}
-          pageCount={pageCount}
-          hidePerPageOptions={true}
-          onChangePage={onChangePage}
-        />
-      </EuiFlexItem>
+      <EuiHideFor sizes={["xs"]}>
+        <EuiFlexItem grow={true}>
+          <EuiTablePagination
+            activePage={page - 1}
+            pageCount={pageCount}
+            hidePerPageOptions={true}
+            onChangePage={onChangePage}
+          />
+        </EuiFlexItem>
+      </EuiHideFor>
     </EuiFlexGroup>
   )
 }
