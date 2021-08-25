@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 
 function shouldScroll(location: Location<any>, action: Action) {
-  if (location.state?._scrollToTop === false) {
+  if (location.state?.scrollToTop === false) {
     return false
   }
 
@@ -23,7 +23,7 @@ export function ScrollToTop() {
         window.scrollTo({
           left: 0,
           top: 0,
-          behavior: location.state?._scrollToTopBehavior,
+          behavior: location.state?.scrollToTopBehavior,
         })
       }
     })

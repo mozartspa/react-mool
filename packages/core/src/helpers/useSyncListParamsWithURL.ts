@@ -125,7 +125,7 @@ export function useSyncListParamsWithURL(options: UseSyncListParamsWithURLOption
         search,
         state: {
           // Disable scrollToTop when changing location
-          _scrollToTop: false,
+          scrollToTop: false,
         },
       })
     }
