@@ -23,6 +23,7 @@ import {
   useRef,
 } from "react"
 import isEqual from "react-fast-compare"
+import { useUpdateEffect } from "rooks"
 import { ColumnProps } from "../column"
 import { DatagridAction } from "./actions"
 import { Toolbar } from "./Toolbar"
@@ -77,6 +78,8 @@ export type DatagridProps<TRecord = any> = {
   bulkActions?: DatagridAction<TRecord>[]
   empty?: ReactNode
   responsive?: boolean
+  scrollToTop?: boolean
+  scrollToTopOffset?: number
 }
 
 export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
@@ -90,6 +93,8 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     bulkActions,
     empty,
     responsive,
+    scrollToTop = true,
+    scrollToTopOffset = 50,
   } = props
 
   const {
@@ -209,8 +214,19 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     tableRef.current?.setSelection(selectedItems)
   }, [tableRef.current, selectedItems])
 
+  // Top ref
+  const topRef = useRef<HTMLDivElement>(null)
+
+  // When page changes, scroll to the top
+  useUpdateEffect(() => {
+    if (scrollToTop && topRef.current) {
+      topRef.current.scrollIntoView({ block: "nearest", behavior: "smooth" })
+    }
+  }, [page])
+
   return (
-    <>
+    <div>
+      <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
       <Toolbar
         page={page}
         pageSize={pageSize}
@@ -239,6 +255,6 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         noItemsMessage={empty}
         responsive={responsive}
       />
-    </>
+    </div>
   )
 }
