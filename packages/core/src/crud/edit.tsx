@@ -10,7 +10,7 @@ import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
-import { ResourceContext, useResource, useResourceDefinition } from "../resource"
+import { ResourceContext, useResource } from "../resource"
 import { getRedirectTo, getSuccessMessage } from "./helpers"
 import {
   LoadErrorHandler,
@@ -82,7 +82,6 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
   } = options
 
   const resource = useResource(resourceOpt)
-  const resourceDef = useResourceDefinition(resource)
   const { id: idParam } = useParams<{ id: string }>()
   const id = idOpt || idParam
 
