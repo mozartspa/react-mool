@@ -1,14 +1,20 @@
-import { EuiButton, EuiButtonProps } from "@elastic/eui"
+import {
+  EuiButton,
+  EuiButtonIcon,
+  EuiButtonIconProps,
+  EuiButtonProps,
+} from "@elastic/eui"
 import { RecordID, useRedirectLink, useResource, useTranslate } from "@react-mool/core"
 import { t } from "../i18n"
+import { BaseButtonProps } from "./BaseButtonProps"
 
-export type EditButtonProps = EuiButtonProps & {
+export type EditButtonProps = BaseButtonProps & {
   resource?: string
   id?: RecordID
 }
 
 export const EditButton = (props: EditButtonProps) => {
-  const { resource: resourceProp, id, children, ...buttonProps } = props
+  const { resource: resourceProp, id, children, asIcon, ...buttonProps } = props
 
   const resource = useResource(resourceProp)
   const link = useRedirectLink({ resource })
@@ -18,9 +24,27 @@ export const EditButton = (props: EditButtonProps) => {
     defaultValue: translate(t.eui.action.edit),
   })
 
-  return (
-    <EuiButton fill={true} iconType="pencil" {...link("edit", { id })} {...buttonProps}>
-      {children ?? label}
-    </EuiButton>
-  )
+  if (asIcon) {
+    return (
+      <EuiButtonIcon
+        iconType="pencil"
+        display="base"
+        size="m"
+        aria-label={label}
+        {...link("edit", { id })}
+        {...(buttonProps as Partial<EuiButtonIconProps>)}
+      />
+    )
+  } else {
+    return (
+      <EuiButton
+        fill={true}
+        iconType="pencil"
+        {...link("edit", { id })}
+        {...(buttonProps as Partial<EuiButtonProps>)}
+      >
+        {children ?? label}
+      </EuiButton>
+    )
+  }
 }

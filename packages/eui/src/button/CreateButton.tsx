@@ -1,4 +1,9 @@
-import { EuiButton, EuiButtonProps } from "@elastic/eui"
+import {
+  EuiButton,
+  EuiButtonIcon,
+  EuiButtonIconProps,
+  EuiButtonProps,
+} from "@elastic/eui"
 import {
   useGetResourceLabel,
   useRedirectLink,
@@ -6,13 +11,14 @@ import {
   useTranslate,
 } from "@react-mool/core"
 import { t } from "../i18n"
+import { BaseButtonProps } from "./BaseButtonProps"
 
-export type CreateButtonProps = EuiButtonProps & {
+export type CreateButtonProps = BaseButtonProps & {
   resource?: string
 }
 
 export const CreateButton = (props: CreateButtonProps) => {
-  const { resource: resourceProp, children, ...buttonProps } = props
+  const { resource: resourceProp, children, asIcon, ...buttonProps } = props
 
   const resource = useResource(resourceProp)
   const link = useRedirectLink({ resource })
@@ -23,14 +29,27 @@ export const CreateButton = (props: CreateButtonProps) => {
     defaultValue: `${translate(t.eui.action.create)} ${getResourceLabel(resource)}`,
   })
 
-  return (
-    <EuiButton
-      fill={true}
-      iconType="plusInCircleFilled"
-      {...link("create")}
-      {...buttonProps}
-    >
-      {children ?? label}
-    </EuiButton>
-  )
+  if (asIcon) {
+    return (
+      <EuiButtonIcon
+        iconType="plusInCircleFilled"
+        display="base"
+        size="m"
+        aria-label={label}
+        {...link("create")}
+        {...(buttonProps as Partial<EuiButtonIconProps>)}
+      />
+    )
+  } else {
+    return (
+      <EuiButton
+        fill={true}
+        iconType="plusInCircleFilled"
+        {...link("create")}
+        {...(buttonProps as Partial<EuiButtonProps>)}
+      >
+        {children ?? label}
+      </EuiButton>
+    )
+  }
 }

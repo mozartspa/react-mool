@@ -1,4 +1,9 @@
-import { EuiButton, EuiButtonProps } from "@elastic/eui"
+import {
+  EuiButton,
+  EuiButtonIcon,
+  EuiButtonIconProps,
+  EuiButtonProps,
+} from "@elastic/eui"
 import {
   RecordID,
   RedirectToPage,
@@ -14,8 +19,9 @@ import { useCallback } from "react"
 import { useConfirmation } from "../confirm"
 import { logError } from "../helpers/console"
 import { t } from "../i18n"
+import { BaseButtonProps } from "./BaseButtonProps"
 
-export type DeleteButtonProps = EuiButtonProps & {
+export type DeleteButtonProps = BaseButtonProps & {
   resource?: string
   id?: RecordID
   redirectTo?: RedirectToPage | false
@@ -27,6 +33,8 @@ export const DeleteButton = (props: DeleteButtonProps) => {
     id,
     redirectTo = "list",
     children,
+    asIcon,
+    color,
     ...buttonProps
   } = props
 
@@ -85,9 +93,27 @@ export const DeleteButton = (props: DeleteButtonProps) => {
     defaultValue: `${translate(t.eui.action.delete)}`,
   })
 
-  return (
-    <EuiButton color="danger" onClick={handleDelete} {...buttonProps}>
-      {children ?? label}
-    </EuiButton>
-  )
+  if (asIcon) {
+    return (
+      <EuiButtonIcon
+        color="danger"
+        onClick={handleDelete}
+        iconType="trash"
+        display="base"
+        size="m"
+        aria-label={label}
+        {...(buttonProps as Partial<EuiButtonIconProps>)}
+      />
+    )
+  } else {
+    return (
+      <EuiButton
+        color="danger"
+        onClick={handleDelete}
+        {...(buttonProps as Partial<EuiButtonProps>)}
+      >
+        {children ?? label}
+      </EuiButton>
+    )
+  }
 }
