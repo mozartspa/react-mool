@@ -125,8 +125,11 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
         const message = getSuccessMessage(successMessage, record, t.core.crud.updated)
         notify(message, { type: "success" })
 
-        const defaultRedirectTo = resourceDef.detail ? "detail" : "list"
-        const redirectArgs = getRedirectTo(redirectTo ?? defaultRedirectTo)
+        // Reset form values with the new values returned by the mutation
+        form.reset(getInitialValues(initialValuesOpt, record))
+
+        // By default it does not redirect anywhere
+        const redirectArgs = getRedirectTo(redirectTo ?? false)
 
         if (redirectArgs) {
           redirect(redirectArgs.to, {
