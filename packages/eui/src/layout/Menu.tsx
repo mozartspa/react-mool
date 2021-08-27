@@ -1,13 +1,25 @@
 import { EuiCollapsibleNavGroup, EuiListGroup, EuiListGroupItemProps } from "@elastic/eui"
-import { useGetResourceLabel, useResourceDefinitionList } from "@react-mool/core"
+import {
+  useGetResourceLabel,
+  useResourceDefinitionList,
+  useTranslate,
+} from "@react-mool/core"
 import { useLinkProps } from "../helpers/useLinkProps"
+import { t } from "../i18n"
 
-export const Menu = () => {
+export type MenuProps = {
+  hasDashboard?: boolean
+}
+
+export const Menu = (props: MenuProps) => {
+  const { hasDashboard } = props
+
   const getLinkProps = useLinkProps()
   const resources = useResourceDefinitionList()
   const getResourceLabel = useGetResourceLabel()
+  const translate = useTranslate()
 
-  const listItems: EuiListGroupItemProps[] = resources
+  const resourceItems: EuiListGroupItemProps[] = resources
     .filter((def) => def.list != null)
     .map((def) => ({
       label: getResourceLabel(def.name, 2),
@@ -15,10 +27,18 @@ export const Menu = () => {
       ...getLinkProps(`/${def.name}`),
     }))
 
+  const dashboardItem: EuiListGroupItemProps = {
+    label: translate(t.eui.layout.dashboard),
+    iconType: "dashboardApp",
+    ...getLinkProps("/"),
+  }
+
+  const menuItems = hasDashboard ? [dashboardItem, ...resourceItems] : resourceItems
+
   return (
     <EuiCollapsibleNavGroup background="light">
       <EuiListGroup
-        listItems={listItems}
+        listItems={menuItems}
         maxWidth="none"
         color="text"
         gutterSize="none"

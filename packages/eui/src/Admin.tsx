@@ -29,6 +29,7 @@ export const Admin = (props: AdminProps) => {
     layout,
     children,
     loginPage = <Login />,
+    dashboard,
     customRoutes,
     catchAll = <NotFound />,
     autoScrollToTop,
@@ -48,6 +49,7 @@ export const Admin = (props: AdminProps) => {
         <AdminRouter
           layout={AppLayout}
           loginPage={loginPage}
+          dashboard={dashboard}
           customRoutes={customRoutes}
           catchAll={catchAll}
           autoScrollToTop={autoScrollToTop}

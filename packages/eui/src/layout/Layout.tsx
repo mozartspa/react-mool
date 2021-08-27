@@ -5,7 +5,8 @@ import { Menu } from "./Menu"
 import { Notifications } from "./Notifications"
 
 export type LayoutProps = {
-  menu?: ComponentType
+  hasDashboard?: boolean
+  menu?: ComponentType<{ hasDashboard?: boolean }>
   menuSize?: number
   appLogo?: IconType
   appTitle?: ReactNode
@@ -13,14 +14,14 @@ export type LayoutProps = {
 }
 
 export const Layout = (props: LayoutProps) => {
-  const { menu, menuSize, appLogo, appTitle, children } = props
+  const { hasDashboard, menu, menuSize, appLogo, appTitle, children } = props
 
   const MenuComp = menu || Menu
 
   return (
     <>
       <Header
-        menu={<MenuComp />}
+        menu={<MenuComp hasDashboard={hasDashboard} />}
         menuSize={menuSize}
         appLogo={appLogo}
         appTitle={appTitle}

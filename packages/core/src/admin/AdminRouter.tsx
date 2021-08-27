@@ -1,13 +1,14 @@
 import React, { ComponentType, ReactElement, ReactNode } from "react"
-import { Route, Switch } from "react-router-dom"
+import { Redirect, Route, Switch } from "react-router-dom"
 import { Authenticated } from "../auth"
 import { CustomRouteProps } from "../customRoute"
 import { ResourceRoutes, useResourceDefinitionList } from "../resource"
 import { ScrollToTop } from "./ScrollToTop"
 
 export type AdminRouterProps = {
-  layout?: ComponentType
+  layout?: ComponentType<{ hasDashboard?: boolean }>
   loginPage?: ReactNode
+  dashboard?: ReactNode
   customRoutes?: ReactElement<CustomRouteProps>[]
   catchAll?: ReactNode
   autoScrollToTop?: boolean
@@ -18,6 +19,7 @@ export const AdminRouter = (props: AdminRouterProps) => {
   const {
     layout,
     loginPage,
+    dashboard,
     customRoutes = [],
     catchAll,
     autoScrollToTop = true,
@@ -42,6 +44,17 @@ export const AdminRouter = (props: AdminRouterProps) => {
     </Route>
   ))
 
+  const redirectToFirstResource =
+    resourceDefinitions.length > 0 ? (
+      <Redirect to={`/${resourceDefinitions[0].name}`} />
+    ) : null
+
+  const dashboardRoute = (
+    <Route path="/" exact>
+      {!!dashboard ? dashboard : redirectToFirstResource}
+    </Route>
+  )
+
   return (
     <>
       {!!autoScrollToTop && <ScrollToTop />}
@@ -50,9 +63,10 @@ export const AdminRouter = (props: AdminRouterProps) => {
         {!!loginPage && <Route path="/login">{loginPage}</Route>}
         <Route>
           <Authenticated>
-            <Layout>
+            <Layout hasDashboard={!!dashboard}>
               <Switch>
                 {customRoutesWithLayout}
+                {dashboardRoute}
                 {resourceRoutes}
                 {!!catchAll && <Route>{catchAll}</Route>}
               </Switch>
