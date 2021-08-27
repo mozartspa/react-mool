@@ -19,6 +19,7 @@ import { useStorage } from "../helpers/useStorage"
 import { useSyncListParamsWithURL } from "../helpers/useSyncListParamsWithURL"
 import { useNotify } from "../notify"
 import { ResourceContext, useResource } from "../resource"
+import { CrudModeProvider } from "./crudMode"
 import { useFilterStack, UseFilterStackAdd } from "./filter"
 import { LoadListErrorHandler, LoadListSuccessHandler } from "./types"
 
@@ -280,7 +281,9 @@ export const ListBase = (options: ListBaseProps) => {
 
   return (
     <ResourceContext.Provider value={list.resource}>
-      <ListContext.Provider value={list}>{body}</ListContext.Provider>
+      <CrudModeProvider mode="list">
+        <ListContext.Provider value={list}>{body}</ListContext.Provider>
+      </CrudModeProvider>
     </ResourceContext.Provider>
   )
 }

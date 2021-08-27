@@ -8,6 +8,7 @@ import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
 import { ResourceContext, useResource, useResourceDefinition } from "../resource"
+import { CrudModeProvider } from "./crudMode"
 import { getRedirectTo, getSuccessMessage } from "./helpers"
 import { SaveErrorHandler, SaveSuccessHandler } from "./types"
 
@@ -164,9 +165,11 @@ export const CreateBase = observer((options: CreateBaseProps) => {
 
   return (
     <ResourceContext.Provider value={create.resource}>
-      <CreateFormContext.Provider value={create}>
-        <FormContext.Provider value={create.form}>{body}</FormContext.Provider>
-      </CreateFormContext.Provider>
+      <CrudModeProvider mode="create">
+        <CreateFormContext.Provider value={create}>
+          <FormContext.Provider value={create.form}>{body}</FormContext.Provider>
+        </CreateFormContext.Provider>
+      </CrudModeProvider>
     </ResourceContext.Provider>
   )
 })

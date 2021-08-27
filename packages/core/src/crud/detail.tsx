@@ -8,6 +8,7 @@ import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { useRedirect } from "../redirect"
 import { ResourceContext, useResource } from "../resource"
+import { CrudModeProvider } from "./crudMode"
 import { LoadErrorHandler, LoadSuccessHandler } from "./types"
 
 export type UseDetailOptions<TRecord = any> = {
@@ -99,11 +100,13 @@ export const DetailBase = observer((options: DetailBaseProps) => {
 
   return (
     <ResourceContext.Provider value={detail.resource}>
-      <DetailContext.Provider value={detail}>
-        <RecordContextProvider record={detail.record} id={detail.id}>
-          {body}
-        </RecordContextProvider>
-      </DetailContext.Provider>
+      <CrudModeProvider mode="detail">
+        <DetailContext.Provider value={detail}>
+          <RecordContextProvider record={detail.record} id={detail.id}>
+            {body}
+          </RecordContextProvider>
+        </DetailContext.Provider>
+      </CrudModeProvider>
     </ResourceContext.Provider>
   )
 })
