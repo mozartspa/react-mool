@@ -5,30 +5,46 @@ import {
   AdminRouter,
   AdminRouterProps,
 } from "@react-mool/core"
+import React from "react"
 import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.css"
+import { ErrorBoundary } from "./error"
 import { Layout } from "./layout/Layout"
 import { Login } from "./login"
 
 // apply smoothscroll polyfill
 smoothscroll.polyfill()
 
-export type AdminProps = AdminContextProps & AdminRouterProps
+export type AdminProps = AdminContextProps &
+  AdminRouterProps & {
+    errorBoundary?: false | React.ComponentType
+  }
 
 export const Admin = (props: AdminProps) => {
-  const { layout, children, loginPage = Login, autoScrollToTop, ...coreProps } = props
+  const {
+    layout,
+    children,
+    loginPage = Login,
+    autoScrollToTop,
+    errorBoundary: errorBoundaryProp,
+    ...coreProps
+  } = props
 
   const AppLayout = layout ?? Layout
+  const AppErrorBoundary =
+    errorBoundaryProp === false ? React.Fragment : errorBoundaryProp ?? ErrorBoundary
 
   return (
     <AdminContext {...coreProps}>
-      <AdminRouter
-        layout={AppLayout}
-        loginPage={loginPage}
-        autoScrollToTop={autoScrollToTop}
-      >
-        {children}
-      </AdminRouter>
+      <AppErrorBoundary>
+        <AdminRouter
+          layout={AppLayout}
+          loginPage={loginPage}
+          autoScrollToTop={autoScrollToTop}
+        >
+          {children}
+        </AdminRouter>
+      </AppErrorBoundary>
     </AdminContext>
   )
 }

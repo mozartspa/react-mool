@@ -23,6 +23,7 @@ export const englishEuiMessages = {
       edit: "Edit",
       save: "Save",
       delete: "Delete",
+      retry: "Retry",
     },
     bulk: {
       actions: "Bulk actions",

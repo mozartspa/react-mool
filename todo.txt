@@ -3,7 +3,6 @@ CORE:
 
 EUI:
 - catchAll
-- error boundary
 - empty
 
 - select reference filter (single or multiple)
