@@ -3,7 +3,8 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
 import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
 import { DataProvider, DataProviderContext } from "../dataProvider"
-import { defaultI18nProvider, I18nProvider, TranslationContextProvider } from "../i18n"
+import { I18nProvider, TranslationContextProvider } from "../i18n"
+import { defaultI18nProvider } from "../i18n/defaultI18nProvider"
 import { NotificationContext, useNotification } from "../notify"
 import {
   ResourceDefinitions,

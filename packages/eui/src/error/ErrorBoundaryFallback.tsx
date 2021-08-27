@@ -1,8 +1,9 @@
 import { EuiButton, EuiEmptyPrompt, EuiPageTemplate, EuiSpacer } from "@elastic/eui"
-import { defaultI18nProvider, I18nProvider } from "@react-mool/core"
+import { I18nProvider } from "@react-mool/core"
 import { useEffect } from "react"
 import { FallbackProps } from "react-error-boundary"
 import { t } from "../i18n"
+import { defaultI18nProvider } from "../i18n/defaultI18nProvider"
 
 function safeTranslate(i18nProvider: I18nProvider, key: string, defaultValue: string) {
   try {

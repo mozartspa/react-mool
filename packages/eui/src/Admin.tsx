@@ -10,6 +10,7 @@ import React from "react"
 import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.css"
 import { ErrorBoundary, ErrorBoundaryProps } from "./error"
+import { defaultI18nProvider } from "./i18n/defaultI18nProvider"
 import { Layout } from "./layout/Layout"
 import { Login } from "./login"
 
@@ -30,6 +31,7 @@ export const Admin = (props: AdminProps) => {
     autoScrollToTop,
     errorBoundary: errorBoundaryComp,
     errorBoundaryProps,
+    i18nProvider = defaultI18nProvider,
     ...coreProps
   } = props
 
@@ -38,8 +40,8 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryComp === false ? React.Fragment : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <AppErrorBoundary i18nProvider={coreProps.i18nProvider} {...errorBoundaryProps}>
-      <AdminContext {...coreProps}>
+    <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
+      <AdminContext i18nProvider={i18nProvider} {...coreProps}>
         <AdminRouter
           layout={AppLayout}
           loginPage={loginPage}
