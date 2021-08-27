@@ -4,11 +4,12 @@ import {
   AdminContextProps,
   AdminRouter,
   AdminRouterProps,
+  I18nProvider,
 } from "@react-mool/core"
 import React from "react"
 import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.css"
-import { ErrorBoundary } from "./error"
+import { ErrorBoundary, ErrorBoundaryProps } from "./error"
 import { Layout } from "./layout/Layout"
 import { Login } from "./login"
 
@@ -17,7 +18,8 @@ smoothscroll.polyfill()
 
 export type AdminProps = AdminContextProps &
   AdminRouterProps & {
-    errorBoundary?: false | React.ComponentType
+    errorBoundary?: false | React.ComponentType<{ i18nProvider?: I18nProvider }>
+    errorBoundaryProps?: ErrorBoundaryProps
   }
 
 export const Admin = (props: AdminProps) => {
@@ -26,17 +28,18 @@ export const Admin = (props: AdminProps) => {
     children,
     loginPage = Login,
     autoScrollToTop,
-    errorBoundary: errorBoundaryProp,
+    errorBoundary: errorBoundaryComp,
+    errorBoundaryProps,
     ...coreProps
   } = props
 
   const AppLayout = layout ?? Layout
   const AppErrorBoundary =
-    errorBoundaryProp === false ? React.Fragment : errorBoundaryProp ?? ErrorBoundary
+    errorBoundaryComp === false ? React.Fragment : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <AdminContext {...coreProps}>
-      <AppErrorBoundary>
+    <AppErrorBoundary i18nProvider={coreProps.i18nProvider} {...errorBoundaryProps}>
+      <AdminContext {...coreProps}>
         <AdminRouter
           layout={AppLayout}
           loginPage={loginPage}
@@ -44,7 +47,7 @@ export const Admin = (props: AdminProps) => {
         >
           {children}
         </AdminRouter>
-      </AppErrorBoundary>
-    </AdminContext>
+      </AdminContext>
+    </AppErrorBoundary>
   )
 }

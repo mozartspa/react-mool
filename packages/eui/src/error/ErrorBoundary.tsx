@@ -1,9 +1,26 @@
-import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary"
+import { I18nProvider } from "@react-mool/core"
+import { ReactNode } from "react"
+import {
+  ErrorBoundary as ReactErrorBoundary,
+  ErrorBoundaryPropsWithRender,
+} from "react-error-boundary"
 import { ErrorBoundaryFallback } from "./ErrorBoundaryFallback"
 
-export const ErrorBoundary: React.FC = ({ children }) => {
+export type ErrorBoundaryProps = Partial<ErrorBoundaryPropsWithRender> & {
+  i18nProvider?: I18nProvider
+  children?: ReactNode
+}
+
+export const ErrorBoundary = (props: ErrorBoundaryProps) => {
+  const { i18nProvider, children, ...rest } = props
+
   return (
-    <ReactErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
+    <ReactErrorBoundary
+      fallbackRender={(props) => (
+        <ErrorBoundaryFallback {...props} i18nProvider={i18nProvider} />
+      )}
+      {...rest}
+    >
       {children}
     </ReactErrorBoundary>
   )
