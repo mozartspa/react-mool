@@ -12,6 +12,7 @@ import "./Admin.css"
 import { ErrorBoundary, ErrorBoundaryProps } from "./error"
 import { defaultI18nProvider } from "./i18n/defaultI18nProvider"
 import { Layout } from "./layout/Layout"
+import { NotFound } from "./layout/NotFound"
 import { Login } from "./login"
 
 // apply smoothscroll polyfill
@@ -28,6 +29,8 @@ export const Admin = (props: AdminProps) => {
     layout,
     children,
     loginPage = Login,
+    customRoutes,
+    catchAll = <NotFound />,
     autoScrollToTop,
     errorBoundary: errorBoundaryComp,
     errorBoundaryProps,
@@ -45,6 +48,8 @@ export const Admin = (props: AdminProps) => {
         <AdminRouter
           layout={AppLayout}
           loginPage={loginPage}
+          customRoutes={customRoutes}
+          catchAll={catchAll}
           autoScrollToTop={autoScrollToTop}
         >
           {children}

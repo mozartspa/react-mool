@@ -24,6 +24,7 @@ export const englishEuiMessages = {
       save: "Save",
       delete: "Delete",
       retry: "Retry",
+      goBack: "Go back",
     },
     bulk: {
       actions: "Bulk actions",
@@ -45,6 +46,8 @@ export const englishEuiMessages = {
     },
     error: {
       general: "Ooops, something went wrong",
+      notfound_title: "Not found",
+      notfound_message: "Either you typed a wrong URL, or you followed a bad link...",
     },
   },
 }
