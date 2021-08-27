@@ -1,7 +1,4 @@
 CORE:
-- custom routes (with/without layout, with/without authentication required)
 
 EUI:
-- catchAll
-
 - select reference filter (single or multiple)
