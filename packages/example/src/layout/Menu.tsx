@@ -1,8 +1,8 @@
 import { EuiCollapsibleNavGroup, EuiListGroup } from "@elastic/eui"
 import { useLinkProps } from "@react-mool/core"
-import { Menu as DefaultMenu } from "@react-mool/eui"
+import { Menu as DefaultMenu, MenuProps } from "@react-mool/eui"
 
-export const Menu = () => {
+export const Menu = (props: MenuProps) => {
   const linkProps = useLinkProps()
 
   return (
@@ -10,11 +10,6 @@ export const Menu = () => {
       <EuiCollapsibleNavGroup background="light">
         <EuiListGroup
           listItems={[
-            {
-              label: "Home",
-              iconType: "home",
-              ...linkProps("/"),
-            },
             {
               label: "Custom",
               iconType: "nested",
@@ -27,7 +22,7 @@ export const Menu = () => {
           size="s"
         />
       </EuiCollapsibleNavGroup>
-      <DefaultMenu />
+      <DefaultMenu {...props} />
     </>
   )
 }
