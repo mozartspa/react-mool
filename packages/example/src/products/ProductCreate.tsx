@@ -1,14 +1,5 @@
-import { EuiSpacer } from "@elastic/eui"
-import {
-  Create,
-  CreateHeader,
-  NumberInput,
-  Row,
-  SaveButton,
-  TextAreaInput,
-  TextInput,
-} from "@react-mool/eui"
-import { observer } from "mobx-react-lite"
+import { Create, CreateHeader } from "@react-mool/eui"
+import { Form } from "./Form"
 
 const initialValues = {
   category_id: "1",
@@ -22,31 +13,11 @@ const initialValues = {
   width: 0,
 }
 
-export const ProductCreate = observer(() => {
+export const ProductCreate = () => {
   return (
     <Create initialValues={initialValues}>
-      <CreateHeader showHorizontalRule />
-      <div style={{ maxWidth: 900 }}>
-        <Row>
-          <TextInput name="reference" />
-          <TextInput name="category_id" />
-        </Row>
-        <Row spacer>
-          <NumberInput name="price" />
-          <NumberInput name="stock" />
-        </Row>
-        <Row spacer>
-          <TextInput name="image" />
-          <TextInput name="thumbnail" />
-        </Row>
-        <Row spacer>
-          <NumberInput name="height" />
-          <NumberInput name="width" />
-        </Row>
-        <TextAreaInput name="description" fullWidth />
-      </div>
-      <EuiSpacer />
-      <SaveButton />
+      <CreateHeader />
+      <Form />
     </Create>
   )
-})
+}

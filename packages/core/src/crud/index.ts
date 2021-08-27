@@ -1,4 +1,5 @@
 export * from "./create"
+export * from "./crudMode"
 export * from "./detail"
 export * from "./edit"
 export * from "./filter"

@@ -2,8 +2,6 @@ CORE:
 - custom routes (with/without layout, with/without authentication required)
 
 EUI:
-- prop system?
-
 - catchAll
 - error boundary
 - empty

@@ -11,6 +11,7 @@ import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
 import { RedirectToOptions, RedirectToPage, useRedirect } from "../redirect"
 import { ResourceContext, useResource } from "../resource"
+import { CrudModeProvider } from "./crudMode"
 import { getRedirectTo, getSuccessMessage } from "./helpers"
 import {
   LoadErrorHandler,
@@ -230,11 +231,13 @@ export const EditBase = observer((options: EditBaseProps) => {
 
   return (
     <ResourceContext.Provider value={edit.resource}>
-      <EditFormContext.Provider value={edit}>
-        <RecordContextProvider record={edit.record} id={edit.id}>
-          <FormContext.Provider value={edit.form}>{body}</FormContext.Provider>
-        </RecordContextProvider>
-      </EditFormContext.Provider>
+      <CrudModeProvider mode="edit">
+        <EditFormContext.Provider value={edit}>
+          <RecordContextProvider record={edit.record} id={edit.id}>
+            <FormContext.Provider value={edit.form}>{body}</FormContext.Provider>
+          </RecordContextProvider>
+        </EditFormContext.Provider>
+      </CrudModeProvider>
     </ResourceContext.Provider>
   )
 })

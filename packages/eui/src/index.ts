@@ -1,6 +1,7 @@
 export * from "./Admin"
 export * from "./button"
 export * from "./confirm"
+export * from "./control"
 export * from "./create"
 export * from "./detail"
 export * from "./edit"
