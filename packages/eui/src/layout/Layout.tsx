@@ -27,7 +27,7 @@ export const Layout = (props: LayoutProps) => {
       />
       <EuiPage paddingSize="none" style={{ minHeight: "calc(100vh - 48px)" }}>
         <EuiPageContent>
-          <EuiPageContentBody>{children}</EuiPageContentBody>
+          <EuiPageContentBody className="eui-fullHeight">{children}</EuiPageContentBody>
         </EuiPageContent>
       </EuiPage>
       <Notifications />

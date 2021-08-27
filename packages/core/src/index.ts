@@ -1,6 +1,7 @@
 export * from "./admin"
 export * from "./auth"
 export * from "./crud"
+export * from "./customRoute"
 export * from "./dataProvider"
 export * from "./errors"
 export * from "./helpers/refreshSignal"
