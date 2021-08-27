@@ -3,6 +3,5 @@ CORE:
 
 EUI:
 - catchAll
-- empty
 
 - select reference filter (single or multiple)
