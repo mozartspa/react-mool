@@ -1,5 +1,5 @@
+import { useCrudMode } from "@react-mool/core"
 import React from "react"
-import { ControlContextValue, useControlContext } from "./controlContext"
 
 export function createControl<TInputProps, TValueProps>(
   InputComp: React.ComponentType<TInputProps>,
@@ -10,17 +10,16 @@ export function createControl<TInputProps, TValueProps>(
   } = {}
 ) {
   type MoreProps = {
-    mode?: ControlContextValue
     inputProps?: Partial<TInputProps>
     valueProps?: Partial<TValueProps>
   }
 
   const ControlComp = (props: TInputProps & TValueProps & MoreProps) => {
-    const controlContext = useControlContext()
+    const mode = useCrudMode()
 
-    const { inputProps, valueProps, mode = controlContext, ...commonProps } = props
+    const { inputProps, valueProps, ...commonProps } = props
 
-    if (mode === "input") {
+    if (mode === "create" || mode === "edit") {
       return (
         <InputComp
           {...options.defaultInputProps}
