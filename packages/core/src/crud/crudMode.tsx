@@ -22,3 +22,37 @@ export const CrudModeProvider = (props: CrudModeProviderProps) => {
 
   return <CrudModeContext.Provider value={mode} children={children} />
 }
+
+export type ShowForCrudProps = {
+  modes: CrudModeValue[]
+  children?: ReactNode
+}
+
+export const ShowForCrud = (props: ShowForCrudProps) => {
+  const { modes, children } = props
+
+  const mode = useCrudMode()
+
+  if (modes.includes(mode)) {
+    return <>{children}</>
+  } else {
+    return null
+  }
+}
+
+export type HideForCrudProps = {
+  modes: CrudModeValue[]
+  children?: ReactNode
+}
+
+export const HideForCrud = (props: HideForCrudProps) => {
+  const { modes, children } = props
+
+  const mode = useCrudMode()
+
+  if (modes.includes(mode)) {
+    return null
+  } else {
+    return <>{children}</>
+  }
+}
