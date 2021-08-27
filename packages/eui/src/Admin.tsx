@@ -28,7 +28,7 @@ export const Admin = (props: AdminProps) => {
   const {
     layout,
     children,
-    loginPage = Login,
+    loginPage = <Login />,
     customRoutes,
     catchAll = <NotFound />,
     autoScrollToTop,
