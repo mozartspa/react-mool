@@ -1,0 +1,49 @@
+{
+  "name": "react-mool",
+  "version": "0.1.0",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/lib/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "homepage": "https://github.com/mozartspa/react-mool#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozartspa/react-mool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mozartspa/react-mool/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn build --watch",
+    "build": "rimraf ./dist && rollup -c",
+    "lint": "eslint .",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.1",
+    "@types/react": "^17.0.13",
+    "@types/react-dom": "^17.0.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup": "^2.53.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.30.0"
+  },
+  "peerDependencies": {
+    "react": "^16.9.0 || ^17.0.0"
+  },
+  "dependencies": {
+    "@react-mool/core": "0.1.0",
+    "@react-mool/eui": "0.1.0"
+  }
+}
