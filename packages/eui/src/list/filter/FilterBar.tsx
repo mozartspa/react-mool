@@ -7,11 +7,11 @@ import {
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
 import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
-import inflection from "inflection"
 import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useFreshRef } from "rooks"
+import { humanize } from "../../helpers/humanize"
 import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
@@ -68,7 +68,7 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
   const translateFilterName = (name: string) => {
     return translate(`resources.${resource}.filter.${name}`, {
       defaultValue: translate(`resources.${resource}.field.${name}`, {
-        defaultValue: inflection.humanize(name),
+        defaultValue: humanize(name),
       }),
     })
   }
