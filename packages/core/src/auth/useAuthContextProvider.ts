@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { LoginError } from "../errors"
+import { UnauthorizedError } from "../errors"
 import { useIdGenerator } from "../helpers/useIdGenerator"
 import { AuthCredentials, AuthIdentity, AuthProvider, AuthState } from "./auth"
 
@@ -51,7 +51,7 @@ export function useAuthContextProvider<
         const { identity, permissions } = await authProvider.login(credentials)
 
         if (!identity) {
-          throw new LoginError()
+          throw new UnauthorizedError()
         }
 
         setIdentity(identity)

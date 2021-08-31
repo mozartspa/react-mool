@@ -8,10 +8,10 @@ export class ValidationError extends Error {
   }
 }
 
-export class LoginError extends Error {
-  constructor(message = "Login error") {
+export class UnauthorizedError extends Error {
+  constructor(message = "Unauthorized error") {
     super(message)
     // HACK: https://github.com/Microsoft/TypeScript/wiki/FAQ#why-doesnt-extending-built-ins-like-error-array-and-map-work
-    Object.setPrototypeOf(this, LoginError.prototype)
+    Object.setPrototypeOf(this, UnauthorizedError.prototype)
   }
 }
