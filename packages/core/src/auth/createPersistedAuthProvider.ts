@@ -22,14 +22,14 @@ export function createPersistedAuthProvider<
 >(config: PersistedAuthProviderConfig<TIdentity, TPermissions, TCredentials>) {
   const { login, logout, refresh, storage = localStorage, storageKey = "__AUTH" } = config
 
-  function save(state: AuthState<TIdentity, TPermissions>) {
+  function saveState(state: AuthState<TIdentity, TPermissions>) {
     // save to storage only if data changed, otherwise we could be trapped in an infinite loop
-    if (!isEqual(state, load())) {
+    if (!isEqual(state, loadState())) {
       storage.setItem(storageKey, JSON.stringify(state))
     }
   }
 
-  function load() {
+  function loadState() {
     try {
       const raw = storage.getItem(storageKey)
       if (raw) {
@@ -45,6 +45,10 @@ export function createPersistedAuthProvider<
     }
   }
 
+  function removeState() {
+    storage.removeItem(storageKey)
+  }
+
   const refreshSignal = createRefreshSignal()
 
   // In case of localStorage, listen to changes and request to refresh the auth state
@@ -57,25 +61,29 @@ export function createPersistedAuthProvider<
   }
 
   const authProvider: AuthProvider<TIdentity, TPermissions, TCredentials> = {
-    logout,
     login: (...args) => {
       return login(...args).then((state) => {
-        save(state)
+        saveState(state)
         return state
+      })
+    },
+    logout: () => {
+      return logout().then(() => {
+        removeState()
       })
     },
     refresh: async (...args) => {
       if (refresh) {
         return refresh(...args).then((state) => {
-          save(state)
+          saveState(state)
           return state
         })
       } else {
-        return load()
+        return loadState()
       }
     },
     getInitialState: () => {
-      return load()
+      return loadState()
     },
     getRefreshSignal: () => {
       return refreshSignal
