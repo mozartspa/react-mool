@@ -24,7 +24,7 @@ export const ListHeader = (props: ListHeaderProps) => {
     description,
     actions,
     showIcon = true,
-    showHorizontalRule = false,
+    showHorizontalRule = true,
     children,
   } = props
 

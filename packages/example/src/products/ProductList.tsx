@@ -47,6 +47,7 @@ export const ProductList = () => {
       <ListHeader
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
         actions={[<CreateButton />]}
+        showHorizontalRule={false}
       />
       <EuiSpacer size="l" />
       <TabbedFilterGroups
