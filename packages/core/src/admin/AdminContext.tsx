@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react"
-import { QueryClient, QueryClientProvider } from "react-query"
+import { DefaultOptions, QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
 import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
 import { DataProvider, DataProviderContext } from "../dataProvider"
@@ -10,6 +10,12 @@ import {
   ResourceDefinitions,
   ResourceDefinitionsContextProvider,
 } from "../resource/definitions"
+
+const queryClientDefaultOptions: DefaultOptions = {
+  queries: {
+    retry: 1,
+  },
+}
 
 export type AdminContextProps = {
   dataProvider: DataProvider
@@ -29,7 +35,10 @@ export const AdminContext = (props: AdminContextProps) => {
     children,
   } = props
 
-  const [queryClient] = useState(() => props.queryClient || new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      props.queryClient || new QueryClient({ defaultOptions: queryClientDefaultOptions })
+  )
   const notifications = useNotification()
 
   return (
