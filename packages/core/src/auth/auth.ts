@@ -21,7 +21,7 @@ export type AuthState<
   TPermissions = any
 > = {
   identity: TIdentity | undefined
-  permissions: TPermissions | undefined
+  permissions?: TPermissions | undefined
 }
 
 export type AuthProvider<
