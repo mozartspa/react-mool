@@ -1,6 +1,6 @@
 import { useResource, useTranslate, UseTranslateResult } from "@react-mool/core"
-import inflection from "inflection"
 import { useCallback } from "react"
+import { humanize } from "./humanize"
 
 export type UseGetFieldLabelResult = (resource: string, name: string) => string
 
@@ -41,6 +41,6 @@ export function getFieldLabel(
   translate: UseTranslateResult
 ) {
   return translate(`resources.${resource}.fields.${name}`, {
-    defaultValue: inflection.humanize(name.replace(".", " ")),
+    defaultValue: humanize(name),
   })
 }

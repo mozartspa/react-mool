@@ -7,24 +7,27 @@ import {
 } from "@elastic/eui"
 import { useForm } from "@mozartspa/mobx-form"
 import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
-import inflection from "inflection"
 import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useFreshRef } from "rooks"
+import { humanize } from "../../helpers/humanize"
 import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
 
-export type FilterBarProps<TFilter = any> = {
+export type FilterBarProps<TFilter = any, TFilterOut = TFilter> = {
   initialValues?: TFilter
+  transformValues?: (values: TFilter) => TFilterOut
   filters: React.ReactElement<FilterBaseProps>[]
   restoreFromLast?: boolean
   restoreKey?: string
   restoreStorage?: Storage
 }
 
-function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
+function FilterBarComp<TFilter, TFilterOut = TFilter>(
+  props: FilterBarProps<TFilter, TFilterOut>
+) {
   const { filters, restoreFromLast, restoreKey, restoreStorage } = props
 
   const translate = useTranslate()
@@ -44,7 +47,16 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
     []
   )
 
-  const setFilter = useAddFilter(initialValues, { debounce: true })
+  const setFilter = useAddFilter(
+    () => {
+      // Transform filter values if a transform function is provided
+      // and there are initial values.
+      return props.transformValues && initialValues
+        ? props.transformValues(initialValues)
+        : initialValues
+    },
+    { debounce: true }
+  )
   const [visibleFilters, setVisibleFilters] = useState(initialVisibleFilters)
 
   // Form values
@@ -52,13 +64,22 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
     initialValues,
   })
 
+  // Transform filter values reference
+  const transformValuesRef = useFreshRef(props.transformValues)
+
   // Sync filter with form values.
   // Use mobx autorun for better performances.
   useEffect(
     () =>
       autorun(() => {
         if (form.isValid) {
-          setFilter(form.values)
+          // Transform filter values before applying them,
+          // if a transform function is provided.
+          setFilter(
+            transformValuesRef.current
+              ? transformValuesRef.current(form.values)
+              : form.values
+          )
         }
       }),
     []
@@ -68,7 +89,7 @@ function FilterBarComp<TFilter>(props: FilterBarProps<TFilter>) {
   const translateFilterName = (name: string) => {
     return translate(`resources.${resource}.filter.${name}`, {
       defaultValue: translate(`resources.${resource}.field.${name}`, {
-        defaultValue: inflection.humanize(name),
+        defaultValue: humanize(name),
       }),
     })
   }

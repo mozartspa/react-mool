@@ -18,6 +18,8 @@ import { Login } from "./login"
 // apply smoothscroll polyfill
 smoothscroll.polyfill()
 
+const NoErrorBoundary: React.FC = ({ children }) => <>{children}</>
+
 export type AdminProps = AdminContextProps &
   AdminRouterProps & {
     errorBoundary?: false | React.ComponentType<{ i18nProvider?: I18nProvider }>
@@ -41,7 +43,7 @@ export const Admin = (props: AdminProps) => {
 
   const AppLayout = layout ?? Layout
   const AppErrorBoundary =
-    errorBoundaryComp === false ? React.Fragment : errorBoundaryComp ?? ErrorBoundary
+    errorBoundaryComp === false ? NoErrorBoundary : errorBoundaryComp ?? ErrorBoundary
 
   return (
     <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>

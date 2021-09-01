@@ -16,12 +16,9 @@ export const authProvider: AuthProvider = {
   logout: async () => {
     await wait(300)
   },
-  getIdentity: async () => {
+  refresh: async () => {
     await wait(300)
-    return identity
-  },
-  getPermissions: async () => {
-    return permissions
+    return { identity, permissions }
   },
   getInitialState: () => ({ identity, permissions }),
 }

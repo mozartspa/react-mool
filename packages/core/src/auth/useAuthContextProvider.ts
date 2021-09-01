@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
+import { UnauthorizedError } from "../errors"
 import { useIdGenerator } from "../helpers/useIdGenerator"
-import { AuthCredentials, AuthIdentity, AuthProvider } from "./auth"
+import { AuthCredentials, AuthIdentity, AuthProvider, AuthState } from "./auth"
 
 export type UseAuthContextProviderResult<
   TIdentity extends AuthIdentity = AuthIdentity,
@@ -13,11 +14,9 @@ export type UseAuthContextProviderResult<
   isLoggingIn: boolean
   isLoggingOut: boolean
   isRefreshing: boolean
-  login: (
-    credentials: TCredentials
-  ) => Promise<{ identity: TIdentity; permissions: TPermissions }>
+  login: (credentials: TCredentials) => Promise<AuthState<TIdentity, TPermissions>>
   logout: () => Promise<void>
-  refresh: () => Promise<{ identity: TIdentity; permissions: TPermissions }>
+  refresh: () => Promise<AuthState<TIdentity, TPermissions>>
 }
 
 export function useAuthContextProvider<
@@ -41,7 +40,7 @@ export function useAuthContextProvider<
   const [loginOpNextId, loginOpLastId] = useIdGenerator()
   const logoutPromiseRef = useRef<Promise<void> | undefined>(undefined)
   const refreshPromiseRef = useRef<
-    Promise<{ identity: TIdentity; permissions: TPermissions }> | undefined
+    Promise<AuthState<TIdentity, TPermissions>> | undefined
   >(undefined)
 
   const login = useCallback(
@@ -52,9 +51,7 @@ export function useAuthContextProvider<
         const { identity, permissions } = await authProvider.login(credentials)
 
         if (!identity) {
-          throw new Error(
-            `When successfull, AuthProvider must return a valid identity. Received: "${identity}".`
-          )
+          throw new UnauthorizedError()
         }
 
         setIdentity(identity)
@@ -96,19 +93,13 @@ export function useAuthContextProvider<
       return refreshPromiseRef.current
     }
 
-    async function getState() {
-      const identity = await authProvider.getIdentity()
-      const permissions = await authProvider.getPermissions()
-      return { identity, permissions }
-    }
-
     setRefreshing(true)
 
     try {
-      refreshPromiseRef.current = getState()
+      refreshPromiseRef.current = authProvider.refresh()
       const state = await refreshPromiseRef.current
-      setIdentity(state.identity)
-      setPermissions(state.permissions)
+      setIdentity(state?.identity)
+      setPermissions(state?.permissions)
       return state
     } catch (error) {
       throw error

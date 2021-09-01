@@ -8,6 +8,7 @@ import {
 } from "@elastic/eui"
 import { Field, useForm } from "@mozartspa/mobx-form"
 import {
+  UnauthorizedError,
   useAuthContext,
   useReturnURL,
   useTranslate,
@@ -49,7 +50,11 @@ export const LoginForm = observer((props: LoginFormProps) => {
           return error.validationErrors
         } else {
           const message =
-            error instanceof Error ? error.message : t.eui.login.invalid_credentials
+            error instanceof UnauthorizedError
+              ? t.eui.login.invalid_credentials
+              : error instanceof Error
+              ? error.message
+              : t.eui.login.invalid_credentials
           return { "*": translate(message) }
         }
       }

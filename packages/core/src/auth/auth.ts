@@ -16,18 +16,23 @@ export type AuthCredentials = {
 
 export type AuthPermissions = any
 
+export type AuthState<
+  TIdentity extends AuthIdentity = AuthIdentity,
+  TPermissions = any
+> = {
+  identity: TIdentity | undefined
+  permissions?: TPermissions | undefined
+}
+
 export type AuthProvider<
   TIdentity extends AuthIdentity = AuthIdentity,
   TPermissions = any,
   TCredentials extends AuthCredentials = AuthCredentials
 > = {
-  login: (
-    credentials: TCredentials
-  ) => Promise<{ identity: TIdentity; permissions: TPermissions }>
+  login: (credentials: TCredentials) => Promise<AuthState<TIdentity, TPermissions>>
   logout: () => Promise<void>
-  getIdentity: () => Promise<TIdentity>
-  getPermissions: () => Promise<TPermissions>
-  getInitialState?: () => { identity: TIdentity; permissions: TPermissions }
+  refresh: () => Promise<AuthState<TIdentity, TPermissions>>
+  getInitialState?: () => AuthState<TIdentity, TPermissions>
   getRefreshSignal?: () => RefreshSignal
 }
 
