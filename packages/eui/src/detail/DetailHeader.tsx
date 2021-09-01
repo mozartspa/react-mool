@@ -25,7 +25,7 @@ export const DetailHeader = (props: DetailHeaderProps) => {
   const record = useRecord()
 
   const {
-    title = record ? getName(record) : "",
+    title = record ? getName(record) : <span>&nbsp;</span>,
     icon = definition.icon ?? "list",
     description,
     actions,
