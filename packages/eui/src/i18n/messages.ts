@@ -35,6 +35,7 @@ export const englishEuiMessages = {
     grid: {
       showing: "Showing %{count} of %{total}",
       selected: "Selected",
+      no_items: "No items found",
     },
     filter: {
       add_filter: "Add filter",

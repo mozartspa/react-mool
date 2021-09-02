@@ -24,6 +24,7 @@ import {
 } from "react"
 import isEqual from "react-fast-compare"
 import { useUpdateEffect } from "rooks"
+import { t } from "../../i18n"
 import { ColumnProps } from "../column"
 import { DatagridAction } from "./actions"
 import { Toolbar } from "./Toolbar"
@@ -115,6 +116,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     resource,
     items,
     isLoading,
+    isLoaded,
     page,
     pageSize,
     total,
@@ -249,6 +251,17 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     }
   }, [page])
 
+  const renderNoItemsMessage = () => {
+    // First loading is when it's loading and it has no data yet
+    const isFirstLoading = isLoading && !isLoaded
+
+    if (isFirstLoading) {
+      return <div style={{ minHeight: "4rem" }}></div>
+    } else {
+      return empty ?? translate(t.eui.grid.no_items)
+    }
+  }
+
   return (
     <div>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
@@ -292,7 +305,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         itemId={itemId}
         onChange={handleChange}
         rowProps={rowProps}
-        noItemsMessage={empty}
+        noItemsMessage={renderNoItemsMessage()}
         responsive={responsive}
       />
     </div>
