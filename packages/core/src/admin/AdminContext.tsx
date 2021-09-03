@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react"
 import { DefaultOptions, QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
 import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
-import { DataProvider, DataProviderContext } from "../dataProvider"
+import { DataProvider, DataProviderContextProvider } from "../dataProvider"
 import { I18nProvider, TranslationContextProvider } from "../i18n"
 import { defaultI18nProvider } from "../i18n/defaultI18nProvider"
 import { NotificationContext, useNotification } from "../notify"
@@ -44,7 +44,7 @@ export const AdminContext = (props: AdminContextProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider authProvider={authProvider}>
-        <DataProviderContext.Provider value={dataProvider}>
+        <DataProviderContextProvider dataProvider={dataProvider}>
           <NotificationContext.Provider value={notifications}>
             <TranslationContextProvider i18nProvider={i18nProvider}>
               <ResourceDefinitionsContextProvider definitions={resources}>
@@ -52,7 +52,7 @@ export const AdminContext = (props: AdminContextProps) => {
               </ResourceDefinitionsContextProvider>
             </TranslationContextProvider>
           </NotificationContext.Provider>
-        </DataProviderContext.Provider>
+        </DataProviderContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   )
