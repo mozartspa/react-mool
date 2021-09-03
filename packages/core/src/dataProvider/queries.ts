@@ -24,7 +24,7 @@ export function useGetOne<TRecord = any>(
   const queryClient = useQueryClient()
 
   const query = useQuery(
-    [resource, id],
+    [resource, String(id)],
     () => {
       return dataProvider.getOne({ id })
     },

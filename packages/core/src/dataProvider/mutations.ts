@@ -42,7 +42,7 @@ export function useCreate<TRecord = any, TCreate = any>(
       onSuccess: (data, variables, context) => {
         // update cache
         const id = dataProvider.id(data)
-        queryClient.setQueryData([resource, id], data)
+        queryClient.setQueryData([resource, String(id)], data)
         // call user onSuccess
         return options.onSuccess?.(data, variables, context)
       },
@@ -68,7 +68,7 @@ export function useUpdate<TRecord = any, TUpdate = any>(
       onSuccess: (data, variables, context) => {
         // update cache
         const id = dataProvider.id(data)
-        queryClient.setQueryData([resource, id], data)
+        queryClient.setQueryData([resource, String(id)], data)
         // call user onSuccess
         return options.onSuccess?.(data, variables, context)
       },
