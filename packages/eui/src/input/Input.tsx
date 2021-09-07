@@ -1,7 +1,14 @@
 import { EuiFormRow } from "@elastic/eui"
-import { Field, FieldComponentProps, FieldRenderProps } from "@mozartspa/mobx-form"
+import {
+  Field,
+  FieldComponentProps,
+  FieldRenderProps,
+  splitFieldProps,
+} from "@mozartspa/mobx-form"
 import { ReactNode } from "react"
 import { useGetResourceFieldLabel } from "../helpers"
+
+type ChildrenProps<T> = Omit<T, keyof InputProps>
 
 export type InputProps = FieldComponentProps & {
   label?: string | false
@@ -9,19 +16,26 @@ export type InputProps = FieldComponentProps & {
   helpText?: ReactNode | ReactNode[]
 }
 
-export type InputComponentProps = InputProps & {
-  children: (props: FieldRenderProps) => ReactNode
-}
+export type InputComponentProps<TCustomProps = Object> = InputProps &
+  TCustomProps & {
+    children: (
+      field: FieldRenderProps,
+      childrenProps: ChildrenProps<TCustomProps>
+    ) => ReactNode
+  }
 
-export const Input = (props: InputComponentProps) => {
-  const { label, fullWidth, helpText, children, ...fieldOptions } = props
+export const Input = <TCustomProps extends Object>(
+  props: InputComponentProps<TCustomProps>
+) => {
+  const { label, fullWidth, helpText, children, ...rest } = props
 
+  const [name, fieldOptions, childrenProps] = splitFieldProps(rest)
   const getFieldLabel = useGetResourceFieldLabel()
 
   return (
-    <Field {...fieldOptions}>
+    <Field {...fieldOptions} name={name}>
       {(field) => {
-        const content = <>{children(field)}</>
+        const content = <>{children(field, childrenProps as any /* FIX $TYPE*/)}</>
         if (label === false) {
           return content
         } else {

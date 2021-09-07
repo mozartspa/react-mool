@@ -4,5 +4,7 @@ import { Input, InputProps } from "./Input"
 export type TextInputProps = InputProps & EuiFieldTextProps
 
 export const TextInput = (props: TextInputProps) => (
-  <Input {...props}>{(field) => <EuiFieldText {...field.input} {...props} />}</Input>
+  <Input {...props}>
+    {(field, props) => <EuiFieldText {...field.input} {...props} />}
+  </Input>
 )
