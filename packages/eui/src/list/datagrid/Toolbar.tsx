@@ -7,8 +7,8 @@ import {
 } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { t } from "../../i18n"
-import { DatagridAction } from "./actions"
 import { BulkActions } from "./BulkActions"
+import { DatagridAction } from "./Datagrid"
 
 function getShowingRange(page: number, pageSize: number, total: number) {
   if (page <= 1) {

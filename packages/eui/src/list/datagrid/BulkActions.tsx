@@ -7,7 +7,7 @@ import {
 import { useTranslate } from "@react-mool/core"
 import { useState } from "react"
 import { t } from "../../i18n"
-import { DatagridAction } from "./actions"
+import { DatagridAction } from "./Datagrid"
 
 function isActionEnabled<TRecord = any>(
   action: DatagridAction,

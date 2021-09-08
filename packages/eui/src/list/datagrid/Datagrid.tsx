@@ -1,6 +1,7 @@
 import {
   Criteria,
   EuiBasicTable,
+  EuiButtonIconColor,
   EuiSpacer,
   EuiTableDataType,
   EuiTableSelectionType,
@@ -26,7 +27,6 @@ import isEqual from "react-fast-compare"
 import { useUpdateEffect } from "rooks"
 import { t } from "../../i18n"
 import { ColumnProps } from "../column"
-import { DatagridAction } from "./actions"
 import { Toolbar } from "./Toolbar"
 import {
   canHandleRowClick,
@@ -56,6 +56,17 @@ export type DatagridColumnType<T = any> = {
   }
   hideForMobile?: boolean
   render?: (value: any, record: T) => ReactNode
+}
+
+export type DatagridAction<TRecord = any> = {
+  name: ReactNode
+  run: (items: TRecord[]) => void
+  description?: string
+  icon?: string
+  color?: EuiButtonIconColor
+  available?: (item: TRecord) => boolean
+  enabled?: (item: TRecord) => boolean
+  isPrimary?: boolean
 }
 
 export type DatagridRowClick<TRecord = any> =

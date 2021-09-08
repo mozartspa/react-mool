@@ -4,8 +4,7 @@ import get from "dlv"
 import { cloneElement, ReactElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
 import { ColumnProps } from "../column"
-import { DatagridAction } from "./actions"
-import { DatagridRowClick } from "./Datagrid"
+import { DatagridAction, DatagridRowClick } from "./Datagrid"
 
 export function toEuiColumn(
   col: ReactElement<ColumnProps>,

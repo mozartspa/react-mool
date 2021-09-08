@@ -1,4 +1,3 @@
-import { EuiButtonIconColor } from "@elastic/eui"
 import {
   useDataProvider,
   useNotify,
@@ -7,24 +6,20 @@ import {
   useResource,
   useTranslate,
 } from "@react-mool/core"
-import { ReactNode, useMemo } from "react"
+import { useMemo } from "react"
 import { useConfirmation } from "../../confirm"
 import { logError } from "../../helpers/console"
 import { t } from "../../i18n"
+import { DatagridAction } from "./Datagrid"
 
-export type DatagridAction<TRecord = any> = {
-  name: ReactNode
-  run: (items: TRecord[]) => void
-  description?: string
-  icon?: string
-  color?: EuiButtonIconColor
-  available?: (item: TRecord) => boolean
-  enabled?: (item: TRecord) => boolean
-  isPrimary?: boolean
+export type UseDefaultDatagridActionsOptions = {
+  resource?: string
 }
 
-export function useDefaultDatagridActions<TRecord = any>() {
-  const resource = useResource()
+export function useDefaultDatagridActions<TRecord = any>(
+  options: UseDefaultDatagridActionsOptions = {}
+) {
+  const resource = useResource(options.resource)
   const translate = useTranslate()
   const notify = useNotify()
   const redirect = useRedirect({ resource })
