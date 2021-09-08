@@ -16,12 +16,12 @@ export type SectionHeaderProps = {
   icon?: IconType
   description?: ReactNode
   actions?: ReactNode[]
-  showHorizontalRule?: boolean
+  divider?: boolean
   children?: ReactNode
 }
 
 export const SectionHeader = (props: SectionHeaderProps) => {
-  const { title, icon, description, actions, showHorizontalRule, children } = props
+  const { title, icon, description, actions, divider, children } = props
 
   const isResponsiveBreakpoint = useIsWithinBreakpoints(["xs", "s"])
 
@@ -123,7 +123,7 @@ export const SectionHeader = (props: SectionHeaderProps) => {
   return (
     <>
       {content}
-      {showHorizontalRule && <EuiHorizontalRule />}
+      {divider && <EuiHorizontalRule />}
     </>
   )
 }

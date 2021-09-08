@@ -14,7 +14,7 @@ export type DetailHeaderProps = {
   description?: ReactNode
   actions?: ReactNode[]
   showIcon?: boolean
-  showHorizontalRule?: boolean
+  divider?: boolean
   children?: ReactNode
 }
 
@@ -30,7 +30,7 @@ export const DetailHeader = (props: DetailHeaderProps) => {
     description,
     actions,
     showIcon = false,
-    showHorizontalRule = true,
+    divider = true,
     children,
   } = props
 
@@ -45,7 +45,7 @@ export const DetailHeader = (props: DetailHeaderProps) => {
       >
         {children}
       </EuiPageHeader>
-      {showHorizontalRule && <EuiHorizontalRule />}
+      {divider && <EuiHorizontalRule />}
     </>
   )
 }

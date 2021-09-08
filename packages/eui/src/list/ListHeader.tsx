@@ -9,7 +9,7 @@ export type ListHeaderProps = {
   description?: ReactNode
   actions?: ReactNode[]
   showIcon?: boolean
-  showHorizontalRule?: boolean
+  divider?: boolean
   children?: ReactNode
 }
 
@@ -24,7 +24,7 @@ export const ListHeader = (props: ListHeaderProps) => {
     description,
     actions,
     showIcon = true,
-    showHorizontalRule = true,
+    divider = true,
     children,
   } = props
 
@@ -39,7 +39,7 @@ export const ListHeader = (props: ListHeaderProps) => {
       >
         {children}
       </EuiPageHeader>
-      {showHorizontalRule && <EuiHorizontalRule />}
+      {divider && <EuiHorizontalRule />}
     </>
   )
 }
