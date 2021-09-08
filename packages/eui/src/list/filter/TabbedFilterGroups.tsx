@@ -91,5 +91,7 @@ function BadgeCount(props: BadgeCountProps) {
     filter: mergeFilters(group.filter, baseFilter),
   })
 
-  return <EuiBadge color="hollow">{query.data?.total}</EuiBadge>
+  const color = query.data ? "hollow" : "subdued"
+
+  return <EuiBadge color={color}>{query.data?.total}</EuiBadge>
 }
