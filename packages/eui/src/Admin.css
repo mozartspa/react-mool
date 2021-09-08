@@ -14,3 +14,7 @@
 .euiTable:focus {
   outline: none;
 }
+
+.muiSectionHeader__titleIcon {
+  margin-right: 8px;
+}
