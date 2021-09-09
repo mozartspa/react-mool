@@ -22,26 +22,33 @@ export function useGetOne<TRecord = any>(
   const resource = useResource(options.resource)
   const dataProvider = useResourceDataProvider<TRecord>(resource)
   const queryClient = useQueryClient()
+  const idString = String(id)
 
   const query = useQuery(
-    [resource, String(id)],
+    [resource, idString],
     () => {
       return dataProvider.getOne({ id })
     },
     {
       initialData: () => {
         // Find cache data in list queries
-        const listCache: GetListOutput | undefined = queryClient.getQueryData(
-          [resource, "list"],
-          {
-            exact: false,
+        const listQueries = queryClient
+          .getQueryCache()
+          .findAll([resource, "list"], { exact: false })
+          .sort((a, b) => {
+            return b.state.dataUpdatedAt - a.state.dataUpdatedAt
+          })
+
+        for (const query of listQueries) {
+          const cache = query.state.data as GetListOutput | undefined
+          const item = cache?.items.find((o) => String(dataProvider.id(o)) === idString)
+          if (item) {
+            return item
           }
-        )
-        if (listCache && listCache.items) {
-          return listCache.items.find((o) => dataProvider.id(o) === id)
-        } else {
-          return undefined
         }
+
+        // Not found in cache
+        return undefined
       },
       ...options,
     }
