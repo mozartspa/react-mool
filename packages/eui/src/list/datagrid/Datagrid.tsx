@@ -2,6 +2,7 @@ import {
   Criteria,
   EuiBasicTable,
   EuiButtonIconColor,
+  EuiLoadingContent,
   EuiSpacer,
   EuiTableDataType,
   EuiTableSelectionType,
@@ -267,11 +268,14 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     const isFirstLoading = isLoading && !isLoaded
 
     if (isFirstLoading) {
-      return <div style={{ minHeight: "4rem" }}></div>
+      return <EuiLoadingContent lines={4} />
     } else {
       return empty ?? translate(t.eui.grid.no_items)
     }
   }
+
+  // Add specific className when it's empty in order to style the empty view
+  const tableClassName = items.length === 0 ? "euiBasicTable--empty" : undefined
 
   return (
     <div>
@@ -292,6 +296,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
       {showToolbar && <EuiSpacer size="l" />}
       <EuiBasicTable
         ref={tableRef}
+        className={tableClassName}
         items={items}
         columns={actions ? [...columns, { actions }] : columns}
         loading={isLoading}

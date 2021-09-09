@@ -18,3 +18,7 @@
 .muiSectionHeader__titleIcon {
   margin-right: 8px;
 }
+
+.euiBasicTable--empty .euiTableCellContent__text {
+  width: 100%;
+}
