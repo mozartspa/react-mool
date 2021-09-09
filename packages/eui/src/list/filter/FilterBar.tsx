@@ -130,15 +130,22 @@ function FilterBarComp<TFilter, TFilterOut = TFilter>(
     setVisibleFilters([])
   }, [])
 
-  // On unmount, store state that will be restored
+  // On unmount (or page unload), store state that will be restored
   const visibleFiltersRef = useFreshRef(visibleFilters)
   const storageRef = useFreshRef(storage)
   useEffect(() => {
-    return () => {
+    function storeData() {
       storageRef.current?.set({
         filterValues: form.values,
         visibleFilters: visibleFiltersRef.current,
       })
+    }
+
+    window.addEventListener("beforeunload", storeData)
+
+    return () => {
+      window.removeEventListener("beforeunload", storeData)
+      storeData()
     }
   }, [])
 
