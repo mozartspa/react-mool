@@ -1,5 +1,6 @@
 import commonjs from "@rollup/plugin-commonjs"
 import json from "@rollup/plugin-json"
+import copy from "rollup-plugin-copy"
 import peerDepsExternal from "rollup-plugin-peer-deps-external"
 import postcss from "rollup-plugin-postcss"
 import typescript from "rollup-plugin-typescript2"
@@ -11,7 +12,6 @@ const packageJson = require("./package.json")
 const globals = {
   ...packageJson.devDependencies,
   ...packageJson.dependencies,
-  "@elastic/eui/dist/eui_theme_amsterdam_light.css": "*",
 }
 
 export default {
@@ -41,7 +41,13 @@ export default {
       exclude: "node_modules",
       ignoreGlobal: true,
     }),
-    postcss(),
+    postcss({
+      extract: true,
+    }),
+    copy({
+      targets: [{ src: "dist/esm/index.css", dest: "dist/" }],
+      hook: "writeBundle",
+    }),
     json(),
   ],
   external: Object.keys(globals),

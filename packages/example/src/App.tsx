@@ -1,5 +1,6 @@
 import { CustomRoute, I18nProvider } from "@react-mool/core"
 import { Admin } from "@react-mool/eui"
+import "@react-mool/eui/dist/index.css"
 import { useEffect, useState } from "react"
 import { authProvider } from "./authProvider"
 import { CustomPage } from "./components/CustomPage"

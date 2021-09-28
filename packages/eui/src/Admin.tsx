@@ -1,4 +1,3 @@
-import "@elastic/eui/dist/eui_theme_amsterdam_light.css"
 import {
   AdminContext,
   AdminContextProps,
@@ -8,7 +7,7 @@ import {
 } from "@react-mool/core"
 import React from "react"
 import smoothscroll from "smoothscroll-polyfill"
-import "./Admin.css"
+import "./Admin.scss"
 import { ErrorBoundary, ErrorBoundaryProps } from "./error"
 import { defaultI18nProvider } from "./i18n/defaultI18nProvider"
 import { Layout } from "./layout/Layout"
