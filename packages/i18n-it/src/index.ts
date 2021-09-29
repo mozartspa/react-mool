@@ -50,7 +50,7 @@ const euiMessages: EuiMessages = {
       deleted_items: "Elemento eliminato |||| %{smart_count} elementi eliminati",
     },
     grid: {
-      showing: "Mostrando %{count} of %{total}",
+      showing: "Mostrando %{count} di %{total}",
       selected: "Selezionati",
       no_items: "Nessun elemento da visualizzare",
     },
