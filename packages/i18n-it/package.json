@@ -1,0 +1,35 @@
+{
+  "name": "@react-mool/i18n-it",
+  "version": "0.0.0",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/lib/index.js",
+  "module": "dist/esm/index.js",
+  "typings": "dist/esm/index.d.ts",
+  "homepage": "https://github.com/mozartspa/react-mool#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mozartspa/react-mool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mozartspa/react-mool/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn build-esm --watch",
+    "build": "rimraf ./dist && yarn build-cjs && yarn build-esm",
+    "build-cjs": "rimraf ./dist/lib && tsc",
+    "build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
+    "lint": "eslint .",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@react-mool/core": "^0.5.0",
+    "@react-mool/eui": "^0.5.0"
+  }
+}
