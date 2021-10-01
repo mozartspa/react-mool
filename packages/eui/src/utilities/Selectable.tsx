@@ -9,28 +9,8 @@ import {
   EuiText,
 } from "@elastic/eui"
 import { ReactNode, useMemo, useState } from "react"
-import { Filter, FilterComponentProps } from "./Filter"
 
-export type SelectFilterProps<T = any> = FilterComponentProps &
-  Omit<SelectProps<T>, "value" | "onChange">
-
-export const SelectFilter = (props: SelectFilterProps) => {
-  return (
-    <Filter {...props}>
-      {(field) => (
-        <Select
-          {...props}
-          value={field.value}
-          onChange={(value) => {
-            field.setValue(value)
-          }}
-        />
-      )}
-    </Filter>
-  )
-}
-
-export type SelectOption<T = any> = {
+export type SelectableOption<T = any> = {
   value: T
   label: string
   searchableLabel?: string
@@ -39,8 +19,8 @@ export type SelectOption<T = any> = {
   append?: ReactNode
 }
 
-type SelectProps<T = any> = {
-  options: SelectOption<T>[]
+export type SelectableProps<T = any> = {
+  options: SelectableOption<T>[]
   label?: string
   placeholder?: string
   searchable?: boolean
@@ -57,7 +37,7 @@ type SelectProps<T = any> = {
     }
 )
 
-const Select = (props: SelectProps) => {
+export const Selectable = <T extends any>(props: SelectableProps<T>) => {
   const { options, label, placeholder, searchable, multiple, value, onChange } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
@@ -70,7 +50,7 @@ const Select = (props: SelectProps) => {
     return options.map((o) => JSON.stringify(o.value))
   }, [options])
 
-  const selectableOptions = useMemo(() => {
+  const euiSelectableOptions = useMemo(() => {
     return options.map((o, index) => {
       const isChecked = Array.isArray(value) ? value.includes(o.value) : value === o.value
       const opt: EuiSelectableOption = {
@@ -93,26 +73,35 @@ const Select = (props: SelectProps) => {
 
   const handleChange = (options: EuiSelectableOption[]) => {
     if (props.multiple) {
-      onChange?.(
-        options.filter((o) => o.checked === "on").map((o) => keyToOption(o.key!)?.value)
-      )
+      const selectedEuiOpts = options.filter((o) => o.checked === "on")
+      const selectedValues = selectedEuiOpts
+        .map((o) => keyToOption(o.key!))
+        .filter(Boolean)
+        .map((o) => o!.value)
+      // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
+      onChange?.(selectedValues as any)
     } else {
       const selectedKey = options.find((o) => o.checked === "on")?.key
       const newValue = selectedKey != null ? keyToOption(selectedKey)?.value : undefined
-      onChange?.(newValue as any) // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
+      // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
+      onChange?.(newValue as any)
       closePopover()
     }
   }
 
   const selectedOptions = useMemo(() => {
     if (multiple) {
-      return options.filter((o) => value && value.includes && value.includes(o.value))
+      if (Array.isArray(value)) {
+        return options.filter((o) => value && value.includes && value.includes(o.value))
+      } else {
+        return []
+      }
     } else {
       return options.find((o) => value === o.value)
     }
   }, [options, value, multiple])
 
-  function renderSelectedOption(option: SelectOption) {
+  function renderSelectedOption(option: SelectableOption) {
     const { label, prepend, append } = option
 
     return (
@@ -168,7 +157,7 @@ const Select = (props: SelectProps) => {
         anchorPosition="downCenter"
       >
         <EuiSelectable
-          options={selectableOptions}
+          options={euiSelectableOptions}
           searchable={searchable}
           singleSelection={!multiple}
           onChange={handleChange}
