@@ -9,8 +9,8 @@ import {
   ListHeader,
   NumberColumn,
   NumberFilter,
-  SelectFilter,
-  SelectOption,
+  SelectableFilter,
+  SelectableOption,
   TabbedFilterGroups,
   TextColumn,
   TextFilter,
@@ -34,7 +34,7 @@ export const ProductList = () => {
 
   const categoryOptions = useMemo(() => {
     return categoryList.data?.items.map((item) => {
-      const opt: SelectOption = {
+      const opt: SelectableOption = {
         value: item.id,
         label: item.name || "",
       }
@@ -63,7 +63,7 @@ export const ProductList = () => {
       <FilterBar
         filters={[
           <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
-          <SelectFilter
+          <SelectableFilter
             name="category_id"
             placeholder={translate(t.resources.product.filter.category_id_placeholder)}
             options={categoryOptions || []}
