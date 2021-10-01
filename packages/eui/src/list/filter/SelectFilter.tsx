@@ -66,11 +66,15 @@ const Select = (props: SelectProps) => {
 
   const closePopover = () => setPopoverOpen(false)
 
+  const selectOptionKeys = useMemo(() => {
+    return options.map((o) => JSON.stringify(o.value))
+  }, [options])
+
   const selectableOptions = useMemo(() => {
-    return options.map((o) => {
+    return options.map((o, index) => {
       const isChecked = Array.isArray(value) ? value.includes(o.value) : value === o.value
       const opt: EuiSelectableOption = {
-        key: o.value,
+        key: selectOptionKeys[index],
         label: o.label,
         searchableLabel: o.searchableLabel,
         disabled: o.disabled,
@@ -80,13 +84,21 @@ const Select = (props: SelectProps) => {
       }
       return opt
     })
-  }, [options, value])
+  }, [options, value, selectOptionKeys])
+
+  const keyToOption = (key: string) => {
+    const index = selectOptionKeys.indexOf(key)
+    return index !== -1 ? options[index] : undefined
+  }
 
   const handleChange = (options: EuiSelectableOption[]) => {
     if (props.multiple) {
-      onChange?.(options.filter((o) => o.checked === "on").map((o) => o.key!))
+      onChange?.(
+        options.filter((o) => o.checked === "on").map((o) => keyToOption(o.key!)?.value)
+      )
     } else {
-      const newValue = options.find((o) => o.checked === "on")?.key!
+      const selectedKey = options.find((o) => o.checked === "on")?.key
+      const newValue = selectedKey != null ? keyToOption(selectedKey)?.value : undefined
       onChange?.(newValue as any) // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
       closePopover()
     }
