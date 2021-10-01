@@ -1,4 +1,4 @@
-import { Selectable, SelectableProps } from "../../utilities"
+import { Selectable, SelectableProps } from "../../select"
 import { Filter, FilterComponentProps } from "./Filter"
 
 export type SelectableFilterProps<T = any> = FilterComponentProps &
