@@ -6,6 +6,7 @@ import {
   EuiText,
 } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
+import { CSSProperties } from "react"
 import { t } from "../../i18n"
 import { BulkActions } from "./BulkActions"
 import { DatagridAction } from "./Datagrid"
@@ -55,7 +56,11 @@ export const Toolbar = (props: ToolbarProps) => {
 
   const selectedLabel = translate(t.eui.grid.selected)
   const selectedCount = selectedItems.length
-  const pageCount = Math.ceil(total / pageSize)
+  const pageCount = Math.max(1, Math.ceil(total / pageSize))
+
+  // hide pagination in case of no items
+  const paginationStyle: CSSProperties | undefined =
+    total > 0 ? undefined : { visibility: "hidden" }
 
   return (
     <EuiFlexGroup alignItems="center" responsive={false}>
@@ -82,7 +87,7 @@ export const Toolbar = (props: ToolbarProps) => {
 
       {showPagination && (
         <EuiHideFor sizes={["xs"]}>
-          <EuiFlexItem grow={true}>
+          <EuiFlexItem grow={true} style={paginationStyle}>
             <EuiTablePagination
               activePage={page - 1}
               pageCount={pageCount}
