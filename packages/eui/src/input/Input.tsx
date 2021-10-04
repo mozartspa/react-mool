@@ -3,17 +3,20 @@ import {
   Field,
   FieldComponentProps,
   FieldRenderProps,
+  FieldValidate,
   splitFieldProps,
 } from "@mozartspa/mobx-form"
 import { ReactNode } from "react"
 import { useGetResourceFieldLabel } from "../helpers"
+import { composeValidate } from "./helpers/composeValidate"
 
 type ChildrenProps<T> = Omit<T, keyof InputProps>
 
-export type InputProps = FieldComponentProps & {
+export type InputProps = Omit<FieldComponentProps, "validate"> & {
   label?: string | false
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
+  validate?: FieldValidate | FieldValidate[]
 }
 
 export type InputComponentProps<TCustomProps = Object> = InputProps &
@@ -27,13 +30,14 @@ export type InputComponentProps<TCustomProps = Object> = InputProps &
 export const Input = <TCustomProps extends Object>(
   props: InputComponentProps<TCustomProps>
 ) => {
-  const { label, fullWidth, helpText, children, ...rest } = props
+  const { label, fullWidth, helpText, validate, children, ...rest } = props
 
   const [name, fieldOptions, childrenProps] = splitFieldProps(rest)
   const getFieldLabel = useGetResourceFieldLabel()
+  const validator = Array.isArray(validate) ? composeValidate(...validate) : validate
 
   return (
-    <Field {...fieldOptions} name={name}>
+    <Field {...fieldOptions} name={name} validate={validator}>
       {(field) => {
         const content = <>{children(field, childrenProps as any /* FIX $TYPE*/)}</>
         if (label === false) {
