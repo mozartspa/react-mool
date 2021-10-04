@@ -36,6 +36,7 @@ export type SelectProps<T = any> = {
   style?: React.CSSProperties
   className?: string
   searchListProps?: Partial<EuiSelectableOptionsListProps>
+  onBlur?: () => void
 } & (
   | {
       multiple?: false
@@ -66,13 +67,17 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     className,
     searchListProps,
     onChange,
+    onBlur,
   } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
 
   const openPopover = () => setPopoverOpen(true)
 
-  const closePopover = () => setPopoverOpen(false)
+  const closePopover = () => {
+    setPopoverOpen(false)
+    onBlur?.()
+  }
 
   // options keys
   const selectOptionKeys = useMemo(() => {
