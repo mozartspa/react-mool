@@ -1,5 +1,6 @@
 export * from "./Input"
 export * from "./NumberInput"
 export * from "./PasswordInput"
+export * from "./SelectInput"
 export * from "./TextAreaInput"
 export * from "./TextInput"

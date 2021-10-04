@@ -1,4 +1,5 @@
 export * from "./NumberValue"
+export * from "./SelectValue"
 export * from "./TextAreaValue"
 export * from "./TextValue"
 export * from "./Value"
