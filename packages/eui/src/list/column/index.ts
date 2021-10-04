@@ -1,4 +1,5 @@
 export * from "./Column"
 export * from "./DateColumn"
 export * from "./NumberColumn"
+export * from "./SelectColumn"
 export * from "./TextColumn"
