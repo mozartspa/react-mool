@@ -5,12 +5,13 @@ export type SelectInputProps = InputProps & SelectProps
 
 export const SelectInput = (props: SelectInputProps) => (
   <Input {...props}>
-    {(field, props) => (
+    {(field, inputProps) => (
       <Select
         value={field.input.value}
         onBlur={() => field.setTouched(true)}
         onChange={(value) => field.setValue(value)}
-        {...props}
+        fullWidth={props.fullWidth}
+        {...inputProps}
       />
     )}
   </Input>
