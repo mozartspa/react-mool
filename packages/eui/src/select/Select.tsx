@@ -12,6 +12,8 @@ import {
 import { ReactNode, useMemo, useState } from "react"
 import { SelectOptionList } from "./SelectOptionList"
 
+const DEFAULT_EMPTY_VALUE = () => undefined
+
 export type SelectOption<T = any> = {
   value: T
   label: string
@@ -28,7 +30,7 @@ export type SelectProps<T = any> = {
   searchable?: boolean
   popoverMode?: "attached" | "detached"
   popoverProps?: Partial<EuiPopoverProps>
-  emptyValue?: T | null | undefined
+  emptyValue?: () => T | null | undefined
   hasDividers?: boolean
   fullWidth?: boolean
   style?: React.CSSProperties
@@ -57,7 +59,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     popoverProps,
     multiple,
     value,
-    emptyValue = null,
+    emptyValue = DEFAULT_EMPTY_VALUE,
     hasDividers,
     fullWidth,
     style,
@@ -114,21 +116,22 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     }
   }, [selectedOptions])
 
-  const keyToOption = (key: string) => {
+  const keyToOptionValue = (key: string) => {
     const index = selectOptionKeys.indexOf(key)
-    return index !== -1 ? options[index] : undefined
+    const value = index !== -1 ? options[index].value : emptyValue()
+    return value
   }
 
   const handleSelectableChange = (options: EuiSelectableOption[]) => {
     if (props.multiple) {
       const newValue = options
         .filter((o) => o.checked === "on")
-        .map((o) => keyToOption(o.key!)?.value)
+        .map((o) => keyToOptionValue(o.key!))
       // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
       onChange?.(newValue as any)
     } else {
       const selectedKey = options.find((o) => o.checked === "on")?.key
-      const newValue = selectedKey != null ? keyToOption(selectedKey)?.value : undefined
+      const newValue = selectedKey != null ? keyToOptionValue(selectedKey) : emptyValue()
       // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
       onChange?.(newValue as any)
       closePopover()
@@ -146,7 +149,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
       // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
       onChange?.(newValue as any)
     } else {
-      onChange?.(selected ? option.value : emptyValue)
+      onChange?.(selected ? option.value : emptyValue())
       closePopover()
     }
   }

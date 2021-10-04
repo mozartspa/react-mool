@@ -4,7 +4,7 @@ import { Filter, FilterComponentProps } from "./Filter"
 export type SelectFilterProps<T = any> = FilterComponentProps &
   Omit<SelectProps<T>, "value" | "onChange">
 
-export const SelectFilter = (props: SelectFilterProps) => {
+export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
   return (
     <Filter {...props}>
       {(field) => (
@@ -18,4 +18,9 @@ export const SelectFilter = (props: SelectFilterProps) => {
       )}
     </Filter>
   )
+}
+
+SelectFilter.defaultProps = {
+  emptyValue: () => undefined,
+  popoverMode: "detached",
 }
