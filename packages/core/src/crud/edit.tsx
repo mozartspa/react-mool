@@ -1,4 +1,10 @@
-import { Form, FormConfig, FormContext, FormErrors, useForm } from "@mozartspa/mobx-form"
+import {
+  Form,
+  FormConfig,
+  FormContext,
+  FormErrorsInput,
+  useForm,
+} from "@mozartspa/mobx-form"
 import { Observer, observer } from "mobx-react-lite"
 import React, { ReactElement, ReactNode, useMemo } from "react"
 import { UseMutationResult, UseQueryResult } from "react-query"
@@ -114,7 +120,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     },
   })
 
-  const handleSubmit = async (values: TUpdate): Promise<FormErrors | void> => {
+  const handleSubmit = async (values: TUpdate): Promise<FormErrorsInput | void> => {
     try {
       // mutate
       const data = transform?.(values) ?? values

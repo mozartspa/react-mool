@@ -6,6 +6,7 @@ import {
   splitFieldProps,
 } from "@mozartspa/mobx-form"
 import { ReactNode } from "react"
+import { errorMessages } from "../error"
 import { useGetResourceFieldLabel } from "../helpers"
 
 type ChildrenProps<T> = Omit<T, keyof InputProps>
@@ -39,9 +40,9 @@ export const Input = <TCustomProps extends Object>(
         if (label === false) {
           return content
         } else {
-          const isInvalid = field.isTouched && !field.isValid
-          const errors = isInvalid ? field.errors : undefined
           const inputLabel = label ?? getFieldLabel(field.name)
+          const isInvalid = field.isTouched && !field.isValid
+          const errors = isInvalid ? errorMessages(field.errors) : undefined
           return (
             <EuiFormRow
               label={inputLabel}

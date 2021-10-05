@@ -1,4 +1,4 @@
-import { Form, FormErrors } from "@mozartspa/mobx-form"
+import { Form, FormErrorsInput } from "@mozartspa/mobx-form"
 import { GetListParams, RecordID } from "../dataProvider"
 
 export type SaveSuccessHandler<TRecord = any, TUpdate = TRecord> = (
@@ -18,7 +18,7 @@ export type SaveErrorHandler<TRecord = any, TUpdate = TRecord> = (
     error: any
   },
   defaultHandler: () => Promise<void>
-) => Promise<FormErrors | void> | FormErrors | void
+) => Promise<FormErrorsInput | void> | FormErrorsInput | void
 
 export type LoadSuccessHandler<TRecord = any> = (arg: {
   id: RecordID
