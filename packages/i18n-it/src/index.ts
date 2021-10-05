@@ -69,6 +69,9 @@ const euiMessages: EuiMessages = {
       notfound_message:
         "Hai digitato un URL non corretto, o hai seguito un link sbagliato...",
     },
+    validation: {
+      required: "Campo obbligatorio",
+    },
   },
 }
 
