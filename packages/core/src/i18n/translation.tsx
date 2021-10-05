@@ -95,9 +95,15 @@ export function TranslationContextProvider(props: TranslationContextProviderProp
 function createMaybeTranslate(translate: I18nProvider["translate"]) {
   function t(key: string, options?: TranslateOptions): string
   function t(key: ReactNode, options?: TranslateOptions): ReactNode
-  function t(key: string | ReactNode, options?: any): string | ReactNode {
+  function t(key: ReactNode[], options?: TranslateOptions): ReactNode[]
+  function t(
+    key: string | ReactNode | ReactNode[],
+    options?: any
+  ): string | ReactNode | ReactNode[] {
     if (typeof key === "string") {
       return translate(key, options)
+    } else if (Array.isArray(key)) {
+      return key.map((k) => t(k, options))
     } else {
       return key
     }

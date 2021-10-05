@@ -1,11 +1,11 @@
 import { EuiFormRow, formatAuto } from "@elastic/eui"
-import { useRecord, useRecordValue } from "@react-mool/core"
+import { useRecord, useRecordValue, useTranslate } from "@react-mool/core"
 import { ReactNode } from "react"
 import { useGetResourceFieldLabel } from "../helpers"
 
 export type ValueProps = {
   name: string
-  label?: string | false
+  label?: ReactNode | false
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
 }
@@ -25,15 +25,16 @@ export const Value = (props: ValueComponentProps) => {
   const value = useRecordValue(name)
   const record = useRecord()
   const getFieldLabel = useGetResourceFieldLabel()
+  const translate = useTranslate()
 
-  const valueLabel = label || getFieldLabel(name)
+  const valueLabel = translate(label) || getFieldLabel(name)
   const content = <>{children ? children({ value, record }) : formatAuto(value)}</>
 
   if (label === false) {
     return content
   } else {
     return (
-      <EuiFormRow label={valueLabel} fullWidth={fullWidth} helpText={helpText}>
+      <EuiFormRow label={valueLabel} fullWidth={fullWidth} helpText={translate(helpText)}>
         {content}
       </EuiFormRow>
     )

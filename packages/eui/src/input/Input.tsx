@@ -5,6 +5,7 @@ import {
   FieldRenderProps,
   splitFieldProps,
 } from "@mozartspa/mobx-form"
+import { useTranslate } from "@react-mool/core"
 import { ReactNode } from "react"
 import { errorMessages } from "../error"
 import { useGetResourceFieldLabel } from "../helpers"
@@ -12,7 +13,7 @@ import { useGetResourceFieldLabel } from "../helpers"
 type ChildrenProps<T> = Omit<T, keyof InputProps>
 
 export type InputProps = FieldComponentProps & {
-  label?: string | false
+  label?: ReactNode | false
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
 }
@@ -32,6 +33,7 @@ export const Input = <TCustomProps extends Object>(
 
   const [name, fieldOptions, childrenProps] = splitFieldProps(rest)
   const getFieldLabel = useGetResourceFieldLabel()
+  const translate = useTranslate()
 
   return (
     <Field {...fieldOptions} name={name}>
@@ -40,7 +42,7 @@ export const Input = <TCustomProps extends Object>(
         if (label === false) {
           return content
         } else {
-          const inputLabel = label ?? getFieldLabel(field.name)
+          const inputLabel = label ? translate(label) : getFieldLabel(field.name)
           const isInvalid = field.isTouched && !field.isValid
           const errors = isInvalid ? errorMessages(field.errors) : undefined
           return (
@@ -49,7 +51,7 @@ export const Input = <TCustomProps extends Object>(
               isInvalid={isInvalid}
               error={errors}
               fullWidth={fullWidth}
-              helpText={helpText}
+              helpText={translate(helpText)}
             >
               {content}
             </EuiFormRow>
