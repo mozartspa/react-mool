@@ -25,7 +25,7 @@ export type SelectOption<T = any> = {
 
 export type SelectProps<T = any> = {
   options: SelectOption<T>[]
-  label?: string
+  label?: ReactNode
   placeholder?: string
   searchable?: boolean
   popoverMode?: "attached" | "detached"

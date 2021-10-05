@@ -16,6 +16,7 @@ import {
 } from "@react-mool/core"
 import { observer } from "mobx-react-lite"
 import { useHistory } from "react-router"
+import { ErrorMessage, errorMessages } from "../error"
 import { t } from "../i18n"
 
 export type LoginFormProps = {
@@ -55,7 +56,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
               : error instanceof Error
               ? error.message
               : t.eui.login.invalid_credentials
-          return { "*": translate(message) }
+          return { "*": message }
         }
       }
     },
@@ -70,7 +71,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
           <EuiFormRow
             label={translate(t.eui.login.username_label)}
             isInvalid={field.isTouched && !field.isValid}
-            error={field.isTouched && field.errors}
+            error={field.isTouched && errorMessages(field.errors)}
           >
             <EuiFieldText {...field.input} icon="user" />
           </EuiFormRow>
@@ -81,7 +82,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
           <EuiFormRow
             label={translate(t.eui.login.password_label)}
             isInvalid={field.isTouched && !field.isValid}
-            error={field.isTouched && field.errors}
+            error={field.isTouched && errorMessages(field.errors)}
           >
             <EuiFieldPassword {...field.input} type="dual" />
           </EuiFormRow>
@@ -90,7 +91,11 @@ export const LoginForm = observer((props: LoginFormProps) => {
       <EuiSpacer />
       {form.getFieldError("*") ? (
         <>
-          <EuiCallOut title={form.getFieldError("*")} color="danger" iconType="alert" />
+          <EuiCallOut
+            title={<ErrorMessage error={form.getFieldError("*")} />}
+            color="danger"
+            iconType="alert"
+          />
           <EuiSpacer />
         </>
       ) : null}

@@ -51,6 +51,9 @@ export const englishEuiMessages = {
       notfound_title: "Not found",
       notfound_message: "Either you typed a wrong URL, or you followed a bad link...",
     },
+    validation: {
+      required: "Field required",
+    },
   },
 }
 

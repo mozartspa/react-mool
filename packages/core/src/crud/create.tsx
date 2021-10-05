@@ -1,4 +1,10 @@
-import { Form, FormConfig, FormContext, FormErrors, useForm } from "@mozartspa/mobx-form"
+import {
+  Form,
+  FormConfig,
+  FormContext,
+  FormErrorsInput,
+  useForm,
+} from "@mozartspa/mobx-form"
 import { Observer, observer } from "mobx-react-lite"
 import React, { ReactElement, ReactNode } from "react"
 import { UseMutationResult } from "react-query"
@@ -56,7 +62,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
   const redirect = useRedirect({ resource })
   const notify = useNotify()
 
-  const handleSubmit = async (values: TCreate): Promise<FormErrors | void> => {
+  const handleSubmit = async (values: TCreate): Promise<FormErrorsInput | void> => {
     try {
       // mutate
       const data = transform?.(values) ?? values
