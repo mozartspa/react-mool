@@ -2441,14 +2441,13 @@
   dependencies:
     unist-util-visit "^1.4.1"
 
-"@mozartspa/mobx-form@^0.6.0-0":
-  version "0.6.0-0"
-  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.6.0-0.tgz#6901df44d2af898f03bb1be083acac82e16d4074"
-  integrity sha512-qzstc0UcUp5NPe8M2sY8Vfd1+74R2OCO9tO0tQeZ/xQv/L3sCDhBo38Af3P6FxDk/BzPLNu5VdUAxtfhGAjVYg==
+"@mozartspa/mobx-form@^0.6.0-1":
+  version "0.6.0-1"
+  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.6.0-1.tgz#ea3dedad154fdb309bde3d563d12670e5e0a469d"
+  integrity sha512-mEH++aasp2MgbudOMloJxF5Vo3vwiSbGLelaEp4CMzS55MEXB4z1U874DgkF08ts4XGlCmwTDe8r7AVigd+KdQ==
   dependencies:
     debounce-promise "^3.1.2"
     dlv "^1.1.3"
-    dset "^3.1.0"
     react-fast-compare "^3.2.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
@@ -6531,11 +6530,6 @@ dotenv@8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
-
-dset@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/dset/-/dset-3.1.0.tgz#23feb6df93816ea452566308b1374d6e869b0d7b"
-  integrity sha512-7xTQ5DzyE59Nn+7ZgXDXjKAGSGmXZHqttMVVz1r4QNfmGpyj+cm2YtI3II0c/+4zS4a9yq2mBhgdeq2QnpcYlw==
 
 duplexer@^0.1.1:
   version "0.1.2"
