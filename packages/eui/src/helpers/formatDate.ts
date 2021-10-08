@@ -10,7 +10,7 @@ export function formatDate(
   formatOptions?: Intl.DateTimeFormatOptions
 ) {
   if (hasDateTimeFormat) {
-    return value.toLocaleDateString(locale, formatOptions)
+    return new Intl.DateTimeFormat(locale, formatOptions).format(value)
   } else {
     return value
   }
