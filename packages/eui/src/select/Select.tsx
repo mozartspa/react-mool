@@ -37,6 +37,8 @@ export type SelectProps<T = any> = {
   className?: string
   searchListProps?: Partial<EuiSelectableOptionsListProps>
   onBlur?: () => void
+  isDisabled?: boolean
+  isLoading?: boolean
 } & (
   | {
       multiple?: false
@@ -68,6 +70,8 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     searchListProps,
     onChange,
     onBlur,
+    isDisabled,
+    isLoading,
   } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
@@ -176,6 +180,8 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
             numFilters={isActive ? options.length : 0}
             isSelected={isPopoverOpen}
             onClick={openPopover}
+            isDisabled={isDisabled}
+            isLoading={isLoading}
           >
             {label}
           </EuiFilterButton>
@@ -188,6 +194,8 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
             iconType="arrowDown"
             hasActiveFilters={false}
             onClick={openPopover}
+            isDisabled={isDisabled}
+            isLoading={isLoading}
           >
             {selectedOptions ? (
               renderSelectedOption(selectedOptions)
