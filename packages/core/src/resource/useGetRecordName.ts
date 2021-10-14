@@ -6,7 +6,7 @@ function isValidString(value: any) {
   return value != null && typeof value === "string" && value !== ""
 }
 
-function defaultRecordName(record: any) {
+function defaultRecordName(record: any): string {
   if (record == null) {
     return ""
   }

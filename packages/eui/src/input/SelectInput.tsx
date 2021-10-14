@@ -1,6 +1,8 @@
 import { Select, SelectProps } from "../select"
 import { Input, InputProps } from "./Input"
 
+const defaultEmptyValue = () => null
+
 export type SelectInputProps = InputProps & SelectProps
 
 export const SelectInput = (props: SelectInputProps) => (
@@ -12,6 +14,7 @@ export const SelectInput = (props: SelectInputProps) => (
         onChange={(value) => field.setValue(value)}
         fullWidth={props.fullWidth}
         {...inputProps}
+        emptyValue={inputProps.emptyValue ?? defaultEmptyValue}
       />
     )}
   </Input>

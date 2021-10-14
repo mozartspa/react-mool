@@ -2,7 +2,7 @@ import { Select, SelectProps } from "../../select"
 import { Filter, FilterComponentProps } from "./Filter"
 
 export type SelectFilterProps<T = any> = FilterComponentProps &
-  Omit<SelectProps<T>, "value" | "onChange">
+  Omit<SelectProps<T>, "value" | "onChange" | "onBlur">
 
 export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
   return (
@@ -11,6 +11,7 @@ export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
         <Select
           {...props}
           value={field.value}
+          onBlur={() => field.setTouched(true)}
           onChange={(value) => {
             field.setValue(value)
           }}
