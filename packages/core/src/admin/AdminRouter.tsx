@@ -2,8 +2,18 @@ import React, { ComponentType, ReactElement, ReactNode } from "react"
 import { Redirect, Route, Switch } from "react-router-dom"
 import { Authenticated } from "../auth"
 import { CustomRouteProps } from "../customRoute"
-import { ResourceRoutes, useResourceDefinitionList } from "../resource"
+import {
+  ResourceDefinition,
+  ResourceRoutes,
+  useResourceDefinitionList,
+} from "../resource"
 import { ScrollToTop } from "./ScrollToTop"
+
+function hasResourceRoutes(definition: ResourceDefinition) {
+  const { create, detail, edit, list } = definition
+
+  return create || detail || edit || list ? true : false
+}
 
 export type AdminRouterProps = {
   layout?: ComponentType<{ hasDashboard?: boolean }>
@@ -38,11 +48,14 @@ export const AdminRouter = (props: AdminRouterProps) => {
     .filter((route) => route.props.noLayout !== true)
     .map((route, i) => <Route key={i} {...route.props} />)
 
-  const resourceRoutes = resourceDefinitions.map((def, i) => (
-    <Route key={i} path={`/${def.name}`}>
-      <ResourceRoutes definition={def} />
-    </Route>
-  ))
+  const resourceRoutes = resourceDefinitions.map(
+    (def, i) =>
+      hasResourceRoutes(def) && (
+        <Route key={i} path={`/${def.name}`}>
+          <ResourceRoutes definition={def} />
+        </Route>
+      )
+  )
 
   const redirectToFirstResource =
     resourceDefinitions.length > 0 ? (
