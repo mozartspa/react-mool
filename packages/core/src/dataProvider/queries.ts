@@ -11,6 +11,12 @@ export type UseGetOneOptions<TRecord = any> = UseQueryOptions<TRecord> & {
   resource?: string
 }
 
+export type UseGetManyOptions<TRecord = any> = UseQueryOptions<
+  (TRecord | undefined)[]
+> & {
+  resource?: string
+}
+
 export type UseGetListOptions<TRecord = any> = UseQueryOptions<GetListOutput<TRecord>> & {
   resource?: string
 }
@@ -52,6 +58,33 @@ export function useGetOne<TRecord = any>(
       },
       ...options,
     }
+  )
+
+  return query
+}
+
+export function useGetMany<TRecord = any>(
+  ids: RecordID[],
+  options: UseGetManyOptions<TRecord> = {}
+) {
+  const resource = useResource(options.resource)
+  const dataProvider = useResourceDataProvider<TRecord>(resource)
+  const idsString = `[${ids.join(",")}]`
+
+  const query = useQuery(
+    [resource, idsString],
+    () => {
+      return Promise.all(
+        ids.map(async (id) => {
+          try {
+            return await dataProvider.getOne({ id })
+          } catch (err) {
+            return undefined
+          }
+        })
+      )
+    },
+    options
   )
 
   return query
