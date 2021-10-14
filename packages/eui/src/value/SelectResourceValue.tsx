@@ -67,23 +67,3 @@ export const SelectResourceValue = <TRecord extends any>(
     </Value>
   )
 }
-
-/*
-useGetOne con undefined? NO
-
-useGetMany con []
-<Reference id={}>
- {(record, { isLoading, isRefetching }) => (
-   record ? <span>{record.pinco}</span> : null
- )}
-</Reference>
-<ReferenceMany ids={} render=() />
-
-<ReferenceValue name="pinco">
-{(records) => }
-</ReferenceValue>
-
-<ReferenceManyValue name="pinco" resource=>
-{(records) => records.map() }
-</ReferenceManyValue>
-*/
