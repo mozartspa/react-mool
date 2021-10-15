@@ -1,3 +1,4 @@
+export * from "./ComboBoxValue"
 export * from "./NumberValue"
 export * from "./ReferenceManyValue"
 export * from "./ReferenceValue"
