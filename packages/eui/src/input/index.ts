@@ -1,3 +1,4 @@
+export * from "./ComboBoxInput"
 export * from "./Input"
 export * from "./NumberInput"
 export * from "./PasswordInput"
