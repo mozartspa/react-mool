@@ -45,7 +45,7 @@ export const RecordLink = <TRecord extends any>(props: RecordLinkProps<TRecord>)
       : redirectLink(linkTo.to, { id: getId(record), resource, ...linkTo.options })
 
   return (
-    <a {...anchorProps} className={className} onClick={onClick}>
+    <a {...anchorProps} onClick={onClick ?? anchorProps.onClick} className={className}>
       {content}
     </a>
   )
