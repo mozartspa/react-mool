@@ -1,5 +1,7 @@
 export * from "./BadgeCount"
 export * from "./Count"
 export * from "./RecordLink"
+export * from "./Reference"
+export * from "./ReferenceMany"
 export * from "./Row"
 export * from "./SectionHeader"
