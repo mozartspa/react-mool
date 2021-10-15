@@ -5,7 +5,7 @@ import {
   useGetRecordName,
 } from "@react-mool/core"
 import { useMemo } from "react"
-import { Select, SelectOption, SelectProps } from "../select"
+import { Select, SelectOption, SelectProps } from "../select/Select"
 
 export type SelectResourceProps<TRecord = any, TFilter = any> = Omit<
   SelectProps,
