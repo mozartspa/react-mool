@@ -1,4 +1,6 @@
 export * from "./NumberValue"
+export * from "./ReferenceManyValue"
+export * from "./ReferenceValue"
 export * from "./SelectResourceValue"
 export * from "./SelectValue"
 export * from "./TextAreaValue"
