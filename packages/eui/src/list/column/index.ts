@@ -1,5 +1,7 @@
 export * from "./Column"
 export * from "./DateColumn"
 export * from "./NumberColumn"
+export * from "./ReferenceColumn"
+export * from "./ReferenceManyColumn"
 export * from "./SelectColumn"
 export * from "./TextColumn"
