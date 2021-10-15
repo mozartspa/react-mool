@@ -1,5 +1,6 @@
 import {
   ComboBoxInput,
+  ComboBoxResourceInput,
   NumberInput,
   PasswordInput,
   SelectInput,
@@ -8,6 +9,7 @@ import {
   TextInput,
 } from "../input"
 import {
+  ComboBoxResourceValue,
   ComboBoxValue,
   NumberValue,
   SelectResourceValue,
@@ -33,3 +35,8 @@ export const SelectResourceControl = createControl(
 )
 
 export const ComboBoxControl = createControl(ComboBoxInput, ComboBoxValue)
+
+export const ComboBoxResourceControl = createControl(
+  ComboBoxResourceInput,
+  ComboBoxResourceValue
+)

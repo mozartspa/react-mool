@@ -1,4 +1,5 @@
 export * from "./ComboBoxInput"
+export * from "./ComboBoxResourceInput"
 export * from "./Input"
 export * from "./NumberInput"
 export * from "./PasswordInput"
