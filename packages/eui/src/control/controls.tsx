@@ -1,17 +1,23 @@
 import {
+  CheckboxGroupInput,
+  CheckboxInput,
   ComboBoxInput,
   ComboBoxResourceInput,
   NumberInput,
   PasswordInput,
+  RadioGroupInput,
   SelectInput,
   SelectResourceInput,
   TextAreaInput,
   TextInput,
 } from "../input"
 import {
+  CheckboxGroupValue,
+  CheckboxValue,
   ComboBoxResourceValue,
   ComboBoxValue,
   NumberValue,
+  RadioGroupValue,
   SelectResourceValue,
   SelectValue,
   TextAreaValue,
@@ -40,3 +46,9 @@ export const ComboBoxResourceControl = createControl(
   ComboBoxResourceInput,
   ComboBoxResourceValue
 )
+
+export const CheckboxControl = createControl(CheckboxInput, CheckboxValue)
+
+export const CheckboxGroupControl = createControl(CheckboxGroupInput, CheckboxGroupValue)
+
+export const RadioGroupControl = createControl(RadioGroupInput, RadioGroupValue)
