@@ -1,17 +1,8 @@
 import { EuiCheckboxGroup, EuiCheckboxGroupOption } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useMemo } from "react"
+import { useValueToId } from "./helpers/useValueToId"
 import { Input, InputProps } from "./Input"
-
-function valueToId(value: any) {
-  if (typeof value === "string") {
-    return value
-  } else if (typeof value === "number") {
-    return String(value)
-  } else {
-    return JSON.stringify(value)
-  }
-}
 
 function valueArray(value: any) {
   if (Array.isArray(value)) {
@@ -36,6 +27,7 @@ export type CheckboxGroupInputProps = InputProps & {
 
 export const CheckboxGroupInput = (props: CheckboxGroupInputProps) => {
   const translate = useTranslate()
+  const valueToId = useValueToId()
 
   const { options, ...rest } = props
 
