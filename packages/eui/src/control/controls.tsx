@@ -1,4 +1,5 @@
 import {
+  CheckboxInput,
   ComboBoxInput,
   ComboBoxResourceInput,
   NumberInput,
@@ -9,6 +10,7 @@ import {
   TextInput,
 } from "../input"
 import {
+  CheckboxValue,
   ComboBoxResourceValue,
   ComboBoxValue,
   NumberValue,
@@ -40,3 +42,5 @@ export const ComboBoxResourceControl = createControl(
   ComboBoxResourceInput,
   ComboBoxResourceValue
 )
+
+export const CheckboxControl = createControl(CheckboxInput, CheckboxValue)

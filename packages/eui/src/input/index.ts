@@ -1,3 +1,4 @@
+export * from "./CheckboxInput"
 export * from "./ComboBoxInput"
 export * from "./ComboBoxResourceInput"
 export * from "./Input"
