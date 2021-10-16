@@ -1,3 +1,4 @@
+export * from "./CheckboxGroupValue"
 export * from "./CheckboxValue"
 export * from "./ComboBoxResourceValue"
 export * from "./ComboBoxValue"
