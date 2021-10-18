@@ -2441,10 +2441,10 @@
   dependencies:
     unist-util-visit "^1.4.1"
 
-"@mozartspa/mobx-form@^0.6.0-1":
-  version "0.6.0-1"
-  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.6.0-1.tgz#ea3dedad154fdb309bde3d563d12670e5e0a469d"
-  integrity sha512-mEH++aasp2MgbudOMloJxF5Vo3vwiSbGLelaEp4CMzS55MEXB4z1U874DgkF08ts4XGlCmwTDe8r7AVigd+KdQ==
+"@mozartspa/mobx-form@^0.6.0-2":
+  version "0.6.0-2"
+  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.6.0-2.tgz#820b4fa3867656be7817261136aad3c15ac31853"
+  integrity sha512-HcveAxSEKoL0ZQe29SEx1JkHnx32NhFr0e9kdHOlu7x3GLMPB7eOSWfY0iccs+TbuTUo1FBX1VSpGbmi89dU1Q==
   dependencies:
     debounce-promise "^3.1.2"
     dlv "^1.1.3"
