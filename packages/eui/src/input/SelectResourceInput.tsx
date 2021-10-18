@@ -1,4 +1,5 @@
 import { SelectResource, SelectResourceProps } from "../select/SelectResource"
+import { noFormat } from "./helpers/noFormat"
 import { Input, InputProps } from "./Input"
 
 const defaultEmptyValue = () => null
@@ -10,7 +11,7 @@ export const SelectResourceInput = <TRecord extends any, TFilter>(
   props: SelectResourceInputProps<TRecord, TFilter>
 ) => {
   return (
-    <Input {...props}>
+    <Input {...props} format={props.format ?? noFormat}>
       {(field, inputProps) => (
         <SelectResource
           value={field.input.value}

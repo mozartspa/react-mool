@@ -1,4 +1,5 @@
 import { Select, SelectProps } from "../select"
+import { noFormat } from "./helpers/noFormat"
 import { Input, InputProps } from "./Input"
 
 const defaultEmptyValue = () => null
@@ -6,7 +7,7 @@ const defaultEmptyValue = () => null
 export type SelectInputProps = InputProps & SelectProps
 
 export const SelectInput = (props: SelectInputProps) => (
-  <Input {...props}>
+  <Input {...props} format={props.format ?? noFormat}>
     {(field, inputProps) => (
       <Select
         value={field.input.value}

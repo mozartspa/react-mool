@@ -1,4 +1,5 @@
 import { EuiComboBox, EuiComboBoxOptionOption, EuiComboBoxProps } from "@elastic/eui"
+import { noFormat } from "./helpers/noFormat"
 import { Input, InputProps } from "./Input"
 
 type ComboBoxProps = Pick<
@@ -22,10 +23,10 @@ type ComboBoxProps = Pick<
 export type ComboBoxInputProps = InputProps & ComboBoxProps
 
 export const ComboBoxInput = (props: ComboBoxInputProps) => {
-  const { options = [] } = props
+  const { options = [], format = noFormat } = props
 
   return (
-    <Input {...props}>
+    <Input {...props} format={format}>
       {(field, inputProps) => {
         const value = Array.isArray(field.input.value) ? field.input.value : []
         const selectedOptions = options.filter((o) => value.includes(o.value ?? o.label))

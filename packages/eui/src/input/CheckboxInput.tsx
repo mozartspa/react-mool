@@ -1,6 +1,7 @@
 import { EuiCheckbox, EuiSwitch, useGeneratedHtmlId } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode } from "react"
+import { noFormat } from "./helpers/noFormat"
 import { Input, InputProps } from "./Input"
 
 export type CheckboxInputProps = InputProps & {
@@ -13,12 +14,12 @@ export const CheckboxInput = (props: CheckboxInputProps) => {
   const id = useGeneratedHtmlId()
   const translate = useTranslate()
 
-  const { checkboxLabel, asSwitch = false, ...rest } = props
+  const { checkboxLabel, asSwitch = false, format = noFormat, ...rest } = props
 
   const Comp = asSwitch ? EuiSwitch : EuiCheckbox
 
   return (
-    <Input {...rest}>
+    <Input {...rest} format={format}>
       {(field, inputProps) => (
         <Comp
           id={id}
