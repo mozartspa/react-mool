@@ -5,6 +5,13 @@ export type NumberInputProps = InputProps & EuiFieldNumberProps
 
 export const NumberInput = (props: NumberInputProps) => (
   <Input {...props}>
-    {(field, props) => <EuiFieldNumber {...field.input} step="any" {...props} />}
+    {(field, inputProps) => (
+      <EuiFieldNumber
+        {...field.input}
+        step="any"
+        fullWidth={props.fullWidth}
+        {...inputProps}
+      />
+    )}
   </Input>
 )

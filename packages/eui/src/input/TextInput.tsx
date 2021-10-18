@@ -5,6 +5,8 @@ export type TextInputProps = InputProps & EuiFieldTextProps
 
 export const TextInput = (props: TextInputProps) => (
   <Input {...props}>
-    {(field, props) => <EuiFieldText {...field.input} {...props} />}
+    {(field, inputProps) => (
+      <EuiFieldText {...field.input} fullWidth={props.fullWidth} {...inputProps} />
+    )}
   </Input>
 )

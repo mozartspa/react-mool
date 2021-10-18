@@ -41,6 +41,7 @@ export const ComboBoxInput = (props: ComboBoxInputProps) => {
             selectedOptions={selectedOptions}
             onBlur={field.input.onBlur}
             onChange={handleChange}
+            fullWidth={props.fullWidth}
           />
         )
       }}
