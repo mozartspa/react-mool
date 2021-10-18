@@ -8,6 +8,7 @@ export type ValueProps = {
   label?: ReactNode | false
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
+  format?: (value: any) => any
 }
 
 export type ValueRenderProps<TValue = any, TRecord = any> = {
@@ -20,13 +21,14 @@ export type ValueComponentProps<TValue = any, TRecord = any> = ValueProps & {
 }
 
 export const Value = (props: ValueComponentProps) => {
-  const { name, label, fullWidth, helpText, children } = props
+  const { name, label, fullWidth, helpText, format, children } = props
 
-  const value = useRecordValue(name)
   const record = useRecord()
+  const recordValue = useRecordValue(name)
   const getFieldLabel = useGetResourceFieldLabel()
   const translate = useTranslate()
 
+  const value = format ? format(recordValue) : recordValue
   const valueLabel = translate(label) || getFieldLabel(name)
   const content = <>{children ? children({ value, record }) : formatAuto(value)}</>
 
