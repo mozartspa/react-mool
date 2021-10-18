@@ -87,8 +87,8 @@ function FilterBarComp<TFilter, TFilterOut = TFilter>(
 
   // Translate filter name
   const translateFilterName = (name: string) => {
-    return translate(`resources.${resource}.filter.${name}`, {
-      defaultValue: translate(`resources.${resource}.field.${name}`, {
+    return translate(`resources.${resource}.filters.${name}`, {
+      defaultValue: translate(`resources.${resource}.fields.${name}`, {
         defaultValue: humanize(name),
       }),
     })
