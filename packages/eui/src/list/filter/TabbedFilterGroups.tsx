@@ -5,6 +5,8 @@ import {
   useListContext,
   useResource,
   useStorage,
+  useSyncWithURL,
+  UseSyncWithURLOptions,
   useTranslate,
 } from "@react-mool/core"
 import { ReactNode, useCallback, useState } from "react"
@@ -23,6 +25,9 @@ export type TabbedFilterGroupsProps<TFilter = any> = {
   restoreFromLast?: boolean
   restoreKey?: string
   restoreStorage?: Storage
+  syncWithURL?: boolean
+  syncWithURLParam?: string
+  syncWithURLMode?: UseSyncWithURLOptions["historyMode"]
 }
 
 export function TabbedFilterGroups<TFilter = any>(
@@ -34,6 +39,9 @@ export function TabbedFilterGroups<TFilter = any>(
     restoreFromLast = true,
     restoreKey,
     restoreStorage,
+    syncWithURL = false,
+    syncWithURLParam = "filterGroup",
+    syncWithURLMode = "push",
   } = props
 
   const resource = useResource()
@@ -60,6 +68,14 @@ export function TabbedFilterGroups<TFilter = any>(
   useUpdateEffect(() => {
     storage.set(selectedName)
   }, [selectedName])
+
+  useSyncWithURL({
+    value: selectedName,
+    onChange: setSelectedName,
+    queryParam: syncWithURLParam,
+    enabled: syncWithURL,
+    historyMode: syncWithURLMode,
+  })
 
   const getGroupLabel = useCallback(
     (group: TabbedFilterGroup) => {
