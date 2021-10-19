@@ -5,8 +5,9 @@ import {
   useListContext,
   useResource,
   useStorage,
+  useTranslate,
 } from "@react-mool/core"
-import { ReactNode, useState } from "react"
+import { ReactNode, useCallback, useState } from "react"
 import { useUpdateEffect } from "rooks"
 
 export type TabbedFilterGroup<TFilter = any> = {
@@ -36,6 +37,7 @@ export function TabbedFilterGroups<TFilter = any>(
   } = props
 
   const resource = useResource()
+  const translate = useTranslate()
   const storage = useStorage(restoreKey ?? `${resource}-tabbedfiltergroup`, {
     enabled: restoreFromLast,
     storage: restoreStorage,
@@ -59,6 +61,19 @@ export function TabbedFilterGroups<TFilter = any>(
     storage.set(selectedName)
   }, [selectedName])
 
+  const getGroupLabel = useCallback(
+    (group: TabbedFilterGroup) => {
+      if (group.label) {
+        return translate(group.label)
+      } else {
+        return translate(`resources.${resource}.filterGroups.${group.name}`, {
+          defaultValue: group.name,
+        })
+      }
+    },
+    [translate, resource]
+  )
+
   return (
     <EuiTabs display="default">
       {groups.map((group) => (
@@ -69,7 +84,7 @@ export function TabbedFilterGroups<TFilter = any>(
             setSelectedName(group.name)
           }}
         >
-          {group.label || group.name} {showCount && <BadgeCount group={group} />}
+          {getGroupLabel(group)} {showCount && <BadgeCount group={group} />}
         </EuiTab>
       ))}
     </EuiTabs>
