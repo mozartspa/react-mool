@@ -1,4 +1,5 @@
 import {
+  DebugForm,
   Form,
   FormConfig,
   FormContext,
@@ -156,10 +157,11 @@ export type CreateBaseProps<TRecord = any, TCreate = TRecord> = UseCreateFormOpt
   TCreate
 > & {
   children: ReactNode | ((create: UseCreateFormResult<TRecord, TCreate>) => ReactElement)
+  debugForm?: boolean
 }
 
 export const CreateBase = observer((options: CreateBaseProps) => {
-  const { children, ...createOptions } = options
+  const { children, debugForm, ...createOptions } = options
   const create = useCreateForm(createOptions)
 
   const body =
@@ -173,7 +175,10 @@ export const CreateBase = observer((options: CreateBaseProps) => {
     <ResourceContext.Provider value={create.resource}>
       <CrudModeProvider mode="create">
         <CreateFormContext.Provider value={create}>
-          <FormContext.Provider value={create.form}>{body}</FormContext.Provider>
+          <FormContext.Provider value={create.form}>
+            {body}
+            {!!debugForm && <DebugForm />}
+          </FormContext.Provider>
         </CreateFormContext.Provider>
       </CrudModeProvider>
     </ResourceContext.Provider>
