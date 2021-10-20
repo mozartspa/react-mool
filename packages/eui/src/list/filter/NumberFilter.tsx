@@ -10,7 +10,10 @@ export type NumberFilterProps = FilterComponentProps & {
 export const NumberFilter = (props: NumberFilterProps) => {
   const { placeholder, isClearable, format, ...filterProps } = props
 
-  const handleFormat = useCallback((value: any) => String(value), [])
+  const handleFormat = useCallback(
+    (value: any) => (value == null ? "" : String(value)),
+    []
+  )
 
   return (
     <Filter {...filterProps} format={format ?? handleFormat}>
@@ -21,6 +24,7 @@ export const NumberFilter = (props: NumberFilterProps) => {
           isClearable={isClearable ?? filterProps.alwaysOn ?? false}
           fullWidth
           type="number"
+          step="any"
         />
       )}
     </Filter>
