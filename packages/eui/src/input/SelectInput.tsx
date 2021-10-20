@@ -1,5 +1,5 @@
+import { useTranslate } from "@react-mool/core"
 import { ReactNode } from "react"
-import { useTranslate } from "../../../core/dist/esm"
 import { useGetResourceFieldLabel } from "../helpers"
 import { Select, SelectProps } from "../select"
 import { noFormat } from "./helpers/noFormat"
