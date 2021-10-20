@@ -86,10 +86,15 @@ export const ComboBoxResourceInput = <TRecord extends any = any, TFilter = any>(
     [dataProvider, resource]
   )
 
+  // Parse function is used only to be sure that before submission
+  // the value of the field is converted in the correct format.
+  const parse = useCallback((value: any) => value, [])
+
   return (
     <ComboBoxInput
       {...rest}
       format={rest.format ?? format}
+      parse={rest.parse ?? parse}
       options={options}
       isLoading={query.isLoading}
       async
