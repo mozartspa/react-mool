@@ -1,5 +1,5 @@
-import { GetMany, useGetRecordName } from "@react-mool/core"
-import { ReactNode } from "react"
+import { GetMany, useDataProvider, useGetRecordName } from "@react-mool/core"
+import { ReactNode, useCallback } from "react"
 import { SelectResourceProps } from "../select"
 import { Value, ValueProps } from "./Value"
 
@@ -14,6 +14,7 @@ export const SelectResourceValue = <TRecord extends any>(
   const { resource, toOptions, multiple, loadingView } = props
 
   const getName = useGetRecordName(resource)
+  const dataProvider = useDataProvider()
 
   const renderSingle = (record: TRecord | undefined) => {
     if (!record) {
@@ -59,8 +60,31 @@ export const SelectResourceValue = <TRecord extends any>(
     )
   }
 
+  // Format function in order to support 2 different formats of value:
+  // - multiple false: id of the related record or the related record directly.
+  // - multiple true: array of ids of the related records, or array of records.
+  const format = useCallback(
+    (value: any) => {
+      const maybeConvertToId = (value: any) => {
+        return typeof value === "object" ? dataProvider.id(resource, value) : value
+      }
+
+      if (multiple) {
+        if (value == null) {
+          return []
+        }
+        const list = Array.isArray(value) ? value : [value]
+        const ids = list.map((item) => maybeConvertToId(item)).filter(Boolean)
+        return ids
+      } else {
+        return maybeConvertToId(value)
+      }
+    },
+    [dataProvider, resource, multiple]
+  )
+
   return (
-    <Value {...props}>
+    <Value {...props} format={props.format ?? format}>
       {({ value }) => {
         return renderContent(value)
       }}
