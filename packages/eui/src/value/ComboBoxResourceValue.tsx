@@ -1,6 +1,6 @@
 import { EuiBadge, EuiComboBoxOptionOption } from "@elastic/eui"
-import { GetMany, useGetRecordName } from "@react-mool/core"
-import React, { ReactNode } from "react"
+import { GetMany, useDataProvider, useGetRecordName } from "@react-mool/core"
+import React, { ReactNode, useCallback } from "react"
 import { ComboBoxResourceInputProps } from "../input"
 import { Value, ValueProps } from "./Value"
 
@@ -20,6 +20,7 @@ export const ComboBoxResourceValue = <TRecord extends any>(
   const { resource, toOptions, renderOption, loadingView, errorView } = props
 
   const getName = useGetRecordName(resource)
+  const dataProvider = useDataProvider()
 
   const renderRecords = (records: (TRecord | undefined)[]) => {
     const nonNullRecords = records.filter(Boolean) as TRecord[]
@@ -55,8 +56,31 @@ export const ComboBoxResourceValue = <TRecord extends any>(
     )
   }
 
+  const format = useCallback(
+    (value: any) => {
+      if (!Array.isArray(value)) {
+        return []
+      }
+
+      // If array of scalars, we're good to go.
+      // Otherwise we suppose it's an array of records, and so we extract their ids.
+      const ids = value
+        .map((val) => {
+          if (typeof val === "object") {
+            return dataProvider.id(resource, val)
+          } else {
+            return val
+          }
+        })
+        .filter(Boolean)
+
+      return ids
+    },
+    [dataProvider, resource]
+  )
+
   return (
-    <Value {...props}>
+    <Value {...props} format={props.format ?? format}>
       {({ value }) => {
         return renderContent(value)
       }}

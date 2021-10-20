@@ -37,7 +37,7 @@
     "react": "^16.9.0 || ^17.0.0"
   },
   "dependencies": {
-    "@mozartspa/mobx-form": "^0.6.0-2",
+    "@mozartspa/mobx-form": "^0.6.0-4",
     "@types/dlv": "^1.1.2",
     "@types/inflection": "^1.5.28",
     "@types/lodash.debounce": "^4.0.6",
