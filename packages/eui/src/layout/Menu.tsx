@@ -1,11 +1,11 @@
 import { EuiCollapsibleNavGroup, EuiListGroup, EuiListGroupItemProps } from "@elastic/eui"
 import {
   useGetResourceLabel,
+  useLinkProps,
   useResourceDefinitionList,
   useTranslate,
 } from "@react-mool/core"
 import { useLocation } from "react-router"
-import { useLinkProps } from "../helpers/useLinkProps"
 import { t } from "../i18n"
 
 function isPartialMatch(current: string, target: string) {
