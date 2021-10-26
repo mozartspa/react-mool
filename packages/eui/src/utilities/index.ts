@@ -1,5 +1,6 @@
 export * from "./BadgeCount"
 export * from "./Count"
+export * from "./DateTime"
 export * from "./RecordLink"
 export * from "./Reference"
 export * from "./ReferenceMany"
