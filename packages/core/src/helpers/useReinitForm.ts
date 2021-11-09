@@ -1,22 +1,30 @@
 import { Form } from "@mozartspa/mobx-form"
 import { useEffect, useRef, useState } from "react"
+import { RecordID } from "../dataProvider"
 
 export type UseReinitFormOptions = {
   form: Form
+  recordId: RecordID
   record: any
   getValues: (record: any) => any
   isFetching: boolean
 }
 
-export function useReinitFormOnce(options: UseReinitFormOptions) {
-  const { form, record, getValues, isFetching } = options
+export function useReinitForm(options: UseReinitFormOptions) {
+  const { form, recordId, record, getValues, isFetching } = options
 
   const [isReady, setReady] = useState(false)
+  const [lastRecordId, setLastRecordId] = useState(recordId)
   const waitingForFetching = useRef(true)
 
   useEffect(() => {
     if (isReady) {
-      return // do it once
+      if (lastRecordId === recordId) {
+        return // do it once per recordId
+      } else {
+        waitingForFetching.current = true
+        setReady(false)
+      }
     }
 
     // freeze form asap
@@ -32,8 +40,9 @@ export function useReinitFormOnce(options: UseReinitFormOptions) {
       form.unfreeze()
       form.reset(getValues(record))
       setReady(true)
+      setLastRecordId(recordId)
     }
-  }, [record, getValues, isFetching, form])
+  }, [recordId, record, getValues, isFetching, form])
 
   return {
     isReady,

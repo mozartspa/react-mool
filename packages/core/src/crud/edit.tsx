@@ -12,7 +12,7 @@ import { UseMutationResult, UseQueryResult } from "react-query"
 import { useParams } from "react-router-dom"
 import { RecordID, UpdateParams, useGetOne, useUpdate } from "../dataProvider"
 import { ValidationError } from "../errors"
-import { useReinitFormOnce } from "../helpers/useReinitFormOnce"
+import { useReinitForm } from "../helpers/useReinitForm"
 import { t } from "../i18n"
 import { useNotify } from "../notify"
 import { RecordContextProvider } from "../record"
@@ -186,9 +186,10 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     ...formOptions,
   })
 
-  const { isReady } = useReinitFormOnce({
+  const { isReady } = useReinitForm({
     form,
     isFetching: query.isFetching,
+    recordId: String(id),
     record: query.data,
     getValues: (record) => getInitialValues(initialValuesOpt, record),
   })
