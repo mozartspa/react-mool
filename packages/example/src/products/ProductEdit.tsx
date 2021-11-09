@@ -1,3 +1,5 @@
+import { EuiButton } from "@elastic/eui"
+import { useRecordId, useRedirectLink } from "@react-mool/core"
 import { DeleteButton, Edit, EditHeader } from "@react-mool/eui"
 import { GeneratedSchema, Product } from "../gqless"
 import { Form } from "./Form"
@@ -21,10 +23,17 @@ function initialValues(data: Product): ProductUpdateInput {
   }
 }
 
+const NextButton = () => {
+  const currentId = useRecordId()
+  const redirect = useRedirectLink()
+
+  return <EuiButton {...redirect("edit", { id: Number(currentId) + 1 })}>Next</EuiButton>
+}
+
 export const ProductEdit = () => {
   return (
     <Edit initialValues={initialValues}>
-      <EditHeader actions={[<DeleteButton asIcon />]} />
+      <EditHeader actions={[<DeleteButton asIcon />, <NextButton />]} />
       <Form />
     </Edit>
   )
