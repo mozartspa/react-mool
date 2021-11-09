@@ -1,5 +1,6 @@
 import { reaction, toJS } from "mobx"
 import { DependencyList, useEffect, useState } from "react"
+import { useUpdateEffect } from "rooks"
 
 export function useObserveMobxValue<TValue = any>(
   mobxValueAccessor: () => TValue,
@@ -15,6 +16,10 @@ export function useObserveMobxValue<TValue = any>(
       ),
     deps
   )
+
+  useUpdateEffect(() => {
+    setValue(toJS(mobxValueAccessor()))
+  }, deps as any[])
 
   return value
 }
