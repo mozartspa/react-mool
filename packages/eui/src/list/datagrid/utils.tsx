@@ -1,13 +1,13 @@
 import { DefaultItemAction, EuiBasicTableColumn } from "@elastic/eui"
 import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
 import get from "dlv"
-import { cloneElement, ReactElement, SyntheticEvent } from "react"
+import { cloneElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
-import { Column, ColumnElement, ColumnProps } from "../column"
+import { Column, ColumnElement } from "../column"
 import { DatagridAction, DatagridRowClick } from "./types"
 
 export function toEuiColumn(
-  col: ReactElement<ColumnProps>,
+  col: ColumnElement,
   resource: string,
   translate: UseTranslateResult
 ): EuiBasicTableColumn<any> {
@@ -59,7 +59,7 @@ export function toEuiColumn(
   }
 }
 
-export function guessColumns(items: any[]): ReactElement<ColumnProps>[] {
+export function guessColumns(items: any[]): ColumnElement[] {
   if (items.length === 0) {
     return []
   }
@@ -170,10 +170,7 @@ export function getDefaultRowClick(
   }
 }
 
-export function getSortField(
-  sortField: string,
-  columns: ReactElement<ColumnProps>[] | undefined
-) {
+export function getSortField(sortField: string, columns: ColumnElement[] | undefined) {
   const col = columns?.find((o) => o.props.name === sortField)
   if (col && col.props.sortable && typeof col.props.sortable === "string") {
     return col.props.sortable ?? sortField
@@ -182,10 +179,7 @@ export function getSortField(
   }
 }
 
-export function getEuiSortField(
-  sortField: string,
-  columns: ReactElement<ColumnProps>[] | undefined
-) {
+export function getEuiSortField(sortField: string, columns: ColumnElement[] | undefined) {
   const col = columns?.find((o) => o.props.sortable === sortField)
   if (col) {
     return col.props.name
