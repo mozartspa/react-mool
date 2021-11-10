@@ -42,7 +42,7 @@ export const BulkActions = (props: BulkActions) => {
       iconType="arrowDown"
       iconSide="right"
       size="xs"
-      onClick={() => setOpen(true)}
+      onClick={() => setOpen(!isOpen)}
       disabled={actions.length === 0}
     >
       {translate(t.eui.bulk.actions)}
