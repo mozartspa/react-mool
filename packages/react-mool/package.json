@@ -1,6 +1,6 @@
 {
   "name": "react-mool",
-  "version": "0.6.0-alpha.10",
+  "version": "0.6.0-alpha.11",
   "files": [
     "dist",
     "src"
@@ -45,7 +45,7 @@
     "react": "^16.9.0 || ^17.0.0"
   },
   "dependencies": {
-    "@react-mool/core": "^0.6.0-alpha.10",
-    "@react-mool/eui": "^0.6.0-alpha.10"
+    "@react-mool/core": "^0.6.0-alpha.11",
+    "@react-mool/eui": "^0.6.0-alpha.11"
   }
 }
