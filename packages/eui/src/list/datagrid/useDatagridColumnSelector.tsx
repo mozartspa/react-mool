@@ -15,7 +15,7 @@ function sortColumns(columns: ColumnElement[], orderedIds: string[] | undefined)
     .filter(Boolean)
 
   columns.forEach((col) => {
-    if (!orderedIdSet.has(getColumnId(col))) {
+    if (!orderedIdSet.has(getColumnId(col)) && !col.props.defaultHidden) {
       columns.push(col)
     }
   })
@@ -25,7 +25,8 @@ function sortColumns(columns: ColumnElement[], orderedIds: string[] | undefined)
 
 function onlyVisibleColumns(columns: ColumnElement[], visibleIds: string[] | undefined) {
   if (!visibleIds) {
-    return columns
+    // In case visibleIds is not set, filter out the default hidden columns
+    return columns.filter((col) => !col.props.defaultHidden)
   }
 
   const visibleIdSet = new Set(visibleIds)
@@ -66,9 +67,10 @@ export function useDatagridColumnSelector(
     () => orderedColumns.map((col) => getColumnId(col)),
     [orderedColumns]
   )
+
   const visibleColumnIds = useMemo(
-    () => visibleIds ?? orderedColumnIds,
-    [visibleIds, orderedColumnIds]
+    () => visibleIds ?? orderedVisibleColumns.map((col) => getColumnId(col)),
+    [visibleIds, orderedVisibleColumns]
   )
 
   const columnLabelById = useCallback(

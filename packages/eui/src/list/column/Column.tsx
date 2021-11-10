@@ -17,6 +17,7 @@ export type ColumnBaseProps = {
     header?: boolean
   }
   hideForMobile?: boolean
+  defaultHidden?: boolean
 }
 
 export type ColumnRenderProps<TValue = any, TRecord = any> = {
