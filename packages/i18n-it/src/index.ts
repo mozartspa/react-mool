@@ -54,6 +54,10 @@ const euiMessages: EuiMessages = {
       selected: "Selezionati",
       no_items: "Nessun elemento da visualizzare",
     },
+    columns: {
+      manage: "Gestisci colonne",
+      reset: "Reimposta colonne",
+    },
     filter: {
       add_filter: "Aggiungi filtro",
       remove_filter: "Rimuovi filtro",

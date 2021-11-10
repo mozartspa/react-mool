@@ -7,7 +7,7 @@ import {
 import { useTranslate } from "@react-mool/core"
 import { useState } from "react"
 import { t } from "../../i18n"
-import { DatagridAction } from "./Datagrid"
+import { DatagridAction } from "./types"
 
 function isActionEnabled<TRecord = any>(
   action: DatagridAction,
@@ -42,7 +42,7 @@ export const BulkActions = (props: BulkActions) => {
       iconType="arrowDown"
       iconSide="right"
       size="xs"
-      onClick={() => setOpen(true)}
+      onClick={() => setOpen(!isOpen)}
       disabled={actions.length === 0}
     >
       {translate(t.eui.bulk.actions)}

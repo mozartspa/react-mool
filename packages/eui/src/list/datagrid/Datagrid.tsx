@@ -1,12 +1,9 @@
 import {
   Criteria,
   EuiBasicTable,
-  EuiButtonIconColor,
   EuiLoadingContent,
   EuiSpacer,
-  EuiTableDataType,
   EuiTableSelectionType,
-  HorizontalAlignment,
 } from "@elastic/eui"
 import {
   useListContext,
@@ -15,22 +12,18 @@ import {
   useResourceDefinition,
   useTranslate,
 } from "@react-mool/core"
-import {
-  ReactElement,
-  ReactNode,
-  SyntheticEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react"
+import { ReactNode, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from "react"
 import isEqual from "react-fast-compare"
 import { useUpdateEffect } from "rooks"
 import { t } from "../../i18n"
-import { ColumnProps } from "../column"
+import { ColumnElement } from "../column"
 import { Toolbar } from "./Toolbar"
+import { DatagridAction, DatagridRowClick } from "./types"
+import { useColumnSettingsStorage } from "./useColumnSettingsStorage"
+import { useDatagridColumnSelector } from "./useDatagridColumnSelector"
 import {
   canHandleRowClick,
+  columnHeader,
   getDefaultRowClick,
   getEuiSortField,
   getSortField,
@@ -39,50 +32,8 @@ import {
   toEuiColumn,
 } from "./utils"
 
-export type DatagridColumnType<T = any> = {
-  name: string
-  header?: ReactNode
-  description?: string
-  dataType?: EuiTableDataType
-  width?: string
-  sortable?: boolean | string
-  align?: HorizontalAlignment
-  truncateText?: boolean
-  isMobileHeader?: boolean
-  mobileOptions?: {
-    show?: boolean
-    only?: boolean
-    render?: (item: T) => ReactNode
-    header?: boolean
-  }
-  hideForMobile?: boolean
-  render?: (value: any, record: T) => ReactNode
-}
-
-export type DatagridAction<TRecord = any> = {
-  name: ReactNode
-  run: (items: TRecord[]) => void
-  description?: string
-  icon?: string
-  color?: EuiButtonIconColor
-  available?: (item: TRecord) => boolean
-  enabled?: (item: TRecord) => boolean
-  isPrimary?: boolean
-}
-
-export type DatagridRowClick<TRecord = any> =
-  | "edit"
-  | "detail"
-  | "select"
-  | "none"
-  | ((item: TRecord) => void)
-
-export type DatagridRowProps = {
-  [index: string]: any
-}
-
 export type DatagridProps<TRecord = any> = {
-  columns?: ReactElement<ColumnProps>[]
+  columns?: ColumnElement[]
   rowClick?: DatagridRowClick<TRecord>
   rowProps?: (item: TRecord) => object
   sortable?: boolean
@@ -100,6 +51,9 @@ export type DatagridProps<TRecord = any> = {
   showToolbar?: boolean
   showBulkActions?: boolean
   showSelectedCount?: boolean
+  columnSettings?: boolean
+  columnSettingsStorage?: Storage
+  columnSettingsStorageKey?: string
 }
 
 export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
@@ -122,6 +76,9 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     showToolbar = true,
     showBulkActions = bulkActions ? true : false,
     showSelectedCount = selectableProp ? true : false,
+    columnSettings = true,
+    columnSettingsStorage,
+    columnSettingsStorageKey,
   } = props
 
   const {
@@ -145,10 +102,20 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
   const redirect = useRedirect()
   const resourceDefinition = useResourceDefinition(resource)
   const resourceDataProvider = useResourceDataProvider(resource)
+  const columnSettingsStored = useColumnSettingsStorage(
+    columnSettingsStorageKey ?? `${resource}-column-settings`,
+    columnSettingsStorage
+  )
 
-  const columns = columnsProp
-    ? columnsProp.map((col) => toEuiColumn(col, resource, translate))
-    : guessColumns(items, resource, translate)
+  const availableColumns = columnsProp ?? guessColumns(items)
+  const columnSelector = useDatagridColumnSelector({
+    availableColumns,
+    ...columnSettingsStored,
+    columnLabel: (col) => columnHeader(col, resource, translate),
+  })
+
+  const columns = columnSettings ? columnSelector.orderedVisibleColumns : availableColumns
+  const euiColumns = columns.map((col) => toEuiColumn(col, resource, translate))
 
   const actions = actionsProp
     ? actionsProp.map((action) => toEuiAction(action))
@@ -287,6 +254,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
           total={total}
           selectedItems={selectedItems}
           bulkActions={bulkActions}
+          actions={[columnSelector.columnSelector]}
           onChangePage={handleChangePage}
           showBulkActions={showBulkActions}
           showPagination={showPagination && showTopPagination}
@@ -298,7 +266,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         ref={tableRef}
         className={tableClassName}
         items={items}
-        columns={actions ? [...columns, { actions }] : columns}
+        columns={actions ? [...euiColumns, { actions }] : euiColumns}
         loading={isLoading}
         pagination={
           showPagination && showBottomPagination

@@ -37,6 +37,10 @@ export const englishEuiMessages = {
       selected: "Selected",
       no_items: "No items found",
     },
+    columns: {
+      manage: "Manage columns",
+      reset: "Reset columns",
+    },
     filter: {
       add_filter: "Add filter",
       remove_filter: "Remove filter",

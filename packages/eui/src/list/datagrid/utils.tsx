@@ -1,19 +1,26 @@
 import { DefaultItemAction, EuiBasicTableColumn } from "@elastic/eui"
 import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
 import get from "dlv"
-import { cloneElement, ReactElement, SyntheticEvent } from "react"
+import { cloneElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
-import { ColumnProps } from "../column"
-import { DatagridAction, DatagridRowClick } from "./Datagrid"
+import { Column, ColumnElement } from "../column"
+import { DatagridAction, DatagridRowClick } from "./types"
+
+export function columnHeader(
+  col: ColumnElement,
+  resource: string,
+  translate: UseTranslateResult
+) {
+  return col.props.header ?? getFieldLabel(resource, col.props.name, translate)
+}
 
 export function toEuiColumn(
-  col: ReactElement<ColumnProps>,
+  col: ColumnElement,
   resource: string,
   translate: UseTranslateResult
 ): EuiBasicTableColumn<any> {
   const {
     name,
-    header,
     description,
     width,
     sortable,
@@ -26,7 +33,7 @@ export function toEuiColumn(
 
   return {
     field: name,
-    name: header ?? getFieldLabel(resource, name, translate),
+    name: columnHeader(col, resource, translate),
     description,
     width,
     sortable: typeof sortable === "string" ? true : sortable,
@@ -59,31 +66,25 @@ export function toEuiColumn(
   }
 }
 
-export function guessColumns(
-  items: any[],
-  resource: string,
-  translate: UseTranslateResult
-): EuiBasicTableColumn<any>[] {
+export function guessColumns(items: any[]): ColumnElement[] {
   if (items.length === 0) {
     return []
   }
 
   const item = items[0]
 
-  return Object.keys(item).map((key) => {
-    return {
-      field: key,
-      name: getFieldLabel(resource, key, translate),
-      render: (value: any) => {
-        if (typeof value === "object") {
-          return JSON.stringify(value).substring(0, 50)
-        } else if (typeof value === "string" && value.length > 50) {
-          return value.substring(0, 50)
-        } else {
-          return value
-        }
-      },
+  const render = (value: any) => {
+    if (typeof value === "object") {
+      return JSON.stringify(value).substring(0, 50)
+    } else if (typeof value === "string" && value.length > 50) {
+      return value.substring(0, 50)
+    } else {
+      return value
     }
+  }
+
+  return Object.keys(item).map((key) => {
+    return <Column name={key} children={render} />
   })
 }
 
@@ -176,10 +177,7 @@ export function getDefaultRowClick(
   }
 }
 
-export function getSortField(
-  sortField: string,
-  columns: ReactElement<ColumnProps>[] | undefined
-) {
+export function getSortField(sortField: string, columns: ColumnElement[] | undefined) {
   const col = columns?.find((o) => o.props.name === sortField)
   if (col && col.props.sortable && typeof col.props.sortable === "string") {
     return col.props.sortable ?? sortField
@@ -188,14 +186,15 @@ export function getSortField(
   }
 }
 
-export function getEuiSortField(
-  sortField: string,
-  columns: ReactElement<ColumnProps>[] | undefined
-) {
+export function getEuiSortField(sortField: string, columns: ColumnElement[] | undefined) {
   const col = columns?.find((o) => o.props.sortable === sortField)
   if (col) {
     return col.props.name
   } else {
     return sortField
   }
+}
+
+export function getColumnId(column: ColumnElement) {
+  return column.props.id ?? column.props.name
 }
