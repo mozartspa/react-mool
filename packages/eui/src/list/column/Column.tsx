@@ -1,7 +1,8 @@
 import { formatAuto, HorizontalAlignment } from "@elastic/eui"
-import { ReactNode } from "react"
+import { ReactElement, ReactNode } from "react"
 
 export type ColumnBaseProps = {
+  id?: string
   name: string
   header?: ReactNode
   description?: string
@@ -26,6 +27,8 @@ export type ColumnRenderProps<TValue = any, TRecord = any> = {
 
 export type ColumnProps<TValue = any, TRecord = any> = ColumnBaseProps &
   ColumnRenderProps<TValue, TRecord>
+
+export type ColumnElement = ReactElement<ColumnProps>
 
 export type ColumnComponentProps<TValue = any, TRecord = any> = ColumnProps<
   TValue,

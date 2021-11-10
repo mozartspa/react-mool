@@ -10,7 +10,7 @@ import { useMemo } from "react"
 import { useConfirmation } from "../../confirm"
 import { logError } from "../../helpers/console"
 import { t } from "../../i18n"
-import { DatagridAction } from "./Datagrid"
+import { DatagridAction } from "./types"
 
 export type UseDefaultDatagridActionsOptions = {
   resource?: string

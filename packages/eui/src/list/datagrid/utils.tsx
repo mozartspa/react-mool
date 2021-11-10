@@ -3,8 +3,8 @@ import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
 import get from "dlv"
 import { cloneElement, ReactElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
-import { ColumnProps } from "../column"
-import { DatagridAction, DatagridRowClick } from "./Datagrid"
+import { Column, ColumnElement, ColumnProps } from "../column"
+import { DatagridAction, DatagridRowClick } from "./types"
 
 export function toEuiColumn(
   col: ReactElement<ColumnProps>,
@@ -59,31 +59,25 @@ export function toEuiColumn(
   }
 }
 
-export function guessColumns(
-  items: any[],
-  resource: string,
-  translate: UseTranslateResult
-): EuiBasicTableColumn<any>[] {
+export function guessColumns(items: any[]): ReactElement<ColumnProps>[] {
   if (items.length === 0) {
     return []
   }
 
   const item = items[0]
 
-  return Object.keys(item).map((key) => {
-    return {
-      field: key,
-      name: getFieldLabel(resource, key, translate),
-      render: (value: any) => {
-        if (typeof value === "object") {
-          return JSON.stringify(value).substring(0, 50)
-        } else if (typeof value === "string" && value.length > 50) {
-          return value.substring(0, 50)
-        } else {
-          return value
-        }
-      },
+  const render = (value: any) => {
+    if (typeof value === "object") {
+      return JSON.stringify(value).substring(0, 50)
+    } else if (typeof value === "string" && value.length > 50) {
+      return value.substring(0, 50)
+    } else {
+      return value
     }
+  }
+
+  return Object.keys(item).map((key) => {
+    return <Column name={key} children={render} />
   })
 }
 
@@ -198,4 +192,8 @@ export function getEuiSortField(
   } else {
     return sortField
   }
+}
+
+export function getColumnId(column: ColumnElement) {
+  return column.props.id ?? column.props.name
 }

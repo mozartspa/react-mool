@@ -6,10 +6,10 @@ import {
   EuiText,
 } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
-import { CSSProperties } from "react"
+import { CSSProperties, ReactNode } from "react"
 import { t } from "../../i18n"
 import { BulkActions } from "./BulkActions"
-import { DatagridAction } from "./Datagrid"
+import { DatagridAction } from "./types"
 
 function getShowingRange(page: number, pageSize: number, total: number) {
   if (page <= 1) {
@@ -28,6 +28,7 @@ export type ToolbarProps<TRecord = any> = {
   pageSize: number
   selectedItems: TRecord[]
   bulkActions?: DatagridAction<TRecord>[]
+  actions?: ReactNode[]
   onChangePage?: (page: number) => void
   showBulkActions?: boolean
   showPagination?: boolean
@@ -41,6 +42,7 @@ export const Toolbar = (props: ToolbarProps) => {
     pageSize,
     selectedItems,
     bulkActions = [],
+    actions = [],
     onChangePage,
     showBulkActions = true,
     showPagination = true,
@@ -63,27 +65,37 @@ export const Toolbar = (props: ToolbarProps) => {
     total > 0 ? undefined : { visibility: "hidden" }
 
   return (
-    <EuiFlexGroup alignItems="center" responsive={false}>
+    <EuiFlexGroup alignItems="center" responsive={true}>
       <EuiFlexItem grow={false}>
-        <EuiText color="subdued" size="xs">
-          <span style={{ whiteSpace: "nowrap" }}>{showingLabel}</span>
-          {showSelectedCount && (
-            <span style={{ paddingLeft: 8, paddingRight: 8 }}>|</span>
+        <EuiFlexGroup alignItems="center" responsive={false}>
+          <EuiFlexItem grow={false}>
+            <EuiText color="subdued" size="xs">
+              <span style={{ whiteSpace: "nowrap" }}>{showingLabel}</span>
+              {showSelectedCount && (
+                <span style={{ paddingLeft: 8, paddingRight: 8 }}>|</span>
+              )}
+              {showSelectedCount && (
+                <span style={{ whiteSpace: "nowrap" }}>
+                  {selectedLabel}{" "}
+                  {selectedCount === 0 ? "0" : <strong>{selectedCount}</strong>}
+                </span>
+              )}
+            </EuiText>
+          </EuiFlexItem>
+
+          {showBulkActions && (
+            <EuiFlexItem grow={false}>
+              <BulkActions actions={bulkActions} selectedItems={selectedItems} />
+            </EuiFlexItem>
           )}
-          {showSelectedCount && (
-            <span style={{ whiteSpace: "nowrap" }}>
-              {selectedLabel}{" "}
-              {selectedCount === 0 ? "0" : <strong>{selectedCount}</strong>}
-            </span>
-          )}
-        </EuiText>
+        </EuiFlexGroup>
       </EuiFlexItem>
 
-      {showBulkActions && (
-        <EuiFlexItem grow={false}>
-          <BulkActions actions={bulkActions} selectedItems={selectedItems} />
+      {actions.map((action, i) => (
+        <EuiFlexItem key={i} grow={true}>
+          {action}
         </EuiFlexItem>
-      )}
+      ))}
 
       {showPagination && (
         <EuiHideFor sizes={["xs"]}>
