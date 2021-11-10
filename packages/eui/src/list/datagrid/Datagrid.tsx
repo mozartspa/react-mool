@@ -23,6 +23,7 @@ import { useColumnSettingsStorage } from "./useColumnSettingsStorage"
 import { useDatagridColumnSelector } from "./useDatagridColumnSelector"
 import {
   canHandleRowClick,
+  columnHeader,
   getDefaultRowClick,
   getEuiSortField,
   getSortField,
@@ -110,6 +111,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
   const columnSelector = useDatagridColumnSelector({
     availableColumns,
     ...columnSettingsStored,
+    columnLabel: (col) => columnHeader(col, resource, translate),
   })
 
   const columns = columnSettings ? columnSelector.orderedVisibleColumns : availableColumns

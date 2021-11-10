@@ -6,6 +6,14 @@ import { getFieldLabel } from "../../helpers/useGetFieldLabel"
 import { Column, ColumnElement } from "../column"
 import { DatagridAction, DatagridRowClick } from "./types"
 
+export function columnHeader(
+  col: ColumnElement,
+  resource: string,
+  translate: UseTranslateResult
+) {
+  return col.props.header ?? getFieldLabel(resource, col.props.name, translate)
+}
+
 export function toEuiColumn(
   col: ColumnElement,
   resource: string,
@@ -13,7 +21,6 @@ export function toEuiColumn(
 ): EuiBasicTableColumn<any> {
   const {
     name,
-    header,
     description,
     width,
     sortable,
@@ -26,7 +33,7 @@ export function toEuiColumn(
 
   return {
     field: name,
-    name: header ?? getFieldLabel(resource, name, translate),
+    name: columnHeader(col, resource, translate),
     description,
     width,
     sortable: typeof sortable === "string" ? true : sortable,

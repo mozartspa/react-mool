@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react"
+import { ReactNode, useCallback, useMemo } from "react"
 import { ColumnElement } from "../column"
 import { ColumnSelector } from "./ColumnSelector"
 import { ColumnSettings } from "./types"
@@ -37,6 +37,7 @@ export type UseDatagridColumnSelectorOptions = {
   availableColumns: ColumnElement[]
   columnSettings: ColumnSettings
   setColumnSettings: (settings: ColumnSettings | undefined) => void
+  columnLabel?: (column: ColumnElement) => ReactNode
 }
 
 export type UseDatagridColumnSelectorResult = {
@@ -47,7 +48,7 @@ export type UseDatagridColumnSelectorResult = {
 export function useDatagridColumnSelector(
   options: UseDatagridColumnSelectorOptions
 ): UseDatagridColumnSelectorResult {
-  const { availableColumns, columnSettings, setColumnSettings } = options
+  const { availableColumns, columnSettings, setColumnSettings, columnLabel } = options
 
   const { visibleIds, orderedIds } = columnSettings
 
@@ -70,10 +71,19 @@ export function useDatagridColumnSelector(
     [visibleIds, orderedColumnIds]
   )
 
+  const columnLabelById = useCallback(
+    (id: string) => {
+      const col = availableColumns.find((col) => getColumnId(col) === id)
+      return col && columnLabel ? columnLabel(col) : id
+    },
+    [availableColumns, columnLabel]
+  )
+
   const columnSelector = (
     <ColumnSelector
       orderedColumnIds={orderedColumnIds}
       visibleColumnIds={visibleColumnIds}
+      columnLabel={columnLabelById}
       onChangeOrder={(nextColumnIds) => {
         setColumnSettings({ orderedIds: nextColumnIds, visibleIds })
       }}
