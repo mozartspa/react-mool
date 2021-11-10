@@ -37,7 +37,7 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
       color="primary"
       display="base"
       size="m"
-      onClick={() => setPopoverOpen(true)}
+      onClick={() => setPopoverOpen(!isPopoverOpen)}
       aria-label="Filter"
     />
   )
