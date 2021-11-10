@@ -17,7 +17,7 @@ import isEqual from "react-fast-compare"
 import { useUpdateEffect } from "rooks"
 import { t } from "../../i18n"
 import { ColumnElement } from "../column"
-import { Toolbar } from "./Toolbar"
+import { DatagridToolbar } from "./DatagridToolbar"
 import { DatagridAction, DatagridRowClick } from "./types"
 import { useColumnSettingsStorage } from "./useColumnSettingsStorage"
 import { useDatagridColumnSelector } from "./useDatagridColumnSelector"
@@ -248,7 +248,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     <div>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
       {showToolbar && (
-        <Toolbar
+        <DatagridToolbar
           page={page}
           pageSize={pageSize}
           total={total}

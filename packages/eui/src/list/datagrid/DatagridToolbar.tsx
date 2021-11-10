@@ -22,7 +22,7 @@ function getShowingRange(page: number, pageSize: number, total: number) {
   }
 }
 
-export type ToolbarProps<TRecord = any> = {
+export type DatagridToolbarProps<TRecord = any> = {
   total: number
   page: number
   pageSize: number
@@ -35,7 +35,7 @@ export type ToolbarProps<TRecord = any> = {
   showSelectedCount?: boolean
 }
 
-export const Toolbar = (props: ToolbarProps) => {
+export const DatagridToolbar = (props: DatagridToolbarProps) => {
   const {
     total,
     page,
