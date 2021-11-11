@@ -14,7 +14,7 @@ export function useColumnSettingsStorage(
   const [columnSettings, setColumnSettings] = useStorageState<ColumnSettings | undefined>(
     key,
     undefined,
-    { storage }
+    { storage: storage ?? localStorage }
   )
 
   return useMemo(
