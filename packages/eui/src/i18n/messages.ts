@@ -50,6 +50,12 @@ export const englishEuiMessages = {
       cancel: "Cancel",
       ok: "OK",
     },
+    confirm_leave: {
+      title: "Unsaved changes",
+      message: "There are unsaved changes. Do you want to leave anyway?",
+      leave: "Leave",
+      stay: "Stay",
+    },
     error: {
       general: "Ooops, something went wrong",
       notfound_title: "Not found",
