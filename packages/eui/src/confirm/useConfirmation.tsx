@@ -56,17 +56,30 @@ const Dialog = confirmable(({ show, proceed, message, options }: DialogProps) =>
 export function useConfirmation(defaults: ConfirmationOptions = {}) {
   const translate = useTranslate()
 
+  const translateOptions = useCallback(
+    (options: ConfirmationOptions) => {
+      return {
+        ...options,
+        cancelLabel: translate(options.cancelLabel),
+        confirmLabel: translate(options.confirmLabel),
+        content: translate(options.content),
+      }
+    },
+    [translate]
+  )
+
   const confirmation = useMemo(() => {
     const confirm = createConfirmation(Dialog)
     return (message: string | ReactNode, options: ConfirmationOptions = {}) => {
-      const base: ConfirmationOptions = {
-        cancelLabel: translate(t.eui.confirm.cancel),
-        confirmLabel: translate(t.eui.confirm.ok),
+      const opts: ConfirmationOptions = {
+        cancelLabel: t.eui.confirm.cancel,
+        confirmLabel: t.eui.confirm.ok,
         ...defaults,
+        ...options,
       }
-      return confirm({ message, options: { ...base, ...options } })
+      return confirm({ message: translate(message), options: translateOptions(opts) })
     }
-  }, [translate])
+  }, [translate, translateOptions])
 
   return confirmation
 }
