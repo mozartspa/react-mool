@@ -182,11 +182,16 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     }
   }
 
+  const handleFailedSubmit = () => {
+    notify(t.core.crud.invalid_form, { type: "danger" })
+  }
+
   const initialValues = useMemo(() => getInitialValues(initialValuesOpt, query.data), [])
 
   const form = useForm<TUpdate>({
     initialValues,
     onSubmit: handleSubmit,
+    onFailedSubmit: handleFailedSubmit,
     ...formOptions,
   })
 

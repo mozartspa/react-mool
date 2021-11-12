@@ -123,9 +123,14 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
     }
   }
 
+  const handleFailedSubmit = () => {
+    notify(t.core.crud.invalid_form, { type: "danger" })
+  }
+
   const form = useForm<TCreate>({
     initialValues,
     onSubmit: handleSubmit,
+    onFailedSubmit: handleFailedSubmit,
     ...formOptions,
   })
 
