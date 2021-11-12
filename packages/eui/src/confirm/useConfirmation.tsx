@@ -77,7 +77,10 @@ export function useConfirmation(defaults: ConfirmationOptions = {}) {
         ...defaults,
         ...options,
       }
-      return confirm({ message: translate(message), options: translateOptions(opts) })
+      return confirm({
+        message: translate(message),
+        options: translateOptions(opts),
+      }).then((result) => Boolean(result))
     }
   }, [translate, translateOptions])
 
