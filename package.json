@@ -19,5 +19,8 @@
     "pretty-quick": "^3.1.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.3.5"
+  },
+  "resolutions": {
+    "npm-packlist": "1.1.12"
   }
 }
