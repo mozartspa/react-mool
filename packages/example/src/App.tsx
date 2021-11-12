@@ -3,6 +3,7 @@ import { Admin } from "@react-mool/eui"
 import "@react-mool/eui/dist/index.css"
 import { useEffect, useState } from "react"
 import { authProvider } from "./authProvider"
+import { CategoryResource } from "./category"
 import { CustomPage } from "./components/CustomPage"
 import { Dashboard } from "./components/Dashboard"
 import { dataProvider } from "./dataProvider"
@@ -34,7 +35,7 @@ function App() {
       authProvider={authProvider}
       layout={Layout}
       dashboard={<Dashboard />}
-      resources={[ProductResource]}
+      resources={[ProductResource, CategoryResource]}
       customRoutes={customRoutes}
     />
   )

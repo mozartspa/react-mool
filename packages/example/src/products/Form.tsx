@@ -5,6 +5,7 @@ import {
   NumberControl,
   Row,
   SaveButton,
+  SelectResourceControl,
   TextAreaControl,
   TextControl,
 } from "@react-mool/eui"
@@ -14,7 +15,7 @@ export const Form = () => {
     <div style={{ maxWidth: 900 }}>
       <Row>
         <TextControl name="reference" required />
-        <TextControl name="category_id" />
+        <SelectResourceControl name="category_id" resource="category" />
       </Row>
       <Row spacer>
         <NumberControl name="price" />
