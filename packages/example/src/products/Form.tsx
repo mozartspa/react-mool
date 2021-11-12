@@ -13,7 +13,7 @@ export const Form = () => {
   return (
     <div style={{ maxWidth: 900 }}>
       <Row>
-        <TextControl name="reference" />
+        <TextControl name="reference" required />
         <TextControl name="category_id" />
       </Row>
       <Row spacer>
