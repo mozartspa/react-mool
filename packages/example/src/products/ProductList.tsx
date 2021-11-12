@@ -45,7 +45,7 @@ export const ProductList = () => {
   return (
     <List>
       <ListHeader
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis nisl non convallis tincidunt."
+        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convollis nisl non convallis tincidunt."
         actions={[<CreateButton />]}
         divider={false}
       />
