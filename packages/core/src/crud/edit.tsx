@@ -52,6 +52,7 @@ export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
     | { to: RedirectToPage; options?: RedirectToOptions }
     | false
   successMessage?: ReactNode | ((record: TRecord) => ReactNode)
+  resetAfterSave?: boolean
   onSaveSuccess?: SaveSuccessHandler<TRecord, TUpdate>
   onSaveError?: SaveErrorHandler<TRecord, TUpdate>
   onLoadSuccess?: LoadSuccessHandler<TRecord>
@@ -82,6 +83,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     transform,
     redirectTo,
     successMessage,
+    resetAfterSave = true,
     onSaveSuccess,
     onSaveError,
     onLoadSuccess,
@@ -127,13 +129,15 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
       const data = transform?.(values) ?? values
       const record = await mutation.mutateAsync({ id, data })
 
+      // Reset form values with the new values returned by the mutation
+      if (resetAfterSave) {
+        form.reset(getInitialValues(initialValuesOpt, record))
+      }
+
       // default handler
       const handleSuccess = async () => {
         const message = getSuccessMessage(successMessage, record, t.core.crud.updated)
         notify(message, { type: "success" })
-
-        // Reset form values with the new values returned by the mutation
-        form.reset(getInitialValues(initialValuesOpt, record))
 
         // By default it does not redirect anywhere
         const redirectArgs = getRedirectTo(redirectTo ?? false)
