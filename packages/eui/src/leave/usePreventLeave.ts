@@ -56,40 +56,53 @@ export function usePreventLeave(options: UsePreventLeaveOptions) {
     return () => window.removeEventListener("beforeunload", listener)
   }, [])
 
+  const shouldAskConfirm = useCallback(() => {
+    const shouldBlock = whenRef.current?.() ?? false
+    const shouldAllow = allowLeaveOnceRef.current
+    if (shouldAllow) {
+      return false
+    } else {
+      return shouldBlock
+    }
+  }, [])
+
+  const allowLeaveOnce = useCallback((allow: boolean = true) => {
+    allowLeaveOnceRef.current = allow
+  }, [])
+
   const maybeAskConfirm = useCallback(
     (nextAction: () => void) => {
-      const shouldBlock = whenRef.current?.()
-      const shouldAllow = allowLeaveOnceRef.current
+      const showConfirm = shouldAskConfirm()
 
-      if (shouldAllow) {
+      if (!showConfirm) {
         allowLeaveOnceRef.current = false
+        nextAction()
         return false
-      }
-
-      if (shouldBlock) {
+      } else {
         confirmLeave(confirmMessageRef.current).then((ok) => {
           if (ok) {
             allowLeaveOnceRef.current = true
             nextAction()
           }
         })
+        return true
       }
-
-      return shouldBlock
     },
-    [confirmLeave]
+    [confirmLeave, shouldAskConfirm]
   )
-
-  const allowLeaveOnce = useCallback((allow: boolean = true) => {
-    allowLeaveOnceRef.current = allow
-  }, [])
 
   useEffect(() => {
     return history.block((location, action) => {
-      const shouldBlock = maybeAskConfirm(() => {
-        applyHistoryAction(history, location, action)
-      })
-      return shouldBlock ? false : undefined
+      const shouldBlock = shouldAskConfirm()
+
+      if (shouldBlock) {
+        maybeAskConfirm(() => {
+          applyHistoryAction(history, location, action)
+        })
+        return false
+      }
+
+      return undefined
     })
   }, [history, maybeAskConfirm])
 
