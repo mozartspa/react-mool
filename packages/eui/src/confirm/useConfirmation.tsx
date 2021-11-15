@@ -2,6 +2,7 @@ import { ButtonColor, EuiConfirmModal } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useCallback, useMemo } from "react"
 import { confirmable, createConfirmation } from "react-confirm"
+import { useFreshRef } from "rooks"
 import { t } from "../i18n"
 
 export type ConfirmationOptions = {
@@ -54,6 +55,7 @@ const Dialog = confirmable(({ show, proceed, message, options }: DialogProps) =>
 })
 
 export function useConfirmation(defaults: ConfirmationOptions = {}) {
+  const defaultsRef = useFreshRef(defaults)
   const translate = useTranslate()
 
   const translateOptions = useCallback(
@@ -74,7 +76,7 @@ export function useConfirmation(defaults: ConfirmationOptions = {}) {
       const opts: ConfirmationOptions = {
         cancelLabel: t.eui.confirm.cancel,
         confirmLabel: t.eui.confirm.ok,
-        ...defaults,
+        ...defaultsRef.current,
         ...options,
       }
       return confirm({
@@ -82,7 +84,7 @@ export function useConfirmation(defaults: ConfirmationOptions = {}) {
         options: translateOptions(opts),
       }).then((result) => Boolean(result))
     }
-  }, [translate, translateOptions])
+  }, [defaultsRef, translate, translateOptions])
 
   return confirmation
 }
