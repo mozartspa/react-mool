@@ -53,7 +53,7 @@ export const englishEuiMessages = {
     confirm_leave: {
       title: "Unsaved changes",
       message: "There are unsaved changes. Do you want to leave anyway?",
-      leave: "Leave",
+      leave: "Leave without saving",
       stay: "Stay",
     },
     error: {

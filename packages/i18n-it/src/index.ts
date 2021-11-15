@@ -67,6 +67,12 @@ const euiMessages: EuiMessages = {
       cancel: "Annulla",
       ok: "OK",
     },
+    confirm_leave: {
+      title: "Modifiche non salvate",
+      message: "Ci sono modifiche non salvate. Vuoi comunque uscire?",
+      leave: "Esci senza salvare",
+      stay: "Rimani",
+    },
     error: {
       general: "Ooops, qualcosa è andato storto",
       notfound_title: "Non trovato",
