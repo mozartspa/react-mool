@@ -2,6 +2,7 @@ import { ButtonColor, EuiConfirmModal } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useCallback, useMemo } from "react"
 import { confirmable, createConfirmation } from "react-confirm"
+import { useFreshRef } from "rooks"
 import { t } from "../i18n"
 
 export type ConfirmationOptions = {
@@ -54,19 +55,36 @@ const Dialog = confirmable(({ show, proceed, message, options }: DialogProps) =>
 })
 
 export function useConfirmation(defaults: ConfirmationOptions = {}) {
+  const defaultsRef = useFreshRef(defaults)
   const translate = useTranslate()
+
+  const translateOptions = useCallback(
+    (options: ConfirmationOptions) => {
+      return {
+        ...options,
+        cancelLabel: translate(options.cancelLabel),
+        confirmLabel: translate(options.confirmLabel),
+        content: translate(options.content),
+      }
+    },
+    [translate]
+  )
 
   const confirmation = useMemo(() => {
     const confirm = createConfirmation(Dialog)
     return (message: string | ReactNode, options: ConfirmationOptions = {}) => {
-      const base: ConfirmationOptions = {
-        cancelLabel: translate(t.eui.confirm.cancel),
-        confirmLabel: translate(t.eui.confirm.ok),
-        ...defaults,
+      const opts: ConfirmationOptions = {
+        cancelLabel: t.eui.confirm.cancel,
+        confirmLabel: t.eui.confirm.ok,
+        ...defaultsRef.current,
+        ...options,
       }
-      return confirm({ message, options: { ...base, ...options } })
+      return confirm({
+        message: translate(message),
+        options: translateOptions(opts),
+      }).then((result) => Boolean(result))
     }
-  }, [translate])
+  }, [defaultsRef, translate, translateOptions])
 
   return confirmation
 }
