@@ -73,7 +73,7 @@ export const LoginForm = observer((props: LoginFormProps) => {
             isInvalid={field.isTouched && !field.isValid}
             error={field.isTouched && errorMessages(field.errors)}
           >
-            <EuiFieldText {...field.input} icon="user" />
+            <EuiFieldText {...field.input} icon="user" autoFocus />
           </EuiFormRow>
         )}
       </Field>
