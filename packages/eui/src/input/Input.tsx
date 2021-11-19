@@ -19,6 +19,7 @@ export type InputProps = FieldComponentProps & {
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
   required?: boolean
+  noFormRow?: boolean
 }
 
 export type InputComponentProps<TCustomProps = Object> = InputProps &
@@ -32,7 +33,7 @@ export type InputComponentProps<TCustomProps = Object> = InputProps &
 export const Input = <TCustomProps extends Object>(
   props: InputComponentProps<TCustomProps>
 ) => {
-  const { label, fullWidth, helpText, required, children, ...rest } = props
+  const { label, fullWidth, helpText, required, noFormRow, children, ...rest } = props
 
   const [name, fieldOptions, childrenProps] = splitFieldProps(rest)
   const getFieldLabel = useGetResourceFieldLabel()
@@ -50,7 +51,7 @@ export const Input = <TCustomProps extends Object>(
     <Field {...fieldOptions} name={name} validate={validate}>
       {(field) => {
         const content = <>{children(field, childrenProps as any /* FIX $TYPE*/)}</>
-        if (label === false) {
+        if (noFormRow) {
           return content
         } else {
           const inputLabelNode = label ? translate(label) : getFieldLabel(field.name)
@@ -59,7 +60,7 @@ export const Input = <TCustomProps extends Object>(
           const errors = isInvalid ? errorMessages(field.errors) : undefined
           return (
             <EuiFormRow
-              label={inputLabel}
+              label={label === false ? null : inputLabel}
               isInvalid={isInvalid}
               error={errors}
               fullWidth={fullWidth}

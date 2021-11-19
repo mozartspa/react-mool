@@ -9,6 +9,7 @@ export type ValueProps = {
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
   format?: (value: any) => any
+  noFormRow?: boolean
 }
 
 export type ValueRenderProps<TValue = any, TRecord = any> = {
@@ -21,7 +22,7 @@ export type ValueComponentProps<TValue = any, TRecord = any> = ValueProps & {
 }
 
 export const Value = (props: ValueComponentProps) => {
-  const { name, label, fullWidth, helpText, format, children } = props
+  const { name, label, fullWidth, helpText, format, noFormRow, children } = props
 
   const record = useRecord()
   const recordValue = useRecordValue(name)
@@ -29,14 +30,18 @@ export const Value = (props: ValueComponentProps) => {
   const translate = useTranslate()
 
   const value = format ? format(recordValue) : recordValue
-  const valueLabel = translate(label) || getFieldLabel(name)
+  const valueLabel = translate(label) ?? getFieldLabel(name)
   const content = <>{children ? children({ value, record }) : formatAuto(value)}</>
 
-  if (label === false) {
+  if (noFormRow) {
     return content
   } else {
     return (
-      <EuiFormRow label={valueLabel} fullWidth={fullWidth} helpText={translate(helpText)}>
+      <EuiFormRow
+        label={label === false ? null : valueLabel}
+        fullWidth={fullWidth}
+        helpText={translate(helpText)}
+      >
         {content}
       </EuiFormRow>
     )
