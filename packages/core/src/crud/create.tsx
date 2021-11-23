@@ -30,6 +30,7 @@ export type UseCreateFormOptions<TRecord = any, TCreate = TRecord> = Partial<
     | { to: RedirectToPage; options?: RedirectToOptions }
     | false
   successMessage?: ReactNode | ((record: TRecord) => ReactNode)
+  resetAfterSave?: boolean
   onSaveSuccess?: SaveSuccessHandler<TRecord, TCreate>
   onSaveError?: SaveErrorHandler<TRecord, TCreate>
 }
@@ -51,6 +52,7 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
     transform,
     redirectTo,
     successMessage,
+    resetAfterSave = true,
     onSaveSuccess,
     onSaveError,
     ...formOptions
@@ -69,6 +71,11 @@ export function useCreateForm<TRecord = any, TCreate = TRecord>(
       const data = transform?.(values) ?? values
       const record = await mutation.mutateAsync(data)
       const id = dataProvider.id(record)
+
+      // Reset form values with current values
+      if (resetAfterSave) {
+        form.reset(values)
+      }
 
       // default handler
       const handleSuccess = async () => {
