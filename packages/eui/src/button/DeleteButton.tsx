@@ -3,6 +3,7 @@ import {
   EuiButtonIcon,
   EuiButtonIconProps,
   EuiButtonProps,
+  EuiLoadingSpinner,
 } from "@elastic/eui"
 import {
   RecordID,
@@ -15,9 +16,10 @@ import {
   useResource,
   useTranslate,
 } from "@react-mool/core"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { useConfirmation } from "../confirm"
 import { logError } from "../helpers/console"
+import { useIsMounted } from "../helpers/useIsMounted"
 import { t } from "../i18n"
 import { BaseButtonProps } from "./BaseButtonProps"
 
@@ -47,6 +49,9 @@ export const DeleteButton = (props: DeleteButtonProps) => {
   const confirm = useConfirmation()
   const redirect = useRedirect()
 
+  const isMounted = useIsMounted()
+  const [isLoading, setLoading] = useState(false)
+
   const handleDelete = useCallback(async () => {
     if (
       await confirm(translate(t.eui.bulk.delete_confirm, { smart_count: 1 }), {
@@ -55,6 +60,10 @@ export const DeleteButton = (props: DeleteButtonProps) => {
       })
     ) {
       const deleteId = id ?? recordId
+
+      if (isMounted()) {
+        setLoading(true)
+      }
 
       dataprovider
         .delete(resource, { id: deleteId })
@@ -74,6 +83,9 @@ export const DeleteButton = (props: DeleteButtonProps) => {
         })
         .finally(() => {
           refresh()
+          if (isMounted()) {
+            setLoading(false)
+          }
         })
     }
   }, [
@@ -93,16 +105,20 @@ export const DeleteButton = (props: DeleteButtonProps) => {
     defaultValue: `${translate(t.eui.action.delete)}`,
   })
 
+  const isBtnLoading = buttonProps.isLoading ?? isLoading
+  const iconType = isBtnLoading ? EuiLoadingSpinner : buttonProps.iconType || "trash"
+
   if (asIcon) {
     return (
       <EuiButtonIcon
         color="danger"
         onClick={handleDelete}
-        iconType="trash"
         display="base"
         size="m"
         aria-label={label}
+        isDisabled={isBtnLoading || buttonProps.isDisabled}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
+        iconType={iconType}
       />
     )
   } else {
@@ -110,6 +126,7 @@ export const DeleteButton = (props: DeleteButtonProps) => {
       <EuiButton
         color="danger"
         onClick={handleDelete}
+        isLoading={isBtnLoading}
         {...(buttonProps as Partial<EuiButtonProps>)}
       >
         {children ?? label}
