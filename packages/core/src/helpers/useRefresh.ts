@@ -5,7 +5,7 @@ export function useRefresh() {
   const queryClient = useQueryClient()
 
   const refresh = useCallback(() => {
-    queryClient.refetchQueries({ active: true })
+    return queryClient.refetchQueries({ active: true })
   }, [queryClient])
 
   return refresh
