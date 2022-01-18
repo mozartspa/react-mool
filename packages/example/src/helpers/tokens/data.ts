@@ -1234,8 +1234,7 @@ const tokens = [
   },
   {
     token: "euiColumnSorting.buttonActive",
-    defString:
-      "({\n  numberOfSortedFields\n}) => `${numberOfSortedFields} field${numberOfSortedFields === 1 ? '' : 's'} sorted`;",
+    defString: "{numberOfSortedFields} fields sorted",
     highlighting: "code",
     loc: {
       start: {

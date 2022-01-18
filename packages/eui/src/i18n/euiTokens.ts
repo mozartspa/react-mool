@@ -134,8 +134,7 @@ export const euiTokens = {
   },
   euiColumnSorting: {
     button: "Sort fields",
-    buttonActive:
-      "({\n  numberOfSortedFields\n}) => `${numberOfSortedFields} field${numberOfSortedFields === 1 ? '' : 's'} sorted`;",
+    buttonActive: "{numberOfSortedFields} fields sorted",
     emptySorting: "Currently no fields are sorted",
     pickFields: "Pick fields to sort by",
     sortFieldAriaLabel: "Sort by: ",
