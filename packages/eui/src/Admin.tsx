@@ -10,6 +10,7 @@ import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.scss"
 import { ErrorBoundary, ErrorBoundaryProps } from "./error"
 import { defaultI18nProvider } from "./i18n/defaultI18nProvider"
+import { EuiI18nContextProvider } from "./i18n/EuiI18nContextProvider"
 import { Layout } from "./layout/Layout"
 import { NotFound } from "./layout/NotFound"
 import { Login } from "./login"
@@ -47,16 +48,18 @@ export const Admin = (props: AdminProps) => {
   return (
     <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
       <AdminContext i18nProvider={i18nProvider} {...coreProps}>
-        <AdminRouter
-          layout={AppLayout}
-          loginPage={loginPage}
-          dashboard={dashboard}
-          customRoutes={customRoutes}
-          catchAll={catchAll}
-          autoScrollToTop={autoScrollToTop}
-        >
-          {children}
-        </AdminRouter>
+        <EuiI18nContextProvider>
+          <AdminRouter
+            layout={AppLayout}
+            loginPage={loginPage}
+            dashboard={dashboard}
+            customRoutes={customRoutes}
+            catchAll={catchAll}
+            autoScrollToTop={autoScrollToTop}
+          >
+            {children}
+          </AdminRouter>
+        </EuiI18nContextProvider>
       </AdminContext>
     </AppErrorBoundary>
   )
