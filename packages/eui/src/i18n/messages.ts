@@ -1,4 +1,5 @@
 import { buildTranslationKeys } from "@react-mool/core"
+import { euiTokens } from "./euiTokens"
 
 export const englishEuiMessages = {
   eui: {
@@ -65,6 +66,7 @@ export const englishEuiMessages = {
       required: "Field required",
     },
   },
+  euiTokens,
 }
 
 export const t = buildTranslationKeys(englishEuiMessages)
