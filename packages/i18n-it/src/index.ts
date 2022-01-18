@@ -1,5 +1,6 @@
 import { CoreMessages } from "@react-mool/core"
 import { EuiMessages } from "@react-mool/eui"
+import { euiTokens } from "./euiTokens"
 
 const coreMessages: CoreMessages = {
   core: {
@@ -83,6 +84,7 @@ const euiMessages: EuiMessages = {
       required: "Campo obbligatorio",
     },
   },
+  euiTokens,
 }
 
 const messages = {
