@@ -1,7 +1,7 @@
-import { formatAuto, HorizontalAlignment } from "@elastic/eui"
-import { ReactElement, ReactNode } from "react"
+import { EuiTableFooterProps, formatAuto, HorizontalAlignment } from "@elastic/eui"
+import { CSSProperties, ReactElement, ReactNode } from "react"
 
-export type ColumnBaseProps = {
+export type ColumnBaseProps<TRecord = any> = {
   id?: string
   name: string
   header?: ReactNode
@@ -18,6 +18,9 @@ export type ColumnBaseProps = {
   }
   hideForMobile?: boolean
   defaultHidden?: boolean
+  style?: CSSProperties
+  className?: string
+  footer?: string | ReactElement | ((props: EuiTableFooterProps<TRecord>) => ReactNode)
 }
 
 export type ColumnRenderProps<TValue = any, TRecord = any> = {
@@ -26,7 +29,7 @@ export type ColumnRenderProps<TValue = any, TRecord = any> = {
   isMobile?: boolean
 }
 
-export type ColumnProps<TValue = any, TRecord = any> = ColumnBaseProps &
+export type ColumnProps<TValue = any, TRecord = any> = ColumnBaseProps<TRecord> &
   ColumnRenderProps<TValue, TRecord>
 
 export type ColumnElement = ReactElement<ColumnProps>

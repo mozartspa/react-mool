@@ -29,6 +29,9 @@ export function toEuiColumn(
     isMobileHeader,
     mobileOptions,
     hideForMobile,
+    style,
+    className,
+    footer,
   } = col.props
 
   return {
@@ -55,6 +58,9 @@ export function toEuiColumn(
         }
       : undefined,
     hideForMobile,
+    style,
+    className,
+    footer,
     render: (value, record) => {
       return cloneElement(col, {
         ...col.props,
