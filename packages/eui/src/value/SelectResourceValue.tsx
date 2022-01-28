@@ -66,7 +66,9 @@ export const SelectResourceValue = <TRecord extends any>(
   const format = useCallback(
     (value: any) => {
       const maybeConvertToId = (value: any) => {
-        return typeof value === "object" ? dataProvider.id(resource, value) : value
+        return value != null && typeof value === "object"
+          ? dataProvider.id(resource, value)
+          : value
       }
 
       if (multiple) {
