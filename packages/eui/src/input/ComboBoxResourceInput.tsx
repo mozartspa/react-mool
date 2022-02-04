@@ -97,7 +97,6 @@ export const ComboBoxResourceInput = <TRecord extends any = any, TFilter = any>(
       parse={rest.parse ?? parse}
       options={options}
       isLoading={query.isLoading}
-      async
     />
   )
 }
