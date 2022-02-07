@@ -3,12 +3,14 @@ import {
   CheckboxInput,
   ComboBoxInput,
   ComboBoxResourceInput,
+  ComboBoxResourceInputProps,
   DateInput,
   NumberInput,
   PasswordInput,
   RadioGroupInput,
   SelectInput,
   SelectResourceInput,
+  SelectResourceInputProps,
   TextAreaInput,
   TextInput,
 } from "../input"
@@ -16,11 +18,13 @@ import {
   CheckboxGroupValue,
   CheckboxValue,
   ComboBoxResourceValue,
+  ComboBoxResourceValueProps,
   ComboBoxValue,
   DateValue,
   NumberValue,
   RadioGroupValue,
   SelectResourceValue,
+  SelectResourceValueProps,
   SelectValue,
   TextAreaValue,
   TextValue,
@@ -37,17 +41,17 @@ export const PasswordControl = createControl(PasswordInput, TextValue)
 
 export const SelectControl = createControl(SelectInput, SelectValue)
 
-export const SelectResourceControl = createControl(
-  SelectResourceInput,
-  SelectResourceValue
-)
+export const SelectResourceControl = createControl<
+  SelectResourceInputProps<any, any>,
+  SelectResourceValueProps<any>
+>(SelectResourceInput, SelectResourceValue)
 
 export const ComboBoxControl = createControl(ComboBoxInput, ComboBoxValue)
 
-export const ComboBoxResourceControl = createControl(
-  ComboBoxResourceInput,
-  ComboBoxResourceValue
-)
+export const ComboBoxResourceControl = createControl<
+  ComboBoxResourceInputProps<any, any>,
+  ComboBoxResourceValueProps<any>
+>(ComboBoxResourceInput, ComboBoxResourceValue)
 
 export const CheckboxControl = createControl(CheckboxInput, CheckboxValue)
 

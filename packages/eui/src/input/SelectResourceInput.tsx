@@ -11,7 +11,7 @@ export type SelectResourceInputProps<TRecord = any, TFilter = any> = InputProps 
     selectLabel?: ReactNode
   }
 
-export const SelectResourceInput = <TRecord extends any, TFilter>(
+export const SelectResourceInput = <TRecord extends any = any, TFilter = any>(
   props: SelectResourceInputProps<TRecord, TFilter>
 ) => {
   const { selectLabel, resource, multiple, ...rest } = props
