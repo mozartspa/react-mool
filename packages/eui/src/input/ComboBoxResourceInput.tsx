@@ -55,8 +55,10 @@ export const ComboBoxResourceInput = <TRecord extends any = any, TFilter = any>(
     }
 
     return query.data.items.map((item) => {
+      const id = getId(item)
       const opt: EuiComboBoxOptionOption = {
-        value: getId(item),
+        key: `${id}`,
+        value: id,
         label: getName(item),
       }
       return opt
