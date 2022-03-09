@@ -237,11 +237,12 @@ export type EditBaseProps<TRecord = any, TUpdate = TRecord> = UseEditFormOptions
   TUpdate
 > & {
   children: ReactNode | ((edit: UseEditFormResult<TRecord, TUpdate>) => ReactElement)
+  mode?: "edit" | "detail"
   debugForm?: boolean
 }
 
 export const EditBase = observer((options: EditBaseProps) => {
-  const { children, debugForm, ...editOptions } = options
+  const { children, mode = "edit", debugForm, ...editOptions } = options
   const edit = useEditForm(editOptions)
 
   const body =
@@ -249,7 +250,7 @@ export const EditBase = observer((options: EditBaseProps) => {
 
   return (
     <ResourceContext.Provider value={edit.resource}>
-      <CrudModeProvider mode="edit">
+      <CrudModeProvider mode={mode}>
         <EditFormContext.Provider value={edit}>
           <RecordContextProvider record={edit.record} id={edit.id}>
             <FormContext.Provider value={edit.form}>
