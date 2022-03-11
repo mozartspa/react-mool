@@ -50,7 +50,7 @@ export const euiTokens = {
     fullscreenExpand: "Espandi",
   },
   euiColorPickerSwatch: {
-    ariaLabel: "Seleziona {colore} come colore",
+    ariaLabel: "Seleziona {color} come colore",
   },
   euiColorPicker: {
     popoverLabel: "Finestra di dialogo per la selezione del colore",
