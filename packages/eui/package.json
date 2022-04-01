@@ -1,6 +1,6 @@
 {
   "name": "@react-mool/eui",
-  "version": "0.6.0-alpha.28",
+  "version": "0.6.0-alpha.30",
   "files": [
     "dist",
     "src"
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@mozartspa/mobx-form": "^0.6.0-5",
-    "@react-mool/core": "^0.6.0-alpha.28",
+    "@react-mool/core": "^0.6.0-alpha.30",
     "@rollup/plugin-commonjs": "^19.0.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.1",
