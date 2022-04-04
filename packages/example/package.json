@@ -3,6 +3,7 @@
   "version": "0.6.0-alpha.30",
   "private": true,
   "dependencies": {
+    "@genql/runtime": "^2.9.0",
     "@gqless/logger": "^2.0.11",
     "@gqless/react": "^2.0.15",
     "@react-mool/core": "^0.6.0-alpha.30",
@@ -16,6 +17,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "gqless": "^2.0.14",
+    "graphql": "^16.3.0",
     "json-graphql-server": "^2.2.3",
     "pluralize": "^8.0.0",
     "react": "^17.0.2",
@@ -30,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-api": "json-graphql-server data.js --p 3999",
-    "generate": "gqless generate"
+    "generate": "genql --endpoint http://localhost:3999 --output ./src/generated"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@genql/cli": "^2.9.0",
     "@gqless/cli": "^2.0.16",
     "graphql": "^15.5.1"
   }
