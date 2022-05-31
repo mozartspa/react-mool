@@ -1,0 +1,35 @@
+Pensieri (sparsi):
+
+- DataProvider
+    - rimuoverlo in favore di un createDataSource per il crud?
+    - avere un client (genql?) che gestisca in autonomia errori di validazione e autorizzazione?
+    - avere un hook generale che intercetti tali errori e si comporti di conseguenza in modo che anche chiamate custom abbiano gestione errori integrata?
+
+- Detail/Edit
+    - routing fisso (/<resource>, /<resource>/create, /<resource/:id, /<resource/:id/edit) oppure variabile (per supportare gli slug)?
+    - passare un dataSource a <Detail/> e <Edit/> per poter accedere ai dati?
+
+- Resource
+    - creare una definizione di risorsa (createResource) che definisca ogni cosa utile per la risorsa (name, id, dataSource, icon)?
+    - se resource non è registrata nell'app come può avvenire il routing automatico?
+
+- Form
+    - rendere più facile l'uso dei form custom senza dover interfacciarsi con @mozartspa/mobx-form (che diventerebbe un implementation detail)?
+    - a quel punto a cosa servirebbe un <Edit/> o un <Create/>?
+
+- SSR/Next.js e similari
+    - ha senso rendere react-mool utilizzabile anche in app non SPA?
+
+- Input/Value/Control
+    - ha senso mantenere questa divisione? è comoda?
+    - oppure esistono solo gli Input (quindi sempre agganciati ad un form) ma con l'opzione di renderli readOnly?
+
+- Column
+    - c'è un modo comodo per avere sia un Value che un Column in un colpo solo? ha senso? ad es. esiste ComboBoxResourceValue ma non la column.
+
+- Traduzioni
+    - ha senso mantenere il concetto di i18nProvider?
+    - oppure avere un meccanismo per tradurre la ui di base di react-mool, e poi il resto custom?
+    - oppure permettere di avere più sorgenti diverse per i18n (createI18nSource) da agganciare dove si vuole?
+    - il sistema di traduzione automatica delle resources è scomoda e poco chiara, secondo me
+
