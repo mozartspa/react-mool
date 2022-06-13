@@ -76,7 +76,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
 
-  const openPopover = () => setPopoverOpen(true)
+  const togglePopover = () => setPopoverOpen((val) => !val)
 
   const closePopover = () => {
     setPopoverOpen(false)
@@ -179,7 +179,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
             numActiveFilters={selectedOptions.length}
             numFilters={isActive ? options.length : 0}
             isSelected={isPopoverOpen}
-            onClick={openPopover}
+            onClick={togglePopover}
             isDisabled={isDisabled}
             isLoading={isLoading}
           >
@@ -193,7 +193,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
           <EuiFilterButton
             iconType="arrowDown"
             hasActiveFilters={false}
-            onClick={openPopover}
+            onClick={togglePopover}
             isDisabled={isDisabled}
             isLoading={isLoading}
           >
