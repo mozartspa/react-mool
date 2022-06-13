@@ -16,6 +16,32 @@ import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
 
+function removeUnusedFilterValues(values: any, filterNames: string[]) {
+  // Array is not supported
+  if (Array.isArray(values)) {
+    return values
+  }
+
+  let nextValues = { ...values }
+  let changed = false
+
+  Object.keys(values).forEach((key) => {
+    const keyWithDot = `${key}.`
+    const isUsed = filterNames.some((name) => name === key || name.startsWith(keyWithDot))
+
+    if (!isUsed) {
+      delete nextValues[key]
+      changed = true
+    }
+  })
+
+  return changed ? nextValues : values
+}
+
+function getFilterNames(filters: React.ReactElement<FilterBaseProps>[]) {
+  return filters.map((f) => f.props.name).filter((name) => name != null)
+}
+
 export type FilterBarProps<TFilter = any, TFilterOut = TFilter> = {
   initialValues?: TFilter
   transformValues?: (values: TFilter) => TFilterOut
@@ -23,12 +49,19 @@ export type FilterBarProps<TFilter = any, TFilterOut = TFilter> = {
   restoreFromLast?: boolean
   restoreKey?: string
   restoreStorage?: Storage
+  allowUnusedFilterValues?: boolean
 }
 
 function FilterBarComp<TFilter, TFilterOut = TFilter>(
   props: FilterBarProps<TFilter, TFilterOut>
 ) {
-  const { filters, restoreFromLast, restoreKey, restoreStorage } = props
+  const {
+    filters,
+    restoreFromLast,
+    restoreKey,
+    restoreStorage,
+    allowUnusedFilterValues = false,
+  } = props
 
   const translate = useTranslate()
   const resource = useResource()
@@ -84,6 +117,20 @@ function FilterBarComp<TFilter, TFilterOut = TFilter>(
       }),
     []
   )
+
+  // Remove filter values that are not used by any filter element.
+  useEffect(() => {
+    if (allowUnusedFilterValues) {
+      return
+    }
+
+    const names = getFilterNames(filters)
+    const values = form.values
+    const nextValues = removeUnusedFilterValues(values, names)
+    if (values !== nextValues) {
+      form.setValues(nextValues)
+    }
+  })
 
   // Translate filter name
   const translateFilterName = (name: string) => {
