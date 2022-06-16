@@ -12,6 +12,7 @@ export function useConfirmLeave(defaults?: ConfirmationOptions) {
         confirmLabel: t.eui.confirm_leave.leave,
         cancelLabel: t.eui.confirm_leave.stay,
         buttonColor: "danger",
+        ...defaults,
         ...options,
       })
     },
