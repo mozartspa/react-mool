@@ -1,4 +1,4 @@
-import { CustomRoute, I18nProvider } from "@react-mool/core"
+import { CustomRoute, I18nProvider, ResourceContextProvider } from "@react-mool/core"
 import { Admin } from "@react-mool/eui"
 import "@react-mool/eui/dist/index.css"
 import { useEffect, useState } from "react"
@@ -10,10 +10,16 @@ import { dataProvider } from "./dataProvider"
 import { polyglotI18nProviderAsync } from "./i18n/i18nProvider"
 import { Layout } from "./layout/Layout"
 import { ProductResource } from "./products"
+import { ProductList2 } from "./products/ProductList2"
 
 const customRoutes = [
   <CustomRoute path="/custom">
     <CustomPage />
+  </CustomRoute>,
+  <CustomRoute path="/product2">
+    <ResourceContextProvider resource="product">
+      <ProductList2 />
+    </ResourceContextProvider>
   </CustomRoute>,
 ]
 

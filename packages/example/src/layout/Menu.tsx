@@ -15,6 +15,11 @@ export const Menu = (props: MenuProps) => {
               iconType: "nested",
               ...linkProps("/custom"),
             },
+            {
+              label: "Product list 2",
+              iconType: "nested",
+              ...linkProps("/product2"),
+            },
           ]}
           maxWidth="none"
           color="text"

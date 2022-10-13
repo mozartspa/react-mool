@@ -51,6 +51,8 @@ export const ProductList = () => {
       />
       <EuiSpacer size="l" />
       <TabbedFilterGroups
+        syncWithURL={true}
+        syncWithURLMode="replace"
         groups={[
           { name: "All" },
           { name: "Cheap", filter: { price_lt: 40 } },

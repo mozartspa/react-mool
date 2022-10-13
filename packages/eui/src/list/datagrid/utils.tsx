@@ -72,6 +72,60 @@ export function toEuiColumn(
   }
 }
 
+export function toEuiColumn2(col: ColumnElement): EuiBasicTableColumn<any> {
+  const {
+    name,
+    description,
+    width,
+    sortable,
+    align,
+    truncateText,
+    isMobileHeader,
+    mobileOptions,
+    hideForMobile,
+    style,
+    className,
+    footer,
+  } = col.props
+
+  return {
+    field: name,
+    name: col.props.header ?? col.props.name,
+    description,
+    width,
+    sortable: typeof sortable === "string" ? true : sortable,
+    align,
+    truncateText,
+    isMobileHeader,
+    mobileOptions: mobileOptions
+      ? {
+          ...mobileOptions,
+          render: (record) => {
+            const value = get(record, name)
+            return cloneElement(col, {
+              ...col.props,
+              value,
+              record,
+              isMobile: true,
+            })
+          },
+        }
+      : undefined,
+    hideForMobile,
+    style,
+    className,
+    footer,
+    render: (value, record) => {
+      return cloneElement(col, {
+        ...col.props,
+        value,
+        record,
+        isMobile: false,
+      })
+    },
+  }
+}
+
 export function guessColumns(items: any[]): ColumnElement[] {
   if (items.length === 0) {
     return []
