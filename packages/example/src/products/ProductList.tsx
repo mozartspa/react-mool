@@ -13,10 +13,10 @@ import {
   SelectOption,
   TabbedFilterGroups,
   TextColumn,
-  TextFilter,
   useDefaultDatagridActions,
 } from "@react-mool/eui"
 import { useMemo } from "react"
+import { ProductFilter } from "../generated"
 import { Category } from "../gqless"
 import { t } from "../i18n/en"
 
@@ -42,6 +42,8 @@ export const ProductList = () => {
     })
   }, [categoryList.data])
 
+  const filterBar = useFilterBar<ProductFilter>()
+
   return (
     <List>
       <ListHeader
@@ -64,12 +66,13 @@ export const ProductList = () => {
       <EuiSpacer size="xxl" />
       <FilterBar
         filters={[
-          <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
+          <EuiSpacer size="m" />,
           <SelectFilter
             name="category_id"
             placeholder={translate(t.resources.product.filter.category_id_placeholder)}
             options={categoryOptions || []}
             searchable
+            alwaysOn
           />,
           <NumberFilter name="price_lt" placeholder="Price lower than" />,
         ]}
