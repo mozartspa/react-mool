@@ -1,5 +1,5 @@
 import React, { ComponentType, ReactElement, ReactNode } from "react"
-import { Redirect, Route, Switch } from "react-router-dom"
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
 import { Authenticated } from "../auth"
 import { CustomRouteProps } from "../customRoute"
 import {
@@ -22,6 +22,7 @@ export type AdminRouterProps = {
   customRoutes?: ReactElement<CustomRouteProps>[]
   catchAll?: ReactNode
   autoScrollToTop?: boolean
+  basename?: string
   children?: ReactNode
 }
 
@@ -33,6 +34,7 @@ export const AdminRouter = (props: AdminRouterProps) => {
     customRoutes = [],
     catchAll,
     autoScrollToTop = true,
+    basename,
     children,
   } = props
 
@@ -69,7 +71,8 @@ export const AdminRouter = (props: AdminRouterProps) => {
   )
 
   return (
-    <>
+    <BrowserRouter basename={basename}>
+      {children}
       {!!autoScrollToTop && <ScrollToTop />}
       <Switch>
         {customRoutesWithoutLayout}
@@ -88,6 +91,6 @@ export const AdminRouter = (props: AdminRouterProps) => {
           </Authenticated>
         </Route>
       </Switch>
-    </>
+    </BrowserRouter>
   )
 }

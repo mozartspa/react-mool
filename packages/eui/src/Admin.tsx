@@ -38,6 +38,7 @@ export const Admin = (props: AdminProps) => {
     errorBoundary: errorBoundaryComp,
     errorBoundaryProps,
     i18nProvider = defaultI18nProvider,
+    basename,
     ...coreProps
   } = props
 
@@ -56,6 +57,7 @@ export const Admin = (props: AdminProps) => {
             customRoutes={customRoutes}
             catchAll={catchAll}
             autoScrollToTop={autoScrollToTop}
+            basename={basename}
           >
             {children}
           </AdminRouter>

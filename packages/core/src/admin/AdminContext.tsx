@@ -1,6 +1,5 @@
 import { ReactNode, useState } from "react"
 import { DefaultOptions, QueryClient, QueryClientProvider } from "react-query"
-import { BrowserRouter } from "react-router-dom"
 import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
 import { DataProvider, DataProviderContextProvider } from "../dataProvider"
 import { I18nProvider, TranslationContextProvider } from "../i18n"
@@ -48,7 +47,7 @@ export const AdminContext = (props: AdminContextProps) => {
           <NotificationContext.Provider value={notifications}>
             <TranslationContextProvider i18nProvider={i18nProvider}>
               <ResourceDefinitionsContextProvider definitions={resources}>
-                <BrowserRouter>{children}</BrowserRouter>
+                {children}
               </ResourceDefinitionsContextProvider>
             </TranslationContextProvider>
           </NotificationContext.Provider>
