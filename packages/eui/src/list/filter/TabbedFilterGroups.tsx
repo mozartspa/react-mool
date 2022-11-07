@@ -91,7 +91,7 @@ export function TabbedFilterGroups<TFilter = any>(
   )
 
   return (
-    <EuiTabs display="default">
+    <EuiTabs>
       {groups.map((group) => (
         <EuiTab
           key={group.name}

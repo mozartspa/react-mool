@@ -1,3 +1,5 @@
+import { EuiProvider } from "@elastic/eui"
+import "@elastic/eui/dist/eui_theme_light.css"
 import {
   AdminContext,
   AdminContextProps,
@@ -47,22 +49,24 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryComp === false ? NoErrorBoundary : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
-      <AdminContext i18nProvider={i18nProvider} {...coreProps}>
-        <EuiI18nContextProvider>
-          <AdminRouter
-            layout={AppLayout}
-            loginPage={loginPage}
-            dashboard={dashboard}
-            customRoutes={customRoutes}
-            catchAll={catchAll}
-            autoScrollToTop={autoScrollToTop}
-            basename={basename}
-          >
-            {children}
-          </AdminRouter>
-        </EuiI18nContextProvider>
-      </AdminContext>
-    </AppErrorBoundary>
+    <EuiProvider colorMode="light">
+      <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
+        <AdminContext i18nProvider={i18nProvider} {...coreProps}>
+          <EuiI18nContextProvider>
+            <AdminRouter
+              layout={AppLayout}
+              loginPage={loginPage}
+              dashboard={dashboard}
+              customRoutes={customRoutes}
+              catchAll={catchAll}
+              autoScrollToTop={autoScrollToTop}
+              basename={basename}
+            >
+              {children}
+            </AdminRouter>
+          </EuiI18nContextProvider>
+        </AdminContext>
+      </AppErrorBoundary>
+    </EuiProvider>
   )
 }

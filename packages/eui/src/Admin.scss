@@ -1,13 +1,15 @@
-@import "~@elastic/eui/dist/eui_theme_amsterdam_light.css";
+// @import "~@elastic/eui/dist/eui_theme_amsterdam_light.css"; DEFAULT THEME
 
 .euiBody--headerIsFixed .euiFlyout,
 .euiBody--headerIsFixed .euiCollapsibleNav {
   top: 48px;
   height: calc(100% - 48px);
 }
+
 .euiBody--headerIsFixed {
   padding-top: 48px;
 }
+
 .euiBody--headerIsFixed .euiOverlayMask--belowHeader {
   top: 48px;
 }
@@ -26,6 +28,6 @@
 }
 
 /* Move the switch lower when in form */
-.euiFormRow__fieldWrapper > .euiSwitch {
+.euiFormRow__fieldWrapper>.euiSwitch {
   top: 3px;
 }

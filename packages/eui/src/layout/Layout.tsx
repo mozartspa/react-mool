@@ -1,4 +1,4 @@
-import { EuiPage, EuiPageContent, EuiPageContentBody, IconType } from "@elastic/eui"
+import { EuiPage, EuiPageBody, EuiPageSection, IconType } from "@elastic/eui"
 import { ComponentType, ReactNode } from "react"
 import { Header } from "./Header"
 import { Menu } from "./Menu"
@@ -27,9 +27,9 @@ export const Layout = (props: LayoutProps) => {
         appTitle={appTitle}
       />
       <EuiPage paddingSize="none" style={{ minHeight: "calc(100vh - 48px)" }}>
-        <EuiPageContent>
-          <EuiPageContentBody className="eui-fullHeight">{children}</EuiPageContentBody>
-        </EuiPageContent>
+        <EuiPageBody panelled={true}>
+          <EuiPageSection className="eui-fullHeight">{children}</EuiPageSection>
+        </EuiPageBody>
       </EuiPage>
       <Notifications />
     </>

@@ -58,7 +58,9 @@
   },
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
-    "@elastic/eui": "^39.1.1",
+    "@elastic/eui": "^70.1.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/css": "^11.10.5",
     "@types/react-confirm": "^0.1.4",
     "@types/smoothscroll-polyfill": "^0.3.1",
     "moment": "^2.29.1",

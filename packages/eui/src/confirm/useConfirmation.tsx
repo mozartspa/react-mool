@@ -1,4 +1,4 @@
-import { ButtonColor, EuiConfirmModal } from "@elastic/eui"
+import { EuiButtonColor, EuiConfirmModal } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useCallback, useMemo } from "react"
 import { confirmable, createConfirmation } from "react-confirm"
@@ -10,7 +10,7 @@ export type ConfirmationOptions = {
   cancelLabel?: ReactNode
   confirmLabel?: ReactNode
   defaultFocusedButton?: "confirm" | "cancel"
-  buttonColor?: ButtonColor
+  buttonColor?: EuiButtonColor
   className?: string
 }
 

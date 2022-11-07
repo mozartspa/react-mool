@@ -44,7 +44,7 @@ export const Menu = (props: MenuProps) => {
   const menuItems = hasDashboard ? [dashboardItem, ...resourceItems] : resourceItems
 
   return (
-    <EuiCollapsibleNavGroup background="light">
+    <EuiCollapsibleNavGroup background="none">
       <EuiListGroup
         listItems={menuItems}
         maxWidth="none"

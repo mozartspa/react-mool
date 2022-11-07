@@ -13,7 +13,7 @@ export function columnHeader(
 ) {
   return col.props.header ?? getFieldLabel(resource, col.props.name, translate)
 }
-
+// TODO DA CAPIRE PROPS isMobileHeader & hideForMobile
 export function toEuiColumn(
   col: ColumnElement,
   resource: string,
@@ -26,9 +26,7 @@ export function toEuiColumn(
     sortable,
     align,
     truncateText,
-    isMobileHeader,
     mobileOptions,
-    hideForMobile,
     style,
     className,
     footer,
@@ -42,7 +40,6 @@ export function toEuiColumn(
     sortable: typeof sortable === "string" ? true : sortable,
     align,
     truncateText,
-    isMobileHeader,
     mobileOptions: mobileOptions
       ? {
           ...mobileOptions,
@@ -57,7 +54,6 @@ export function toEuiColumn(
           },
         }
       : undefined,
-    hideForMobile,
     style,
     className,
     footer,

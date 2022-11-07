@@ -243,7 +243,6 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
 
   // Add specific className when it's empty in order to style the empty view
   const tableClassName = items.length === 0 ? "euiBasicTable--empty" : undefined
-
   return (
     <div>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
@@ -274,7 +273,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
                 pageIndex: page - 1,
                 pageSize,
                 totalItemCount: total,
-                hidePerPageOptions: !showPageSize,
+                showPerPageOptions: showPageSize,
               }
             : undefined
         }

@@ -6,6 +6,7 @@ import {
   EuiIcon,
   EuiListGroupItem,
   EuiShowFor,
+  useEuiTheme,
 } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useEffect, useState } from "react"
@@ -21,6 +22,7 @@ export type HeaderNavProps = {
 export const HeaderNav = (props: HeaderNavProps) => {
   const { menu, size } = props
 
+  const { euiTheme } = useEuiTheme()
   const translate = useTranslate()
   const [navIsDocked, setNavIsDocked] = useLocalstorageState("navIsDocked", true)
   const [navIsOpen, setNavIsOpen] = useState(navIsDocked)
@@ -48,15 +50,17 @@ export const HeaderNav = (props: HeaderNavProps) => {
       }
       onClose={() => setNavIsOpen(false)}
       size={size}
+      css={{
+        backgroundColor: euiTheme.colors.body,
+      }}
     >
       <EuiFlexItem className="eui-yScroll">{menu}</EuiFlexItem>
       <EuiFlexItem grow={false}>
         {/* Docking button only for larger screens that can support it*/}
         <EuiShowFor sizes={["l", "xl"]}>
-          <EuiCollapsibleNavGroup>
+          <EuiCollapsibleNavGroup background="none">
             <EuiListGroupItem
               size="xs"
-              color="subdued"
               label={translate(
                 navIsDocked
                   ? t.eui.layout.undock_navigation

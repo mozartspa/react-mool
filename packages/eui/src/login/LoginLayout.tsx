@@ -13,7 +13,7 @@ export const LoginLayout = (props: LoginLayoutProps) => {
   const translate = useTranslate()
 
   return (
-    <EuiPageTemplate template="default" style={{ minHeight: "100vh" }}>
+    <EuiPageTemplate style={{ minHeight: "100vh" }}>
       <EuiSpacer size="xxl" />
       <EuiFlexGroup justifyContent="center">
         <EuiCard
