@@ -19,6 +19,7 @@ export type AdminRouterProps = {
   layout?: ComponentType<{ hasDashboard?: boolean }>
   loginPage?: ReactNode
   dashboard?: ReactNode
+  dashboardWithoutLayout?: boolean
   customRoutes?: ReactElement<CustomRouteProps>[]
   catchAll?: ReactNode
   autoScrollToTop?: boolean
@@ -31,6 +32,7 @@ export const AdminRouter = (props: AdminRouterProps) => {
     layout,
     loginPage,
     dashboard,
+    dashboardWithoutLayout,
     customRoutes = [],
     catchAll,
     autoScrollToTop = true,
@@ -76,13 +78,14 @@ export const AdminRouter = (props: AdminRouterProps) => {
       {!!autoScrollToTop && <ScrollToTop />}
       <Switch>
         {customRoutesWithoutLayout}
+        {!dashboardWithoutLayout && dashboardRoute}
         {!!loginPage && <Route path="/login">{loginPage}</Route>}
         <Route>
           <Authenticated>
             <Layout hasDashboard={!!dashboard}>
               <Switch>
                 {customRoutesWithLayout}
-                {dashboardRoute}
+                {!!dashboardWithoutLayout && dashboardRoute}
                 {resourceRoutes}
                 {!!catchAll && <Route>{catchAll}</Route>}
               </Switch>
