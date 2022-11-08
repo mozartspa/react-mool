@@ -1,4 +1,4 @@
-import { EuiProvider } from "@elastic/eui"
+import { EuiProvider, EuiProviderProps } from "@elastic/eui"
 import "@elastic/eui/dist/eui_theme_light.css"
 import {
   AdminContext,
@@ -26,6 +26,7 @@ export type AdminProps = AdminContextProps &
   AdminRouterProps & {
     errorBoundary?: false | React.ComponentType<{ i18nProvider?: I18nProvider }>
     errorBoundaryProps?: ErrorBoundaryProps
+    themeProviderProps?: EuiProviderProps<"theme">
   }
 
 export const Admin = (props: AdminProps) => {
@@ -39,6 +40,9 @@ export const Admin = (props: AdminProps) => {
     autoScrollToTop,
     errorBoundary: errorBoundaryComp,
     errorBoundaryProps,
+    themeProviderProps = {
+      colorMode: "light",
+    },
     i18nProvider = defaultI18nProvider,
     basename,
     ...coreProps
@@ -49,7 +53,7 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryComp === false ? NoErrorBoundary : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <EuiProvider colorMode="light">
+    <EuiProvider {...themeProviderProps}>
       <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
         <AdminContext i18nProvider={i18nProvider} {...coreProps}>
           <EuiI18nContextProvider>
