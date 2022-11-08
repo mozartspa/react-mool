@@ -6,7 +6,7 @@
     "@gqless/logger": "^2.0.11",
     "@gqless/react": "^2.0.15",
     "@react-mool/core": "^0.6.0",
-    "@react-mool/eui": "^0.6.0",
+    "@react-mool/eui": "^0.6.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

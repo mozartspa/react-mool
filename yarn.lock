@@ -1291,7 +1291,7 @@
   dependencies:
     tslib "^1.9.3"
 
-"@elastic/eui@70.1.0":
+"@elastic/eui@^70.1.0":
   version "70.1.0"
   resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-70.1.0.tgz#9ded144e6b4043d8aeb0ddd6e17ed819ff7fe351"
   integrity sha512-/WkXH0UQaIw0j6RCcY4y3P6XfcyG0FBNgCOa83niBvBWF3ygE6ryskrYSr3J0QqFxUPVIErG10rEOPqGzthMfg==
