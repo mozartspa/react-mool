@@ -24,7 +24,8 @@
     "dev": "yarn build --watch",
     "build": "rimraf ./dist && rollup -c",
     "lint": "eslint .",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "install": "yarn build"
   },
   "devDependencies": {
     "@mozartspa/mobx-form": "^0.6.0",
