@@ -26,7 +26,8 @@
     "build-cjs": "rimraf ./dist/lib && tsc",
     "build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
     "lint": "eslint .",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "prepare": "yarn build"
   },
   "devDependencies": {
     "@types/react": "^17.0.13",

@@ -8,8 +8,7 @@
   ],
   "scripts": {
     "pretty": "pretty-quick",
-    "dev": "lerna run dev --parallel",
-    "prepare": "cd /packages/eui && yarn build"
+    "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.27.0",
