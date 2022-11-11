@@ -1,7 +1,6 @@
 {
   "name": "react-mool-monorepo",
   "license": "MIT",
-  "version": "0.1.0",
   "private": true,
   "workspaces": [
     "packages/*"
