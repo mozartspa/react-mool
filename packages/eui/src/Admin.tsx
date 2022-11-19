@@ -1,6 +1,5 @@
-import { EuiProvider } from "@elastic/eui"
+import { EuiProvider, EuiThemeProviderProps } from "@elastic/eui"
 import "@elastic/eui/dist/eui_theme_light.css"
-import { EuiProviderProps } from "@elastic/eui/src/components/provider"
 import {
   AdminContext,
   AdminContextProps,
@@ -27,7 +26,7 @@ export type AdminProps = AdminContextProps &
   AdminRouterProps & {
     errorBoundary?: false | React.ComponentType<{ i18nProvider?: I18nProvider }>
     errorBoundaryProps?: ErrorBoundaryProps
-    euiProviderProps?: EuiProviderProps<"theme">
+    euiProviderProps?: Omit<EuiThemeProviderProps<"theme">, "children">
   }
 
 export const Admin = (props: AdminProps) => {
@@ -52,8 +51,8 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryComp === false ? NoErrorBoundary : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <EuiProvider {...euiProviderProps}>
-      <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
+    <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
+      <EuiProvider {...euiProviderProps}>
         <AdminContext i18nProvider={i18nProvider} {...coreProps}>
           <EuiI18nContextProvider>
             <AdminRouter
@@ -69,7 +68,7 @@ export const Admin = (props: AdminProps) => {
             </AdminRouter>
           </EuiI18nContextProvider>
         </AdminContext>
-      </AppErrorBoundary>
-    </EuiProvider>
+      </EuiProvider>
+    </AppErrorBoundary>
   )
 }
