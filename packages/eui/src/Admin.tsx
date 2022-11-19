@@ -52,8 +52,8 @@ export const Admin = (props: AdminProps) => {
 
   return (
     <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
-      <EuiProvider {...euiProviderProps}>
-        <AdminContext i18nProvider={i18nProvider} {...coreProps}>
+      <AdminContext i18nProvider={i18nProvider} {...coreProps}>
+        <EuiProvider {...euiProviderProps}>
           <EuiI18nContextProvider>
             <AdminRouter
               layout={AppLayout}
@@ -67,8 +67,8 @@ export const Admin = (props: AdminProps) => {
               {children}
             </AdminRouter>
           </EuiI18nContextProvider>
-        </AdminContext>
-      </EuiProvider>
+        </EuiProvider>
+      </AdminContext>
     </AppErrorBoundary>
   )
 }
