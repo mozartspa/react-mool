@@ -76,7 +76,7 @@ export const ProductList2 = () => {
   const [filter, setFilter] = useState<CategoryFilter>()
 
   return (
-    <ListBase query={fetchProducts} filter={filter}>
+    <ListBase query={ProductQueries.getList} filter={filter}>
       {(list) => (
         <>
           <EuiPageHeader
@@ -93,7 +93,8 @@ export const ProductList2 = () => {
             selectable
           />
           <Datagrid2
-            list={{ ...list, page: 10 }}
+            list={list}
+            columns={[<TextColumn />]}
             getItemId={(item) => item?.id ?? ""}
             rowClick="select"
             selectable
@@ -173,3 +174,28 @@ const CreateFormInputs = (props: CreateFormInputsProps) => {
 const list = useList({ query: fetchProducts })
 
 const queryList = useQueryList(fetchProduct, { page: 1, pageSize: 100 })
+
+const useProductOptions = createOptionsHook(ProductQueries.getList, (item) => ({
+  id: scasdak,
+  label: item.titolo,
+}))
+
+const EditProduct = () => {
+  const [product] = useQuery(ProductQueries.getOne, { id: 4 })
+
+  const initialValues: ProductEditInput = {}
+
+  const productOptions = useProductOptions()
+
+  return (
+    <Form initialValues={product} mutation={}>
+      {({ control }) => (
+        <>
+          <TextInput control={control} name="closePopover" />
+          <TextInput control={control} name="alignItems" />
+          <SelectInput control={control} name="productId" options={productOptions} />
+        </>
+      )}
+    </Form>
+  )
+}
