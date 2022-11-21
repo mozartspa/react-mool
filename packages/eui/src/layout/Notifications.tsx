@@ -1,9 +1,7 @@
-import { EuiGlobalToastList, EuiGlobalToastListProps } from "@elastic/eui"
+import { EuiGlobalToastList } from "@elastic/eui"
+import { Toast } from "@elastic/eui/src/components/toast/global_toast_list"
 import { useNotificationContext, useTranslate } from "@react-mool/core"
 import { useMemo } from "react"
-
-// Toast is not exported by eui, we should take it by ourself
-type Toast = EuiGlobalToastListProps["toasts"][number]
 
 export type NotificationsProps = {
   toastLifeTimeMs?: number

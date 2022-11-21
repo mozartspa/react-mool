@@ -1,3 +1,5 @@
+import { EuiProvider, EuiThemeProviderProps } from "@elastic/eui"
+import "@elastic/eui/dist/eui_theme_light.css"
 import {
   AdminContext,
   AdminContextProps,
@@ -24,6 +26,7 @@ export type AdminProps = AdminContextProps &
   AdminRouterProps & {
     errorBoundary?: false | React.ComponentType<{ i18nProvider?: I18nProvider }>
     errorBoundaryProps?: ErrorBoundaryProps
+    euiProviderProps?: Omit<EuiThemeProviderProps<"theme">, "children">
   }
 
 export const Admin = (props: AdminProps) => {
@@ -39,6 +42,7 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryProps,
     i18nProvider = defaultI18nProvider,
     basename,
+    euiProviderProps = { colorMode: "light" },
     ...coreProps
   } = props
 
@@ -47,22 +51,24 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryComp === false ? NoErrorBoundary : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
-      <AdminContext i18nProvider={i18nProvider} {...coreProps}>
-        <EuiI18nContextProvider>
-          <AdminRouter
-            layout={AppLayout}
-            loginPage={loginPage}
-            dashboard={dashboard}
-            customRoutes={customRoutes}
-            catchAll={catchAll}
-            autoScrollToTop={autoScrollToTop}
-            basename={basename}
-          >
-            {children}
-          </AdminRouter>
-        </EuiI18nContextProvider>
-      </AdminContext>
-    </AppErrorBoundary>
+    <EuiProvider {...euiProviderProps}>
+      <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
+        <AdminContext i18nProvider={i18nProvider} {...coreProps}>
+          <EuiI18nContextProvider>
+            <AdminRouter
+              layout={AppLayout}
+              loginPage={loginPage}
+              dashboard={dashboard}
+              customRoutes={customRoutes}
+              catchAll={catchAll}
+              autoScrollToTop={autoScrollToTop}
+              basename={basename}
+            >
+              {children}
+            </AdminRouter>
+          </EuiI18nContextProvider>
+        </AdminContext>
+      </AppErrorBoundary>
+    </EuiProvider>
   )
 }

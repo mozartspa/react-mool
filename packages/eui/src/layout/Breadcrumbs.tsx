@@ -1,5 +1,5 @@
 import { EuiHeaderBreadcrumbs } from "@elastic/eui"
-import { EuiBreadcrumb } from "@elastic/eui/src/components/breadcrumbs/breadcrumbs"
+import { EuiBreadcrumbProps } from "@elastic/eui/src/components/breadcrumbs/breadcrumb"
 import { useLinkProps } from "@react-mool/core"
 import { ReactNode } from "react"
 import { createStackCollector } from "../helpers/createStackCollector"
@@ -21,7 +21,7 @@ export const BreadcrumbsContainer = () => {
   return (
     <Consumer>
       {(items) => {
-        const breadcrumbs: EuiBreadcrumb[] = items
+        const breadcrumbs: EuiBreadcrumbProps[] = items
           .filter((item) => item.children != null)
           .map((item) => ({
             text: item.children,

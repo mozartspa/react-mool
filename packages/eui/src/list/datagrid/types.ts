@@ -1,4 +1,4 @@
-import { EuiButtonIconColor } from "@elastic/eui"
+import { EuiButtonIconProps } from "@elastic/eui"
 import { ReactNode } from "react"
 
 export type DatagridAction<TRecord = any> = {
@@ -6,7 +6,7 @@ export type DatagridAction<TRecord = any> = {
   run: (items: TRecord[]) => void
   description?: string
   icon?: string
-  color?: EuiButtonIconColor
+  color?: EuiButtonIconProps["color"]
   available?: (item: TRecord) => boolean
   enabled?: (item: TRecord) => boolean
   isPrimary?: boolean

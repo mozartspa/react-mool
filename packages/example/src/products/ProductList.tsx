@@ -8,8 +8,6 @@ import {
   List,
   ListHeader,
   NumberColumn,
-  NumberFilter,
-  SelectFilter,
   SelectOption,
   TabbedFilterGroups,
   TextColumn,
@@ -18,7 +16,6 @@ import {
 } from "@react-mool/eui"
 import { useMemo } from "react"
 import { Category } from "../gqless"
-import { t } from "../i18n/en"
 
 export const ProductList = () => {
   const linkProps = useLinkProps()
@@ -61,16 +58,7 @@ export const ProductList = () => {
       />
       <EuiSpacer size="xxl" />
       <FilterBar
-        filters={[
-          <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
-          <SelectFilter
-            name="category_id"
-            placeholder={translate(t.resources.product.filter.category_id_placeholder)}
-            options={categoryOptions || []}
-            searchable
-          />,
-          <NumberFilter name="price_lt" placeholder="Price lower than" />,
-        ]}
+        filters={[<TextFilter name="q" placeholder="Search..." alwaysOn grow />]}
       />
       <Datagrid
         columns={[

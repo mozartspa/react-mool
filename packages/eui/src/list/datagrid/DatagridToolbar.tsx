@@ -103,7 +103,7 @@ export const DatagridToolbar = (props: DatagridToolbarProps) => {
             <EuiTablePagination
               activePage={page - 1}
               pageCount={pageCount}
-              hidePerPageOptions={true}
+              showPerPageOptions={false}
               onChangePage={onChangePage}
             />
           </EuiFlexItem>

@@ -30,7 +30,7 @@ export const ErrorBoundaryFallback = (props: ErrorBoundaryFallbackProps) => {
   }, [resetErrorBoundary])
 
   return (
-    <EuiPageTemplate template="centeredContent" style={{ minHeight: "100vh" }}>
+    <EuiPageTemplate.EmptyPrompt style={{ minHeight: "100vh" }}>
       <EuiEmptyPrompt
         iconType="alert"
         iconColor="danger"
@@ -42,6 +42,6 @@ export const ErrorBoundaryFallback = (props: ErrorBoundaryFallbackProps) => {
           </>
         }
       />
-    </EuiPageTemplate>
+    </EuiPageTemplate.EmptyPrompt>
   )
 }
