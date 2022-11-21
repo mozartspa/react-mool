@@ -1,6 +1,6 @@
 {
   "name": "@react-mool/eui",
-  "version": "0.6.1",
+  "version": "0.6.0",
   "files": [
     "dist",
     "src"
@@ -60,11 +60,10 @@
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
     "@elastic/eui": "^70.1.0",
-    "@emotion/react": "^11.10.5",
-    "@emotion/css": "^11.10.5",
     "@types/react-confirm": "^0.1.4",
     "@types/smoothscroll-polyfill": "^0.3.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
+    "prop-types": "^15.8.1",
     "react-confirm": "^0.1.24",
     "react-error-boundary": "^3.1.3",
     "react-fast-compare": "^3.2.0",

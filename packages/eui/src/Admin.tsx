@@ -51,9 +51,9 @@ export const Admin = (props: AdminProps) => {
     errorBoundaryComp === false ? NoErrorBoundary : errorBoundaryComp ?? ErrorBoundary
 
   return (
-    <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
-      <AdminContext i18nProvider={i18nProvider} {...coreProps}>
-        <EuiProvider {...euiProviderProps}>
+    <EuiProvider {...euiProviderProps}>
+      <AppErrorBoundary i18nProvider={i18nProvider} {...errorBoundaryProps}>
+        <AdminContext i18nProvider={i18nProvider} {...coreProps}>
           <EuiI18nContextProvider>
             <AdminRouter
               layout={AppLayout}
@@ -67,8 +67,8 @@ export const Admin = (props: AdminProps) => {
               {children}
             </AdminRouter>
           </EuiI18nContextProvider>
-        </EuiProvider>
-      </AdminContext>
-    </AppErrorBoundary>
+        </AdminContext>
+      </AppErrorBoundary>
+    </EuiProvider>
   )
 }

@@ -46,6 +46,6 @@
   },
   "dependencies": {
     "@react-mool/core": "^0.6.0",
-    "@react-mool/eui": "^0.6.1"
+    "@react-mool/eui": "^0.6.0"
   }
 }
