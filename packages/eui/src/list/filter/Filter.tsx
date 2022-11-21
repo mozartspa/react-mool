@@ -2,7 +2,7 @@ import { EuiFlexItemProps } from "@elastic/eui"
 import { Field, FieldComponentProps, FieldProps } from "@mozartspa/mobx-form"
 
 export type FilterBaseProps = {
-  name: "q" | "category_id"
+  name: string
   label?: string
   alwaysOn?: boolean
   grow?: EuiFlexItemProps["grow"]
