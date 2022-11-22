@@ -1,11 +1,12 @@
 import { FormContext } from "@mozartspa/mobx-form"
-import { useCrudMode, useObserveMobxValue, useRecordValue } from "@react-mool/core"
+import { RecordContext, useCrudMode, useObserveMobxValue } from "@react-mool/core"
+import get from "dlv"
 import React from "react"
 
 export function useControlValue<TValue = any>(name: string): TValue {
   const crudMode = useCrudMode()
   const form = React.useContext(FormContext)
-  const recordValue = useRecordValue(name)
+  const recordContext = React.useContext(RecordContext)
 
   // To avoid that the caller of `useControlValue` have to wrap
   // the component with mobx `observer` (we're accessing a mobx
@@ -20,6 +21,10 @@ export function useControlValue<TValue = any>(name: string): TValue {
 
     return inputValue
   } else {
-    return recordValue
+    if (!recordContext) {
+      throw new Error("RecordContext not available")
+    }
+
+    return get(recordContext.record, name)
   }
 }
