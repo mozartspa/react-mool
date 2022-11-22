@@ -27,6 +27,8 @@ export type DeleteButtonProps = BaseButtonProps & {
   resource?: string
   id?: RecordID
   redirectTo?: RedirectToPage | false
+  onSuccess?: () => Promise<void> | void
+  onError?: (err: any) => Promise<void> | void
 }
 
 export const DeleteButton = (props: DeleteButtonProps) => {
@@ -37,6 +39,8 @@ export const DeleteButton = (props: DeleteButtonProps) => {
     children,
     asIcon,
     color,
+    onSuccess,
+    onError,
     ...buttonProps
   } = props
 
@@ -67,19 +71,21 @@ export const DeleteButton = (props: DeleteButtonProps) => {
 
       dataprovider
         .delete(resource, { id: deleteId })
-        .then(() => {
+        .then(async () => {
           notify(translate(t.eui.bulk.deleted_items, { smart_count: 1 }), {
             type: "success",
           })
           if (redirectTo !== false) {
             redirect(redirectTo, { resource, id: deleteId })
           }
+          await onSuccess?.()
         })
-        .catch((err) => {
+        .catch(async (err) => {
           logError(err)
           notify(err instanceof Error ? err.message : translate(t.eui.error.general), {
             type: "danger",
           })
+          await onError?.(err)
         })
         .finally(() => {
           refresh()
@@ -99,6 +105,8 @@ export const DeleteButton = (props: DeleteButtonProps) => {
     refresh,
     confirm,
     redirect,
+    onSuccess,
+    onError,
   ])
 
   const label = translate(`resources.${resource}.action.delete`, {
@@ -111,6 +119,7 @@ export const DeleteButton = (props: DeleteButtonProps) => {
   if (asIcon) {
     return (
       <EuiButtonIcon
+        key={isBtnLoading ? 0 : 1}
         color="danger"
         onClick={handleDelete}
         display="base"
