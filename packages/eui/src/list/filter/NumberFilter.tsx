@@ -21,6 +21,7 @@ export const NumberFilter = (props: NumberFilterProps) => {
         <EuiFieldSearch
           {...field.input}
           placeholder={placeholder}
+          title={placeholder}
           isClearable={isClearable ?? filterProps.alwaysOn ?? false}
           fullWidth
           type="number"

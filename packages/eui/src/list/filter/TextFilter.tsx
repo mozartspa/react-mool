@@ -15,6 +15,7 @@ export const TextFilter = (props: TextFilterProps) => {
         <EuiFieldSearch
           {...field.input}
           placeholder={placeholder}
+          title={placeholder}
           type={type}
           isClearable={isClearable ?? filterProps.alwaysOn ?? false}
           fullWidth
