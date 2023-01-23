@@ -1,6 +1,6 @@
 import { EuiButton } from "@elastic/eui"
 import { useRecordId, useRedirectLink } from "@react-mool/core"
-import { DeleteButton, Edit, EditHeader } from "@react-mool/eui"
+import { DeleteButton, Edit, EditHeader, usePreventLeaveContext } from "@react-mool/eui"
 import { GeneratedSchema, Product } from "../gqless"
 import { Form } from "./Form"
 
@@ -26,8 +26,21 @@ function initialValues(data: Product): ProductUpdateInput {
 const NextButton = () => {
   const currentId = useRecordId()
   const redirect = useRedirectLink()
+  const leave = usePreventLeaveContext()
 
-  return <EuiButton {...redirect("edit", { id: Number(currentId) + 1 })}>Next</EuiButton>
+  const linkProps = redirect("edit", { id: Number(currentId) + 1 })
+
+  return (
+    <EuiButton
+      {...linkProps}
+      onClick={(ev: any) => {
+        leave?.allowLeaveOnce(true)
+        linkProps.onClick?.(ev)
+      }}
+    >
+      Next
+    </EuiButton>
+  )
 }
 
 export const ProductEdit = () => {

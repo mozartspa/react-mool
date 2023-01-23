@@ -111,3 +111,5 @@ export function usePreventLeave(options: UsePreventLeaveOptions) {
     allowLeaveOnce,
   }
 }
+
+export type UsePreventLeaveResult = ReturnType<typeof usePreventLeave>

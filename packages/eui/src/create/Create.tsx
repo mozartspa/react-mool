@@ -1,5 +1,5 @@
 import { CreateBase, CreateBaseProps } from "@react-mool/core"
-import { ReactNode } from "react"
+import { Fragment, ReactNode } from "react"
 import { PreventLeaveForm } from "../leave"
 import { CreateBreadcrumbs } from "./CreateBreadcrumbs"
 
@@ -19,14 +19,15 @@ export const Create = (props: CreateProps) => {
     ...createProps
   } = props
 
+  const WrapperLeave = preventLeave ? PreventLeaveForm : Fragment
+
   return (
     <CreateBase {...createProps}>
       {(createForm) => (
-        <>
+        <WrapperLeave>
           {breadcrumbs}
-          {preventLeave && <PreventLeaveForm />}
           {children instanceof Function ? children(createForm) : children}
-        </>
+        </WrapperLeave>
       )}
     </CreateBase>
   )

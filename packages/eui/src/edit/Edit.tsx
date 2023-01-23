@@ -1,5 +1,5 @@
 import { EditBase, EditBaseProps } from "@react-mool/core"
-import { ReactNode } from "react"
+import { Fragment, ReactNode } from "react"
 import { PreventLeaveForm } from "../leave"
 import { EditBreadcrumbs } from "./EditBreadcrumbs"
 
@@ -19,14 +19,15 @@ export const Edit = (props: EditProps) => {
     ...editProps
   } = props
 
+  const WrapperLeave = preventLeave ? PreventLeaveForm : Fragment
+
   return (
     <EditBase {...editProps}>
       {(edit) => (
-        <>
+        <WrapperLeave>
           {breadcrumbs}
-          {preventLeave && <PreventLeaveForm />}
           {children instanceof Function ? children(edit) : children}
-        </>
+        </WrapperLeave>
       )}
     </EditBase>
   )
