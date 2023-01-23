@@ -1,6 +1,6 @@
 {
   "name": "@react-mool/i18n-it",
-  "version": "0.7.0-alpha.5",
+  "version": "0.7.0-alpha.6",
   "files": [
     "dist",
     "src"
@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "@react-mool/core": "^0.7.0-alpha.2",
-    "@react-mool/eui": "^0.7.0-alpha.5"
+    "@react-mool/eui": "^0.7.0-alpha.6"
   }
 }
