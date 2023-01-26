@@ -85,11 +85,9 @@ export const DateInput = (props: DateInputProps) => {
           <EuiDatePicker
             {...inputProps}
             fullWidth={props.fullWidth}
-            isInvalid={!field.isValid}
             selected={selected.isValid() ? selected : null}
             onChange={(value) => field.setValue(value?.format())}
             onBlur={() => field.setTouched(true)}
-            required={props.required}
             onClear={() => field.setValue(null)}
             locale={inputProps.locale ?? locale}
           />
