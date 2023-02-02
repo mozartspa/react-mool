@@ -33,3 +33,7 @@ Pensieri (sparsi):
     - oppure permettere di avere più sorgenti diverse per i18n (createI18nSource) da agganciare dove si vuole?
     - il sistema di traduzione automatica delle resources è scomoda e poco chiara, secondo me
 
+----------------
+Altri pensieri a casaccio:
+
+Sezioni: data, auth, notification, form, list, i18n
