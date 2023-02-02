@@ -74,6 +74,35 @@ export function useQuery<
   return [data, queryRest]
 }
 
+// -------------------------
+// createQueryHook
+// -------------------------
+export function createQueryHook<
+  T extends QueryFnWithKey,
+  TResult = PromiseReturnType<T>,
+  TError = unknown,
+  TSelectedData = TResult
+>(
+  queryFn: T
+): {
+  (
+    params: FirstParam<T>,
+    options?: UseQueryOptions<TResult, TError, TSelectedData> & QueryNonLazyOptions
+  ): [TSelectedData, RestQueryResult<TSelectedData, TError>]
+  (
+    params: FirstParam<T>,
+    options: UseQueryOptions<TResult, TError, TSelectedData> & QueryLazyOptions
+  ): [TSelectedData | undefined, RestQueryResult<TSelectedData, TError>]
+} {
+  return (
+    params: FirstParam<T>,
+    options: UseQueryOptions<TResult, TError, TSelectedData> = {}
+  ) => {
+    // Casted to any because it seems that `options` is not liked by ts.
+    return (useQuery as any)(queryFn, params, options)
+  }
+}
+
 // -------------------------------------------------------------------
 //                       useMutation
 // -------------------------------------------------------------------
