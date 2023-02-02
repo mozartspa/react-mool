@@ -11,14 +11,14 @@
     "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
+    "@parcel/packager-ts": "2.8.3",
+    "@parcel/transformer-typescript-types": "2.8.3",
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
-    "esbuild": "^0.17.5",
-    "esbuild-css-modules-plugin": "^2.7.1",
-    "esbuild-scss-modules-plugin": "^1.1.0",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "lerna": "^3.13.4",
+    "parcel": "^2.8.3",
     "prettier": "^2.3.2",
     "prettier-plugin-organize-imports": "^2.2.0",
     "pretty-quick": "^3.1.1",
