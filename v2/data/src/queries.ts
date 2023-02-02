@@ -2,7 +2,7 @@ import { GetListQueryFn } from "./list"
 
 export type QueryFn<I = any, O = any> = (args: I) => Promise<O>
 
-export type QueryFnWithKey<T extends QueryFn> = T & {
+export type QueryFnWithKey<T extends QueryFn = QueryFn> = T & {
   cacheKey: string[]
 }
 
