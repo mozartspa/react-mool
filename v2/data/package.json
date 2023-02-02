@@ -26,8 +26,8 @@
     "build": "parcel build",
     "clean": "rimraf ./dist",
     "lint": "eslint .",
-    "check": "tsc --noEmit",
-    "prepublishOnly": "yarn clean && yarn check && yarn build"
+    "tscheck": "tsc --noEmit",
+    "prepublishOnly": "yarn clean && yarn tscheck && yarn build"
   },
   "devDependencies": {
     "@types/react": "^17.0.13",
