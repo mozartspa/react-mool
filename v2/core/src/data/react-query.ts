@@ -11,7 +11,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from "@tanstack/react-query"
-import { QueryFnWithKey } from "./queries"
+import { Query } from "./queries"
 
 type Await<T> = T extends PromiseLike<infer U> ? U : T
 type PromiseReturnType<T extends (...args: any) => Promise<any>> = Await<ReturnType<T>>
@@ -30,7 +30,7 @@ type QueryNonLazyOptions =
 type RestQueryResult<TResult, TError> = Omit<UseQueryResult<TResult, TError>, "data">
 
 export function useQuery<
-  T extends QueryFnWithKey,
+  T extends Query,
   TResult = PromiseReturnType<T>,
   TError = unknown,
   TSelectedData = TResult
@@ -40,7 +40,7 @@ export function useQuery<
   options?: UseQueryOptions<TResult, TError, TSelectedData> & QueryNonLazyOptions
 ): [TSelectedData, RestQueryResult<TSelectedData, TError>]
 export function useQuery<
-  T extends QueryFnWithKey,
+  T extends Query,
   TResult = PromiseReturnType<T>,
   TError = unknown,
   TSelectedData = TResult
@@ -50,7 +50,7 @@ export function useQuery<
   options: UseQueryOptions<TResult, TError, TSelectedData> & QueryLazyOptions
 ): [TSelectedData | undefined, RestQueryResult<TSelectedData, TError>]
 export function useQuery<
-  T extends QueryFnWithKey,
+  T extends Query,
   TResult = PromiseReturnType<T>,
   TError = unknown,
   TSelectedData = TResult
@@ -78,7 +78,7 @@ export function useQuery<
 // createQueryHook
 // -------------------------
 export function createQueryHook<
-  T extends QueryFnWithKey,
+  T extends Query,
   TResult = PromiseReturnType<T>,
   TError = unknown,
   TSelectedData = TResult

@@ -1,10 +1,13 @@
-import { GetListQueryFn } from "./list"
+import { GetListQueryResolver } from "./list"
 
-export type QueryFn<I = any, O = any> = (args: I) => Promise<O>
+export type QueryResolver<I = any, O = any> = (args: I) => Promise<O>
 
-export type QueryFnWithKey<T extends QueryFn = QueryFn> = T & {
+export type Query<I = any, O = any> = {
+  (args: I): Promise<O>
   cacheKey: string[]
 }
+
+export type QueryFromResolver<T extends QueryResolver> = T & { cacheKey: string[] }
 
 type Func = (...args: any[]) => any
 
@@ -12,11 +15,11 @@ function cloneFunc<T extends Func>(func: T): T {
   return ((...args: any[]) => func(...args)) as T
 }
 
-export function createQuery<T extends QueryFn>(
+export function createQuery<I = any, O = any>(
   cacheKey: string | string[],
-  fn: T
-): QueryFnWithKey<T> {
-  const fnWithKey = cloneFunc(fn) as QueryFnWithKey<T>
+  resolver: QueryResolver<I, O>
+): Query<I, O> {
+  const fnWithKey = cloneFunc(resolver) as Query<I, O>
   fnWithKey.cacheKey = Array.isArray(cacheKey) ? cacheKey : [cacheKey]
   return fnWithKey
 }
@@ -24,13 +27,13 @@ export function createQuery<T extends QueryFn>(
 export type QueriesConfig<TRecord = any, TFilter = any> = {
   cacheKey: string
   queries: {
-    getList?: GetListQueryFn<TRecord, TFilter>
-    [name: string]: QueryFn | undefined
+    getList?: GetListQueryResolver<TRecord, TFilter>
+    [name: string]: QueryResolver | undefined
   }
 }
 export type Queries<T extends QueriesConfig> = {
-  [P in keyof T["queries"]]: T["queries"][P] extends QueryFn
-    ? QueryFnWithKey<T["queries"][P]>
+  [P in keyof T["queries"]]: T["queries"][P] extends QueryResolver
+    ? QueryFromResolver<T["queries"][P]>
     : never
 }
 

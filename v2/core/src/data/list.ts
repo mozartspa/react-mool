@@ -13,6 +13,6 @@ export interface GetListOutput<TRecord = any> {
   total: number
 }
 
-export type GetListQueryFn<TRecord = any, TFilter = any> = (
+export type GetListQueryResolver<TRecord = any, TFilter = any> = (
   params: GetListParams<TFilter>
 ) => Promise<GetListOutput<TRecord>>
