@@ -135,5 +135,3 @@ export function useMutation<
 
   return [mutateAsync, rest] as MutationResultPair<TData, TError, TVariables, TContext>
 }
-
-export * from "@tanstack/react-query"

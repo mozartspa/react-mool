@@ -12,6 +12,7 @@
   "main": "dist/main.js",
   "module": "dist/module.js",
   "types": "dist/types.d.ts",
+  "browserslist": "> 0.5%, last 2 versions, not dead, Chrome 79",
   "homepage": "https://github.com/mozartspa/react-mool#readme",
   "repository": {
     "type": "git",
