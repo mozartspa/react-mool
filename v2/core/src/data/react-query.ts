@@ -67,8 +67,9 @@ export function useQuery<
 
   const { data, ...queryRest } = useReactQuery({
     queryKey: [queryFn.cacheKey, params],
-    queryFn: queryFn,
+    queryFn: () => queryFn(params),
     ...options,
+    suspense: options.suspense ?? true,
   })
 
   return [data, queryRest]
