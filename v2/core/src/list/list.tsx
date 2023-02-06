@@ -111,6 +111,7 @@ export function useList<TRecord = any, TFilter = any, TRecordID = any>(
   }
 
   const [data, queryMeta] = useQuery(queryFn, listParams, {
+    suspense: false,
     keepPreviousData: true,
     onSuccess: ({ items, total }) => {
       onLoadSuccess?.({ items, total })
@@ -142,7 +143,7 @@ export function useList<TRecord = any, TFilter = any, TRecordID = any>(
   const updatePage = useCallback(
     (page: number) => {
       // Prevent page value to be outside of possibile pages calculated by the number of items
-      if (data.total != null) {
+      if (data?.total != null) {
         const maxPage = Math.ceil(data.total / pageSize)
         page = Math.min(page, maxPage)
       }
@@ -151,7 +152,7 @@ export function useList<TRecord = any, TFilter = any, TRecordID = any>(
       // Update it
       setPage(page)
     },
-    [pageSize, data.total]
+    [pageSize, data?.total]
   )
 
   const updatePageSize = useCallback(
@@ -170,7 +171,7 @@ export function useList<TRecord = any, TFilter = any, TRecordID = any>(
 
   // Ensure page value is within the bounds
   useEffect(() => {
-    if (data.total != null) {
+    if (data?.total != null) {
       const minPage = 1
       const maxPage = Math.max(1, Math.ceil(data.total / pageSize))
       if (page < minPage) {
@@ -179,7 +180,7 @@ export function useList<TRecord = any, TFilter = any, TRecordID = any>(
         setPage(maxPage)
       }
     }
-  }, [page, data.total])
+  }, [page, data?.total])
 
   const defaults = useMemo(
     () => ({
@@ -200,8 +201,8 @@ export function useList<TRecord = any, TFilter = any, TRecordID = any>(
   }
 
   return {
-    items: data.items,
-    total: data.total,
+    items: data?.items ?? [],
+    total: data?.total ?? 0,
     selectedIds,
     ...listParams,
     ...setters,
