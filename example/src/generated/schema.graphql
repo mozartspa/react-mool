@@ -1,0 +1,1060 @@
+""""""
+type Query {
+  """"""
+  Customer(id: ID!): Customer
+
+  """"""
+  allCustomers(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CustomerFilter): [Customer]
+
+  """"""
+  _allCustomersMeta(page: Int, perPage: Int, filter: CustomerFilter): ListMetadata
+
+  """"""
+  Category(id: ID!): Category
+
+  """"""
+  allCategories(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CategoryFilter): [Category]
+
+  """"""
+  _allCategoriesMeta(page: Int, perPage: Int, filter: CategoryFilter): ListMetadata
+
+  """"""
+  Product(id: ID!): Product
+
+  """"""
+  allProducts(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ProductFilter): [Product]
+
+  """"""
+  _allProductsMeta(page: Int, perPage: Int, filter: ProductFilter): ListMetadata
+
+  """"""
+  Command(id: ID!): Command
+
+  """"""
+  allCommands(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: CommandFilter): [Command]
+
+  """"""
+  _allCommandsMeta(page: Int, perPage: Int, filter: CommandFilter): ListMetadata
+
+  """"""
+  Review(id: ID!): Review
+
+  """"""
+  allReviews(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: ReviewFilter): [Review]
+
+  """"""
+  _allReviewsMeta(page: Int, perPage: Int, filter: ReviewFilter): ListMetadata
+
+  """"""
+  Setting(id: ID!): Setting
+
+  """"""
+  allSettings(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: SettingFilter): [Setting]
+
+  """"""
+  _allSettingsMeta(page: Int, perPage: Int, filter: SettingFilter): ListMetadata
+}
+
+""""""
+type Customer {
+  """"""
+  id: ID!
+
+  """"""
+  first_name: String!
+
+  """"""
+  last_name: String!
+
+  """"""
+  email: String!
+
+  """"""
+  address: String
+
+  """"""
+  zipcode: String
+
+  """"""
+  city: String
+
+  """"""
+  avatar: String!
+
+  """"""
+  birthday: String
+
+  """"""
+  first_seen: Date!
+
+  """"""
+  last_seen: Date!
+
+  """"""
+  has_ordered: Boolean!
+
+  """"""
+  latest_purchase: String
+
+  """"""
+  has_newsletter: Boolean!
+
+  """"""
+  groups: [String]!
+
+  """"""
+  nb_commands: Int!
+
+  """"""
+  total_spent: Float!
+
+  """"""
+  Commands: [Command]
+
+  """"""
+  Reviews: [Review]
+}
+
+"""Date type"""
+scalar Date
+
+""""""
+type Command {
+  """"""
+  id: ID!
+
+  """"""
+  reference: String!
+
+  """"""
+  date: Date!
+
+  """"""
+  customer_id: ID!
+
+  """"""
+  basket: JSON!
+
+  """"""
+  total_ex_taxes: Float!
+
+  """"""
+  delivery_fees: Float!
+
+  """"""
+  tax_rate: Float!
+
+  """"""
+  taxes: Float!
+
+  """"""
+  total: Float!
+
+  """"""
+  status: String!
+
+  """"""
+  returned: Boolean!
+
+  """"""
+  Customer: Customer
+
+  """"""
+  Reviews: [Review]
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+""""""
+type Review {
+  """"""
+  id: ID!
+
+  """"""
+  date: Date!
+
+  """"""
+  status: String!
+
+  """"""
+  command_id: ID!
+
+  """"""
+  product_id: ID!
+
+  """"""
+  customer_id: ID!
+
+  """"""
+  rating: Int!
+
+  """"""
+  comment: String!
+
+  """"""
+  Command: Command
+
+  """"""
+  Product: Product
+
+  """"""
+  Customer: Customer
+}
+
+""""""
+type Product {
+  """"""
+  id: ID!
+
+  """"""
+  category_id: ID!
+
+  """"""
+  reference: String!
+
+  """"""
+  width: Float!
+
+  """"""
+  height: Float!
+
+  """"""
+  price: Float!
+
+  """"""
+  thumbnail: String!
+
+  """"""
+  image: String!
+
+  """"""
+  description: String!
+
+  """"""
+  stock: Int!
+
+  """"""
+  Category: Category
+
+  """"""
+  Reviews: [Review]
+}
+
+""""""
+type Category {
+  """"""
+  id: ID!
+
+  """"""
+  name: String!
+
+  """"""
+  Products: [Product]
+}
+
+""""""
+input CustomerFilter {
+  """"""
+  q: String
+
+  """"""
+  ids: [ID]
+
+  """"""
+  id: ID
+
+  """"""
+  first_name: String
+
+  """"""
+  last_name: String
+
+  """"""
+  email: String
+
+  """"""
+  address: String
+
+  """"""
+  zipcode: String
+
+  """"""
+  city: String
+
+  """"""
+  avatar: String
+
+  """"""
+  birthday: String
+
+  """"""
+  first_seen: Date
+
+  """"""
+  last_seen: Date
+
+  """"""
+  has_ordered: Boolean
+
+  """"""
+  latest_purchase: String
+
+  """"""
+  has_newsletter: Boolean
+
+  """"""
+  groups: [String]
+
+  """"""
+  nb_commands: Int
+
+  """"""
+  total_spent: Float
+
+  """"""
+  id_neq: ID
+
+  """"""
+  first_name_neq: String
+
+  """"""
+  last_name_neq: String
+
+  """"""
+  email_neq: String
+
+  """"""
+  address_neq: String
+
+  """"""
+  zipcode_neq: String
+
+  """"""
+  city_neq: String
+
+  """"""
+  avatar_neq: String
+
+  """"""
+  birthday_neq: String
+
+  """"""
+  first_seen_lt: Date
+
+  """"""
+  first_seen_lte: Date
+
+  """"""
+  first_seen_gt: Date
+
+  """"""
+  first_seen_gte: Date
+
+  """"""
+  first_seen_neq: Date
+
+  """"""
+  last_seen_lt: Date
+
+  """"""
+  last_seen_lte: Date
+
+  """"""
+  last_seen_gt: Date
+
+  """"""
+  last_seen_gte: Date
+
+  """"""
+  last_seen_neq: Date
+
+  """"""
+  latest_purchase_neq: String
+
+  """"""
+  groups_neq: [String]
+
+  """"""
+  nb_commands_lt: Int
+
+  """"""
+  nb_commands_lte: Int
+
+  """"""
+  nb_commands_gt: Int
+
+  """"""
+  nb_commands_gte: Int
+
+  """"""
+  nb_commands_neq: Int
+
+  """"""
+  total_spent_lt: Float
+
+  """"""
+  total_spent_lte: Float
+
+  """"""
+  total_spent_gt: Float
+
+  """"""
+  total_spent_gte: Float
+
+  """"""
+  total_spent_neq: Float
+}
+
+""""""
+type ListMetadata {
+  """"""
+  count: Int
+}
+
+""""""
+input CategoryFilter {
+  """"""
+  q: String
+
+  """"""
+  ids: [ID]
+
+  """"""
+  id: ID
+
+  """"""
+  name: String
+
+  """"""
+  id_neq: ID
+
+  """"""
+  name_neq: String
+}
+
+""""""
+input ProductFilter {
+  """"""
+  q: String
+
+  """"""
+  ids: [ID]
+
+  """"""
+  id: ID
+
+  """"""
+  category_id: ID
+
+  """"""
+  reference: String
+
+  """"""
+  width: Float
+
+  """"""
+  height: Float
+
+  """"""
+  price: Float
+
+  """"""
+  thumbnail: String
+
+  """"""
+  image: String
+
+  """"""
+  description: String
+
+  """"""
+  stock: Int
+
+  """"""
+  id_neq: ID
+
+  """"""
+  category_id_neq: ID
+
+  """"""
+  reference_neq: String
+
+  """"""
+  width_lt: Float
+
+  """"""
+  width_lte: Float
+
+  """"""
+  width_gt: Float
+
+  """"""
+  width_gte: Float
+
+  """"""
+  width_neq: Float
+
+  """"""
+  height_lt: Float
+
+  """"""
+  height_lte: Float
+
+  """"""
+  height_gt: Float
+
+  """"""
+  height_gte: Float
+
+  """"""
+  height_neq: Float
+
+  """"""
+  price_lt: Float
+
+  """"""
+  price_lte: Float
+
+  """"""
+  price_gt: Float
+
+  """"""
+  price_gte: Float
+
+  """"""
+  price_neq: Float
+
+  """"""
+  thumbnail_neq: String
+
+  """"""
+  image_neq: String
+
+  """"""
+  description_neq: String
+
+  """"""
+  stock_lt: Int
+
+  """"""
+  stock_lte: Int
+
+  """"""
+  stock_gt: Int
+
+  """"""
+  stock_gte: Int
+
+  """"""
+  stock_neq: Int
+}
+
+""""""
+input CommandFilter {
+  """"""
+  q: String
+
+  """"""
+  ids: [ID]
+
+  """"""
+  id: ID
+
+  """"""
+  reference: String
+
+  """"""
+  date: Date
+
+  """"""
+  customer_id: ID
+
+  """"""
+  basket: JSON
+
+  """"""
+  total_ex_taxes: Float
+
+  """"""
+  delivery_fees: Float
+
+  """"""
+  tax_rate: Float
+
+  """"""
+  taxes: Float
+
+  """"""
+  total: Float
+
+  """"""
+  status: String
+
+  """"""
+  returned: Boolean
+
+  """"""
+  id_neq: ID
+
+  """"""
+  reference_neq: String
+
+  """"""
+  date_lt: Date
+
+  """"""
+  date_lte: Date
+
+  """"""
+  date_gt: Date
+
+  """"""
+  date_gte: Date
+
+  """"""
+  date_neq: Date
+
+  """"""
+  customer_id_neq: ID
+
+  """"""
+  basket_neq: JSON
+
+  """"""
+  total_ex_taxes_lt: Float
+
+  """"""
+  total_ex_taxes_lte: Float
+
+  """"""
+  total_ex_taxes_gt: Float
+
+  """"""
+  total_ex_taxes_gte: Float
+
+  """"""
+  total_ex_taxes_neq: Float
+
+  """"""
+  delivery_fees_lt: Float
+
+  """"""
+  delivery_fees_lte: Float
+
+  """"""
+  delivery_fees_gt: Float
+
+  """"""
+  delivery_fees_gte: Float
+
+  """"""
+  delivery_fees_neq: Float
+
+  """"""
+  tax_rate_lt: Float
+
+  """"""
+  tax_rate_lte: Float
+
+  """"""
+  tax_rate_gt: Float
+
+  """"""
+  tax_rate_gte: Float
+
+  """"""
+  tax_rate_neq: Float
+
+  """"""
+  taxes_lt: Float
+
+  """"""
+  taxes_lte: Float
+
+  """"""
+  taxes_gt: Float
+
+  """"""
+  taxes_gte: Float
+
+  """"""
+  taxes_neq: Float
+
+  """"""
+  total_lt: Float
+
+  """"""
+  total_lte: Float
+
+  """"""
+  total_gt: Float
+
+  """"""
+  total_gte: Float
+
+  """"""
+  total_neq: Float
+
+  """"""
+  status_neq: String
+}
+
+""""""
+input ReviewFilter {
+  """"""
+  q: String
+
+  """"""
+  ids: [ID]
+
+  """"""
+  id: ID
+
+  """"""
+  date: Date
+
+  """"""
+  status: String
+
+  """"""
+  command_id: ID
+
+  """"""
+  product_id: ID
+
+  """"""
+  customer_id: ID
+
+  """"""
+  rating: Int
+
+  """"""
+  comment: String
+
+  """"""
+  id_neq: ID
+
+  """"""
+  date_lt: Date
+
+  """"""
+  date_lte: Date
+
+  """"""
+  date_gt: Date
+
+  """"""
+  date_gte: Date
+
+  """"""
+  date_neq: Date
+
+  """"""
+  status_neq: String
+
+  """"""
+  command_id_neq: ID
+
+  """"""
+  product_id_neq: ID
+
+  """"""
+  customer_id_neq: ID
+
+  """"""
+  rating_lt: Int
+
+  """"""
+  rating_lte: Int
+
+  """"""
+  rating_gt: Int
+
+  """"""
+  rating_gte: Int
+
+  """"""
+  rating_neq: Int
+
+  """"""
+  comment_neq: String
+}
+
+""""""
+type Setting {
+  """"""
+  id: ID!
+
+  """"""
+  configuration: JSON!
+}
+
+""""""
+input SettingFilter {
+  """"""
+  q: String
+
+  """"""
+  ids: [ID]
+
+  """"""
+  id: ID
+
+  """"""
+  configuration: JSON
+
+  """"""
+  id_neq: ID
+
+  """"""
+  configuration_neq: JSON
+}
+
+""""""
+type Mutation {
+  """"""
+  createCustomer(first_name: String!, last_name: String!, email: String!, address: String, zipcode: String, city: String, avatar: String!, birthday: String, first_seen: Date!, last_seen: Date!, has_ordered: Boolean!, latest_purchase: String, has_newsletter: Boolean!, groups: [String]!, nb_commands: Int!, total_spent: Float!): Customer
+
+  """"""
+  createManyCustomer(data: [CustomerInput]): [Customer]
+
+  """"""
+  updateCustomer(id: ID!, first_name: String, last_name: String, email: String, address: String, zipcode: String, city: String, avatar: String, birthday: String, first_seen: Date, last_seen: Date, has_ordered: Boolean, latest_purchase: String, has_newsletter: Boolean, groups: [String], nb_commands: Int, total_spent: Float): Customer
+
+  """"""
+  removeCustomer(id: ID!): Customer
+
+  """"""
+  createCategory(name: String!): Category
+
+  """"""
+  createManyCategory(data: [CategoryInput]): [Category]
+
+  """"""
+  updateCategory(id: ID!, name: String): Category
+
+  """"""
+  removeCategory(id: ID!): Category
+
+  """"""
+  createProduct(category_id: ID!, reference: String!, width: Float!, height: Float!, price: Float!, thumbnail: String!, image: String!, description: String!, stock: Int!): Product
+
+  """"""
+  createManyProduct(data: [ProductInput]): [Product]
+
+  """"""
+  updateProduct(id: ID!, category_id: ID, reference: String, width: Float, height: Float, price: Float, thumbnail: String, image: String, description: String, stock: Int): Product
+
+  """"""
+  removeProduct(id: ID!): Product
+
+  """"""
+  createCommand(reference: String!, date: Date!, customer_id: ID!, basket: JSON!, total_ex_taxes: Float!, delivery_fees: Float!, tax_rate: Float!, taxes: Float!, total: Float!, status: String!, returned: Boolean!): Command
+
+  """"""
+  createManyCommand(data: [CommandInput]): [Command]
+
+  """"""
+  updateCommand(id: ID!, reference: String, date: Date, customer_id: ID, basket: JSON, total_ex_taxes: Float, delivery_fees: Float, tax_rate: Float, taxes: Float, total: Float, status: String, returned: Boolean): Command
+
+  """"""
+  removeCommand(id: ID!): Command
+
+  """"""
+  createReview(date: Date!, status: String!, command_id: ID!, product_id: ID!, customer_id: ID!, rating: Int!, comment: String!): Review
+
+  """"""
+  createManyReview(data: [ReviewInput]): [Review]
+
+  """"""
+  updateReview(id: ID!, date: Date, status: String, command_id: ID, product_id: ID, customer_id: ID, rating: Int, comment: String): Review
+
+  """"""
+  removeReview(id: ID!): Review
+
+  """"""
+  createSetting(configuration: JSON!): Setting
+
+  """"""
+  createManySetting(data: [SettingInput]): [Setting]
+
+  """"""
+  updateSetting(id: ID!, configuration: JSON): Setting
+
+  """"""
+  removeSetting(id: ID!): Setting
+}
+
+""""""
+input CustomerInput {
+  """"""
+  id: ID!
+
+  """"""
+  first_name: String!
+
+  """"""
+  last_name: String!
+
+  """"""
+  email: String!
+
+  """"""
+  address: String
+
+  """"""
+  zipcode: String
+
+  """"""
+  city: String
+
+  """"""
+  avatar: String!
+
+  """"""
+  birthday: String
+
+  """"""
+  first_seen: Date!
+
+  """"""
+  last_seen: Date!
+
+  """"""
+  has_ordered: Boolean!
+
+  """"""
+  latest_purchase: String
+
+  """"""
+  has_newsletter: Boolean!
+
+  """"""
+  groups: [String]!
+
+  """"""
+  nb_commands: Int!
+
+  """"""
+  total_spent: Float!
+}
+
+""""""
+input CategoryInput {
+  """"""
+  id: ID!
+
+  """"""
+  name: String!
+}
+
+""""""
+input ProductInput {
+  """"""
+  id: ID!
+
+  """"""
+  category_id: ID!
+
+  """"""
+  reference: String!
+
+  """"""
+  width: Float!
+
+  """"""
+  height: Float!
+
+  """"""
+  price: Float!
+
+  """"""
+  thumbnail: String!
+
+  """"""
+  image: String!
+
+  """"""
+  description: String!
+
+  """"""
+  stock: Int!
+}
+
+""""""
+input CommandInput {
+  """"""
+  id: ID!
+
+  """"""
+  reference: String!
+
+  """"""
+  date: Date!
+
+  """"""
+  customer_id: ID!
+
+  """"""
+  basket: JSON!
+
+  """"""
+  total_ex_taxes: Float!
+
+  """"""
+  delivery_fees: Float!
+
+  """"""
+  tax_rate: Float!
+
+  """"""
+  taxes: Float!
+
+  """"""
+  total: Float!
+
+  """"""
+  status: String!
+
+  """"""
+  returned: Boolean!
+}
+
+""""""
+input ReviewInput {
+  """"""
+  id: ID!
+
+  """"""
+  date: Date!
+
+  """"""
+  status: String!
+
+  """"""
+  command_id: ID!
+
+  """"""
+  product_id: ID!
+
+  """"""
+  customer_id: ID!
+
+  """"""
+  rating: Int!
+
+  """"""
+  comment: String!
+}
+
+""""""
+input SettingInput {
+  """"""
+  id: ID!
+
+  """"""
+  configuration: JSON!
+}

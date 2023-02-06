@@ -1,5 +1,5 @@
 {
-  "name": "@react-mool/core-v2",
+  "name": "@react-mool/eui-v2",
   "version": "0.6.0-alpha.30",
   "files": [
     "dist",
@@ -37,6 +37,12 @@
     "react": "^16.9.0 || ^17.0.0"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.24.4"
+    "@react-mool/core-v2": "^0.6.0-alpha.30",
+    "@elastic/datemath": "^5.0.3",
+    "@elastic/eui": "^70.1.0",
+    "@emotion/css": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "moment": "^2.29.4",
+    "prop-types": "^15.8.1"
   }
 }
