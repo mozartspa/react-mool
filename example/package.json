@@ -3,6 +3,7 @@
   "version": "0.6.0-alpha.30",
   "private": true,
   "dependencies": {
+    "@elastic/eui": "^70.1.0",
     "@genql/runtime": "^2.9.0",
     "@react-mool/core-v2": "^0.6.0-alpha.30",
     "@react-mool/eui-v2": "^0.6.0-alpha.30",
