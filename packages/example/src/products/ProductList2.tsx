@@ -1,6 +1,6 @@
 import { EuiPageHeader, EuiSpacer } from "@elastic/eui"
 import { Exp, GetListParams } from "@react-mool/core"
-import { Datagrid2 } from "@react-mool/eui"
+import { Datagrid2, TextColumn } from "@react-mool/eui"
 import React, { ReactNode, useState } from "react"
 import { useQuery } from "react-query"
 import { CategoryFilter, everything, ProductFilter, ProductInput } from "../generated"
@@ -94,7 +94,9 @@ export const ProductList2 = () => {
           />
           <Datagrid2
             list={list}
-            columns={[<TextColumn />]}
+            columns={[<Datagrid.TextColumn name="" />]}
+            columns2={(bind) => [<TextColumn name={bind("name")} />]}
+            columns3={[{ name: "name", render: (props) => <TextColumn {...props} /> }]}
             getItemId={(item) => item?.id ?? ""}
             rowClick="select"
             selectable

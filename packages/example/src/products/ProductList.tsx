@@ -85,7 +85,7 @@ export const ProductList = () => {
               <EuiLink {...linkProps(`/product/${value?.id}`)}>{value?.name}</EuiLink>
             )}
           </Column>,
-          <Column name="reference" sortable />,
+          <Column name={t("reference")} sortable />,
           <Column name="width" sortable align="right" />,
           <Column name="height" sortable align="right" />,
           <NumberColumn
