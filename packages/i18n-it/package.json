@@ -22,11 +22,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn build-esm --watch",
-    "build": "rimraf ./dist && yarn build-cjs && yarn build-esm",
-    "build-cjs": "rimraf ./dist/lib && tsc",
-    "build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
+    "build": "yarn build-cjs && yarn build-esm",
+    "build-cjs": "tsc",
+    "build-esm": "tsc --outDir dist/esm --module es2015",
     "lint": "eslint .",
-    "prepublishOnly": "yarn build"
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "yarn clean && yarn build"
   },
   "devDependencies": {
     "@react-mool/core": "^0.7.0-alpha.2",

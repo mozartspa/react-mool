@@ -7,6 +7,7 @@ import {
   ResourceRoutes,
   useResourceDefinitionList,
 } from "../resource"
+import { BasenameContextProvider } from "./BasenameContext"
 import { ScrollToTop } from "./ScrollToTop"
 
 function hasResourceRoutes(definition: ResourceDefinition) {
@@ -71,26 +72,28 @@ export const AdminRouter = (props: AdminRouterProps) => {
   )
 
   return (
-    <BrowserRouter basename={basename}>
-      {children}
-      {!!autoScrollToTop && <ScrollToTop />}
-      <Switch>
-        {customRoutesWithoutLayout}
-        {!!loginPage && <Route path="/login">{loginPage}</Route>}
-        <Route>
-          <Authenticated>
-            <Layout hasDashboard={!!dashboard}>
-              <Switch>
-                {customRoutesWithLayout}
-                {dashboardRoute}
-                {resourceRoutes}
-                {!!catchAll && <Route>{catchAll}</Route>}
-              </Switch>
-              {children}
-            </Layout>
-          </Authenticated>
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <BasenameContextProvider basename={basename}>
+      <BrowserRouter basename={basename}>
+        {children}
+        {!!autoScrollToTop && <ScrollToTop />}
+        <Switch>
+          {customRoutesWithoutLayout}
+          {!!loginPage && <Route path="/login">{loginPage}</Route>}
+          <Route>
+            <Authenticated>
+              <Layout hasDashboard={!!dashboard}>
+                <Switch>
+                  {customRoutesWithLayout}
+                  {dashboardRoute}
+                  {resourceRoutes}
+                  {!!catchAll && <Route>{catchAll}</Route>}
+                </Switch>
+                {children}
+              </Layout>
+            </Authenticated>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </BasenameContextProvider>
   )
 }

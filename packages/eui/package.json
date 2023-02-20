@@ -22,9 +22,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn build --watch",
-    "build": "rimraf ./dist && rollup -c",
+    "build": "rollup -c",
     "lint": "eslint .",
-    "prepublishOnly": "yarn build"
+    "clean": "rimraf ./dist",
+    "prepublishOnly": "yarn clean && yarn build"
   },
   "devDependencies": {
     "@mozartspa/mobx-form": "^0.6.0",
