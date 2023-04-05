@@ -1,6 +1,8 @@
 import { EuiSpacer } from "@elastic/eui"
+import { DebugForm } from "@mozartspa/mobx-form"
 import { ShowForCrud } from "@react-mool/core"
 import {
+  DateControl,
   EditButton,
   NumberControl,
   Row,
@@ -30,7 +32,9 @@ export const Form = () => {
         <NumberControl name="width" />
       </Row>
       <TextAreaControl name="description" fullWidth />
+      <DateControl name="date" fullWidth showTimeSelect dateFormat="lll" utcOffset={-5} />
       <EuiSpacer />
+      <DebugForm />
       <ShowForCrud modes={["create", "edit"]}>
         <SaveButton />
       </ShowForCrud>

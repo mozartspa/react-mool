@@ -80,13 +80,19 @@ export const DateInput = (props: DateInputProps) => {
   return (
     <Input {...props}>
       {(field, inputProps) => {
-        const selected = moment(field.value)
+        const selected = moment(field.value).utc(false)
+        console.log("selected", selected.toISOString())
         return (
           <EuiDatePicker
             {...inputProps}
             fullWidth={props.fullWidth}
             selected={selected.isValid() ? selected : null}
-            onChange={(value) => field.setValue(value?.format())}
+            onChange={(value) => {
+              console.log("onChange", value?.toISOString(), value?.format())
+              const next = value?.utc(true)
+              console.log("next", next?.toISOString(), next?.format())
+              field.setValue(next?.toISOString())
+            }}
             onBlur={() => field.setTouched(true)}
             onClear={() => field.setValue(null)}
             locale={inputProps.locale ?? locale}
