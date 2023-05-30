@@ -111,3 +111,23 @@ export function useRedirectLink(options: UseRedirectOptions = {}) {
     }
   }, [])
 }
+
+export function useRedirectUrl(options: UseRedirectOptions = {}) {
+  const recordContextRef = useImmediateRef(React.useContext(RecordContext))
+  const resourceRef = useImmediateRef(useResource(options.resource))
+
+  return useCallback((to: RedirectToPage, options: Partial<RedirectToOptions> = {}) => {
+    const {
+      id = recordContextRef.current?.id,
+      resource = resourceRef.current,
+      params,
+    } = options
+
+    const url = resolveUrl(to, { id, resource, params })
+    if (url == null) {
+      throw new Error(`Resolved URL is undefined.`)
+    }
+
+    return url
+  }, [])
+}

@@ -1,12 +1,16 @@
-import { EuiBreadcrumbsProps, EuiHeaderBreadcrumbs } from "@elastic/eui"
+import { EuiBreadcrumbsProps, EuiHeaderBreadcrumbs, EuiLinkColor } from "@elastic/eui"
 import { EuiBreadcrumbProps } from "@elastic/eui/src/components/breadcrumbs/breadcrumb"
 import { useLinkProps } from "@react-mool/core"
-import { ReactNode } from "react"
+import { MouseEventHandler, ReactNode } from "react"
 import { createStackCollector } from "../helpers/createStackCollector"
 
 export type BreadcrumbsItemProps = {
   to?: string
   children?: ReactNode
+  onClick?: MouseEventHandler<HTMLAnchorElement>
+  truncate?: boolean
+  color?: EuiLinkColor
+  disableClientSideRouting?: boolean
 }
 
 const { Consumer, Producer } = createStackCollector<BreadcrumbsItemProps>()
@@ -25,10 +29,18 @@ export const BreadcrumbsContainer = (props: BreadcrumbsContainerProps) => {
       {(items) => {
         const breadcrumbs: EuiBreadcrumbProps[] = items
           .filter((item) => item.children != null)
-          .map((item) => ({
-            text: item.children,
-            ...(item.to ? linkProps(item.to) : {}),
-          }))
+          .map((item) => {
+            const { to, children, disableClientSideRouting, ...rest } = item
+            return {
+              text: item.children,
+              ...(item.to
+                ? disableClientSideRouting
+                  ? { href: item.to }
+                  : linkProps(item.to)
+                : {}),
+              ...rest,
+            }
+          })
 
         return <EuiHeaderBreadcrumbs {...props} breadcrumbs={breadcrumbs} />
       }}

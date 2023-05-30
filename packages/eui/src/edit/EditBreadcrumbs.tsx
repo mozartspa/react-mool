@@ -1,7 +1,7 @@
 import {
   useGetRecordName,
   useRecord,
-  useRedirectLink,
+  useRedirectUrl,
   useResource,
   useResourceDefinition,
   useTranslate,
@@ -14,7 +14,7 @@ export const EditBreadcrumbs = () => {
   const resource = useResource()
   const definition = useResourceDefinition(resource)
   const record = useRecord()
-  const redirectLink = useRedirectLink({ resource })
+  const redirectUrl = useRedirectUrl({ resource })
   const getRecordName = useGetRecordName(resource)
   const translate = useTranslate()
 
@@ -30,13 +30,7 @@ export const EditBreadcrumbs = () => {
     <>
       <ListBreadcrumbs />
       <BreadcrumbsItem
-        to={
-          hasDetail
-            ? redirectLink("detail").href
-            : hasEdit
-            ? redirectLink("edit").href
-            : undefined
-        }
+        to={hasDetail ? redirectUrl("detail") : hasEdit ? redirectUrl("edit") : undefined}
       >
         {getRecordName(record)}
       </BreadcrumbsItem>
