@@ -1,4 +1,4 @@
-import { EuiContextMenuItem, keys } from "@elastic/eui"
+import { EuiContextMenuItem, EuiFlexGroup, EuiFlexItem, keys } from "@elastic/eui"
 import React, { useRef } from "react"
 import { SelectOption } from "./Select"
 
@@ -79,9 +79,12 @@ export const SelectOptionList = React.memo(
       "euiSuperSelect__item" + (hasDividers ? " euiSuperSelect__item--hasDividers" : "")
 
     const items = options.map((option, index) => {
-      const { value, dropdownDisplay, inputDisplay, label, disabled } = option
+      const { value, dropdownDisplay, inputDisplay, label, disabled, append, prepend } =
+        option
 
       const isSelected = selectedValues.indexOf(value) !== -1
+
+      const content = dropdownDisplay || inputDisplay || label
 
       return (
         <EuiContextMenuItem
@@ -94,7 +97,23 @@ export const SelectOptionList = React.memo(
           buttonRef={(node) => setItemNode(node, index)}
           role="option"
         >
-          {dropdownDisplay || inputDisplay || label}
+          {append || prepend ? (
+            <EuiFlexGroup responsive={false} gutterSize="none">
+              {prepend && (
+                <EuiFlexItem grow={false} className="euiSelectableListItem__prepend">
+                  {prepend}
+                </EuiFlexItem>
+              )}
+              <EuiFlexItem grow={true}>{content}</EuiFlexItem>
+              {append && (
+                <EuiFlexItem grow={false} className="euiSelectableListItem__append">
+                  {append}
+                </EuiFlexItem>
+              )}
+            </EuiFlexGroup>
+          ) : (
+            content
+          )}
         </EuiContextMenuItem>
       )
     })

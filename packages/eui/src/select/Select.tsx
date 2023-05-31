@@ -7,6 +7,7 @@ import {
   EuiSelectable,
   EuiSelectableOption,
   EuiSelectableOptionsListProps,
+  EuiSelectableProps,
   EuiText,
 } from "@elastic/eui"
 import { ReactNode, useMemo, useState } from "react"
@@ -21,6 +22,8 @@ export type SelectOption<T = any> = {
   disabled?: boolean
   inputDisplay?: ReactNode
   dropdownDisplay?: ReactNode
+  append?: ReactNode
+  prepend?: ReactNode
 }
 
 export type SelectProps<T = any> = {
@@ -39,6 +42,7 @@ export type SelectProps<T = any> = {
   onBlur?: () => void
   isDisabled?: boolean
   isLoading?: boolean
+  renderSearchOption?: (opt: SelectOption<T>, searchValue: string) => ReactNode
 } & (
   | {
       multiple?: false
@@ -68,6 +72,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     style,
     className,
     searchListProps,
+    renderSearchOption,
     onChange,
     onBlur,
     isDisabled,
@@ -98,6 +103,11 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
         searchableLabel: o.searchableLabel,
         disabled: o.disabled,
         checked: isChecked ? "on" : undefined,
+        append: o.append,
+        prepend: o.prepend,
+        data: {
+          __original: o,
+        },
       }
       return opt
     })
@@ -212,6 +222,13 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
 
   function renderContent() {
     if (searchable) {
+      const renderOption: EuiSelectableProps["renderOption"] = renderSearchOption
+        ? (opt, searchValue) => {
+            const oOpt = opt.data?.__original ?? (opt as any).__original
+            return oOpt ? renderSearchOption(oOpt, searchValue) : opt.label
+          }
+        : undefined
+
       return (
         <EuiSelectable
           options={selectableOptions}
@@ -219,6 +236,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
           singleSelection={!multiple}
           onChange={handleSelectableChange}
           listProps={{ onFocusBadge: false, ...searchListProps }}
+          renderOption={renderOption}
         >
           {(list, search) => (
             <>
