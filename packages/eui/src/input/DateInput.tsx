@@ -67,12 +67,14 @@ type DatePickerProps = Pick<
   | "timeFormat"
   | "timeIntervals"
   | "useWeekdaysShort"
-  | "utcOffset"
   | "weekLabel"
   | "yearDropdownItemNumber"
 >
 
-export type DateInputProps = InputProps & DatePickerProps
+export type DateInputProps = InputProps &
+  DatePickerProps & {
+    utc?: boolean
+  }
 
 export const DateInput = (props: DateInputProps) => {
   const locale = useLocale()
@@ -80,16 +82,26 @@ export const DateInput = (props: DateInputProps) => {
   return (
     <Input {...props}>
       {(field, inputProps) => {
-        const selected = moment(field.value)
+        const defaultUtc =
+          inputProps.showTimeSelect || inputProps.showTimeSelectOnly ? false : true
+
+        const { utc = defaultUtc, ...datePickerProps } = inputProps
+        const value = moment(field.value).utc(false)
+        const selected = utc ? value : value.local(false)
+
         return (
           <EuiDatePicker
-            {...inputProps}
+            {...datePickerProps}
             fullWidth={props.fullWidth}
             selected={selected.isValid() ? selected : null}
-            onChange={(value) => field.setValue(value?.format())}
+            onChange={(value) => {
+              const next = utc ? value : value?.local(true)
+              field.setValue(next?.format())
+            }}
             onBlur={() => field.setTouched(true)}
             onClear={() => field.setValue(null)}
             locale={inputProps.locale ?? locale}
+            utcOffset={utc ? 0 : undefined}
           />
         )
       }}
