@@ -65,6 +65,7 @@ const euiMessages: EuiMessages = {
       add_filter: "Aggiungi filtro",
       remove_filter: "Rimuovi filtro",
       reset_filters: "Reimposta tutti i filtri",
+      toggle_filter_menu: "Mostra/nascondi il menu dei filtri",
     },
     confirm: {
       cancel: "Annulla",
