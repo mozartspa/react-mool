@@ -39,6 +39,8 @@ export const englishEuiMessages = {
       showing: "Showing %{count} of %{total}",
       selected: "Selected",
       no_items: "No items found",
+      sorted_by_asc: "Items sorted by %{field} in ascending order",
+      sorted_by_desc: "Items sorted by %{field} in descending order",
     },
     columns: {
       manage: "Manage columns",

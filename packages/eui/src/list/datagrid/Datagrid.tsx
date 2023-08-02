@@ -2,6 +2,7 @@ import {
   Criteria,
   EuiBasicTable,
   EuiLoadingContent,
+  EuiScreenReaderLive,
   EuiSpacer,
   EuiTableSelectionType,
 } from "@elastic/eui"
@@ -15,6 +16,7 @@ import {
 import { ReactNode, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from "react"
 import isEqual from "react-fast-compare"
 import { useUpdateEffect } from "rooks"
+import { useGetFieldLabel } from "../../helpers"
 import { t } from "../../i18n"
 import { ColumnElement } from "../column"
 import { DatagridToolbar } from "./DatagridToolbar"
@@ -243,6 +245,16 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
 
   // Add specific className when it's empty in order to style the empty view
   const tableClassName = items.length === 0 ? "euiBasicTable--empty" : undefined
+
+  // Screen reader sort announcement
+  const getFieldLabel = useGetFieldLabel()
+  const screenReaderSortAnnouncement = sortField
+    ? translate(
+        sortOrder === "asc" ? t.eui.grid.sorted_by_asc : t.eui.grid.sorted_by_desc,
+        { field: getFieldLabel(resource, sortField) }
+      )
+    : null
+
   return (
     <div>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
@@ -261,6 +273,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         />
       )}
       {showToolbar && <EuiSpacer size="l" />}
+      <EuiScreenReaderLive>{screenReaderSortAnnouncement}</EuiScreenReaderLive>
       <EuiBasicTable
         ref={tableRef}
         className={tableClassName}
