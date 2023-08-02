@@ -38,7 +38,7 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
       display="base"
       size="m"
       onClick={() => setPopoverOpen(!isPopoverOpen)}
-      aria-label="Filter"
+      aria-label={translate(t.eui.filter.toggle_filter_menu)}
     />
   )
 

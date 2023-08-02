@@ -18,6 +18,8 @@ export const englishEuiMessages = {
       dock_navigation: "Dock navigation",
       undock_navigation: "Undock navigation",
       dashboard: "Dashboard",
+      main_navigation: "Main navigation",
+      toggle_main_navigation: "Toggle main navigation",
     },
     action: {
       create: "Create",
@@ -46,6 +48,7 @@ export const englishEuiMessages = {
       add_filter: "Add filter",
       remove_filter: "Remove filter",
       reset_filters: "Reset all filters",
+      toggle_filter_menu: "Toggle filter menu",
     },
     confirm: {
       cancel: "Cancel",
