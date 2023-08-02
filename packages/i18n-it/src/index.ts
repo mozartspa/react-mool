@@ -35,6 +35,8 @@ const euiMessages: EuiMessages = {
       dock_navigation: "Blocca",
       undock_navigation: "Sblocca",
       dashboard: "Dashboard",
+      main_navigation: "Navigazione principale",
+      toggle_main_navigation: "Mostra/nascondi la navigazione principale",
     },
     action: {
       create: "Crea",

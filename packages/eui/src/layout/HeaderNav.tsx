@@ -37,12 +37,12 @@ export const HeaderNav = (props: HeaderNavProps) => {
 
   return (
     <EuiCollapsibleNav
-      aria-label="Main navigation"
+      aria-label={translate(t.eui.layout.main_navigation)}
       isOpen={navIsOpen}
       isDocked={navIsDocked}
       button={
         <EuiHeaderSectionItemButton
-          aria-label="Toggle main navigation"
+          aria-label={translate(t.eui.layout.toggle_main_navigation)}
           onClick={() => setNavIsOpen(!navIsOpen)}
         >
           <EuiIcon type={"menu"} size="m" aria-hidden="true" />

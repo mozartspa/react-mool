@@ -18,6 +18,8 @@ export const englishEuiMessages = {
       dock_navigation: "Dock navigation",
       undock_navigation: "Undock navigation",
       dashboard: "Dashboard",
+      main_navigation: "Main navigation",
+      toggle_main_navigation: "Toggle main navigation",
     },
     action: {
       create: "Create",
