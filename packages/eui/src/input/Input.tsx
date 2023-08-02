@@ -1,4 +1,4 @@
-import { EuiFormRow } from "@elastic/eui"
+import { EuiFormRow, htmlIdGenerator } from "@elastic/eui"
 import {
   Field,
   FieldComponentProps,
@@ -13,8 +13,14 @@ import { prependValidator } from "./helpers/prependValidator"
 import { requiredValidator } from "./helpers/requiredValidator"
 
 type ChildrenProps<T> = Omit<T, keyof InputProps>
+type FieldProps = FieldRenderProps & {
+  input: {
+    id: string
+  }
+}
 
 export type InputProps = FieldComponentProps & {
+  id?: string
   label?: ReactNode | false
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
@@ -24,20 +30,18 @@ export type InputProps = FieldComponentProps & {
 
 export type InputComponentProps<TCustomProps = Object> = InputProps &
   TCustomProps & {
-    children: (
-      field: FieldRenderProps,
-      childrenProps: ChildrenProps<TCustomProps>
-    ) => ReactNode
+    children: (field: FieldProps, childrenProps: ChildrenProps<TCustomProps>) => ReactNode
   }
 
 export const Input = <TCustomProps extends Object>(
   props: InputComponentProps<TCustomProps>
 ) => {
-  const { label, fullWidth, helpText, required, noFormRow, children, ...rest } = props
+  const { id, label, fullWidth, helpText, required, noFormRow, children, ...rest } = props
 
   const [name, fieldOptions, childrenProps] = splitFieldProps(rest)
   const getFieldLabel = useGetResourceFieldLabel()
   const translate = useTranslate()
+  const fieldId = useMemo(() => id || htmlIdGenerator()(), [id])
 
   const validate = useMemo(() => {
     if (required) {
@@ -50,7 +54,16 @@ export const Input = <TCustomProps extends Object>(
   return (
     <Field {...fieldOptions} name={name} validate={validate}>
       {(field) => {
-        const content = <>{children(field, childrenProps as any /* FIX $TYPE*/)}</>
+        const fieldWithInputId = {
+          ...field,
+          input: {
+            ...field.input,
+            id: fieldId,
+          },
+        }
+        const content = (
+          <>{children(fieldWithInputId, childrenProps as any /* FIX $TYPE*/)}</>
+        )
         if (noFormRow) {
           return content
         } else {
@@ -60,6 +73,7 @@ export const Input = <TCustomProps extends Object>(
           const errors = isInvalid ? errorMessages(field.errors) : undefined
           return (
             <EuiFormRow
+              id={fieldId}
               label={label === false ? null : inputLabel}
               isInvalid={isInvalid}
               error={errors}
