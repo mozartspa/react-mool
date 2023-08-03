@@ -1,4 +1,9 @@
-import { EuiHorizontalRule, EuiPageHeader, IconType } from "@elastic/eui"
+import {
+  EuiHorizontalRule,
+  EuiPageHeader,
+  EuiPageHeaderProps,
+  IconType,
+} from "@elastic/eui"
 import {
   useGetRecordName,
   useRecord,
@@ -10,6 +15,7 @@ import { ReactNode } from "react"
 export type DetailHeaderProps = {
   resource?: string
   title?: ReactNode
+  titleProps?: EuiPageHeaderProps["pageTitleProps"]
   icon?: IconType
   description?: ReactNode
   actions?: ReactNode[]
@@ -26,6 +32,7 @@ export const DetailHeader = (props: DetailHeaderProps) => {
 
   const {
     title = record ? getName(record) : <span>&nbsp;</span>,
+    titleProps,
     icon = definition.icon ?? "list",
     description,
     actions,
@@ -38,6 +45,7 @@ export const DetailHeader = (props: DetailHeaderProps) => {
     <>
       <EuiPageHeader
         pageTitle={title}
+        pageTitleProps={titleProps}
         iconType={showIcon ? icon : undefined}
         description={description}
         rightSideItems={actions}

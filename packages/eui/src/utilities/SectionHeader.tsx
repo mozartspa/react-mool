@@ -6,6 +6,7 @@ import {
   EuiSpacer,
   EuiText,
   EuiTitle,
+  EuiTitleProps,
   IconType,
   useIsWithinBreakpoints,
 } from "@elastic/eui"
@@ -13,6 +14,7 @@ import { ReactNode } from "react"
 
 export type SectionHeaderProps = {
   title?: ReactNode
+  titleProps?: Omit<EuiTitleProps, "children">
   icon?: IconType
   description?: ReactNode
   actions?: ReactNode[]
@@ -21,7 +23,7 @@ export type SectionHeaderProps = {
 }
 
 export const SectionHeader = (props: SectionHeaderProps) => {
-  const { title, icon, description, actions, divider, children } = props
+  const { title, titleProps, icon, description, actions, divider, children } = props
 
   const isResponsiveBreakpoint = useIsWithinBreakpoints(["xs", "s"])
 
@@ -44,7 +46,7 @@ export const SectionHeader = (props: SectionHeaderProps) => {
     ) : undefined
 
     titleNode = (
-      <EuiTitle size="s">
+      <EuiTitle size="s" {...titleProps}>
         <h3>
           {iconNode}
           {title}
