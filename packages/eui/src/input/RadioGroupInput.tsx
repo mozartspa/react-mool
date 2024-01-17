@@ -20,15 +20,15 @@ export const RadioGroupInput = (props: RadioGroupInputProps) => {
   const translate = useTranslate()
   const valueToId = useValueToId()
 
-  const { options, format = noFormat, ...rest } = props
+  const { options, format = noFormat, disabled, ...rest } = props
 
   const euiOptions: EuiRadioGroupOption[] = useMemo(() => {
     return options.map((o) => ({
       id: valueToId(o.value),
       label: translate(o.label),
-      disabled: o.disabled,
+      disabled: o.disabled || disabled,
     }))
-  }, [options])
+  }, [options, disabled])
 
   const getSelectedOption = (value: any) => {
     return options.find((o) => o.value === value)
