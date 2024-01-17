@@ -1,5 +1,6 @@
 import debouncer from "lodash.debounce"
 import { useCallback, useMemo, useRef, useState } from "react"
+import isEqual from "react-fast-compare"
 import { useIsomorphicEffect, useUpdateEffect } from "rooks"
 import { useImmediateRef } from "../helpers/useImmediateRef"
 import { useListContext } from "./list"
@@ -68,15 +69,16 @@ export function useFilterStack<TFilter = any>() {
   }
 }
 
-export type UseAddFilterOptions = {
+export type UseAddFilterOptions<TFilter = any> = {
   debounce?: boolean | number
+  onChange?: (values: TFilter) => void
 }
 
 export function useAddFilter<TFilter = any>(
   initialFilter: TFilter | (() => TFilter),
-  options: UseAddFilterOptions = {}
+  options: UseAddFilterOptions<TFilter> = {}
 ) {
-  const { debounce = false } = options
+  const { debounce = false, onChange } = options
 
   const list = useListContext<any, TFilter>()
 
@@ -94,9 +96,23 @@ export function useAddFilter<TFilter = any>(
     }
   }, [])
 
+  // onChange func ref
+  const onChangeRef = useImmediateRef(onChange)
+
   // Updater func, eventully debounced
   const updater = useMemo(() => {
-    const exec = (filter: TFilter) => operations.current?.update(filter)
+    const exec = (filter: TFilter) => {
+      // Notify if filter changed
+      const prev = operations.current?.get()
+      const isChanged = !isEqual(prev, filter)
+      if (isChanged) {
+        onChangeRef.current?.(filter)
+      }
+
+      // Update filter
+      operations.current?.update(filter)
+    }
+
     if (debounce === false) {
       return exec
     } else {
