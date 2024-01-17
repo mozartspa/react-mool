@@ -26,7 +26,7 @@ export const RadioGroupInput = (props: RadioGroupInputProps) => {
     return options.map((o) => ({
       id: valueToId(o.value),
       label: translate(o.label),
-      disabled: o.disabled || disabled,
+      disabled: o.disabled,
     }))
   }, [options, disabled])
 
@@ -49,6 +49,7 @@ export const RadioGroupInput = (props: RadioGroupInputProps) => {
 
         return (
           <EuiRadioGroup
+            disabled={disabled}
             options={euiOptions}
             idSelected={idSelected}
             onBlur={field.input.onBlur}
