@@ -30,7 +30,7 @@ export const CheckboxGroupInput = (props: CheckboxGroupInputProps) => {
   const translate = useTranslate()
   const valueToId = useValueToId()
 
-  const { options, format = noFormat, ...rest } = props
+  const { options, format = noFormat, disabled, ...rest } = props
 
   const euiOptions: EuiCheckboxGroupOption[] = useMemo(() => {
     return options.map((o) => ({
@@ -70,6 +70,7 @@ export const CheckboxGroupInput = (props: CheckboxGroupInputProps) => {
 
         return (
           <EuiCheckboxGroup
+            disabled={disabled}
             options={euiOptions}
             idToSelectedMap={idSelectedToMap}
             onBlur={field.input.onBlur}
