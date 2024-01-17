@@ -5,11 +5,11 @@ import {
   EuiSelectableOption,
   EuiShowFor,
 } from "@elastic/eui"
-import { useForm } from "@mozartspa/mobx-form"
+import { FormValues, useForm } from "@mozartspa/mobx-form"
 import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
 import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react"
 import { useFreshRef } from "rooks"
 import { humanize } from "../../helpers/humanize"
 import { t } from "../../i18n"
@@ -42,7 +42,7 @@ function getFilterNames(filters: React.ReactElement<FilterBaseProps>[]) {
   return filters.map((f) => f.props.name).filter((name) => name != null)
 }
 
-export type FilterBarProps<TFilter = any, TFilterOut = TFilter> = {
+export type FilterBarProps<TFilter extends FormValues = any, TFilterOut = TFilter> = {
   initialValues?: TFilter
   transformValues?: (values: TFilter) => TFilterOut
   filters: React.ReactElement<FilterBaseProps>[]
@@ -50,9 +50,11 @@ export type FilterBarProps<TFilter = any, TFilterOut = TFilter> = {
   restoreKey?: string
   restoreStorage?: Storage
   allowUnusedFilterValues?: boolean
+  onChange?: (values: TFilter) => void
+  children?: ReactNode
 }
 
-function FilterBarComp<TFilter, TFilterOut = TFilter>(
+function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
   props: FilterBarProps<TFilter, TFilterOut>
 ) {
   const {
@@ -61,6 +63,8 @@ function FilterBarComp<TFilter, TFilterOut = TFilter>(
     restoreKey,
     restoreStorage,
     allowUnusedFilterValues = false,
+    onChange,
+    children,
   } = props
 
   const translate = useTranslate()
@@ -88,7 +92,7 @@ function FilterBarComp<TFilter, TFilterOut = TFilter>(
         ? props.transformValues(initialValues)
         : initialValues
     },
-    { debounce: true }
+    { debounce: true, onChange }
   )
   const [visibleFilters, setVisibleFilters] = useState(initialVisibleFilters)
 
@@ -238,6 +242,7 @@ function FilterBarComp<TFilter, TFilterOut = TFilter>(
     <form.FormContext>
       <EuiShowFor sizes={["s", "m", "l", "xl"]}>{renderBar(false)}</EuiShowFor>
       <EuiShowFor sizes={["xs"]}>{renderBar(true)}</EuiShowFor>
+      {children}
     </form.FormContext>
   )
 }
