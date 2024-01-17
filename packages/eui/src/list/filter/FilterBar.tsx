@@ -89,7 +89,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
       // Transform filter values if a transform function is provided
       // and there are initial values.
       return props.transformValues && initialValues
-        ? props.transformValues(initialValues)
+        ? (props.transformValues(initialValues) as any) // any is ugly, but don't know how to fix it
         : initialValues
     },
     { debounce: true, onChange }
@@ -114,7 +114,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
           // if a transform function is provided.
           setFilter(
             transformValuesRef.current
-              ? transformValuesRef.current(form.values)
+              ? (transformValuesRef.current(form.values) as any) // any is ugly, but don't know how to fix it
               : form.values
           )
         }
