@@ -1,6 +1,6 @@
 {
   "name": "@react-mool/i18n-it",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "files": [
     "dist",
     "src"
@@ -30,7 +30,7 @@
     "prepublishOnly": "yarn clean && yarn build"
   },
   "devDependencies": {
-    "@react-mool/core": "^0.8.0",
-    "@react-mool/eui": "^0.8.3"
+    "@react-mool/core": "^0.8.4",
+    "@react-mool/eui": "^0.8.4"
   }
 }
