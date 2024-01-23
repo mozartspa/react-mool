@@ -57,6 +57,8 @@ export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
   onSaveError?: SaveErrorHandler<TRecord, TUpdate>
   onLoadSuccess?: LoadSuccessHandler<TRecord>
   onLoadError?: LoadErrorHandler
+  refetchOnReconnect?: boolean
+  refetchOnWindowFocus?: boolean
 }
 
 export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
@@ -88,6 +90,8 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     onSaveError,
     onLoadSuccess,
     onLoadError,
+    refetchOnReconnect = false,
+    refetchOnWindowFocus = false,
     ...formOptions
   } = options
 
@@ -102,8 +106,8 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
   const query = useGetOne<TRecord>(id, {
     resource,
     refetchOnMount: true,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    refetchOnReconnect,
+    refetchOnWindowFocus,
     onSuccess: (record) => {
       onLoadSuccess?.({ id, record })
     },
