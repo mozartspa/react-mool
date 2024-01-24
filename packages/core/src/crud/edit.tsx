@@ -57,6 +57,8 @@ export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
   onSaveError?: SaveErrorHandler<TRecord, TUpdate>
   onLoadSuccess?: LoadSuccessHandler<TRecord>
   onLoadError?: LoadErrorHandler
+  refetchOnReconnect?: boolean
+  refetchOnWindowFocus?: boolean
 }
 
 export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
@@ -71,7 +73,10 @@ export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
   form: Form<TUpdate>
   query: UseQueryResult<TRecord>
   mutation: UseMutationResult<TRecord, unknown, UpdateParams<TUpdate>>
+  initialValues: (record: TRecord) => TUpdate
 }
+
+const DEFAULT_INITIAL_VALUES = (record: any) => record
 
 export function useEditForm<TRecord = any, TUpdate = TRecord>(
   options: UseEditFormOptions<TRecord, TUpdate> = {}
@@ -79,7 +84,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
   const {
     id: idOpt,
     resource: resourceOpt,
-    initialValues: initialValuesOpt,
+    initialValues: initialValuesOpt = DEFAULT_INITIAL_VALUES,
     transform,
     redirectTo,
     successMessage,
@@ -88,6 +93,8 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     onSaveError,
     onLoadSuccess,
     onLoadError,
+    refetchOnReconnect = false,
+    refetchOnWindowFocus = false,
     ...formOptions
   } = options
 
@@ -102,8 +109,8 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
   const query = useGetOne<TRecord>(id, {
     resource,
     refetchOnMount: true,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    refetchOnReconnect,
+    refetchOnWindowFocus,
     onSuccess: (record) => {
       onLoadSuccess?.({ id, record })
     },
@@ -215,6 +222,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     form,
     query,
     mutation,
+    initialValues: initialValuesOpt,
   }
 }
 

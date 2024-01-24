@@ -29,6 +29,8 @@ export const englishEuiMessages = {
       delete: "Delete",
       retry: "Retry",
       goBack: "Go back",
+      update: "Update",
+      cancel: "Cancel",
     },
     bulk: {
       actions: "Bulk actions",
@@ -69,6 +71,11 @@ export const englishEuiMessages = {
     },
     validation: {
       required: "Field required",
+    },
+    refresh: {
+      title: "Update the data?",
+      content:
+        "The item has been changed in the meantime. If you update, you will lose your unsaved changes.",
     },
   },
   euiTokens,

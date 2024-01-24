@@ -16,6 +16,8 @@ export type UseDetailOptions<TRecord = any> = {
   resource?: string
   onLoadSuccess?: LoadSuccessHandler<TRecord>
   onLoadError?: LoadErrorHandler
+  refetchOnReconnect?: boolean
+  refetchOnWindowFocus?: boolean
 }
 
 export type UseDetailResult<TRecord = any> = {
@@ -30,7 +32,14 @@ export type UseDetailResult<TRecord = any> = {
 export function useDetail<TRecord = any>(
   options: UseDetailOptions<TRecord> = {}
 ): UseDetailResult<TRecord> {
-  const { id: idOpt, resource: resourceOpt, onLoadSuccess, onLoadError } = options
+  const {
+    id: idOpt,
+    resource: resourceOpt,
+    onLoadSuccess,
+    onLoadError,
+    refetchOnReconnect = false,
+    refetchOnWindowFocus = false,
+  } = options
 
   const resource = useResource(resourceOpt)
   const { id: idParam } = useParams<{ id: string }>()
@@ -42,8 +51,8 @@ export function useDetail<TRecord = any>(
   const query = useGetOne<TRecord>(id, {
     resource,
     refetchOnMount: true,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
+    refetchOnReconnect,
+    refetchOnWindowFocus,
     onSuccess: (record) => {
       onLoadSuccess?.({ id, record })
     },
