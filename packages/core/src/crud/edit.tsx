@@ -73,7 +73,10 @@ export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
   form: Form<TUpdate>
   query: UseQueryResult<TRecord>
   mutation: UseMutationResult<TRecord, unknown, UpdateParams<TUpdate>>
+  initialValues: (record: TRecord) => TUpdate
 }
+
+const DEFAULT_INITIAL_VALUES = (record: any) => record
 
 export function useEditForm<TRecord = any, TUpdate = TRecord>(
   options: UseEditFormOptions<TRecord, TUpdate> = {}
@@ -81,7 +84,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
   const {
     id: idOpt,
     resource: resourceOpt,
-    initialValues: initialValuesOpt,
+    initialValues: initialValuesOpt = DEFAULT_INITIAL_VALUES,
     transform,
     redirectTo,
     successMessage,
@@ -219,6 +222,7 @@ export function useEditForm<TRecord = any, TUpdate = TRecord>(
     form,
     query,
     mutation,
+    initialValues: initialValuesOpt,
   }
 }
 

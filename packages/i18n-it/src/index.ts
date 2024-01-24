@@ -46,6 +46,8 @@ const euiMessages: EuiMessages = {
       delete: "Elimina",
       retry: "Riprova",
       goBack: "Torna indietro",
+      update: "Aggiorna",
+      cancel: "Annulla",
     },
     bulk: {
       actions: "Azioni di gruppo",
@@ -87,6 +89,11 @@ const euiMessages: EuiMessages = {
     },
     validation: {
       required: "Campo obbligatorio",
+    },
+    refresh: {
+      title: "Aggiornare i dati?",
+      content:
+        "L'elemento è stato modificato nel frattempo. Se aggiorni, perderai le modifiche non salvate.",
     },
   },
   euiTokens,

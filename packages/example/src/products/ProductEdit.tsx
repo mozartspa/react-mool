@@ -1,6 +1,12 @@
 import { EuiButton } from "@elastic/eui"
 import { useRecordId, useRedirectLink } from "@react-mool/core"
-import { DeleteButton, Edit, EditHeader, usePreventLeaveContext } from "@react-mool/eui"
+import {
+  DeleteButton,
+  Edit,
+  EditHeader,
+  RefreshEditForm,
+  usePreventLeaveContext,
+} from "@react-mool/eui"
 import { GeneratedSchema, Product } from "../gqless"
 import { Form } from "./Form"
 
@@ -46,6 +52,7 @@ const NextButton = () => {
 export const ProductEdit = () => {
   return (
     <Edit initialValues={initialValues}>
+      <RefreshEditForm />
       <EditHeader actions={[<DeleteButton asIcon />, <NextButton />]} />
       <Form />
     </Edit>

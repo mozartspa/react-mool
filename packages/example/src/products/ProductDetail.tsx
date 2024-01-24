@@ -3,7 +3,7 @@ import { Form } from "./Form"
 
 export const ProductDetail = () => {
   return (
-    <Detail>
+    <Detail refetchOnWindowFocus>
       <DetailHeader />
       <Form />
     </Detail>
