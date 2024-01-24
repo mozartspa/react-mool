@@ -104,7 +104,8 @@ export function useAddFilter<TFilter = any>(
     const exec = (filter: TFilter) => {
       // Notify if filter changed
       const prev = operations.current?.get()
-      const isChanged = !isEqual(prev, filter)
+      const isInitial = prev === undefined && isEqual(filter, {})
+      const isChanged = !isInitial && !isEqual(prev, filter)
       if (isChanged) {
         onChangeRef.current?.(filter)
       }
