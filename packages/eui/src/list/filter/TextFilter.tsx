@@ -8,7 +8,7 @@ export type TextFilterProps = FilterComponentProps & {
 }
 
 export const TextFilter = (props: TextFilterProps) => {
-  const { type, placeholder, isClearable, ...filterProps } = props
+  const { type = "search", placeholder, isClearable, ...filterProps } = props
   return (
     <Filter {...filterProps}>
       {(field) => (
