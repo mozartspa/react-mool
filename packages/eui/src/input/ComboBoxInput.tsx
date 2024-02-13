@@ -29,7 +29,7 @@ type MoreProps = {
 
 export type ComboBoxInputProps = InputProps & ComboBoxProps & MoreProps
 
-const EMPTY_ARRAY: any[] = []
+const EMPTY_ARRAY: any[] = [] //
 
 export const ComboBoxInput = (props: ComboBoxInputProps) => {
   const {
