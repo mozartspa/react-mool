@@ -74,7 +74,6 @@ export const AdminRouter = (props: AdminRouterProps) => {
   return (
     <BasenameContextProvider basename={basename}>
       <BrowserRouter basename={basename}>
-        {children}
         {!!autoScrollToTop && <ScrollToTop />}
         <Switch>
           {customRoutesWithoutLayout}
@@ -88,11 +87,11 @@ export const AdminRouter = (props: AdminRouterProps) => {
                   {resourceRoutes}
                   {!!catchAll && <Route>{catchAll}</Route>}
                 </Switch>
-                {children}
               </Layout>
             </Authenticated>
           </Route>
         </Switch>
+        {children}
       </BrowserRouter>
     </BasenameContextProvider>
   )
