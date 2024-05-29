@@ -46,6 +46,7 @@ export type SelectProps<T = any> = {
   isLoading?: boolean
   renderSearchOption?: (opt: SelectOption<T>, searchValue: string) => ReactNode
   selectAll?: string
+  onSelectAll?: (isSelectAllChecked: boolean) => void
 } & (
   | {
       multiple?: false
@@ -81,6 +82,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     isDisabled,
     isLoading,
     selectAll,
+    onSelectAll,
   } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
@@ -163,6 +165,12 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     onChange?.(valueOrValues as any)
   }
 
+  const defaultOnSelectAll = (isSelectedAllChecked: boolean) => {
+    onChangeSafe(isSelectedAllChecked ? options.map((o) => o.value) : [])
+  }
+
+  const handleSelectAll = onSelectAll ?? defaultOnSelectAll
+
   // selected option values
   const selectedOptionValues = useMemo(() => {
     let values: T[] = []
@@ -198,10 +206,9 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
         nextOptions.find((o) => o.key === SELECT_ALL_KEY)?.checked !== "on"
 
       if (wasSelectedAllChecked) {
-        const newValue = options.map((o) => o.value)
-        onChangeSafe(newValue)
+        return handleSelectAll(true)
       } else if (wasSelectedAllUnchecked) {
-        onChangeSafe([])
+        return handleSelectAll(false)
       } else {
         const newValue = nextOptions
           .filter((o) => o.checked === "on" && o.key !== SELECT_ALL_KEY)
@@ -224,9 +231,9 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
       const wasSelectedAllUnchecked = option.value === SELECT_ALL_KEY && !selected
 
       if (wasSelectedAllChecked) {
-        newValue = options.map((o) => o.value)
+        return handleSelectAll(true)
       } else if (wasSelectedAllUnchecked) {
-        newValue = []
+        return handleSelectAll(false)
       } else if (selected) {
         newValue = [...newValue, option.value]
       } else {
