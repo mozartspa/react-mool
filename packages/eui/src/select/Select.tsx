@@ -15,6 +15,8 @@ import { SelectOptionList } from "./SelectOptionList"
 
 const DEFAULT_EMPTY_VALUE = () => undefined
 
+const SELECT_ALL_KEY = "$$$__SELECT_ALL__&&&"
+
 export type SelectOption<T = any> = {
   value: T
   label: string
@@ -43,6 +45,7 @@ export type SelectProps<T = any> = {
   isDisabled?: boolean
   isLoading?: boolean
   renderSearchOption?: (opt: SelectOption<T>, searchValue: string) => ReactNode
+  selectAll?: string
 } & (
   | {
       multiple?: false
@@ -77,9 +80,12 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     onBlur,
     isDisabled,
     isLoading,
+    selectAll,
   } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
+
+  const hasSelectAll = multiple && selectAll ? true : false
 
   const togglePopover = () => setPopoverOpen((val) => !val)
 
@@ -93,9 +99,36 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     return options.map((o) => JSON.stringify(o.value))
   }, [options])
 
+  // selected options
+  const selectedOptions = useMemo(() => {
+    if (multiple) {
+      return options.filter(
+        (o) => Array.isArray(value) && value.includes && value.includes(o.value)
+      )
+    } else {
+      return options.find((o) => value === o.value)
+    }
+  }, [options, value, multiple])
+
+  // select option list options
+  const selectOptionsListOptions = useMemo(() => {
+    if (hasSelectAll && selectAll) {
+      const selectAllOption: SelectOption = {
+        label: selectAll,
+        value: SELECT_ALL_KEY,
+      }
+      return [selectAllOption, ...options]
+    } else {
+      return options
+    }
+  }, [options, hasSelectAll, selectAll])
+
+  const isSelectedAll =
+    Array.isArray(selectedOptions) && selectedOptions.length === options.length
+
   // options for EuiSelectable
   const selectableOptions = useMemo(() => {
-    return options.map((o, index) => {
+    const opts = options.map((o, index) => {
       const isChecked = Array.isArray(value) ? value.includes(o.value) : value === o.value
       const opt: EuiSelectableOption = {
         key: selectOptionKeys[index],
@@ -111,29 +144,42 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
       }
       return opt
     })
-  }, [options, value, selectOptionKeys])
 
-  // selected options
-  const selectedOptions = useMemo(() => {
-    if (multiple) {
-      return options.filter(
-        (o) => Array.isArray(value) && value.includes && value.includes(o.value)
-      )
-    } else {
-      return options.find((o) => value === o.value)
+    if (hasSelectAll && selectAll) {
+      opts.splice(0, 0, {
+        key: SELECT_ALL_KEY,
+        label: selectAll,
+        checked: isSelectedAll ? "on" : undefined,
+      })
     }
-  }, [options, value, multiple])
+
+    return opts
+  }, [options, value, selectOptionKeys, hasSelectAll, selectAll, isSelectedAll])
+
+  const onChangeSafe = (
+    valueOrValues: T | (T | null | undefined)[] | null | undefined
+  ) => {
+    // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
+    onChange?.(valueOrValues as any)
+  }
 
   // selected option values
   const selectedOptionValues = useMemo(() => {
+    let values: T[] = []
     if (Array.isArray(selectedOptions)) {
-      return selectedOptions.map((o) => o.value)
+      values = selectedOptions.map((o) => o.value)
     } else if (selectedOptions != null) {
-      return [selectedOptions.value]
+      values = [selectedOptions.value]
     } else {
-      return []
+      values = []
     }
-  }, [selectedOptions])
+
+    if (hasSelectAll && isSelectedAll) {
+      values.push(SELECT_ALL_KEY as T)
+    }
+
+    return values
+  }, [selectedOptions, hasSelectAll, isSelectedAll])
 
   const keyToOptionValue = (key: string) => {
     const index = selectOptionKeys.indexOf(key)
@@ -141,18 +187,31 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     return value
   }
 
-  const handleSelectableChange = (options: EuiSelectableOption[]) => {
+  const handleSelectableChange = (nextOptions: EuiSelectableOption[]) => {
     if (props.multiple) {
-      const newValue = options
-        .filter((o) => o.checked === "on")
-        .map((o) => keyToOptionValue(o.key!))
-      // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
-      onChange?.(newValue as any)
+      const wasSelectedAllChecked =
+        !isSelectedAll &&
+        nextOptions.find((o) => o.key === SELECT_ALL_KEY)?.checked === "on"
+
+      const wasSelectedAllUnchecked =
+        isSelectedAll &&
+        nextOptions.find((o) => o.key === SELECT_ALL_KEY)?.checked !== "on"
+
+      if (wasSelectedAllChecked) {
+        const newValue = options.map((o) => o.value)
+        onChangeSafe(newValue)
+      } else if (wasSelectedAllUnchecked) {
+        onChangeSafe([])
+      } else {
+        const newValue = nextOptions
+          .filter((o) => o.checked === "on" && o.key !== SELECT_ALL_KEY)
+          .map((o) => keyToOptionValue(o.key!))
+        onChangeSafe(newValue)
+      }
     } else {
-      const selectedKey = options.find((o) => o.checked === "on")?.key
+      const selectedKey = nextOptions.find((o) => o.checked === "on")?.key
       const newValue = selectedKey != null ? keyToOptionValue(selectedKey) : emptyValue()
-      // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
-      onChange?.(newValue as any)
+      onChangeSafe(newValue)
       closePopover()
     }
   }
@@ -160,15 +219,22 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
   const handleOptionChange = (option: SelectOption, selected: boolean) => {
     if (multiple) {
       let newValue = Array.isArray(value) ? [...value] : []
-      if (selected) {
+
+      const wasSelectedAllChecked = option.value === SELECT_ALL_KEY && selected
+      const wasSelectedAllUnchecked = option.value === SELECT_ALL_KEY && !selected
+
+      if (wasSelectedAllChecked) {
+        newValue = options.map((o) => o.value)
+      } else if (wasSelectedAllUnchecked) {
+        newValue = []
+      } else if (selected) {
         newValue = [...newValue, option.value]
       } else {
         newValue = newValue.filter((o) => o !== option.value)
       }
-      // Cast to any because TS cannot understand that if not `multiple` then `onChange` should accept a single item
-      onChange?.(newValue as any)
+      onChangeSafe(newValue)
     } else {
-      onChange?.(selected ? option.value : emptyValue())
+      onChangeSafe(selected ? option.value : emptyValue())
       closePopover()
     }
   }
@@ -249,7 +315,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     } else {
       return (
         <SelectOptionList
-          options={options}
+          options={selectOptionsListOptions}
           selectedValues={selectedOptionValues}
           onOptionChange={handleOptionChange}
           hasDividers={hasDividers}
