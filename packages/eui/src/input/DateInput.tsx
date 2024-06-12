@@ -74,6 +74,7 @@ type DatePickerProps = Pick<
 export type DateInputProps = InputProps &
   DatePickerProps & {
     utc?: boolean
+    allowClear?: boolean
   }
 
 export const DateInput = (props: DateInputProps) => {
@@ -85,9 +86,18 @@ export const DateInput = (props: DateInputProps) => {
         const defaultUtc =
           inputProps.showTimeSelect || inputProps.showTimeSelectOnly ? false : true
 
-        const { utc = defaultUtc, ...datePickerProps } = inputProps
+        const {
+          utc = defaultUtc,
+          allowClear: allowClearProp,
+          ...datePickerProps
+        } = inputProps
+
         const value = moment(field.value).utc(false)
         const selected = utc ? value : value.local(false)
+
+        const defaultAllowClear =
+          datePickerProps.readOnly || datePickerProps.disabled ? false : true
+        const allowClear = allowClearProp ?? defaultAllowClear
 
         return (
           <EuiDatePicker
@@ -99,7 +109,7 @@ export const DateInput = (props: DateInputProps) => {
               field.setValue(next?.format())
             }}
             onBlur={() => field.setTouched(true)}
-            onClear={() => field.setValue(null)}
+            onClear={allowClear ? () => field.setValue(null) : undefined}
             locale={inputProps.locale ?? locale}
             utcOffset={utc ? 0 : undefined}
           />
