@@ -1,4 +1,8 @@
-import { EuiCheckboxGroup, EuiCheckboxGroupOption } from "@elastic/eui"
+import {
+  EuiCheckboxGroup,
+  EuiCheckboxGroupOption,
+  EuiCheckboxGroupProps,
+} from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useMemo } from "react"
 import { noFormat } from "./helpers/noFormat"
@@ -24,13 +28,14 @@ export type CheckboxGroupOption = {
 export type CheckboxGroupInputProps = InputProps & {
   options: CheckboxGroupOption[]
   disabled?: boolean
+  checkboxGroupProps?: Partial<EuiCheckboxGroupProps>
 }
 
 export const CheckboxGroupInput = (props: CheckboxGroupInputProps) => {
   const translate = useTranslate()
   const valueToId = useValueToId()
 
-  const { options, format = noFormat, disabled, ...rest } = props
+  const { options, format = noFormat, disabled, checkboxGroupProps, ...rest } = props
 
   const euiOptions: EuiCheckboxGroupOption[] = useMemo(() => {
     return options.map((o) => ({
@@ -70,6 +75,7 @@ export const CheckboxGroupInput = (props: CheckboxGroupInputProps) => {
 
         return (
           <EuiCheckboxGroup
+            {...checkboxGroupProps}
             disabled={disabled}
             options={euiOptions}
             idToSelectedMap={idSelectedToMap}
