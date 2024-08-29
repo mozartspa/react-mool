@@ -1,4 +1,4 @@
-import { EuiRadioGroup, EuiRadioGroupOption } from "@elastic/eui"
+import { EuiRadioGroup, EuiRadioGroupOption, EuiRadioGroupProps } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useMemo } from "react"
 import { noFormat } from "./helpers/noFormat"
@@ -14,13 +14,14 @@ export type RadioGroupOption = {
 export type RadioGroupInputProps = InputProps & {
   options: RadioGroupOption[]
   disabled?: boolean
+  radioGroupProps?: Partial<EuiRadioGroupProps>
 }
 
 export const RadioGroupInput = (props: RadioGroupInputProps) => {
   const translate = useTranslate()
   const valueToId = useValueToId()
 
-  const { options, format = noFormat, disabled, ...rest } = props
+  const { options, format = noFormat, disabled, radioGroupProps, ...rest } = props
 
   const euiOptions: EuiRadioGroupOption[] = useMemo(() => {
     return options.map((o) => ({
@@ -49,6 +50,7 @@ export const RadioGroupInput = (props: RadioGroupInputProps) => {
 
         return (
           <EuiRadioGroup
+            {...radioGroupProps}
             disabled={disabled}
             options={euiOptions}
             idSelected={idSelected}
