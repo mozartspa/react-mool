@@ -14,7 +14,7 @@ export type RadioGroupOption = {
 export type RadioGroupInputProps = InputProps & {
   options: RadioGroupOption[]
   disabled?: boolean
-  radioGroupProps?: EuiRadioGroupProps
+  radioGroupProps?: Partial<EuiRadioGroupProps>
 }
 
 export const RadioGroupInput = (props: RadioGroupInputProps) => {
