@@ -7,8 +7,9 @@
     "@elastic/eui": "^70.1.0",
     "@emotion/css": "^11.10.5",
     "@emotion/react": "^11.10.5",
-    "@gqless/logger": "^2.0.11",
-    "@gqless/react": "^2.0.15",
+    "@mozartspa/gqless": "^2.0.14",
+    "@mozartspa/gqless-logger": "^2.0.11",
+    "@mozartspa/gqless-react": "^2.0.15",
     "@react-mool/core": "^0.8.15",
     "@react-mool/eui": "^0.8.15",
     "@testing-library/jest-dom": "^5.11.4",
@@ -19,19 +20,18 @@
     "@types/pluralize": "^0.0.29",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "gqless": "^2.0.14",
     "json-graphql-server": "^2.2.3",
     "pluralize": "^8.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "start-api": "json-graphql-server data.js --p 3999",
     "generate": "gqless generate"
@@ -55,7 +55,8 @@
     ]
   },
   "devDependencies": {
-    "@gqless/cli": "^2.0.16",
+    "@craco/craco": "^6.4.3",
+    "@mozartspa/gqless-cli": "^2.0.16",
     "graphql": "^15.5.1"
   }
 }

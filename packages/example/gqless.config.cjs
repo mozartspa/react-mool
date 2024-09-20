@@ -1,5 +1,5 @@
 /**
- * @type {import("@gqless/cli").GQlessConfig}
+ * @type {import("@mozartspa/gqless-cli").GQlessConfig}
  */
 const config = {
   react: true,

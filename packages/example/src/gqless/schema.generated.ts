@@ -4,10 +4,12 @@
 
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> }
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string
@@ -283,7 +285,7 @@ export interface SettingInput {
   configuration: Scalars["JSON"]
 }
 
-export const scalarsEnumsHash: import("gqless").ScalarsEnumsHash = {
+export const scalarsEnumsHash: import("@mozartspa/gqless").ScalarsEnumsHash = {
   ID: true,
   String: true,
   Date: true,
