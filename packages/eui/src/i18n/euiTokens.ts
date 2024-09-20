@@ -24,10 +24,12 @@ export const euiTokens = {
     screenReaderAnnouncement:
       "There is a new region landmark with page level controls at the end of the document.",
   },
-  euiBreadcrumbs: {
+  euiBreadcrumb: {
     collapsedBadge: {
       ariaLabel: "See collapsed breadcrumbs",
     },
+  },
+  euiBreadcrumbs: {
     nav: {
       ariaLabel: "Breadcrumbs",
     },
@@ -37,14 +39,10 @@ export const euiTokens = {
     unavailable: "Unavailable",
     select: "Select",
   },
-  euiCodeEditor: {
-    startInteracting: "Press Enter to start interacting with the code.",
-    startEditing: "Press Enter to start editing.",
-    stopInteracting: "When you're done, press Escape to stop interacting with the code.",
-    stopEditing: "When you're done, press Escape to stop editing.",
+  euiCodeBlockCopy: {
+    copy: "Copy",
   },
-  euiCodeBlock: {
-    copyButton: "Copy",
+  euiCodeBlockFullScreen: {
     fullscreenCollapse: "Collapse",
     fullscreenExpand: "Expand",
   },
@@ -94,6 +92,9 @@ export const euiTokens = {
     noAvailableOptions: "There aren't any options available",
     allOptionsSelected: "You've selected all available options",
   },
+  euiComboBox: {
+    listboxAriaLabel: "Choose from the following options",
+  },
   euiControlBar: {
     screenReaderHeading: "Page level controls",
     customScreenReaderAnnouncement:
@@ -101,11 +102,11 @@ export const euiTokens = {
     screenReaderAnnouncement:
       "There is a new region landmark with page level controls at the end of the document.",
   },
-  euiDataGridCellButtons: {
+  euiDataGridCellActions: {
     expandButtonTitle: "Click or hit enter to interact with cell content",
   },
   euiDataGridCell: {
-    position: "Row: {row}; Column: {col}",
+    position: "{columnId}, column {col}, row {row}",
   },
   euiColumnActions: {
     hideColumn: "Hide column",
@@ -114,7 +115,15 @@ export const euiTokens = {
     sort: "Sort {schemaLabel}",
   },
   euiDataGridHeaderCell: {
-    headerActions: "Header actions",
+    headerActions: "Click to view column header actions",
+    sortedByAscendingSingle: "Sorted ascending",
+    sortedByDescendingSingle: "Sorted descending",
+    sortedByAscendingFirst: "Sorted by {columnId}, ascending",
+    sortedByDescendingFirst: "Sorted by {columnId}, descending",
+    sortedByAscendingMultiple: ", then sorted by {columnId}, ascending",
+    sortedByDescendingMultiple: ", then sorted by {columnId}, descending",
+    actionsPopoverScreenReaderText:
+      "To navigate through the list of column actions, press the Tab or Up and Down arrow keys.",
   },
   euiColumnSelector: {
     button: "Columns",
@@ -128,28 +137,41 @@ export const euiTokens = {
   euiColumnSortingDraggable: {
     defaultSortAsc: "A-Z",
     defaultSortDesc: "Z-A",
+    dragHandleAriaLabel: "Drag handle",
     activeSortLabel: "{display} is sorting this data grid",
     removeSortLabel: "Remove {display} from data grid sort",
     toggleLegend: "Select sorting method for {display}",
   },
   euiColumnSorting: {
     button: "Sort fields",
-    buttonActive: "{numberOfSortedFields} fields sorted",
+    buttonActive:
+      "({\n  numberOfSortedFields\n}) => `${numberOfSortedFields} field${numberOfSortedFields === 1 ? '' : 's'} sorted`;",
     emptySorting: "Currently no fields are sorted",
     pickFields: "Pick fields to sort by",
     sortFieldAriaLabel: "Sort by: ",
     clearAll: "Clear sorting",
   },
-  euiDataGridToolbar: {
-    fullScreenButton: "Full screen",
-    fullScreenButtonActive: "Exit full screen",
+  euiDisplaySelector: {
+    buttonText: "Display options",
+    resetButtonText: "Reset to default",
+    densityLabel: "Density",
+    labelCompact: "Compact",
+    labelNormal: "Normal",
+    labelExpanded: "Expanded",
+    rowHeightLabel: "Row height",
+    labelSingle: "Single",
+    labelAuto: "Auto fit",
+    labelCustom: "Custom",
+    lineCountLabel: "Lines per row",
   },
-  euiStyleSelector: {
-    buttonText: "Density",
-    buttonLegend: "Select the display density for the data grid",
-    labelExpanded: "Expanded density",
-    labelNormal: "Normal density",
-    labelCompact: "Compact density",
+  euiFullscreenSelector: {
+    fullscreenButton: "Enter fullscreen",
+    fullscreenButtonActive: "Exit fullscreen",
+  },
+  euiDataGrid: {
+    ariaLabel: "{label}; Page {page} of {pageCount}.",
+    ariaLabelledBy: "Page {page} of {pageCount}.",
+    screenReaderNotice: "Cell contains interactive content.",
   },
   euiDataGridPagination: {
     detailedPaginationLabel: "Pagination for preceding grid: {label}",
@@ -167,23 +189,91 @@ export const euiTokens = {
     jsonSortTextAsc: "Small-Large",
     jsonSortTextDesc: "Large-Small",
   },
-  euiDataGrid: {
-    ariaLabel: "{label}; Page {page} of {pageCount}.",
-    ariaLabelledBy: "Page {page} of {pageCount}.",
-    screenReaderNotice: "Cell contains interactive content.",
+  euiAutoRefresh: {
+    autoRefreshLabel: "Auto refresh",
+    buttonLabelOff: "Auto refresh is off",
+    buttonLabelOn: "Auto refresh is on and set to {prettyInterval}",
+  },
+  euiRefreshInterval: {
+    fullDescriptionOff: "Refresh is off, interval set to {optionValue} {optionText}.",
+    fullDescriptionOn: "Refresh is on, interval set to {optionValue} {optionText}.",
+    legend: "Refresh every",
+  },
+  euiAbsoluteTab: {
+    dateFormatError: "Expected format: {dateFormat}",
   },
   euiDatePopoverButton: {
     invalidTitle: "Invalid date: {title}",
     outdatedTitle: "Update needed: {title}",
+  },
+  euiDatePopoverContent: {
+    startDateLabel: "Start date",
+    endDateLabel: "End date",
+    absoluteTabLabel: "Absolute",
+    relativeTabLabel: "Relative",
+    nowTabLabel: "Now",
+    nowTabContent:
+      'Setting the time to "now" means that on every refresh this\n            time will be set to the time of the refresh.',
+    nowTabButtonStart: "Set start date and time to now",
+    nowTabButtonEnd: "Set end date and time to now",
   },
   euiRelativeTab: {
     numberInputError: "Must be >= 0",
     numberInputLabel: "Time span amount",
     dateInputError: "Must be a valid range",
     unitInputLabel: "Relative time span",
-    roundingLabel: "Round to the {unit}",
-    relativeDate: "{position} date",
     fullDescription: "The unit is changeable. Currently set to {unit}.",
+  },
+  euiPrettyDuration: {
+    lastDurationSeconds:
+      "({\n  duration\n}) => `Last ${duration} second${duration === 1 ? '' : 's'}`;",
+    nextDurationSeconds:
+      "({\n  duration\n}) => `Next ${duration} second${duration === 1 ? '' : 's'}`;",
+    lastDurationMinutes:
+      "({\n  duration\n}) => `Last ${duration} minute${duration === 1 ? '' : 's'}`;",
+    nextDurationMinutes:
+      "({\n  duration\n}) => `Next ${duration} minute${duration === 1 ? '' : 's'}`;",
+    lastDurationHours:
+      "({\n  duration\n}) => `Last ${duration} hour${duration === 1 ? '' : 's'}`;",
+    nextDurationHours:
+      "({\n  duration\n}) => `Next ${duration} hour${duration === 1 ? '' : 's'}`;",
+    lastDurationDays:
+      "({\n  duration\n}) => `Last ${duration} day${duration === 1 ? '' : 's'}`;",
+    nexttDurationDays:
+      "({\n  duration\n}) => `Next ${duration} day${duration === 1 ? '' : 's'}`;",
+    lastDurationWeeks:
+      "({\n  duration\n}) => `Last ${duration} week${duration === 1 ? '' : 's'}`;",
+    nextDurationWeeks:
+      "({\n  duration\n}) => `Next ${duration} week${duration === 1 ? '' : 's'}`;",
+    lastDurationMonths:
+      "({\n  duration\n}) => `Last ${duration} month${duration === 1 ? '' : 's'}`;",
+    nextDurationMonths:
+      "({\n  duration\n}) => `Next ${duration} month${duration === 1 ? '' : 's'}`;",
+    lastDurationYears:
+      "({\n  duration\n}) => `Last ${duration} year${duration === 1 ? '' : 's'}`;",
+    nextDurationYears:
+      "({\n  duration\n}) => `Next ${duration} year${duration === 1 ? '' : 's'}`;",
+    durationRoundedToSecond: "{prettyDuration} rounded to the second",
+    durationRoundedToMinute: "{prettyDuration} rounded to the minute",
+    durationRoundedToHour: "{prettyDuration} rounded to the hour",
+    durationRoundedToDay: "{prettyDuration} rounded to the day",
+    durationRoundedToWeek: "{prettyDuration} rounded to the week",
+    durationRoundedToMonth: "{prettyDuration} rounded to the month",
+    durationRoundedToYear: "{prettyDuration} rounded to the year",
+    now: "now",
+    invalid: "Invalid date",
+    fallbackDuration: "{displayFrom} to {displayTo}",
+  },
+  euiPrettyInterval: {
+    seconds: "({\n  interval\n}) => `${interval} second${interval > 1 ? 's' : ''}`;",
+    minutes: "({\n  interval\n}) => `${interval} minute${interval > 1 ? 's' : ''}`;",
+    hours: "({\n  interval\n}) => `${interval} hour${interval > 1 ? 's' : ''}`;",
+    days: "({\n  interval\n}) => `${interval} day${interval > 1 ? 's' : ''}`;",
+    secondsShorthand: "{interval} s",
+    minutesShorthand: "{interval} m",
+    hoursShorthand: "{interval} h",
+    daysShorthand: "{interval} d",
+    off: "Off",
   },
   euiCommonlyUsedTimeRanges: {
     legend: "Commonly used",
@@ -202,21 +292,55 @@ export const euiTokens = {
   euiRecentlyUsed: {
     legend: "Recently used date ranges",
   },
-  euiRefreshInterval: {
-    legend: "Refresh every",
-    start: "Start",
-    stop: "Stop",
-    fullDescription: "Refresh interval currently set to {optionValue} {optionText}.",
-  },
-  euiSuperDatePicker: {
-    showDatesButtonLabel: "Show dates",
-  },
   euiSuperUpdateButton: {
     refreshButtonLabel: "Refresh",
     updatingButtonLabel: "Updating",
     updateButtonLabel: "Update",
     cannotUpdateTooltip: "Cannot update",
     clickToApplyTooltip: "Click to apply",
+  },
+  euiTimeOptions: {
+    last: "Last",
+    next: "Next",
+    seconds: "Seconds",
+    minutes: "Minutes",
+    hours: "Hours",
+    days: "Days",
+    weeks: "Weeks",
+    months: "Months",
+    years: "Years",
+    secondsAgo: "Seconds ago",
+    minutesAgo: "Minutes ago",
+    hoursAgo: "Hours ago",
+    daysAgo: "Days ago",
+    weeksAgo: "Weeks ago",
+    monthsAgo: "Months ago",
+    yearsAgo: "Years ago",
+    secondsFromNow: "Seconds from now",
+    minutesFromNow: "Minutes from now",
+    hoursFromNow: "Hours from now",
+    daysFromNow: "Days from now",
+    weeksFromNow: "Weeks from now",
+    monthsFromNow: "Months from now",
+    yearsFromNow: "Years from now",
+    roundToSecond: "Round to the second",
+    roundToMinute: "Round to the minute",
+    roundToHour: "Round to the hour",
+    roundToDay: "Round to the day",
+    roundToWeek: "Round to the week",
+    roundToMonth: "Round to the month",
+    roundToYear: "Round to the year",
+    today: "Today",
+    thisWeek: "This week",
+    thisMonth: "This month",
+    thisYear: "This year",
+    yesterday: "Yesterday",
+    weekToDate: "Week to date",
+    monthToDate: "Month to date",
+    yearToDate: "Year to date",
+  },
+  euiErrorBoundary: {
+    error: "Error",
   },
   euiFilterButton: {
     filterBadgeActiveAriaLabel: "{count} active filters",
@@ -247,27 +371,37 @@ export const euiTokens = {
   },
   euiSuperSelect: {
     screenReaderAnnouncement:
-      "You are in a form selector of {optionsCount} items and must select a single option.\n              Use the up and down keys to navigate or escape to close.",
+      "You are in a form selector and must select a single option.\n              Use the up and down keys to navigate or escape to close.",
   },
   euiHeaderLinks: {
     openNavigationMenu: "Open menu",
     appNavigation: "App menu",
   },
-  euiImage: {
-    closeImage: "Close full screen {alt} image",
-    openImage: "Open full screen {alt} image",
+  euiImageButton: {
+    openFullScreen: "Click to open this image in fullscreen mode",
+    closeFullScreen: "Press Escape or click to close image fullscreen mode",
   },
   euiLink: {
-    external: {
-      ariaLabel: "External link",
-    },
     newTarget: {
       screenReaderOnlyText: "(opens in a new tab or window)",
+    },
+    external: {
+      ariaLabel: "External link",
     },
   },
   euiPinnableListGroup: {
     pinExtraActionLabel: "Pin item",
     pinnedExtraActionLabel: "Unpin item",
+  },
+  euiLoadingStrings: {
+    ariaLabel: "Loading",
+  },
+  euiLoadingChart: {
+    ariaLabel: "Loading",
+  },
+  euiMark: {
+    highlightStart: "highlight start",
+    highlightEnd: "highlight end",
   },
   euiMarkdownEditorFooter: {
     uploadingFiles: "Click to upload files",
@@ -312,18 +446,25 @@ export const euiTokens = {
     read: "Read",
     unread: "Unread",
   },
+  euiPaginationButtonArrow: {
+    firstPage: "First page",
+    previousPage: "Previous page",
+    nextPage: "Next page",
+    lastPage: "Last page",
+  },
   euiPaginationButton: {
     longPageString: "Page {page} of {totalPages}",
     shortPageString: "Page {page}",
   },
   euiPagination: {
-    previousPage: "Previous page, {page}",
-    disabledPreviousPage: "Previous page",
+    pageOfTotalCompressed: "{page} of {total}",
     firstRangeAriaLabel: "Skipping pages 2 to {lastPage}",
     lastRangeAriaLabel: "Skipping pages {firstPage} to {lastPage}",
-    nextPage: "Next page, {page}",
-    disabledNextPage: "Next page",
-    pageOfTotalCompressed: "{page} of {total}",
+    last: "Last",
+    page: "Page",
+    of: "of",
+    collection: "collection",
+    fromEndLabel: "from end",
   },
   euiPopover: {
     screenReaderAnnouncement: "You are in a dialog. To close this dialog, hit escape.",
@@ -339,10 +480,13 @@ export const euiTokens = {
     toggleButtonAriaLabel: "Press to toggle this panel",
   },
   euiSelectableListItem: {
-    includedOption: "Included option.",
+    includedOption: "Selected option.",
     includedOptionInstructions: "To exclude this option, press enter.",
     excludedOption: "Excluded option.",
-    excludedOptionInstructions: "To deselect this option, press enter.",
+    excludedOptionInstructions: "To uncheck this option, press enter.",
+    unckeckedOptionInstructions: "To select this option, press enter.",
+    checkedOption: "Checked option.",
+    checkedOptionInstructions: "To uncheck this option, press enter.",
   },
   euiSelectableTemplateSitewide: {
     searchPlaceholder: "Search for anything...",
@@ -355,6 +499,10 @@ export const euiTokens = {
     noMatchingOptions: "{searchValue} doesn't match any options",
     noAvailableOptions: "No options available",
     placeholderName: "Filter options",
+    searchResults:
+      "({\n  resultsLength\n}) => `${resultsLength} result${resultsLength === 1 ? '' : 's'} available`;",
+    screenReaderInstructions:
+      "Use up and down arrows to move focus over options. Enter to select. Escape to collapse options.",
   },
   euiStat: {
     loadingText: "Statistic is loading",
@@ -377,6 +525,14 @@ export const euiTokens = {
     current: "Current step {number}: {title}",
     simpleCurrent: "Current step is {number}",
   },
+  euiSuggest: {
+    stateSavedTooltip: "Saved.",
+    stateUnsavedTooltip: "Changes have not been saved.",
+    stateLoading: "State: loading.",
+    stateSaved: "State: saved.",
+    stateUnsaved: "State: unsaved.",
+    stateUnchanged: "State: unchanged.",
+  },
   euiTableSortMobile: {
     sorting: "Sorting",
   },
@@ -384,7 +540,9 @@ export const euiTokens = {
     titleTextWithDesc: "{innerText}; {description}",
   },
   euiTablePagination: {
+    allRows: "Showing all rows",
     rowsPerPage: "Rows per page",
+    rowsPerPageOptionShowAllRows: "Show all rows",
     rowsPerPageOption: "{rowsPerPage} rows",
   },
   euiToast: {
