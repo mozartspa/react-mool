@@ -1,8 +1,9 @@
 import { buildPartialTranslations } from "@react-mool/core"
+import messages from "@react-mool/i18n-it"
 import { englishMessages, Messages } from "./en"
-import { EuiTokensIT } from "./euiTokens-IT"
 
 export const italianMessages: Messages = buildPartialTranslations(englishMessages, {
+  ...messages,
   core: {
     crud: {
       created: "Elemento creato",
@@ -35,5 +36,4 @@ export const italianMessages: Messages = buildPartialTranslations(englishMessage
   close: "Chiudi",
   open: "Apri",
   show: "Mostra",
-  ...EuiTokensIT,
 })

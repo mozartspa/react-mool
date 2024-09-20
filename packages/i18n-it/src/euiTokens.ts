@@ -1,18 +1,18 @@
 export const euiTokens = {
   euiAccordion: {
-    isLoading: "Caricamento",
+    isLoading: "Caricamento in corso",
   },
   euiBasicTable: {
     noItemsMessage: "Nessun elemento trovato",
     tableCaptionWithPagination: "{tableCaption}; Pagina {page} di {pageCount}.",
     tableAutoCaptionWithPagination:
-      "Questa tabella contiene {itemCount} elementi di {totalItemCount}; Pagina {page} di {pageCount}.",
+      "Questa tabella contiene {itemCount} righe su un totale di {totalItemCount} righe; Pagina {page} di {pageCount}.",
     tableSimpleAutoCaptionWithPagination:
-      "Questa tabella contiene {itemCount} elementi; Pagina {page} di {pageCount}.",
-    tableAutoCaptionWithoutPagination: "Questa tabella contiene {itemCount} elementi.",
-    selectAllRows: "Seleziona tutto",
-    selectThisRow: "Seleziona questo elemento",
-    tablePagination: "Paginazione della tabella: {tableCaption}",
+      "Questa tabella contiene {itemCount} righe; Pagina {page} di {pageCount}.",
+    tableAutoCaptionWithoutPagination: "Questa tabella contiene {itemCount} righe.",
+    selectAllRows: "Seleziona tutte le righe",
+    selectThisRow: "Seleziona questa riga",
+    tablePagination: "Paginazione per la tabella: {tableCaption}",
   },
   euiCollapsedItemActions: {
     allActions: "Tutte le azioni",
@@ -20,14 +20,16 @@ export const euiTokens = {
   euiBottomBar: {
     screenReaderHeading: "Controlli a livello di pagina",
     customScreenReaderAnnouncement:
-      "C'è un nuovo punto di riferimento della regione chiamato {landmarkHeading} con controlli a livello di pagina alla fine del documento.",
+      "C'è un nuovo landmark chiamato {landmarkHeading} con controlli a livello di pagina alla fine del documento.",
     screenReaderAnnouncement:
-      "C'è un nuovo punto di riferimento della regione con controlli a livello di pagina alla fine del documento.",
+      "C'è un nuovo landmark con controlli a livello di pagina alla fine del documento.",
+  },
+  euiBreadcrumb: {
+    collapsedBadge: {
+      ariaLabel: "Visualizza i breadcrumb compressi",
+    },
   },
   euiBreadcrumbs: {
-    collapsedBadge: {
-      ariaLabel: "Vedi breadcrumb compressi",
-    },
     nav: {
       ariaLabel: "Breadcrumbs",
     },
@@ -37,87 +39,93 @@ export const euiTokens = {
     unavailable: "Non disponibile",
     select: "Seleziona",
   },
-  euiCodeEditor: {
-    startInteracting: "Premi Invio per iniziare a interagire con il codice.",
-    startEditing: "Premi Invio per iniziare la modifica.",
-    stopInteracting:
-      "Al termine, premi Esc per interrompere l'interazione con il codice.",
-    stopEditing: "Quando hai finito, premi Esc per interrompere la modifica.",
+  euiCodeBlockCopy: {
+    copy: "Copia",
   },
-  euiCodeBlock: {
-    copyButton: "Copia",
-    fullscreenCollapse: "Comprimi",
+
+  euiCodeBlockFullScreen: {
+    fullscreenCollapse: "Riduci",
     fullscreenExpand: "Espandi",
   },
   euiColorPickerSwatch: {
     ariaLabel: "Seleziona {color} come colore",
   },
   euiColorPicker: {
-    popoverLabel: "Finestra di dialogo per la selezione del colore",
-    colorLabel: "Valore del colore",
-    colorErrorMessage: "Valore del colore non valido",
+    popoverLabel: "Dialogo di selezione colore",
+    colorLabel: "Valore colore",
+    colorErrorMessage: "Valore colore non valido",
     transparent: "Trasparente",
-    alphaLabel: "Valore del canale alfa (opacità).",
-    openLabel: "Premi il tasto Esc per chiudere il popover",
+    alphaLabel: "Valore del canale alfa (opacità)",
+    openLabel: "Premi il tasto escape per chiudere il popover",
     closeLabel:
-      "Premere il tasto giù per aprire un popover contenente le opzioni di colore",
+      "Premi il tasto in giù per aprire un popover contenente opzioni di colore",
   },
   euiColorStopThumb: {
     buttonAriaLabel:
-      "Premere il tasto Invio per modificare questo stop. Premi Esc per mettere a fuoco il gruppo",
+      "Premi il tasto Invio per modificare questo stop. Premi Escape per mettere a fuoco il gruppo",
     buttonTitle: "Clicca per modificare, trascina per riposizionare",
     screenReaderAnnouncement:
-      "Si è aperto un popup con un modulo di modifica dell'interruzione del colore.\n Tab avanti per scorrere i controlli del modulo o premi Esc per chiudere questo popup.",
-    stopLabel: "Valore di stop",
-    stopErrorMessage: "Il valore è fuori intervallo",
+      "È stato aperto un popup con un modulo di modifica del colore dello stop.\n            Premi Tab per passare ai controlli del modulo o premi\n            Escape per chiudere questo popup.",
+    stopLabel: "Valore dello stop",
+    stopErrorMessage: "Valore fuori dal range",
     removeLabel: "Rimuovi questo stop",
   },
   euiColorStops: {
     screenReaderAnnouncement:
-      "{label}: {readOnly} {disabled} Selettore di interruzione colore. Ogni fermata è composta da un numero e dal valore del colore corrispondente. Utilizzare i tasti freccia giù e su per selezionare le singole fermate. Premere il tasto Invio per creare una nuova fermata.",
+      "{label}: {readOnly} {disabled} Selettore di colore stop. Ogni stop consiste in un numero e un corrispondente valore colore. Usa le frecce su e giù per selezionare singoli stop. Premi il tasto Invio per creare un nuovo stop.",
   },
   euiHue: {
-    label: "Selezionare il valore 'tonalità' della modalità colore HSV",
+    label: "Seleziona il valore 'hue' della modalità colore HSV",
   },
   euiSaturation: {
-    ariaLabel: "Saturazione della modalità colore HSV e cursore a 2 assi del valore",
+    ariaLabel: "Slider a 2 assi per saturazione e valore della modalità colore HSV",
     screenReaderInstructions:
-      "Tasti freccia per navigare nel gradiente di colore quadrato. Le coordinate verranno utilizzate per calcolare i numeri di 'saturazione' e 'valore' della modalità colore HSV, nell'intervallo da 0 a 1. Sinistra e destra per modificare la saturazione. Su e giù cambia il valore.",
+      "Usa le frecce per navigare nel gradiente di colore quadrato. Le coordinate verranno utilizzate per calcolare i numeri 'saturazione' e 'valore' nella modalità colore HSV, nell'intervallo da 0 a 1. A sinistra e a destra per cambiare la saturazione. Su e giù per cambiare il valore.",
   },
   euiComboBoxPill: {
     removeSelection: "Rimuovi {children} dalla selezione in questo gruppo",
   },
   euiComboBoxOptionsList: {
-    loadingOptions: "Opzioni di caricamento",
+    loadingOptions: "Caricamento opzioni",
     delimiterMessage: "Aggiungi ogni elemento separato da {delimiter}",
-    alreadyAdded: "{label} è già stata aggiunta",
+    alreadyAdded: "{label} è già stato aggiunto",
     createCustomOption: "Aggiungi {searchValue} come opzione personalizzata",
-    noMatchingOptions: "{searchValue} non corrisponde ad alcuna opzione",
+    noMatchingOptions: "{searchValue} non corrisponde a nessuna opzione",
     noAvailableOptions: "Non ci sono opzioni disponibili",
     allOptionsSelected: "Hai selezionato tutte le opzioni disponibili",
+  },
+  euiComboBox: {
+    listboxAriaLabel: "Scegli tra le seguenti opzioni",
   },
   euiControlBar: {
     screenReaderHeading: "Controlli a livello di pagina",
     customScreenReaderAnnouncement:
-      "C'è un nuovo punto di riferimento della regione chiamato {landmarkHeading} con controlli a livello di pagina alla fine del documento.",
+      "C'è un nuovo landmark di regione chiamato {landmarkHeading} con controlli a livello di pagina alla fine del documento.",
     screenReaderAnnouncement:
-      "C'è un nuovo punto di riferimento della regione con controlli a livello di pagina alla fine del documento.",
+      "C'è un nuovo landmark di regione con controlli a livello di pagina alla fine del documento.",
   },
-  euiDataGridCellButtons: {
-    expandButtonTitle:
-      "Fare clic o premere invio per interagire con il contenuto della cella",
+  euiDataGridCellActions: {
+    expandButtonTitle: "Clicca o premi invio per interagire con il contenuto della cella",
   },
   euiDataGridCell: {
-    position: "Riga: {row}; Colonna: {col}",
+    position: "{columnId}, colonna {col}, riga {row}",
   },
   euiColumnActions: {
     hideColumn: "Nascondi colonna",
-    moveLeft: "Muovere a sinistra",
-    moveRight: "Muovere a destra",
+    moveLeft: "Sposta a sinistra",
+    moveRight: "Sposta a destra",
     sort: "Ordina {schemaLabel}",
   },
   euiDataGridHeaderCell: {
-    headerActions: "Azioni di intestazione",
+    headerActions: "Clicca per visualizzare le azioni dell'intestazione della colonna",
+    sortedByAscendingSingle: "Ordinato in ordine crescente",
+    sortedByDescendingSingle: "Ordinato in ordine decrescente",
+    sortedByAscendingFirst: "Ordinato per {columnId}, in ordine crescente",
+    sortedByDescendingFirst: "Ordinato per {columnId}, in ordine decrescente",
+    sortedByAscendingMultiple: ", poi ordinato per {columnId}, in ordine crescente",
+    sortedByDescendingMultiple: ", poi ordinato per {columnId}, in ordine decrescente",
+    actionsPopoverScreenReaderText:
+      "Per navigare nella lista delle azioni della colonna, premi Tab o le frecce su e giù.",
   },
   euiColumnSelector: {
     button: "Colonne",
@@ -125,79 +133,164 @@ export const euiTokens = {
     buttonActivePlural: "{numberOfHiddenFields} colonne nascoste",
     search: "Cerca",
     searchcolumns: "Cerca colonne",
-    selectAll: "Mostra tutto",
-    hideAll: "Nascondi tutto",
+    selectAll: "Mostra tutte",
+    hideAll: "Nascondi tutte",
   },
   euiColumnSortingDraggable: {
     defaultSortAsc: "A-Z",
     defaultSortDesc: "Z-A",
-    activeSortLabel: "{display} sta ordinando questa griglia di dati",
-    removeSortLabel: "Rimuovi {display} dall'ordinamento della griglia di dati",
+    dragHandleAriaLabel: "Maniglia di trascinamento",
+    activeSortLabel: "{display} sta ordinando questo data grid",
+    removeSortLabel: "Rimuovi {display} dall'ordinamento del data grid",
     toggleLegend: "Seleziona il metodo di ordinamento per {display}",
   },
   euiColumnSorting: {
-    button: "Ordina i campi",
-    buttonActive: "{numberOfSortedFields} campi ordinati",
-    emptySorting: "Attualmente nessun campo è ordinato",
-    pickFields: "Scegli i campi in base a cui ordinare",
+    button: "Ordina campi",
+    buttonActive:
+      "({\n  numberOfSortedFields\n}) => `${numberOfSortedFields} campo${numberOfSortedFields === 1 ? '' : 'i'} ordinato`;",
+    emptySorting: "Attualmente non ci sono campi ordinati",
+    pickFields: "Scegli i campi da ordinare",
     sortFieldAriaLabel: "Ordina per: ",
-    clearAll: "Cancella l'ordinamento",
+    clearAll: "Cancella ordinamento",
   },
-  euiDataGridToolbar: {
-    fullScreenButton: "A schermo intero",
-    fullScreenButtonActive: "Esci dalla modalità schermo intero",
+  euiDisplaySelector: {
+    buttonText: "Opzioni di visualizzazione",
+    resetButtonText: "Ripristina predefiniti",
+    densityLabel: "Densità",
+    labelCompact: "Compatto",
+    labelNormal: "Normale",
+    labelExpanded: "Espanso",
+    rowHeightLabel: "Altezza riga",
+    labelSingle: "Singolo",
+    labelAuto: "Adatta automaticamente",
+    labelCustom: "Personalizzato",
+    lineCountLabel: "Righe per riga",
   },
-  euiStyleSelector: {
-    buttonText: "Densità",
-    buttonLegend: "Selezionare la densità di visualizzazione per la griglia dati",
-    labelExpanded: "Densità espansa",
-    labelNormal: "Densità normale",
-    labelCompact: "Densità compatta",
-  },
-  euiDataGridPagination: {
-    detailedPaginationLabel: "Paginazione per la griglia precedente: {label}",
-    paginationLabel: "Paginazione per griglia precedente",
-  },
-  euiDataGridSchema: {
-    booleanSortTextAsc: "False-True",
-    booleanSortTextDesc: "True-False",
-    currencySortTextAsc: "Low-High",
-    currencySortTextDesc: "High-Low",
-    dateSortTextAsc: "Old-New",
-    dateSortTextDesc: "New-Old",
-    numberSortTextAsc: "Low-High",
-    numberSortTextDesc: "High-Low",
-    jsonSortTextAsc: "Small-Large",
-    jsonSortTextDesc: "Large-Small",
+  euiFullscreenSelector: {
+    fullscreenButton: "Entra in modalità a schermo intero",
+    fullscreenButtonActive: "Esci dalla modalità a schermo intero",
   },
   euiDataGrid: {
     ariaLabel: "{label}; Pagina {page} di {pageCount}.",
     ariaLabelledBy: "Pagina {page} di {pageCount}.",
     screenReaderNotice: "La cella contiene contenuto interattivo.",
   },
+  euiDataGridPagination: {
+    detailedPaginationLabel: "Paginazione per la griglia precedente: {label}",
+    paginationLabel: "Paginazione per la griglia precedente",
+  },
+  euiDataGridSchema: {
+    booleanSortTextAsc: "Falso-Vero",
+    booleanSortTextDesc: "Vero-Falso",
+    currencySortTextAsc: "Basso-Alto",
+    currencySortTextDesc: "Alto-Basso",
+    dateSortTextAsc: "Vecchio-Nuovo",
+    dateSortTextDesc: "Nuovo-Vecchio",
+    numberSortTextAsc: "Basso-Alto",
+    numberSortTextDesc: "Alto-Basso",
+    jsonSortTextAsc: "Piccolo-Grande",
+    jsonSortTextDesc: "Grande-Piccolo",
+  },
+  euiAutoRefresh: {
+    autoRefreshLabel: "Aggiornamento automatico",
+    buttonLabelOff: "L'aggiornamento automatico è disattivato",
+    buttonLabelOn:
+      "L'aggiornamento automatico è attivato e impostato su {prettyInterval}",
+  },
+  euiRefreshInterval: {
+    fullDescriptionOff:
+      "L'aggiornamento è disattivato, intervallo impostato su {optionValue} {optionText}.",
+    fullDescriptionOn:
+      "L'aggiornamento è attivato, intervallo impostato su {optionValue} {optionText}.",
+    legend: "Aggiorna ogni",
+  },
+
+  euiAbsoluteTab: {
+    dateFormatError: "Formato atteso: {dateFormat}",
+  },
   euiDatePopoverButton: {
     invalidTitle: "Data non valida: {title}",
     outdatedTitle: "Aggiornamento necessario: {title}",
   },
+  euiDatePopoverContent: {
+    startDateLabel: "Data di inizio",
+    endDateLabel: "Data di fine",
+    absoluteTabLabel: "Assoluto",
+    relativeTabLabel: "Relativo",
+    nowTabLabel: "Ora",
+    nowTabContent:
+      "Impostare l'ora su \"ora\" significa che ad ogni aggiornamento\n            questo orario sarà impostato sull'ora dell'aggiornamento.",
+    nowTabButtonStart: "Imposta la data e l'ora di inizio su ora",
+    nowTabButtonEnd: "Imposta la data e l'ora di fine su ora",
+  },
   euiRelativeTab: {
     numberInputError: "Deve essere >= 0",
-    numberInputLabel: "Importo dell'intervallo di tempo",
+    numberInputLabel: "Quantità dell'intervallo di tempo",
     dateInputError: "Deve essere un intervallo valido",
     unitInputLabel: "Intervallo di tempo relativo",
-    roundingLabel: "Arrotonda a {unit}",
-    relativeDate: "{position} data",
     fullDescription: "L'unità è modificabile. Attualmente impostata su {unit}.",
+  },
+  euiPrettyDuration: {
+    lastDurationSeconds:
+      "({\n  duration\n}) => `Ultimi ${duration} secondo${duration === 1 ? '' : 'i'}`;",
+    nextDurationSeconds:
+      "({\n  duration\n}) => `Prossimi ${duration} secondo${duration === 1 ? '' : 'i'}`;",
+    lastDurationMinutes:
+      "({\n  duration\n}) => `Ultimi ${duration} minuto${duration === 1 ? '' : 'i'}`;",
+    nextDurationMinutes:
+      "({\n  duration\n}) => `Prossimi ${duration} minuto${duration === 1 ? '' : 'i'}`;",
+    lastDurationHours:
+      "({\n  duration\n}) => `Ultimi ${duration} ora${duration === 1 ? '' : 'e'}`;",
+    nextDurationHours:
+      "({\n  duration\n}) => `Prossimi ${duration} ora${duration === 1 ? '' : 'e'}`;",
+    lastDurationDays:
+      "({\n  duration\n}) => `Ultimi ${duration} giorno${duration === 1 ? '' : 'i'}`;",
+    nexttDurationDays:
+      "({\n  duration\n}) => `Prossimi ${duration} giorno${duration === 1 ? '' : 'i'}`;",
+    lastDurationWeeks:
+      "({\n  duration\n}) => `Ultimi ${duration} settimana${duration === 1 ? '' : 'e'}`;",
+    nextDurationWeeks:
+      "({\n  duration\n}) => `Prossimi ${duration} settimana${duration === 1 ? '' : 'e'}`;",
+    lastDurationMonths:
+      "({\n  duration\n}) => `Ultimi ${duration} mese${duration === 1 ? '' : 'i'}`;",
+    nextDurationMonths:
+      "({\n  duration\n}) => `Prossimi ${duration} mese${duration === 1 ? '' : 'i'}`;",
+    lastDurationYears:
+      "({\n  duration\n}) => `Ultimi ${duration} anno${duration === 1 ? '' : 'i'}`;",
+    nextDurationYears:
+      "({\n  duration\n}) => `Prossimi ${duration} anno${duration === 1 ? '' : 'i'}`;",
+    durationRoundedToSecond: "{prettyDuration} arrotondato al secondo",
+    durationRoundedToMinute: "{prettyDuration} arrotondato al minuto",
+    durationRoundedToHour: "{prettyDuration} arrotondato all'ora",
+    durationRoundedToDay: "{prettyDuration} arrotondato al giorno",
+    durationRoundedToWeek: "{prettyDuration} arrotondato alla settimana",
+    durationRoundedToMonth: "{prettyDuration} arrotondato al mese",
+    durationRoundedToYear: "{prettyDuration} arrotondato all'anno",
+    now: "ora",
+    invalid: "Data non valida",
+    fallbackDuration: "{displayFrom} a {displayTo}",
+  },
+  euiPrettyInterval: {
+    seconds: "({\n  interval\n}) => `${interval} secondo${interval > 1 ? 'i' : ''}`;",
+    minutes: "({\n  interval\n}) => `${interval} minuto${interval > 1 ? 'i' : ''}`;",
+    hours: "({\n  interval\n}) => `${interval} ora${interval > 1 ? 'e' : ''}`;",
+    days: "({\n  interval\n}) => `${interval} giorno${interval > 1 ? 'i' : ''}`;",
+    secondsShorthand: "{interval} s",
+    minutesShorthand: "{interval} m",
+    hoursShorthand: "{interval} h",
+    daysShorthand: "{interval} d",
+    off: "Spento",
   },
   euiCommonlyUsedTimeRanges: {
     legend: "Usato comunemente",
   },
   euiQuickSelect: {
     legendText: "Seleziona rapidamente un intervallo di tempo",
-    quickSelectTitle: "Seleziona rapida",
+    quickSelectTitle: "Selezione rapida",
     previousLabel: "Finestra temporale precedente",
-    nextLabel: "Finestra temporale successiva",
-    tenseLabel: "Tempo teso",
-    valueLabel: "Valore del tempo",
+    nextLabel: "Prossima finestra temporale",
+    tenseLabel: "Tempo verbale",
+    valueLabel: "Valore temporale",
     unitLabel: "Unità di tempo",
     applyButton: "Applica",
     fullDescription: "Attualmente impostato su {timeTense} {timeValue} {timeUnit}.",
@@ -205,22 +298,55 @@ export const euiTokens = {
   euiRecentlyUsed: {
     legend: "Intervalli di date utilizzati di recente",
   },
-  euiRefreshInterval: {
-    legend: "Aggiorna ogni",
-    start: "Inizia",
-    stop: "Ferma",
-    fullDescription:
-      "Intervallo di aggiornamento attualmente impostato su {optionValue} {optionText}.",
-  },
-  euiSuperDatePicker: {
-    showDatesButtonLabel: "Mostra le date",
-  },
   euiSuperUpdateButton: {
-    refreshButtonLabel: "Ricarica",
-    updatingButtonLabel: "In aggiornamento",
+    refreshButtonLabel: "Aggiorna",
+    updatingButtonLabel: "Aggiornamento in corso",
     updateButtonLabel: "Aggiorna",
     cannotUpdateTooltip: "Impossibile aggiornare",
-    clickToApplyTooltip: "Clicca per confermare",
+    clickToApplyTooltip: "Clicca per applicare",
+  },
+  euiTimeOptions: {
+    last: "Ultimo",
+    next: "Prossimo",
+    seconds: "Secondi",
+    minutes: "Minuti",
+    hours: "Ore",
+    days: "Giorni",
+    weeks: "Settimane",
+    months: "Mesi",
+    years: "Anni",
+    secondsAgo: "Secondi fa",
+    minutesAgo: "Minuti fa",
+    hoursAgo: "Ore fa",
+    daysAgo: "Giorni fa",
+    weeksAgo: "Settimane fa",
+    monthsAgo: "Mesi fa",
+    yearsAgo: "Anni fa",
+    secondsFromNow: "Secondi da ora",
+    minutesFromNow: "Minuti da ora",
+    hoursFromNow: "Ore da ora",
+    daysFromNow: "Giorni da ora",
+    weeksFromNow: "Settimane da ora",
+    monthsFromNow: "Mesi da ora",
+    yearsFromNow: "Anni da ora",
+    roundToSecond: "Arrotonda al secondo",
+    roundToMinute: "Arrotonda al minuto",
+    roundToHour: "Arrotonda all'ora",
+    roundToDay: "Arrotonda al giorno",
+    roundToWeek: "Arrotonda alla settimana",
+    roundToMonth: "Arrotonda al mese",
+    roundToYear: "Arrotonda all'anno",
+    today: "Oggi",
+    thisWeek: "Questa settimana",
+    thisMonth: "Questo mese",
+    thisYear: "Quest'anno",
+    yesterday: "Ieri",
+    weekToDate: "Settimana a oggi",
+    monthToDate: "Mese a oggi",
+    yearToDate: "Anno a oggi",
+  },
+  euiErrorBoundary: {
+    error: "Errore",
   },
   euiFilterButton: {
     filterBadgeActiveAriaLabel: "{count} filtri attivi",
@@ -232,62 +358,73 @@ export const euiTokens = {
   euiFieldPassword: {
     showPassword:
       "Mostra la password come testo normale. Nota: questo esporrà visivamente la tua password sullo schermo.",
-    maskPassword: "Nascondi password",
+    maskPassword: "Maschera la password",
   },
   euiFilePicker: {
     promptText: "Seleziona o trascina e rilascia un file",
     filesSelected: "{fileCount} file selezionati",
-    clearSelectedFiles: "Cancella i file selezionati",
+    clearSelectedFiles: "Pulisci file selezionati",
     removeSelected: "Rimuovi",
   },
   euiFormControlLayoutClearButton: {
-    label: "Cancella input",
+    label: "Pulisci input",
   },
   euiForm: {
     addressFormErrors: "Si prega di risolvere gli errori evidenziati.",
   },
   euiSuperSelectControl: {
-    selectAnOption: "Seleziona un'opzione: {selectedValue}, è selezionato",
+    selectAnOption: "Seleziona un'opzione: {selectedValue}, è selezionata",
   },
   euiSuperSelect: {
     screenReaderAnnouncement:
-      "Ti trovi in un selettore di moduli di {optionsCount} e devi selezionare una singola opzione.\n Usa i tasti su e giù per navigare o Esci per chiudere.",
+      "Sei in un selettore di modulo e devi selezionare un'unica opzione.\n              Usa i tasti su e giù per navigare o Escape per chiudere.",
   },
   euiHeaderLinks: {
     openNavigationMenu: "Apri menu",
     appNavigation: "Menu dell'app",
   },
-  euiImage: {
-    closeImage: "Chiudi l'immagine {alt} a schermo intero",
-    openImage: "Apri l'immagine {alt} a schermo intero",
+  euiImageButton: {
+    openFullScreen: "Clicca per aprire questa immagine in modalità schermo intero",
+    closeFullScreen:
+      "Premi Escape o clicca per chiudere la modalità schermo intero dell'immagine",
   },
   euiLink: {
-    external: {
-      ariaLabel: "Link esterno",
-    },
     newTarget: {
       screenReaderOnlyText: "(si apre in una nuova scheda o finestra)",
     },
+    external: {
+      ariaLabel: "Collegamento esterno",
+    },
   },
   euiPinnableListGroup: {
-    pinExtraActionLabel: "Blocca l'elemento",
-    pinnedExtraActionLabel: "Sblocca l'elemento",
+    pinExtraActionLabel: "Fissa elemento",
+    pinnedExtraActionLabel: "Sblocca elemento",
+  },
+  euiLoadingStrings: {
+    ariaLabel: "Caricamento",
+  },
+  euiLoadingChart: {
+    ariaLabel: "Caricamento",
+  },
+  euiMark: {
+    highlightStart: "inizio evidenziazione",
+    highlightEnd: "fine evidenziazione",
   },
   euiMarkdownEditorFooter: {
-    uploadingFiles: "Fare clic per caricare i file",
-    openUploadModal: "Apri la finestra di caricamento dei file",
+    uploadingFiles: "Clicca per caricare file",
+    openUploadModal: "Apri finestra di caricamento file",
     unsupportedFileType: "Tipo di file non supportato",
     supportedFileTypes: "File supportati: {supportedFileTypes}",
     showSyntaxErrors: "Mostra errori",
-    showMarkdownHelp: "Mostra aiuti per markdown",
-    syntaxTitle: "Guida alla sintassi",
+    showMarkdownHelp: "Mostra aiuto su markdown",
+    syntaxTitle: "Aiuto sulla sintassi",
     errorsTitle: "Errori",
-    mdSyntaxLink: "Sintassi markdown in stile GitHub",
-    syntaxModalDescriptionPrefix: "Questo editor usa",
+    mdSyntaxLink: "Markdown compatibile con GitHub",
+    syntaxModalDescriptionPrefix: "Questo editor utilizza",
     syntaxModalDescriptionSuffix:
-      "Puoi anche utilizzare questi plug-in di sintassi aggiuntivi per aggiungere contenuti avanzati al tuo testo.",
+      "Puoi anche utilizzare questi plugin di sintassi aggiuntivi per aggiungere contenuti ricchi al tuo testo.",
     closeButton: "Chiudi",
-    syntaxPopoverDescription: "Questo editor usa",
+    syntaxPopoverDescription: "Questo editor utilizza",
   },
   euiMarkdownEditorToolbar: {
     editor: "Editor",
@@ -297,7 +434,7 @@ export const euiTokens = {
     closeModal: "Chiude questa finestra modale",
   },
   euiNotificationEventMessages: {
-    accordionButtonText: "+ {messagesLength} ancora",
+    accordionButtonText: "+ {messagesLength} in più",
     accordionAriaLabelButtonText: "+ {messagesLength} messaggi per {eventName}",
     accordionHideText: "nascondi",
   },
@@ -311,44 +448,54 @@ export const euiTokens = {
     markAsUnread: "Segna come non letto",
   },
   euiNotificationEventReadIcon: {
-    readAria: "{eventName} è stato letto",
-    unreadAria: "{eventName} non è stato letto",
-    read: "Leggere",
-    unread: "Non leggere",
+    readAria: "{eventName} è letto",
+    unreadAria: "{eventName} è non letto",
+    read: "Letto",
+    unread: "Non letto",
+  },
+  euiPaginationButtonArrow: {
+    firstPage: "Prima pagina",
+    previousPage: "Pagina precedente",
+    nextPage: "Pagina successiva",
+    lastPage: "Ultima pagina",
   },
   euiPaginationButton: {
     longPageString: "Pagina {page} di {totalPages}",
     shortPageString: "Pagina {page}",
   },
   euiPagination: {
-    previousPage: "Pagina precedente, {page}",
-    disabledPreviousPage: "Pagina precedente",
-    firstRangeAriaLabel: "Saltare le pagine 2 in {lastPage}",
-    lastRangeAriaLabel: "Saltare le pagine da {firstPage} a {lastPage}",
-    nextPage: "Pagina successiva, {page}",
-    disabledNextPage: "Pagina successiva",
     pageOfTotalCompressed: "{page} di {total}",
+    firstRangeAriaLabel: "Salta le pagine da 2 a {lastPage}",
+    lastRangeAriaLabel: "Salta le pagine da {firstPage} a {lastPage}",
+    last: "Ultima",
+    page: "Pagina",
+    of: "di",
+    collection: "collezione",
+    fromEndLabel: "dalla fine",
   },
   euiPopover: {
     screenReaderAnnouncement:
-      "Sei in una finestra di dialogo. Per chiudere questa finestra di dialogo, premi Esc.",
+      "Sei in un dialogo. Per chiudere questo dialogo, premi Escape.",
   },
   euiProgress: {
     valueText: "{value}%",
   },
   euiResizableButton: {
     horizontalResizerAriaLabel:
-      "Premere sinistra o destra per regolare le dimensioni dei pannelli",
-    verticalResizerAriaLabel: "Premere su o giù per regolare le dimensioni dei pannelli",
+      "Premi sinistra o destra per regolare la dimensione dei pannelli",
+    verticalResizerAriaLabel: "Premi su o giù per regolare la dimensione dei pannelli",
   },
   euiResizablePanel: {
-    toggleButtonAriaLabel: "Premere per attivare/disattivare questo pannello",
+    toggleButtonAriaLabel: "Premi per attivare/disattivare questo pannello",
   },
   euiSelectableListItem: {
-    includedOption: "Opzione inclusa.",
-    includedOptionInstructions: "Per escludere questa opzione, premere invio.",
+    includedOption: "Opzione selezionata.",
+    includedOptionInstructions: "Per escludere questa opzione, premi invio.",
     excludedOption: "Opzione esclusa.",
-    excludedOptionInstructions: "Per deselezionare questa opzione, premere invio.",
+    excludedOptionInstructions: "Per deselezionare questa opzione, premi invio.",
+    unckeckedOptionInstructions: "Per selezionare questa opzione, premi invio.",
+    checkedOption: "Opzione selezionata.",
+    checkedOptionInstructions: "Per deselezionare questa opzione, premi invio.",
   },
   euiSelectableTemplateSitewide: {
     searchPlaceholder: "Cerca qualsiasi cosa...",
@@ -357,31 +504,43 @@ export const euiTokens = {
     onFocusBadgeGoTo: "Vai a",
   },
   euiSelectable: {
-    loadingOptions: "Opzioni in caricamento",
-    noMatchingOptions: "{searchValue} non corrisponde ad alcuna opzione",
+    loadingOptions: "Caricamento opzioni",
+    noMatchingOptions: "{searchValue} non corrisponde a nessuna opzione",
     noAvailableOptions: "Nessuna opzione disponibile",
-    placeholderName: "Filtra le opzioni",
+    placeholderName: "Filtra opzioni",
+    searchResults:
+      "({\n  resultsLength\n}) => `${resultsLength} risultato${resultsLength === 1 ? '' : 'i'} disponibile${resultsLength === 1 ? '' : 'i'}`;",
+    screenReaderInstructions:
+      "Usa le frecce su e giù per muovere il focus sulle opzioni. Invio per selezionare. Escape per chiudere le opzioni.",
   },
   euiStat: {
-    loadingText: "Statistica in caricamento",
+    loadingText: "La statistica è in caricamento",
   },
   euiStepStrings: {
-    step: "Passaggio {number}: {title}",
-    simpleStep: "Passaggio {number}",
-    complete: "Passaggio {number}: {title} è completo",
-    simpleComplete: "Passaggio {number} è completo",
-    warning: "Passaggio {number}: {title} ha avvisi",
-    simpleWarning: "Passaggio {number} ha avvisi",
-    errors: "Passaggio {number}: {title} ha errori",
-    simpleErrors: "Passaggio {number} ha errori",
-    incomplete: "Passaggio {number}: {title} è incompleto",
-    simpleIncomplete: "Passaggio {number} è incompleto",
-    disabled: "Passaggio {number}: {title} è disabilitato",
-    simpleDisabled: "Passaggio {number} è disabilitato",
-    loading: "Passaggio {number}: {title} sta caricando",
-    simpleLoading: "Passaggio {number} sta caricando",
-    current: "Passaggio corrente {number}: {title}",
-    simpleCurrent: "Passaggio corrente è {number}",
+    step: "Passo {number}: {title}",
+    simpleStep: "Passo {number}",
+    complete: "Passo {number}: {title} è completo",
+    simpleComplete: "Passo {number} è completo",
+    warning: "Passo {number}: {title} ha avvisi",
+    simpleWarning: "Passo {number} ha avvisi",
+    errors: "Passo {number}: {title} ha errori",
+    simpleErrors: "Passo {number} ha errori",
+    incomplete: "Passo {number}: {title} è incompleto",
+    simpleIncomplete: "Passo {number} è incompleto",
+    disabled: "Passo {number}: {title} è disabilitato",
+    simpleDisabled: "Passo {number} è disabilitato",
+    loading: "Passo {number}: {title} è in caricamento",
+    simpleLoading: "Passo {number} è in caricamento",
+    current: "Passo corrente {number}: {title}",
+    simpleCurrent: "Il passo corrente è {number}",
+  },
+  euiSuggest: {
+    stateSavedTooltip: "Salvato.",
+    stateUnsavedTooltip: "Le modifiche non sono state salvate.",
+    stateLoading: "Stato: caricamento.",
+    stateSaved: "Stato: salvato.",
+    stateUnsaved: "Stato: non salvato.",
+    stateUnchanged: "Stato: invariato.",
   },
   euiTableSortMobile: {
     sorting: "Ordinamento",
@@ -390,28 +549,30 @@ export const euiTokens = {
     titleTextWithDesc: "{innerText}; {description}",
   },
   euiTablePagination: {
-    rowsPerPage: "Elementi per pagina",
-    rowsPerPageOption: "{rowsPerPage} elementi",
+    allRows: "Mostra tutte le righe",
+    rowsPerPage: "Righe per pagina",
+    rowsPerPageOptionShowAllRows: "Mostra tutte le righe",
+    rowsPerPageOption: "{rowsPerPage} righe",
   },
   euiToast: {
-    dismissToast: "Ignora l'avviso",
-    newNotification: "Nuova notifica",
+    dismissToast: "Chiudi toast",
+    newNotification: "È apparsa una nuova notifica",
     notification: "Notifica",
   },
   euiTourStepIndicator: {
     isActive: "attivo",
     isComplete: "completo",
     isIncomplete: "incompleto",
-    ariaLabel: "Passaggio {number} {status}",
+    ariaLabel: "Passo {number} {status}",
   },
   euiTourStep: {
-    endTour: "Termina tour",
-    skipTour: "Salta tour",
-    closeTour: "Chiudi tour",
+    endTour: "Termina il tour",
+    skipTour: "Salta il tour",
+    closeTour: "Chiudi il tour",
   },
   euiTreeView: {
     listNavigationInstructions:
-      "È possibile navigare rapidamente in questo elenco utilizzando i tasti freccia.",
+      "Puoi navigare rapidamente in questa lista usando i tasti freccia.",
     ariaLabel: "{nodeLabel} figlio di {ariaLabel}",
   },
 }
