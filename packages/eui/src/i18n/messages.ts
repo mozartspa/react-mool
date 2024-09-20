@@ -81,6 +81,9 @@ export const englishEuiMessages = {
       asc: "sorted ascending",
       desc: "sorted descending",
     },
+    notifications: {
+      ariaLabel: "Notifications",
+    },
   },
   euiTokens,
 }

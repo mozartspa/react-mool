@@ -99,6 +99,9 @@ const euiMessages: EuiMessages = {
       asc: "ordinato in modo crescente",
       desc: "ordinato in modo decrescente",
     },
+    notifications: {
+      ariaLabel: "Notifiche",
+    },
   },
   euiTokens,
 }

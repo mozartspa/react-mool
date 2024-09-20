@@ -24,6 +24,7 @@ export const SelectInput = (props: SelectInputProps) => {
     <Input {...rest} format={props.format ?? noFormat}>
       {(field, inputProps) => (
         <Select
+          id={field.input.id}
           value={field.input.value}
           onBlur={() => field.setTouched(true)}
           onChange={(value) => field.setValue(value)}

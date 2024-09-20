@@ -2,7 +2,7 @@ import { EuiButtonIconProps } from "@elastic/eui"
 import { ReactNode } from "react"
 
 export type DatagridAction<TRecord = any> = {
-  name: ReactNode
+  name: ((item: TRecord) => ReactNode) | ReactNode
   run: (items: TRecord[]) => void
   description?: string
   icon?: string
