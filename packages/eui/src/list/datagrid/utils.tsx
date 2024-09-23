@@ -56,6 +56,7 @@ export function toEuiColumn(
     sortable,
     align,
     truncateText,
+    textOnly,
     mobileOptions,
     style,
     className,
@@ -70,6 +71,7 @@ export function toEuiColumn(
     sortable: typeof sortable === "string" ? true : sortable,
     align,
     truncateText,
+    textOnly,
     mobileOptions: mobileOptions
       ? {
           ...mobileOptions,
