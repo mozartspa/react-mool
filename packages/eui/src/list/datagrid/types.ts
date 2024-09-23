@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 export type DatagridAction<TRecord = any> = {
   name: ((item: TRecord) => ReactNode) | ReactNode
   run: (items: TRecord[]) => void
-  description?: string
+  description?: string | ((item: TRecord) => string)
   icon?: string
   color?: EuiButtonIconProps["color"]
   available?: (item: TRecord) => boolean

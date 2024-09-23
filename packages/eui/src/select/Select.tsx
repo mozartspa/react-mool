@@ -35,7 +35,9 @@ export type SelectProps<T = any> = {
   placeholder?: string
   searchable?: boolean
   popoverMode?: "attached" | "detached"
-  popoverProps?: Partial<EuiPopoverProps>
+  popoverProps?: Partial<EuiPopoverProps> & {
+    anchorPosition?: "downLeft" | "downRight" | "downCenter"
+  }
   emptyValue?: () => T | null | undefined
   hasDividers?: boolean
   fullWidth?: boolean
@@ -97,7 +99,6 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     setPopoverOpen(false)
     onBlur?.()
   }
-
 
   // options keys
   const selectOptionKeys = useMemo(() => {

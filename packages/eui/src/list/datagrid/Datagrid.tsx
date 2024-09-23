@@ -1,8 +1,8 @@
 import {
   Criteria,
   EuiBasicTable,
-  EuiLoadingContent,
   EuiScreenReaderLive,
+  EuiSkeletonText,
   EuiSpacer,
   EuiTableSelectionType,
 } from "@elastic/eui"
@@ -58,7 +58,7 @@ export type DatagridProps<TRecord = any> = {
   columnSettingsStorageKey?: string
 }
 
-export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
+export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRecord>) {
   const {
     columns: columnsProp,
     rowClick: rowClickProp,
@@ -68,7 +68,6 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     actions: actionsProp,
     bulkActions,
     empty,
-    responsive,
     scrollToTop = true,
     scrollToTopOffset = 50,
     showPagination = true,
@@ -219,7 +218,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
   }, [selectedIds, items, resourceDataProvider, resourceDataProvider.id])
 
   useEffect(() => {
-    tableRef.current?.setSelection(selectedItems)
+    tableRef.current?.setState({ selection: selectedItems })
   }, [tableRef.current, selectedItems])
 
   // Top ref
@@ -237,7 +236,7 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
     const isFirstLoading = isLoading && !isLoaded
 
     if (isFirstLoading) {
-      return <EuiLoadingContent lines={4} />
+      return <EuiSkeletonText lines={4} />
     } else {
       return empty ?? translate(t.eui.grid.no_items)
     }
@@ -302,7 +301,6 @@ export function Datagrid<TRecord = any>(props: DatagridProps<TRecord>) {
         onChange={handleChange}
         rowProps={rowProps}
         noItemsMessage={renderNoItemsMessage()}
-        responsive={responsive}
       />
     </div>
   )
