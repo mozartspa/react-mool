@@ -3,6 +3,7 @@ import { ReactNode } from "react"
 
 export type DatagridAction<TRecord = any> = {
   name: ((item: TRecord) => ReactNode) | ReactNode
+  bulkName: string
   run: (items: TRecord[]) => void
   description?: string | ((item: TRecord) => string)
   icon?: string
