@@ -289,7 +289,7 @@ export const euiTokens = {
       "({\n  duration\n}) => `Prossime ${duration} ora${duration === 1 ? '' : 'e'}`;",
     lastDurationDays:
       "({\n  duration\n}) => `Ultimi ${duration} giorno${duration === 1 ? '' : 'i'}`;",
-    nextDurationDays:
+    nexttDurationDays:
       "({\n  duration\n}) => `Prossimi ${duration} giorno${duration === 1 ? '' : 'i'}`;",
     lastDurationWeeks:
       "({\n  duration\n}) => `Ultime ${duration} settimana${duration === 1 ? '' : 'e'}`;",
