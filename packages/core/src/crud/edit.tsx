@@ -4,6 +4,7 @@ import {
   FormConfig,
   FormContext,
   FormErrorsInput,
+  FormValues,
   useForm,
 } from "@mozartspa/mobx-form"
 import { Observer, observer } from "mobx-react-lite"
@@ -40,9 +41,10 @@ function getInitialValues<TRecord = any, TUpdate = TRecord>(
   }
 }
 
-export type UseEditFormOptions<TRecord = any, TUpdate = TRecord> = Partial<
-  Omit<FormConfig<TUpdate>, "initialValues">
-> & {
+export type UseEditFormOptions<
+  TRecord extends FormValues = any,
+  TUpdate extends FormValues = TRecord
+> = Partial<Omit<FormConfig<TUpdate>, "initialValues">> & {
   id?: RecordID
   resource?: string
   initialValues?: (record: TRecord) => TUpdate
@@ -78,7 +80,10 @@ export type UseEditFormResult<TRecord = any, TUpdate = TRecord> = {
 
 const DEFAULT_INITIAL_VALUES = (record: any) => record
 
-export function useEditForm<TRecord = any, TUpdate = TRecord>(
+export function useEditForm<
+  TRecord extends FormValues = any,
+  TUpdate extends FormValues = TRecord
+>(
   options: UseEditFormOptions<TRecord, TUpdate> = {}
 ): UseEditFormResult<TRecord, TUpdate> {
   const {
@@ -240,10 +245,10 @@ export function useEditFormContext<TRecord = any, TUpdate = TRecord>() {
   return context
 }
 
-export type EditBaseProps<TRecord = any, TUpdate = TRecord> = UseEditFormOptions<
-  TRecord,
-  TUpdate
-> & {
+export type EditBaseProps<
+  TRecord extends FormValues = any,
+  TUpdate extends FormValues = TRecord
+> = UseEditFormOptions<TRecord, TUpdate> & {
   children: ReactNode | ((edit: UseEditFormResult<TRecord, TUpdate>) => ReactElement)
   mode?: "edit" | "detail"
   debugForm?: boolean

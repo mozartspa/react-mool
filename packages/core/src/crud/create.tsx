@@ -4,6 +4,7 @@ import {
   FormConfig,
   FormContext,
   FormErrorsInput,
+  FormValues,
   useForm,
 } from "@mozartspa/mobx-form"
 import { Observer, observer } from "mobx-react-lite"
@@ -43,7 +44,10 @@ export type UseCreateFormResult<TRecord = any, TCreate = TRecord> = {
   mutation: UseMutationResult<TRecord, unknown, TCreate>
 }
 
-export function useCreateForm<TRecord = any, TCreate = TRecord>(
+export function useCreateForm<
+  TRecord extends FormValues = any,
+  TCreate extends FormValues = TRecord
+>(
   options: UseCreateFormOptions<TRecord, TCreate> = {}
 ): UseCreateFormResult<TRecord, TCreate> {
   const {
