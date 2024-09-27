@@ -8,6 +8,7 @@ import {
   NumberInput,
   PasswordInput,
   RadioGroupInput,
+  RadioInput,
   SelectInput,
   SelectResourceInput,
   SelectResourceInputProps,
@@ -23,6 +24,7 @@ import {
   DateValue,
   NumberValue,
   RadioGroupValue,
+  RadioValue,
   SelectResourceValue,
   SelectResourceValueProps,
   SelectValue,
@@ -60,3 +62,5 @@ export const CheckboxGroupControl = createControl(CheckboxGroupInput, CheckboxGr
 export const RadioGroupControl = createControl(RadioGroupInput, RadioGroupValue)
 
 export const DateControl = createControl(DateInput, DateValue)
+
+export const RadioControl = createControl(RadioInput, RadioValue)
