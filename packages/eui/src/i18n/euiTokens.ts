@@ -559,8 +559,7 @@ export const euiTokens = {
     screenReaderInstructions:
       "Use the Up and Down arrow keys to move focus over options. Press Enter to select. Press Escape to collapse options.",
     placeholderName: "Filter options",
-    searchResults:
-      "({\n  resultsLength\n}) => `${resultsLength} result${resultsLength === 1 ? '' : 's'} available`;",
+    searchResults: "{resultsLength} results available",
   },
   euiSideNav: {
     mobileToggleAriaLabel: "Toggle navigation",

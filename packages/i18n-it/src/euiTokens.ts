@@ -276,33 +276,33 @@ export const euiTokens = {
   },
   euiPrettyDuration: {
     lastDurationSeconds:
-      "({\n  duration\n}) => `Ultimi ${duration} secondo${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Ultimi ${duration} secondo${duration === 1 ? '' : 's'}`;",
     nextDurationSeconds:
-      "({\n  duration\n}) => `Prossimi ${duration} secondo${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Prossimi ${duration} secondo${duration === 1 ? '' : 's'}`;",
     lastDurationMinutes:
-      "({\n  duration\n}) => `Ultimi ${duration} minuto${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Ultimi ${duration} minuto${duration === 1 ? '' : 's'}`;",
     nextDurationMinutes:
-      "({\n  duration\n}) => `Prossimi ${duration} minuto${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Prossimi ${duration} minuto${duration === 1 ? '' : 's'}`;",
     lastDurationHours:
-      "({\n  duration\n}) => `Ultime ${duration} ora${duration === 1 ? '' : 'e'}`;",
+      "({\n  duration\n}) => `Ultime ${duration} ora${duration === 1 ? '' : 's'}`;",
     nextDurationHours:
-      "({\n  duration\n}) => `Prossime ${duration} ora${duration === 1 ? '' : 'e'}`;",
+      "({\n  duration\n}) => `Prossime ${duration} ora${duration === 1 ? '' : 's'}`;",
     lastDurationDays:
-      "({\n  duration\n}) => `Ultimi ${duration} giorno${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Ultimi ${duration} giorno${duration === 1 ? '' : 's'}`;",
     nexttDurationDays:
-      "({\n  duration\n}) => `Prossimi ${duration} giorno${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Prossimi ${duration} giorno${duration === 1 ? '' : 's'}`;",
     lastDurationWeeks:
-      "({\n  duration\n}) => `Ultime ${duration} settimana${duration === 1 ? '' : 'e'}`;",
+      "({\n  duration\n}) => `Ultime ${duration} settimana${duration === 1 ? '' : 's'}`;",
     nextDurationWeeks:
-      "({\n  duration\n}) => `Prossime ${duration} settimana${duration === 1 ? '' : 'e'}`;",
+      "({\n  duration\n}) => `Prossime ${duration} settimana${duration === 1 ? '' : 's'}`;",
     lastDurationMonths:
-      "({\n  duration\n}) => `Ultimi ${duration} mese${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Ultimi ${duration} mese${duration === 1 ? '' : 's'}`;",
     nextDurationMonths:
-      "({\n  duration\n}) => `Prossimi ${duration} mese${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Prossimi ${duration} mese${duration === 1 ? '' : 's'}`;",
     lastDurationYears:
-      "({\n  duration\n}) => `Ultimi ${duration} anno${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Ultimi ${duration} anno${duration === 1 ? '' : 's'}`;",
     nextDurationYears:
-      "({\n  duration\n}) => `Prossimi ${duration} anno${duration === 1 ? '' : 'i'}`;",
+      "({\n  duration\n}) => `Prossimi ${duration} anno${duration === 1 ? '' : 's'}`;",
     durationRoundedToSecond: "{prettyDuration} arrotondato al secondo",
     durationRoundedToMinute: "{prettyDuration} arrotondato al minuto",
     durationRoundedToHour: "{prettyDuration} arrotondato all'ora",
@@ -315,10 +315,10 @@ export const euiTokens = {
     fallbackDuration: "{displayFrom} a {displayTo}",
   },
   euiPrettyInterval: {
-    seconds: "({\n  interval\n}) => `${interval} secondo${interval > 1 ? 'i' : ''}`;",
-    minutes: "({\n  interval\n}) => `${interval} minuto${interval > 1 ? 'i' : ''}`;",
-    hours: "({\n  interval\n}) => `${interval} ora${interval > 1 ? 'e' : ''}`;",
-    days: "({\n  interval\n}) => `${interval} giorno${interval > 1 ? 'i' : ''}`;",
+    seconds: "({\n  interval\n}) => `${interval} secondo${interval > 1 ? 's' : ''}`;",
+    minutes: "({\n  interval\n}) => `${interval} minuto${interval > 1 ? 's' : ''}`;",
+    hours: "({\n  interval\n}) => `${interval} ora${interval > 1 ? 's' : ''}`;",
+    days: "({\n  interval\n}) => `${interval} giorno${interval > 1 ? 's' : ''}`;",
     secondsShorthand: "{interval} s",
     minutesShorthand: "{interval} m",
     hoursShorthand: "{interval} h",
@@ -570,8 +570,7 @@ export const euiTokens = {
     screenReaderInstructions:
       "Usa i tasti freccia su e giù per spostare il focus sulle opzioni. Premi Invio per selezionare. Premi Esc per ridurre le opzioni.",
     placeholderName: "Filtra opzioni",
-    searchResults:
-      "({\n  resultsLength\n}) => `${resultsLength} risultato${resultsLength === 1 ? '' : 'i'} disponibile${resultsLength === 1 ? '' : 'i'}`;",
+    searchResults: "{resultsLength} risultati disponibili",
   },
   euiSideNav: {
     mobileToggleAriaLabel: "Attiva/disattiva navigazione",
