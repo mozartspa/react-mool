@@ -57,7 +57,7 @@ export const ComboBoxInput = (props: ComboBoxInputProps) => {
       {(field, inputProps) => {
         const value = Array.isArray(field.input.value) ? field.input.value : EMPTY_ARRAY
         const unknownValues = value.filter(
-          (val) => options.find((o) => val === o.value || o.label) === undefined
+          (val) => options.find((o) => val === (o.value ?? o.label)) === undefined
         )
         const selectedOptions = options.filter((o) => value.includes(o.value ?? o.label))
         const handleChange = (opts: EuiComboBoxOptionOption[]) => {
