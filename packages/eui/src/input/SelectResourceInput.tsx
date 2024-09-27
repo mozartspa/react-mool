@@ -55,6 +55,7 @@ export const SelectResourceInput = <TRecord extends any = any, TFilter = any>(
     <Input {...rest} format={props.format ?? format} parse={props.parse ?? parse}>
       {(field, inputProps) => (
         <SelectResource
+          id={field.input.id}
           resource={resource}
           multiple={multiple}
           value={field.input.value}

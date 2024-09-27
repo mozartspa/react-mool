@@ -95,6 +95,13 @@ const euiMessages: EuiMessages = {
       content:
         "L'elemento è stato modificato nel frattempo. Se aggiorni, perderai le modifiche non salvate.",
     },
+    sort: {
+      asc: "ordinato in modo crescente",
+      desc: "ordinato in modo decrescente",
+    },
+    notifications: {
+      ariaLabel: "Notifiche",
+    },
   },
   euiTokens,
 }

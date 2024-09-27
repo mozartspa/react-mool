@@ -9,10 +9,19 @@ export type ReferenceProps<TRecord = any> = {
   renderItem?: (record: TRecord) => ReactNode
   loadingView?: ReactNode
   errorView?: ReactNode
+  lineClamp?: number | boolean
 }
 
 export const Reference = <TRecord extends any>(props: ReferenceProps<TRecord>) => {
-  const { id, resource, linkTo = false, renderItem, loadingView, errorView } = props
+  const {
+    id,
+    resource,
+    linkTo = false,
+    renderItem,
+    loadingView,
+    errorView,
+    lineClamp,
+  } = props
 
   if (linkTo && renderItem) {
     throw new Error(
@@ -30,7 +39,14 @@ export const Reference = <TRecord extends any>(props: ReferenceProps<TRecord>) =
     } else if (renderItem) {
       return <>{renderItem(record)}</>
     } else {
-      return <RecordLink record={record} resource={resource} linkTo={linkTo} />
+      return (
+        <RecordLink
+          lineClamp={lineClamp}
+          record={record}
+          resource={resource}
+          linkTo={linkTo}
+        />
+      )
     }
   }
 

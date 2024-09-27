@@ -29,12 +29,15 @@ export type SelectOption<T = any> = {
 }
 
 export type SelectProps<T = any> = {
+  id?: string
   options: SelectOption<T>[]
   label?: ReactNode
   placeholder?: string
   searchable?: boolean
   popoverMode?: "attached" | "detached"
-  popoverProps?: Partial<EuiPopoverProps>
+  popoverProps?: Partial<EuiPopoverProps> & {
+    anchorPosition?: "downLeft" | "downRight" | "downCenter"
+  }
   emptyValue?: () => T | null | undefined
   hasDividers?: boolean
   fullWidth?: boolean
@@ -62,6 +65,7 @@ export type SelectProps<T = any> = {
 
 export const Select = <T extends any>(props: SelectProps<T>) => {
   const {
+    id,
     options,
     label,
     placeholder,
@@ -257,6 +261,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
       return (
         <EuiFilterGroup fullWidth>
           <EuiFilterButton
+            id={id}
             iconType="arrowDown"
             hasActiveFilters={isActive}
             numActiveFilters={selectedOptions.length}
@@ -274,6 +279,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
       return (
         <EuiFilterGroup fullWidth>
           <EuiFilterButton
+            id={id}
             iconType="arrowDown"
             hasActiveFilters={false}
             onClick={togglePopover}

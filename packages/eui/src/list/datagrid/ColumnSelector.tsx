@@ -71,12 +71,12 @@ export const ColumnSelector = (props: ColumnSelectorProps) => {
     >
       <div className="euiDataGrid__controlScroll">
         <EuiDragDropContext onDragEnd={onDragEnd}>
-          <EuiDroppable droppableId="columnOrder">
+          <EuiDroppable droppableId="columnOrder" spacing="m">
             <>
               {orderedColumnIds.map((id, index) => {
                 const label = columnLabel?.(id) ?? id
                 return (
-                  <EuiDraggable key={id} draggableId={id} index={index}>
+                  <EuiDraggable key={id} draggableId={id} index={index} spacing="m">
                     {(_, state) => (
                       <div
                         className={`euiDataGridColumnSelector__item ${

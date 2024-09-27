@@ -9,7 +9,8 @@ export type ColumnBaseProps<TRecord = any> = {
   width?: string
   sortable?: boolean | string
   align?: HorizontalAlignment
-  truncateText?: boolean
+  truncateText?: boolean | { lines: number }
+  textOnly?: boolean
   isMobileHeader?: boolean
   mobileOptions?: {
     show?: boolean

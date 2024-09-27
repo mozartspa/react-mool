@@ -1,21 +1,24 @@
-// Taken from https://raw.githubusercontent.com/elastic/eui/v39.1.1/i18ntokens.json
+// Taken from https://raw.githubusercontent.com/elastic/eui/refs/tags/v95.11.0/packages/eui/i18ntokens.json
 
 const tokens = [
   {
-    token: "euiAccordion.isLoading",
+    token: "euiAccordionChildrenLoading.message",
     defString: "Loading",
     highlighting: "string",
     loc: {
       start: {
-        line: 255,
-        column: 14,
+        line: 39,
+        column: 12,
+        index: 1176,
       },
       end: {
-        line: 255,
-        column: 74,
+        line: 42,
+        column: 14,
+        index: 1289,
       },
     },
-    filepath: "src/components/accordion/accordion.tsx",
+    filepath:
+      "src/components/accordion/accordion_children/accordion_children_loading.tsx",
   },
   {
     token: "euiBasicTable.noItemsMessage",
@@ -23,12 +26,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 309,
+        line: 320,
         column: 6,
+        index: 8131,
       },
       end: {
-        line: 309,
+        line: 320,
         column: 79,
+        index: 8204,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
@@ -39,12 +44,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 663,
+        line: 630,
         column: 10,
+        index: 16300,
       },
       end: {
-        line: 673,
+        line: 634,
         column: 12,
+        index: 16503,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
@@ -56,12 +63,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 682,
+        line: 643,
         column: 12,
+        index: 16700,
       },
       end: {
-        line: 693,
+        line: 647,
         column: 14,
+        index: 16979,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
@@ -72,12 +81,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 697,
+        line: 651,
         column: 12,
+        index: 17051,
       },
       end: {
-        line: 707,
+        line: 655,
         column: 14,
+        index: 17291,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
@@ -88,12 +99,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 712,
+        line: 660,
         column: 10,
+        index: 17367,
       },
       end: {
-        line: 718,
+        line: 664,
         column: 12,
+        index: 17551,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
@@ -104,28 +117,50 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 760,
+        line: 714,
         column: 6,
+        index: 18849,
       },
       end: {
-        line: 760,
-        column: 77,
+        line: 717,
+        column: 7,
+        index: 19000,
+      },
+    },
+    filepath: "src/components/basic_table/basic_table.tsx",
+  },
+  {
+    token: "euiBasicTable.deselectRows",
+    defString: "Deselect rows",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 714,
+        column: 6,
+        index: 18849,
+      },
+      end: {
+        line: 717,
+        column: 7,
+        index: 19000,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
   },
   {
     token: "euiBasicTable.selectThisRow",
-    defString: "Select this row",
+    defString: "Select row {index}",
     highlighting: "string",
     loc: {
       start: {
-        line: 1164,
+        line: 1132,
         column: 8,
+        index: 31375,
       },
       end: {
-        line: 1164,
-        column: 79,
+        line: 1136,
+        column: 9,
+        index: 31530,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
@@ -136,44 +171,68 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 1384,
+        line: 1379,
         column: 8,
+        index: 38636,
       },
       end: {
-        line: 1388,
+        line: 1383,
         column: 9,
+        index: 38795,
       },
     },
     filepath: "src/components/basic_table/basic_table.tsx",
   },
   {
-    token: "euiCollapsedItemActions.allActions",
+    token: "euiCollapsedItemActions.allActionsTooltip",
     defString: "All actions",
     highlighting: "string",
     loc: {
       start: {
-        line: 169,
-        column: 6,
+        line: 45,
+        column: 28,
+        index: 1373,
       },
       end: {
-        line: 169,
-        column: 80,
+        line: 48,
+        column: 3,
+        index: 1455,
       },
     },
     filepath: "src/components/basic_table/collapsed_item_actions.tsx",
   },
   {
     token: "euiCollapsedItemActions.allActions",
-    defString: "All actions",
+    defString: "All actions, row {index}",
     highlighting: "string",
     loc: {
       start: {
-        line: 186,
-        column: 6,
+        line: 50,
+        column: 36,
+        index: 1494,
       },
       end: {
-        line: 186,
-        column: 80,
+        line: 56,
+        column: 3,
+        index: 1631,
+      },
+    },
+    filepath: "src/components/basic_table/collapsed_item_actions.tsx",
+  },
+  {
+    token: "euiCollapsedItemActions.allActionsDisabled",
+    defString: "Individual item actions are disabled when rows are being selected.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 58,
+        column: 44,
+        index: 1678,
+      },
+      end: {
+        line: 61,
+        column: 3,
+        index: 1816,
       },
     },
     filepath: "src/components/basic_table/collapsed_item_actions.tsx",
@@ -184,12 +243,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 169,
+        line: 176,
         column: 8,
+        index: 5004,
       },
       end: {
-        line: 172,
+        line: 179,
         column: 9,
+        index: 5113,
       },
     },
     filepath: "src/components/bottom_bar/bottom_bar.tsx",
@@ -201,12 +262,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 197,
+        line: 206,
         column: 14,
+        index: 6054,
       },
       end: {
-        line: 201,
+        line: 210,
         column: 16,
+        index: 6327,
       },
     },
     filepath: "src/components/bottom_bar/bottom_bar.tsx",
@@ -218,31 +281,53 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 203,
+        line: 212,
         column: 14,
+        index: 6360,
       },
       end: {
-        line: 206,
+        line: 215,
         column: 16,
+        index: 6557,
       },
     },
     filepath: "src/components/bottom_bar/bottom_bar.tsx",
   },
   {
-    token: "euiBreadcrumbs.collapsedBadge.ariaLabel",
+    token: "euiBreadcrumb.popoverAriaLabel",
+    defString: "Clicking this button will toggle a popover dialog.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 170,
+        column: 29,
+        index: 4821,
+      },
+      end: {
+        line: 176,
+        column: 5,
+        index: 5154,
+      },
+    },
+    filepath: "src/components/breadcrumbs/_breadcrumb_content.tsx",
+  },
+  {
+    token: "euiBreadcrumb.collapsedBadge.ariaLabel",
     defString: "See collapsed breadcrumbs",
     highlighting: "string",
     loc: {
       start: {
-        line: 134,
-        column: 22,
+        line: 56,
+        column: 20,
+        index: 1691,
       },
       end: {
-        line: 137,
-        column: 5,
+        line: 59,
+        column: 3,
+        index: 1784,
       },
     },
-    filepath: "src/components/breadcrumbs/breadcrumbs.tsx",
+    filepath: "src/components/breadcrumbs/breadcrumb.tsx",
   },
   {
     token: "euiBreadcrumbs.nav.ariaLabel",
@@ -250,15 +335,35 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 185,
+        line: 42,
         column: 20,
+        index: 1274,
       },
       end: {
-        line: 185,
+        line: 42,
         column: 77,
+        index: 1331,
       },
     },
     filepath: "src/components/breadcrumbs/breadcrumbs.tsx",
+  },
+  {
+    token: "euiCallOut.dismissAriaLabel",
+    defString: "Dismiss this callout",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 89,
+        column: 8,
+        index: 2542,
+      },
+      end: {
+        line: 92,
+        column: 9,
+        index: 2647,
+      },
+    },
+    filepath: "src/components/call_out/call_out.tsx",
   },
   {
     token: "euiCardSelect.selected",
@@ -266,15 +371,17 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 72,
+        line: 63,
         column: 11,
+        index: 1522,
       },
       end: {
-        line: 72,
+        line: 63,
         column: 72,
+        index: 1583,
       },
     },
-    filepath: "src/components/card/card_select.tsx",
+    filepath: "src/components/card/card_select/card_select.tsx",
   },
   {
     token: "euiCardSelect.unavailable",
@@ -282,15 +389,17 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 74,
+        line: 65,
         column: 11,
+        index: 1623,
       },
       end: {
-        line: 74,
+        line: 65,
         column: 78,
+        index: 1690,
       },
     },
-    filepath: "src/components/card/card_select.tsx",
+    filepath: "src/components/card/card_select/card_select.tsx",
   },
   {
     token: "euiCardSelect.select",
@@ -298,127 +407,259 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 76,
+        line: 67,
         column: 11,
+        index: 1714,
       },
       end: {
-        line: 76,
+        line: 67,
         column: 68,
+        index: 1771,
       },
     },
-    filepath: "src/components/card/card_select.tsx",
+    filepath: "src/components/card/card_select/card_select.tsx",
   },
   {
-    token: "euiCodeEditor.startInteracting",
-    defString: "Press Enter to start interacting with the code.",
+    token: "euiCodeBlockAnnotations.ariaLabel",
+    defString: "Click to view a code annotation for line {lineNumber}",
     highlighting: "string",
     loc: {
       start: {
-        line: 262,
-        column: 12,
+        line: 37,
+        column: 20,
+        index: 1214,
       },
       end: {
-        line: 265,
-        column: 14,
+        line: 41,
+        column: 3,
+        index: 1350,
       },
     },
-    filepath: "src/components/code_editor/code_editor.tsx",
+    filepath: "src/components/code/code_block_annotations.tsx",
   },
   {
-    token: "euiCodeEditor.startEditing",
-    defString: "Press Enter to start editing.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 267,
-        column: 12,
-      },
-      end: {
-        line: 270,
-        column: 14,
-      },
-    },
-    filepath: "src/components/code_editor/code_editor.tsx",
-  },
-  {
-    token: "euiCodeEditor.stopInteracting",
-    defString: "When you're done, press Escape to stop interacting with the code.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 276,
-        column: 12,
-      },
-      end: {
-        line: 279,
-        column: 14,
-      },
-    },
-    filepath: "src/components/code_editor/code_editor.tsx",
-  },
-  {
-    token: "euiCodeEditor.stopEditing",
-    defString: "When you're done, press Escape to stop editing.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 281,
-        column: 12,
-      },
-      end: {
-        line: 284,
-        column: 14,
-      },
-    },
-    filepath: "src/components/code_editor/code_editor.tsx",
-  },
-  {
-    token: "euiCodeBlock.copyButton",
+    token: "euiCodeBlockCopy.copy",
     defString: "Copy",
     highlighting: "string",
     loc: {
       start: {
-        line: 318,
-        column: 10,
+        line: 44,
+        column: 24,
+        index: 1519,
       },
       end: {
-        line: 318,
-        column: 66,
+        line: 44,
+        column: 67,
+        index: 1562,
       },
     },
-    filepath: "src/components/code/_code_block.tsx",
+    filepath: "src/components/code/code_block_copy.tsx",
   },
   {
-    token: "euiCodeBlock.fullscreenCollapse",
+    token: "euiCodeBlockFullScreen.fullscreenCollapse",
     defString: "Collapse",
     highlighting: "string",
     loc: {
       start: {
-        line: 343,
-        column: 6,
+        line: 55,
+        column: 49,
+        index: 1759,
       },
       end: {
-        line: 349,
-        column: 7,
+        line: 61,
+        column: 3,
+        index: 1914,
       },
     },
-    filepath: "src/components/code/_code_block.tsx",
+    filepath: "src/components/code/code_block_full_screen.tsx",
   },
   {
-    token: "euiCodeBlock.fullscreenExpand",
+    token: "euiCodeBlockFullScreen.fullscreenExpand",
     defString: "Expand",
     highlighting: "string",
     loc: {
       start: {
-        line: 343,
-        column: 6,
+        line: 55,
+        column: 49,
+        index: 1759,
       },
       end: {
-        line: 349,
-        column: 7,
+        line: 61,
+        column: 3,
+        index: 1914,
       },
     },
-    filepath: "src/components/code/_code_block.tsx",
+    filepath: "src/components/code/code_block_full_screen.tsx",
+  },
+  {
+    token: "euiCollapsibleNavKibanaSolution.switcherTitle",
+    defString: "Solution view",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 73,
+        column: 40,
+        index: 2535,
+      },
+      end: {
+        line: 76,
+        column: 3,
+        index: 2623,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/_kibana_solution/collapsible_nav_kibana_solution.tsx",
+  },
+  {
+    token: "euiCollapsibleNavKibanaSolution.switcherAriaLabel",
+    defString: " - click to switch to another solution",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 77,
+        column: 44,
+        index: 2669,
+      },
+      end: {
+        line: 80,
+        column: 3,
+        index: 2786,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/_kibana_solution/collapsible_nav_kibana_solution.tsx",
+  },
+  {
+    token: "euiCollapsibleNavKibanaSolution.groupLabel",
+    defString: "Navigate to solution",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 81,
+        column: 37,
+        index: 2825,
+      },
+      end: {
+        line: 84,
+        column: 3,
+        index: 2917,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/_kibana_solution/collapsible_nav_kibana_solution.tsx",
+  },
+  {
+    token: "euiCollapsibleNavBeta.ariaLabel",
+    defString: "Site menu",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 180,
+        column: 27,
+        index: 5946,
+      },
+      end: {
+        line: 183,
+        column: 3,
+        index: 6016,
+      },
+    },
+    filepath: "src/components/collapsible_nav_beta/collapsible_nav_beta.tsx",
+  },
+  {
+    token: "euiCollapsibleNavButton.ariaLabelExpand",
+    defString: "Expand navigation",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 37,
+        column: 28,
+        index: 1465,
+      },
+      end: {
+        line: 40,
+        column: 3,
+        index: 1551,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/collapsible_nav_button/collapsible_nav_button.tsx",
+  },
+  {
+    token: "euiCollapsibleNavButton.ariaLabelCollapse",
+    defString: "Collapse navigation",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 41,
+        column: 30,
+        index: 1583,
+      },
+      end: {
+        line: 44,
+        column: 3,
+        index: 1673,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/collapsible_nav_button/collapsible_nav_button.tsx",
+  },
+  {
+    token: "euiCollapsibleNavButton.ariaLabelOpen",
+    defString: "Open navigation",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 45,
+        column: 26,
+        index: 1701,
+      },
+      end: {
+        line: 48,
+        column: 3,
+        index: 1783,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/collapsible_nav_button/collapsible_nav_button.tsx",
+  },
+  {
+    token: "euiCollapsibleNavButton.ariaLabelClose",
+    defString: "Close navigation",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 49,
+        column: 27,
+        index: 1812,
+      },
+      end: {
+        line: 52,
+        column: 3,
+        index: 1896,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/collapsible_nav_button/collapsible_nav_button.tsx",
+  },
+  {
+    token: "euiCollapsedNavButton.ariaLabelButtonIcon",
+    defString: "{title}, quick navigation menu",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 67,
+        column: 30,
+        index: 2043,
+      },
+      end: {
+        line: 71,
+        column: 3,
+        index: 2159,
+      },
+    },
+    filepath:
+      "src/components/collapsible_nav_beta/collapsible_nav_item/collapsed/collapsed_nav_button.tsx",
   },
   {
     token: "euiColorPickerSwatch.ariaLabel",
@@ -426,12 +667,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 32,
+        line: 37,
         column: 20,
+        index: 1352,
       },
       end: {
-        line: 36,
+        line: 41,
         column: 3,
+        index: 1454,
       },
     },
     filepath: "src/components/color_picker/color_picker_swatch.tsx",
@@ -442,12 +685,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
@@ -458,12 +703,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
@@ -474,12 +721,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
@@ -490,12 +739,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
@@ -506,12 +757,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
@@ -522,12 +775,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
@@ -538,129 +793,17 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 215,
+        line: 220,
         column: 6,
+        index: 5890,
       },
       end: {
-        line: 234,
+        line: 239,
         column: 3,
+        index: 6448,
       },
     },
     filepath: "src/components/color_picker/color_picker.tsx",
-  },
-  {
-    token: "euiColorStopThumb.buttonAriaLabel",
-    defString: "Press the Enter key to modify this stop. Press Escape to focus the group",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 266,
-        column: 8,
-      },
-      end: {
-        line: 275,
-        column: 9,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stop_thumb.tsx",
-  },
-  {
-    token: "euiColorStopThumb.buttonTitle",
-    defString: "Click to edit, drag to reposition",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 266,
-        column: 8,
-      },
-      end: {
-        line: 275,
-        column: 9,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stop_thumb.tsx",
-  },
-  {
-    token: "euiColorStopThumb.screenReaderAnnouncement",
-    defString:
-      "A popup with a color stop edit form opened.\n            Tab forward to cycle through form controls or press\n            escape to close this popup.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 312,
-        column: 12,
-      },
-      end: {
-        line: 317,
-        column: 14,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stop_thumb.tsx",
-  },
-  {
-    token: "euiColorStopThumb.stopLabel",
-    defString: "Stop value",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 322,
-        column: 12,
-      },
-      end: {
-        line: 328,
-        column: 13,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stop_thumb.tsx",
-  },
-  {
-    token: "euiColorStopThumb.stopErrorMessage",
-    defString: "Value is out of range",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 322,
-        column: 12,
-      },
-      end: {
-        line: 328,
-        column: 13,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stop_thumb.tsx",
-  },
-  {
-    token: "euiColorStopThumb.removeLabel",
-    defString: "Remove this stop",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 354,
-        column: 16,
-      },
-      end: {
-        line: 357,
-        column: 17,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stop_thumb.tsx",
-  },
-  {
-    token: "euiColorStops.screenReaderAnnouncement",
-    defString:
-      "{label}: {readOnly} {disabled} Color stop picker. Each stop consists of a number and corresponding color value. Use the Down and Up arrow keys to select individual stops. Press the Enter key to create a new stop.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 511,
-        column: 10,
-      },
-      end: {
-        line: 519,
-        column: 12,
-      },
-    },
-    filepath: "src/components/color_picker/color_stops/color_stops.tsx",
   },
   {
     token: "euiHue.label",
@@ -668,12 +811,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 48,
+        line: 54,
         column: 10,
+        index: 1411,
       },
       end: {
-        line: 51,
+        line: 57,
         column: 12,
+        index: 1525,
       },
     },
     filepath: "src/components/color_picker/hue.tsx",
@@ -684,12 +829,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 60,
+        line: 77,
         column: 49,
+        index: 2089,
       },
       end: {
-        line: 66,
+        line: 83,
         column: 5,
+        index: 2503,
       },
     },
     filepath: "src/components/color_picker/saturation.tsx",
@@ -701,12 +848,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 60,
+        line: 77,
         column: 49,
+        index: 2089,
       },
       end: {
-        line: 66,
+        line: 83,
         column: 5,
+        index: 2503,
       },
     },
     filepath: "src/components/color_picker/saturation.tsx",
@@ -717,12 +866,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 69,
-        column: 8,
+        line: 67,
+        column: 6,
+        index: 2037,
       },
       end: {
-        line: 73,
-        column: 9,
+        line: 71,
+        column: 7,
+        index: 2196,
       },
     },
     filepath: "src/components/combo_box/combo_box_input/combo_box_pill.tsx",
@@ -733,12 +884,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 322,
+        line: 347,
         column: 12,
+        index: 9757,
       },
       end: {
-        line: 325,
+        line: 350,
         column: 14,
+        index: 9880,
       },
     },
     filepath:
@@ -750,12 +903,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 335,
+        line: 360,
         column: 16,
+        index: 10319,
       },
       end: {
-        line: 339,
+        line: 364,
         column: 18,
+        index: 10550,
       },
     },
     filepath:
@@ -767,12 +922,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 353,
+        line: 379,
         column: 16,
+        index: 10979,
       },
       end: {
-        line: 359,
+        line: 385,
         column: 18,
+        index: 11252,
       },
     },
     filepath:
@@ -784,12 +941,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 388,
+        line: 414,
         column: 20,
+        index: 12243,
       },
       end: {
-        line: 394,
+        line: 420,
         column: 22,
+        index: 12541,
       },
     },
     filepath:
@@ -801,12 +960,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 405,
+        line: 431,
         column: 12,
+        index: 12745,
       },
       end: {
-        line: 409,
+        line: 435,
         column: 14,
+        index: 12966,
       },
     },
     filepath:
@@ -818,12 +979,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 416,
+        line: 442,
         column: 10,
+        index: 13085,
       },
       end: {
-        line: 419,
+        line: 445,
         column: 12,
+        index: 13225,
       },
     },
     filepath:
@@ -835,98 +998,126 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 425,
+        line: 451,
         column: 10,
+        index: 13338,
       },
       end: {
-        line: 428,
+        line: 454,
         column: 12,
+        index: 13481,
       },
     },
     filepath:
       "src/components/combo_box/combo_box_options_list/combo_box_options_list.tsx",
   },
   {
-    token: "euiControlBar.screenReaderHeading",
-    defString: "Page level controls",
+    token: "euiComboBox.listboxAriaLabel",
+    defString: "Choose from the following options",
     highlighting: "string",
     loc: {
       start: {
-        line: 426,
-        column: 6,
+        line: 791,
+        column: 8,
+        index: 23154,
       },
       end: {
-        line: 429,
-        column: 7,
+        line: 794,
+        column: 9,
+        index: 23273,
       },
     },
-    filepath: "src/components/control_bar/control_bar.tsx",
+    filepath: "src/components/combo_box/combo_box.tsx",
   },
   {
-    token: "euiControlBar.customScreenReaderAnnouncement",
-    defString:
-      "There is a new region landmark called {landmarkHeading} with page level controls at the end of the document.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 464,
-        column: 14,
-      },
-      end: {
-        line: 468,
-        column: 16,
-      },
-    },
-    filepath: "src/components/control_bar/control_bar.tsx",
-  },
-  {
-    token: "euiControlBar.screenReaderAnnouncement",
-    defString:
-      "There is a new region landmark with page level controls at the end of the document.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 470,
-        column: 14,
-      },
-      end: {
-        line: 473,
-        column: 16,
-      },
-    },
-    filepath: "src/components/control_bar/control_bar.tsx",
-  },
-  {
-    token: "euiDataGridCellButtons.expandButtonTitle",
+    token: "euiDataGridCellActions.expandButtonTitle",
     defString: "Click or hit enter to interact with cell content",
     highlighting: "string",
     loc: {
       start: {
-        line: 38,
-        column: 4,
+        line: 49,
+        column: 6,
+        index: 1668,
       },
       end: {
-        line: 42,
-        column: 5,
+        line: 53,
+        column: 7,
+        index: 1831,
       },
     },
-    filepath: "src/components/datagrid/body/data_grid_cell_buttons.tsx",
+    filepath: "src/components/datagrid/body/cell/data_grid_cell_actions.tsx",
   },
   {
     token: "euiDataGridCell.position",
-    defString: "Row: {row}; Column: {col}",
+    defString: "{columnName}, column {columnIndex}, row {rowIndex}",
     highlighting: "string",
     loc: {
       start: {
-        line: 59,
-        column: 25,
+        line: 738,
+        column: 23,
+        index: 23328,
       },
       end: {
-        line: 63,
-        column: 5,
+        line: 742,
+        column: 3,
+        index: 23475,
       },
     },
-    filepath: "src/components/datagrid/body/data_grid_cell.tsx",
+    filepath: "src/components/datagrid/body/cell/data_grid_cell.tsx",
+  },
+  {
+    token: "euiDataGridCell.expansionEnterPrompt",
+    defString: "Press the Enter key to expand this cell.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 743,
+        column: 25,
+        index: 23502,
+      },
+      end: {
+        line: 746,
+        column: 3,
+        index: 23608,
+      },
+    },
+    filepath: "src/components/datagrid/body/cell/data_grid_cell.tsx",
+  },
+  {
+    token: "euiDataGridCell.focusTrapExitPrompt",
+    defString: "Exited cell content.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 187,
+        column: 10,
+        index: 6439,
+      },
+      end: {
+        line: 191,
+        column: 12,
+        index: 6610,
+      },
+    },
+    filepath: "src/components/datagrid/body/cell/focus_utils.tsx",
+  },
+  {
+    token: "euiDataGridCell.focusTrapEnterPrompt",
+    defString: "Press the Enter key to interact with this cell's contents.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 194,
+        column: 10,
+        index: 6661,
+      },
+      end: {
+        line: 198,
+        column: 12,
+        index: 6871,
+      },
+    },
+    filepath: "src/components/datagrid/body/cell/focus_utils.tsx",
   },
   {
     token: "euiColumnActions.hideColumn",
@@ -934,12 +1125,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 105,
+        line: 122,
         column: 6,
+        index: 3246,
       },
       end: {
-        line: 105,
+        line: 122,
         column: 75,
+        index: 3315,
       },
     },
     filepath: "src/components/datagrid/body/header/column_actions.tsx",
@@ -950,12 +1143,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 145,
+        line: 178,
         column: 13,
+        index: 4719,
       },
       end: {
-        line: 145,
+        line: 178,
         column: 78,
+        index: 4784,
       },
     },
     filepath: "src/components/datagrid/body/header/column_actions.tsx",
@@ -966,12 +1161,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 165,
+        line: 199,
         column: 8,
+        index: 5340,
       },
       end: {
-        line: 165,
+        line: 199,
         column: 75,
+        index: 5407,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/column_actions.tsx",
+  },
+  {
+    token: "euiColumnActions.unsort",
+    defString: "Unsort {schemaLabel}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 283,
+        column: 8,
+        index: 7566,
+      },
+      end: {
+        line: 287,
+        column: 10,
+        index: 7710,
       },
     },
     filepath: "src/components/datagrid/body/header/column_actions.tsx",
@@ -982,12 +1197,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 246,
+        line: 289,
         column: 8,
+        index: 7731,
       },
       end: {
-        line: 250,
+        line: 293,
         column: 10,
+        index: 7871,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/column_actions.tsx",
+  },
+  {
+    token: "euiColumnActions.unsort",
+    defString: "Unsort {schemaLabel}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 319,
+        column: 8,
+        index: 8519,
+      },
+      end: {
+        line: 323,
+        column: 10,
+        index: 8663,
       },
     },
     filepath: "src/components/datagrid/body/header/column_actions.tsx",
@@ -998,31 +1233,198 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 277,
+        line: 325,
         column: 8,
+        index: 8684,
       },
       end: {
-        line: 281,
+        line: 329,
         column: 10,
+        index: 8824,
       },
     },
     filepath: "src/components/datagrid/body/header/column_actions.tsx",
   },
   {
-    token: "euiDataGridHeaderCell.headerActions",
-    defString: "Header actions",
+    token: "euiDataGridHeaderCell.actionsButtonAriaLabel",
+    defString: "{title}. Click to view column header actions.",
     highlighting: "string",
     loc: {
       start: {
-        line: 51,
-        column: 32,
+        line: 113,
+        column: 37,
+        index: 3516,
       },
       end: {
-        line: 54,
-        column: 3,
+        line: 117,
+        column: 7,
+        index: 3666,
       },
     },
     filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.actionsEnterKeyInstructions",
+    defString: "Press the Enter key to view this column's actions",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 118,
+        column: 42,
+        index: 3710,
+      },
+      end: {
+        line: 121,
+        column: 7,
+        index: 3850,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.sortedByAscendingSingle",
+    defString: "Sorted ascending",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 304,
+        column: 16,
+        index: 9963,
+      },
+      end: {
+        line: 308,
+        column: 18,
+        index: 10137,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.sortedByDescendingSingle",
+    defString: "Sorted descending",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 312,
+        column: 16,
+        index: 10215,
+      },
+      end: {
+        line: 316,
+        column: 18,
+        index: 10391,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.sortedByAscendingFirst",
+    defString: "Sorted by {columnId}, ascending",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 322,
+        column: 16,
+        index: 10537,
+      },
+      end: {
+        line: 327,
+        column: 18,
+        index: 10765,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.sortedByDescendingFirst",
+    defString: "Sorted by {columnId}, descending",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 331,
+        column: 16,
+        index: 10843,
+      },
+      end: {
+        line: 336,
+        column: 18,
+        index: 11073,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.sortedByAscendingMultiple",
+    defString: ", then sorted by {columnId}, ascending",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 342,
+        column: 16,
+        index: 11202,
+      },
+      end: {
+        line: 347,
+        column: 18,
+        index: 11440,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.sortedByDescendingMultiple",
+    defString: ", then sorted by {columnId}, descending",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 351,
+        column: 16,
+        index: 11518,
+      },
+      end: {
+        line: 356,
+        column: 18,
+        index: 11758,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiDataGridHeaderCell.actionsPopoverScreenReaderText",
+    defString:
+      "To navigate through the list of column actions, press the Tab or Up and Down arrow keys.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 421,
+        column: 6,
+        index: 13604,
+      },
+      end: {
+        line: 424,
+        column: 8,
+        index: 13797,
+      },
+    },
+    filepath: "src/components/datagrid/body/header/data_grid_header_cell.tsx",
+  },
+  {
+    token: "euiColumnSelector.dragHandleAriaLabel",
+    defString: "Drag handle",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 119,
+        column: 30,
+        index: 3691,
+      },
+      end: {
+        line: 122,
+        column: 3,
+        index: 3769,
+      },
+    },
+    filepath: "src/components/datagrid/controls/column_selector.tsx",
   },
   {
     token: "euiColumnSelector.button",
@@ -1030,44 +1432,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 130,
-        column: 4,
+        line: 159,
+        column: 12,
+        index: 4993,
       },
       end: {
-        line: 130,
-        column: 66,
-      },
-    },
-    filepath: "src/components/datagrid/controls/column_selector.tsx",
-  },
-  {
-    token: "euiColumnSelector.buttonActiveSingular",
-    defString: "{numberOfHiddenFields} column hidden",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 135,
-        column: 6,
-      },
-      end: {
-        line: 139,
-        column: 8,
-      },
-    },
-    filepath: "src/components/datagrid/controls/column_selector.tsx",
-  },
-  {
-    token: "euiColumnSelector.buttonActivePlural",
-    defString: "{numberOfHiddenFields} columns hidden",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 143,
-        column: 6,
-      },
-      end: {
-        line: 147,
-        column: 8,
+        line: 159,
+        column: 74,
+        index: 5055,
       },
     },
     filepath: "src/components/datagrid/controls/column_selector.tsx",
@@ -1078,12 +1450,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 175,
+        line: 165,
         column: 12,
+        index: 5201,
       },
       end: {
-        line: 181,
+        line: 171,
         column: 13,
+        index: 5413,
       },
     },
     filepath: "src/components/datagrid/controls/column_selector.tsx",
@@ -1094,12 +1468,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 175,
+        line: 165,
         column: 12,
+        index: 5201,
       },
       end: {
-        line: 181,
+        line: 171,
         column: 13,
+        index: 5413,
       },
     },
     filepath: "src/components/datagrid/controls/column_selector.tsx",
@@ -1110,12 +1486,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 283,
-        column: 16,
+        line: 288,
+        column: 18,
+        index: 10378,
       },
       end: {
-        line: 286,
-        column: 18,
+        line: 291,
+        column: 20,
+        index: 10502,
       },
     },
     filepath: "src/components/datagrid/controls/column_selector.tsx",
@@ -1126,12 +1504,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 296,
-        column: 16,
+        line: 301,
+        column: 18,
+        index: 10862,
       },
       end: {
-        line: 296,
-        column: 80,
+        line: 304,
+        column: 20,
+        index: 10984,
       },
     },
     filepath: "src/components/datagrid/controls/column_selector.tsx",
@@ -1142,12 +1522,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 22,
+        line: 27,
         column: 2,
+        index: 1166,
       },
       end: {
-        line: 22,
+        line: 27,
         column: 76,
+        index: 1240,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting_draggable.tsx",
@@ -1158,12 +1540,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 25,
+        line: 30,
         column: 2,
+        index: 1284,
       },
       end: {
-        line: 25,
+        line: 30,
         column: 77,
+        index: 1359,
+      },
+    },
+    filepath: "src/components/datagrid/controls/column_sorting_draggable.tsx",
+  },
+  {
+    token: "euiColumnSortingDraggable.dragHandleAriaLabel",
+    defString: "Drag handle",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 71,
+        column: 30,
+        index: 2323,
+      },
+      end: {
+        line: 74,
+        column: 3,
+        index: 2409,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting_draggable.tsx",
@@ -1174,12 +1576,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 74,
+        line: 119,
         column: 14,
+        index: 3743,
       },
       end: {
-        line: 78,
+        line: 123,
         column: 15,
+        index: 3932,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting_draggable.tsx",
@@ -1190,12 +1594,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 90,
-        column: 14,
+        line: 129,
+        column: 12,
+        index: 4120,
       },
       end: {
-        line: 94,
-        column: 15,
+        line: 133,
+        column: 13,
+        index: 4302,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting_draggable.tsx",
@@ -1206,12 +1612,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 128,
-        column: 14,
+        line: 177,
+        column: 12,
+        index: 5805,
       },
       end: {
-        line: 132,
-        column: 15,
+        line: 181,
+        column: 13,
+        index: 5983,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting_draggable.tsx",
@@ -1222,60 +1630,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 61,
-        column: 28,
-      },
-      end: {
-        line: 64,
-        column: 3,
-      },
-    },
-    filepath: "src/components/datagrid/controls/column_sorting.tsx",
-  },
-  {
-    token: "euiColumnSorting.buttonActive",
-    defString: "{numberOfSortedFields} fields sorted",
-    highlighting: "code",
-    loc: {
-      start: {
         line: 66,
-        column: 34,
+        column: 30,
+        index: 2120,
       },
       end: {
-        line: 75,
-        column: 3,
-      },
-    },
-    filepath: "src/components/datagrid/controls/column_sorting.tsx",
-  },
-  {
-    token: "euiColumnSorting.emptySorting",
-    defString: "Currently no fields are sorted",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 190,
-        column: 12,
-      },
-      end: {
-        line: 193,
-        column: 14,
-      },
-    },
-    filepath: "src/components/datagrid/controls/column_sorting.tsx",
-  },
-  {
-    token: "euiColumnSorting.pickFields",
-    defString: "Pick fields to sort by",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 223,
-        column: 22,
-      },
-      end: {
-        line: 226,
-        column: 24,
+        line: 69,
+        column: 5,
+        index: 2190,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting.tsx",
@@ -1286,12 +1648,50 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 230,
-        column: 18,
+        line: 70,
+        column: 31,
+        index: 2223,
       },
       end: {
-        line: 233,
-        column: 19,
+        line: 73,
+        column: 5,
+        index: 2303,
+      },
+    },
+    filepath: "src/components/datagrid/controls/column_sorting.tsx",
+  },
+  {
+    token: "euiColumnSorting.emptySorting",
+    defString: "Currently no fields are sorted",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 221,
+        column: 14,
+        index: 6957,
+      },
+      end: {
+        line: 224,
+        column: 16,
+        index: 7093,
+      },
+    },
+    filepath: "src/components/datagrid/controls/column_sorting.tsx",
+  },
+  {
+    token: "euiColumnSorting.pickFields",
+    defString: "Pick fields to sort by",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 254,
+        column: 24,
+        index: 8316,
+      },
+      end: {
+        line: 257,
+        column: 26,
+        index: 8472,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting.tsx",
@@ -1302,319 +1702,755 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 311,
-        column: 18,
+        line: 329,
+        column: 20,
+        index: 11826,
       },
       end: {
-        line: 314,
-        column: 20,
+        line: 332,
+        column: 22,
+        index: 11959,
       },
     },
     filepath: "src/components/datagrid/controls/column_sorting.tsx",
   },
   {
-    token: "euiDataGridToolbar.fullScreenButton",
-    defString: "Full screen",
+    token: "euiDataGridToolbarControl.badgeAriaLabel",
+    defString: "Active: {count}",
     highlighting: "string",
     loc: {
       start: {
-        line: 64,
-        column: 53,
+        line: 26,
+        column: 25,
+        index: 1007,
       },
       end: {
-        line: 70,
+        line: 35,
         column: 3,
+        index: 1237,
       },
     },
-    filepath: "src/components/datagrid/controls/data_grid_toolbar.tsx",
+    filepath: "src/components/datagrid/controls/data_grid_toolbar_control.tsx",
   },
   {
-    token: "euiDataGridToolbar.fullScreenButtonActive",
-    defString: "Exit full screen",
+    token: "euiDisplaySelector.buttonText",
+    defString: "Display options",
     highlighting: "string",
     loc: {
       start: {
-        line: 64,
-        column: 53,
+        line: 228,
+        column: 22,
+        index: 7412,
       },
       end: {
-        line: 70,
+        line: 231,
         column: 3,
+        index: 7486,
       },
     },
-    filepath: "src/components/datagrid/controls/data_grid_toolbar.tsx",
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
   },
   {
-    token: "euiStyleSelector.buttonText",
+    token: "euiDisplaySelector.resetButtonText",
+    defString: "Reset to default",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 232,
+        column: 27,
+        index: 7515,
+      },
+      end: {
+        line: 235,
+        column: 3,
+        index: 7595,
+      },
+    },
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
+  },
+  {
+    token: "euiDisplaySelector.densityLabel",
     defString: "Density",
     highlighting: "string",
     loc: {
       start: {
-        line: 82,
+        line: 272,
         column: 10,
+        index: 8779,
       },
       end: {
-        line: 82,
-        column: 75,
+        line: 280,
+        column: 11,
+        index: 9100,
       },
     },
-    filepath: "src/components/datagrid/controls/style_selector.tsx",
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
   },
   {
-    token: "euiStyleSelector.buttonLegend",
-    defString: "Select the display density for the data grid",
+    token: "euiDisplaySelector.labelCompact",
+    defString: "Compact",
     highlighting: "string",
     loc: {
       start: {
-        line: 86,
-        column: 6,
+        line: 272,
+        column: 10,
+        index: 8779,
       },
       end: {
-        line: 99,
-        column: 7,
+        line: 280,
+        column: 11,
+        index: 9100,
       },
     },
-    filepath: "src/components/datagrid/controls/style_selector.tsx",
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
   },
   {
-    token: "euiStyleSelector.labelExpanded",
-    defString: "Expanded density",
+    token: "euiDisplaySelector.labelNormal",
+    defString: "Normal",
     highlighting: "string",
     loc: {
       start: {
-        line: 86,
-        column: 6,
+        line: 272,
+        column: 10,
+        index: 8779,
       },
       end: {
-        line: 99,
-        column: 7,
+        line: 280,
+        column: 11,
+        index: 9100,
       },
     },
-    filepath: "src/components/datagrid/controls/style_selector.tsx",
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
   },
   {
-    token: "euiStyleSelector.labelNormal",
-    defString: "Normal density",
+    token: "euiDisplaySelector.labelExpanded",
+    defString: "Expanded",
     highlighting: "string",
     loc: {
       start: {
-        line: 86,
-        column: 6,
+        line: 272,
+        column: 10,
+        index: 8779,
       },
       end: {
-        line: 99,
-        column: 7,
+        line: 280,
+        column: 11,
+        index: 9100,
       },
     },
-    filepath: "src/components/datagrid/controls/style_selector.tsx",
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
   },
   {
-    token: "euiStyleSelector.labelCompact",
-    defString: "Compact density",
+    token: "euiDisplaySelector.rowHeightLabel",
+    defString: "Row height",
     highlighting: "string",
     loc: {
       start: {
-        line: 86,
-        column: 6,
+        line: 315,
+        column: 10,
+        index: 10207,
       },
       end: {
-        line: 99,
-        column: 7,
+        line: 330,
+        column: 11,
+        index: 10680,
       },
     },
-    filepath: "src/components/datagrid/controls/style_selector.tsx",
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
   },
   {
-    token: "euiDataGridPagination.detailedPaginationLabel",
-    defString: "Pagination for preceding grid: {label}",
+    token: "euiDisplaySelector.labelSingle",
+    defString: "Single",
     highlighting: "string",
     loc: {
       start: {
-        line: 24,
-        column: 34,
+        line: 315,
+        column: 10,
+        index: 10207,
       },
       end: {
-        line: 28,
+        line: 330,
+        column: 11,
+        index: 10680,
+      },
+    },
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
+  },
+  {
+    token: "euiDisplaySelector.labelAuto",
+    defString: "Auto fit",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 315,
+        column: 10,
+        index: 10207,
+      },
+      end: {
+        line: 330,
+        column: 11,
+        index: 10680,
+      },
+    },
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
+  },
+  {
+    token: "euiDisplaySelector.labelCustom",
+    defString: "Custom",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 315,
+        column: 10,
+        index: 10207,
+      },
+      end: {
+        line: 330,
+        column: 11,
+        index: 10680,
+      },
+    },
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
+  },
+  {
+    token: "euiDisplaySelector.lineCountLabel",
+    defString: "Lines per row",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 315,
+        column: 10,
+        index: 10207,
+      },
+      end: {
+        line: 330,
+        column: 11,
+        index: 10680,
+      },
+    },
+    filepath: "src/components/datagrid/controls/display_selector.tsx",
+  },
+  {
+    token: "euiFullscreenSelector.fullscreenButton",
+    defString: "Enter fullscreen",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 37,
+        column: 53,
+        index: 1202,
+      },
+      end: {
+        line: 43,
         column: 3,
+        index: 1376,
       },
     },
-    filepath: "src/components/datagrid/data_grid_pagination.tsx",
+    filepath: "src/components/datagrid/controls/fullscreen_selector.tsx",
   },
   {
-    token: "euiDataGridPagination.paginationLabel",
-    defString: "Pagination for preceding grid",
+    token: "euiFullscreenSelector.fullscreenButtonActive",
+    defString: "Exit fullscreen",
     highlighting: "string",
     loc: {
       start: {
-        line: 29,
-        column: 26,
+        line: 37,
+        column: 53,
+        index: 1202,
       },
       end: {
-        line: 32,
+        line: 43,
         column: 3,
+        index: 1376,
       },
     },
-    filepath: "src/components/datagrid/data_grid_pagination.tsx",
+    filepath: "src/components/datagrid/controls/fullscreen_selector.tsx",
   },
   {
-    token: "euiDataGridSchema.booleanSortTextAsc",
-    defString: "False-True",
+    token: "euiKeyboardShortcuts.title",
+    defString: "Keyboard shortcuts",
     highlighting: "string",
     loc: {
       start: {
-        line: 52,
-        column: 6,
+        line: 26,
+        column: 16,
+        index: 1033,
       },
       end: {
-        line: 55,
-        column: 8,
+        line: 26,
+        column: 78,
+        index: 1095,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.booleanSortTextDesc",
-    defString: "True-False",
+    token: "euiKeyboardShortcuts.upArrowTitle",
+    defString: "Up arrow",
     highlighting: "string",
     loc: {
       start: {
-        line: 58,
-        column: 6,
+        line: 70,
+        column: 20,
+        index: 2420,
       },
       end: {
-        line: 61,
-        column: 8,
+        line: 73,
+        column: 22,
+        index: 2556,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.currencySortTextAsc",
-    defString: "Low-High",
+    token: "euiKeyboardShortcuts.upArrowDescription",
+    defString: "Move one cell up",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 77,
+        column: 18,
+        index: 2650,
+      },
+      end: {
+        line: 80,
+        column: 20,
+        index: 2794,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.downArrowTitle",
+    defString: "Down arrow",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 86,
+        column: 20,
+        index: 2916,
+      },
+      end: {
+        line: 89,
+        column: 22,
+        index: 3056,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.downArrowDescription",
+    defString: "Move one cell down",
     highlighting: "string",
     loc: {
       start: {
         line: 93,
-        column: 6,
+        column: 18,
+        index: 3150,
       },
       end: {
         line: 96,
-        column: 8,
+        column: 20,
+        index: 3298,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.currencySortTextDesc",
-    defString: "High-Low",
+    token: "euiKeyboardShortcuts.rightArrowTitle",
+    defString: "Right arrow",
     highlighting: "string",
     loc: {
       start: {
-        line: 99,
-        column: 6,
-      },
-      end: {
         line: 102,
-        column: 8,
+        column: 20,
+        index: 3420,
+      },
+      end: {
+        line: 105,
+        column: 22,
+        index: 3562,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.dateSortTextAsc",
-    defString: "Old-New",
+    token: "euiKeyboardShortcuts.rightArrowDescription",
+    defString: "Move one cell right",
     highlighting: "string",
     loc: {
       start: {
-        line: 131,
-        column: 6,
+        line: 109,
+        column: 18,
+        index: 3656,
       },
       end: {
-        line: 131,
-        column: 77,
+        line: 112,
+        column: 20,
+        index: 3806,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.dateSortTextDesc",
-    defString: "New-Old",
+    token: "euiKeyboardShortcuts.leftArrowTitle",
+    defString: "Left arrow",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 118,
+        column: 20,
+        index: 3928,
+      },
+      end: {
+        line: 121,
+        column: 22,
+        index: 4068,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.leftArrowDescription",
+    defString: "Move one cell left",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 125,
+        column: 18,
+        index: 4162,
+      },
+      end: {
+        line: 128,
+        column: 20,
+        index: 4310,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.homeTitle",
+    defString: "Home",
     highlighting: "string",
     loc: {
       start: {
         line: 134,
-        column: 6,
+        column: 20,
+        index: 4432,
       },
       end: {
-        line: 134,
-        column: 78,
+        line: 137,
+        column: 22,
+        index: 4561,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.numberSortTextAsc",
-    defString: "Low-High",
+    token: "euiKeyboardShortcuts.homeDescription",
+    defString: "Move to the first cell of the current row",
     highlighting: "string",
     loc: {
       start: {
-        line: 168,
-        column: 6,
+        line: 141,
+        column: 18,
+        index: 4655,
       },
       end: {
-        line: 168,
-        column: 80,
+        line: 144,
+        column: 20,
+        index: 4821,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.numberSortTextDesc",
-    defString: "High-Low",
+    token: "euiKeyboardShortcuts.endTitle",
+    defString: "End",
     highlighting: "string",
     loc: {
       start: {
-        line: 171,
-        column: 6,
+        line: 150,
+        column: 20,
+        index: 4943,
       },
       end: {
-        line: 174,
-        column: 8,
+        line: 153,
+        column: 22,
+        index: 5070,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.jsonSortTextAsc",
-    defString: "Small-Large",
+    token: "euiKeyboardShortcuts.endDescription",
+    defString: "Move to the last cell of the current row",
     highlighting: "string",
     loc: {
       start: {
-        line: 199,
-        column: 6,
+        line: 157,
+        column: 18,
+        index: 5164,
       },
       end: {
-        line: 202,
-        column: 8,
+        line: 160,
+        column: 20,
+        index: 5328,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
-    token: "euiDataGridSchema.jsonSortTextDesc",
-    defString: "Large-Small",
+    token: "euiKeyboardShortcuts.ctrl",
+    defString: "Ctrl",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 167,
+        column: 22,
+        index: 5475,
+      },
+      end: {
+        line: 170,
+        column: 24,
+        index: 5605,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.homeTitle",
+    defString: "Home",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 173,
+        column: 22,
+        index: 5686,
+      },
+      end: {
+        line: 176,
+        column: 24,
+        index: 5821,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.ctrlHomeDescription",
+    defString: "Move to the first cell of the current page",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 181,
+        column: 18,
+        index: 5939,
+      },
+      end: {
+        line: 184,
+        column: 20,
+        index: 6110,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.ctrl",
+    defString: "Ctrl",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 191,
+        column: 22,
+        index: 6257,
+      },
+      end: {
+        line: 194,
+        column: 24,
+        index: 6387,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.endTitle",
+    defString: "End",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 197,
+        column: 22,
+        index: 6468,
+      },
+      end: {
+        line: 200,
+        column: 24,
+        index: 6601,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.ctrlEndDescription",
+    defString: "Move to the last cell of the current page",
     highlighting: "string",
     loc: {
       start: {
         line: 205,
-        column: 6,
+        column: 18,
+        index: 6719,
       },
       end: {
         line: 208,
-        column: 8,
+        column: 20,
+        index: 6888,
       },
     },
-    filepath: "src/components/datagrid/data_grid_schema.tsx",
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.pageUpTitle",
+    defString: "Page Up",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 214,
+        column: 20,
+        index: 7010,
+      },
+      end: {
+        line: 217,
+        column: 22,
+        index: 7144,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.pageUpDescription",
+    defString: "Go to the last row of the previous page",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 221,
+        column: 18,
+        index: 7238,
+      },
+      end: {
+        line: 224,
+        column: 20,
+        index: 7404,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.pageDownTitle",
+    defString: "Page Down",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 230,
+        column: 20,
+        index: 7526,
+      },
+      end: {
+        line: 233,
+        column: 22,
+        index: 7664,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.pageDownDescription",
+    defString: "Go to the first row of the next page",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 237,
+        column: 18,
+        index: 7758,
+      },
+      end: {
+        line: 240,
+        column: 20,
+        index: 7923,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.enterTitle",
+    defString: "Enter",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 246,
+        column: 20,
+        index: 8045,
+      },
+      end: {
+        line: 249,
+        column: 22,
+        index: 8176,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.enterDescription",
+    defString: "Open cell details and actions",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 253,
+        column: 18,
+        index: 8270,
+      },
+      end: {
+        line: 256,
+        column: 20,
+        index: 8425,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.escapeTitle",
+    defString: "Escape",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 262,
+        column: 20,
+        index: 8547,
+      },
+      end: {
+        line: 265,
+        column: 22,
+        index: 8680,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
+  },
+  {
+    token: "euiKeyboardShortcuts.escapeDescription",
+    defString: "Close cell details and actions",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 269,
+        column: 18,
+        index: 8774,
+      },
+      end: {
+        line: 272,
+        column: 20,
+        index: 8931,
+      },
+    },
+    filepath: "src/components/datagrid/controls/keyboard_shortcuts.tsx",
   },
   {
     token: "euiDataGrid.ariaLabel",
@@ -1622,12 +2458,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 761,
-        column: 20,
+        line: 384,
+        column: 22,
+        index: 10442,
       },
       end: {
-        line: 771,
-        column: 3,
+        line: 388,
+        column: 5,
+        index: 10614,
       },
     },
     filepath: "src/components/datagrid/data_grid.tsx",
@@ -1638,12 +2476,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 773,
-        column: 25,
+        line: 389,
+        column: 27,
+        index: 10643,
       },
       end: {
-        line: 782,
-        column: 3,
+        line: 393,
+        column: 5,
+        index: 10784,
       },
     },
     filepath: "src/components/datagrid/data_grid.tsx",
@@ -1654,15 +2494,433 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 913,
+        line: 549,
         column: 18,
+        index: 17131,
       },
       end: {
-        line: 916,
+        line: 552,
         column: 20,
+        index: 17284,
       },
     },
     filepath: "src/components/datagrid/data_grid.tsx",
+  },
+  {
+    token: "euiDataGridPagination.detailedPaginationLabel",
+    defString: "Pagination for preceding grid: {label}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 51,
+        column: 34,
+        index: 1785,
+      },
+      end: {
+        line: 55,
+        column: 3,
+        index: 1930,
+      },
+    },
+    filepath: "src/components/datagrid/pagination/data_grid_pagination.tsx",
+  },
+  {
+    token: "euiDataGridPagination.paginationLabel",
+    defString: "Pagination for preceding grid",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 56,
+        column: 26,
+        index: 1958,
+      },
+      end: {
+        line: 59,
+        column: 3,
+        index: 2054,
+      },
+    },
+    filepath: "src/components/datagrid/pagination/data_grid_pagination.tsx",
+  },
+  {
+    token: "euiDataGridSchema.booleanSortTextAsc",
+    defString: "False-True",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 56,
+        column: 6,
+        index: 1386,
+      },
+      end: {
+        line: 59,
+        column: 8,
+        index: 1485,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.booleanSortTextDesc",
+    defString: "True-False",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 62,
+        column: 6,
+        index: 1519,
+      },
+      end: {
+        line: 65,
+        column: 8,
+        index: 1619,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.currencySortTextAsc",
+    defString: "Low-High",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 97,
+        column: 6,
+        index: 2704,
+      },
+      end: {
+        line: 100,
+        column: 8,
+        index: 2802,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.currencySortTextDesc",
+    defString: "High-Low",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 103,
+        column: 6,
+        index: 2836,
+      },
+      end: {
+        line: 106,
+        column: 8,
+        index: 2935,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.dateSortTextAsc",
+    defString: "Old-New",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 135,
+        column: 6,
+        index: 3889,
+      },
+      end: {
+        line: 135,
+        column: 77,
+        index: 3960,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.dateSortTextDesc",
+    defString: "New-Old",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 138,
+        column: 6,
+        index: 3994,
+      },
+      end: {
+        line: 138,
+        column: 78,
+        index: 4066,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.numberSortTextAsc",
+    defString: "Low-High",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 172,
+        column: 6,
+        index: 5163,
+      },
+      end: {
+        line: 172,
+        column: 80,
+        index: 5237,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.numberSortTextDesc",
+    defString: "High-Low",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 175,
+        column: 6,
+        index: 5271,
+      },
+      end: {
+        line: 178,
+        column: 8,
+        index: 5368,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.jsonSortTextAsc",
+    defString: "Small-Large",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 203,
+        column: 6,
+        index: 6054,
+      },
+      end: {
+        line: 206,
+        column: 8,
+        index: 6151,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiDataGridSchema.jsonSortTextDesc",
+    defString: "Large-Small",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 209,
+        column: 6,
+        index: 6185,
+      },
+      end: {
+        line: 212,
+        column: 8,
+        index: 6283,
+      },
+    },
+    filepath: "src/components/datagrid/utils/data_grid_schema.tsx",
+  },
+  {
+    token: "euiAutoRefresh.autoRefreshLabel",
+    defString: "Auto refresh",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 50,
+        column: 26,
+        index: 1659,
+      },
+      end: {
+        line: 53,
+        column: 3,
+        index: 1732,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/auto_refresh.tsx",
+  },
+  {
+    token: "euiAutoRefresh.buttonLabelOff",
+    defString: "Auto refresh is off",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 129,
+        column: 29,
+        index: 3709,
+      },
+      end: {
+        line: 132,
+        column: 3,
+        index: 3787,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/auto_refresh.tsx",
+  },
+  {
+    token: "euiAutoRefresh.buttonLabelOn",
+    defString: "Auto refresh is on and set to {prettyInterval}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 133,
+        column: 28,
+        index: 3817,
+      },
+      end: {
+        line: 141,
+        column: 3,
+        index: 4051,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/auto_refresh.tsx",
+  },
+  {
+    token: "euiRefreshInterval.fullDescriptionOff",
+    defString: "Refresh is off, interval set to {optionValue} {optionText}.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 221,
+        column: 6,
+        index: 5894,
+      },
+      end: {
+        line: 228,
+        column: 8,
+        index: 6124,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/refresh_interval.tsx",
+  },
+  {
+    token: "euiRefreshInterval.fullDescriptionOn",
+    defString: "Refresh is on, interval set to {optionValue} {optionText}.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 230,
+        column: 6,
+        index: 6141,
+      },
+      end: {
+        line: 237,
+        column: 8,
+        index: 6369,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/refresh_interval.tsx",
+  },
+  {
+    token: "euiRefreshInterval.toggleLabel",
+    defString: "Refresh every",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 252,
+        column: 6,
+        index: 6639,
+      },
+      end: {
+        line: 265,
+        column: 7,
+        index: 7028,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/refresh_interval.tsx",
+  },
+  {
+    token: "euiRefreshInterval.toggleAriaLabel",
+    defString: "Toggle refresh",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 252,
+        column: 6,
+        index: 6639,
+      },
+      end: {
+        line: 265,
+        column: 7,
+        index: 7028,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/refresh_interval.tsx",
+  },
+  {
+    token: "euiRefreshInterval.valueAriaLabel",
+    defString: "Refresh interval value",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 252,
+        column: 6,
+        index: 6639,
+      },
+      end: {
+        line: 265,
+        column: 7,
+        index: 7028,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/refresh_interval.tsx",
+  },
+  {
+    token: "euiRefreshInterval.unitsAriaLabel",
+    defString: "Refresh interval units",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 252,
+        column: 6,
+        index: 6639,
+      },
+      end: {
+        line: 265,
+        column: 7,
+        index: 7028,
+      },
+    },
+    filepath: "src/components/date_picker/auto_refresh/refresh_interval.tsx",
+  },
+  {
+    token: "euiAbsoluteTab.dateFormatButtonLabel",
+    defString: "Parse date",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 79,
+        column: 28,
+        index: 2489,
+      },
+      end: {
+        line: 82,
+        column: 3,
+        index: 2565,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/absolute_tab.tsx",
+  },
+  {
+    token: "euiAbsoluteTab.dateFormatError",
+    defString: "Allowed formats: {dateFormat}, ISO 8601, RFC 2822, or Unix timestamp.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 83,
+        column: 26,
+        index: 2593,
+      },
+      end: {
+        line: 87,
+        column: 3,
+        index: 2775,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/absolute_tab.tsx",
   },
   {
     token: "euiDatePopoverButton.invalidTitle",
@@ -1670,12 +2928,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 81,
+        line: 100,
         column: 23,
+        index: 2832,
       },
       end: {
-        line: 85,
+        line: 104,
         column: 3,
+        index: 2931,
       },
     },
     filepath:
@@ -1687,33 +2947,171 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 86,
+        line: 105,
         column: 24,
+        index: 2957,
       },
       end: {
-        line: 90,
+        line: 109,
         column: 3,
+        index: 3058,
       },
     },
     filepath:
       "src/components/date_picker/super_date_picker/date_popover/date_popover_button.tsx",
   },
   {
-    token: "euiRelativeTab.numberInputError",
-    defString: "Must be >= 0",
+    token: "euiDatePopoverContent.startDateLabel",
+    defString: "Start date",
     highlighting: "string",
     loc: {
       start: {
-        line: 141,
-        column: 12,
+        line: 70,
+        column: 25,
+        index: 2070,
       },
       end: {
-        line: 152,
-        column: 13,
+        line: 73,
+        column: 3,
+        index: 2146,
       },
     },
     filepath:
-      "src/components/date_picker/super_date_picker/date_popover/relative_tab.tsx",
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.endDateLabel",
+    defString: "End date",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 74,
+        column: 23,
+        index: 2171,
+      },
+      end: {
+        line: 77,
+        column: 3,
+        index: 2243,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.absoluteTabLabel",
+    defString: "Absolute",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 80,
+        column: 24,
+        index: 2346,
+      },
+      end: {
+        line: 83,
+        column: 3,
+        index: 2422,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.relativeTabLabel",
+    defString: "Relative",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 84,
+        column: 24,
+        index: 2448,
+      },
+      end: {
+        line: 87,
+        column: 3,
+        index: 2524,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.nowTabLabel",
+    defString: "Now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 88,
+        column: 19,
+        index: 2545,
+      },
+      end: {
+        line: 88,
+        column: 73,
+        index: 2599,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.nowTabContent",
+    defString:
+      'Setting the time to "now" means that on every refresh this time will be set to the time of the refresh.',
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 134,
+        column: 12,
+        index: 3817,
+      },
+      end: {
+        line: 137,
+        column: 14,
+        index: 4026,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.nowTabButtonStart",
+    defString: "Set start date and time to now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 149,
+        column: 14,
+        index: 4316,
+      },
+      end: {
+        line: 152,
+        column: 16,
+        index: 4462,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
+  },
+  {
+    token: "euiDatePopoverContent.nowTabButtonEnd",
+    defString: "Set end date and time to now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 154,
+        column: 14,
+        index: 4495,
+      },
+      end: {
+        line: 157,
+        column: 16,
+        index: 4637,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/date_popover_content.tsx",
   },
   {
     token: "euiRelativeTab.numberInputLabel",
@@ -1721,12 +3119,33 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 141,
-        column: 12,
+        line: 118,
+        column: 26,
+        index: 3640,
       },
       end: {
-        line: 152,
-        column: 13,
+        line: 121,
+        column: 3,
+        index: 3717,
+      },
+    },
+    filepath:
+      "src/components/date_picker/super_date_picker/date_popover/relative_tab.tsx",
+  },
+  {
+    token: "euiRelativeTab.numberInputError",
+    defString: "Must be >= 0",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 122,
+        column: 27,
+        index: 3746,
+      },
+      end: {
+        line: 125,
+        column: 3,
+        index: 3819,
       },
     },
     filepath:
@@ -1738,12 +3157,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 141,
-        column: 12,
+        line: 126,
+        column: 25,
+        index: 3846,
       },
       end: {
-        line: 152,
-        column: 13,
+        line: 129,
+        column: 3,
+        index: 3926,
       },
     },
     filepath:
@@ -1755,46 +3176,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 176,
-        column: 12,
+        line: 130,
+        column: 30,
+        index: 3958,
       },
       end: {
-        line: 179,
-        column: 13,
-      },
-    },
-    filepath:
-      "src/components/date_picker/super_date_picker/date_popover/relative_tab.tsx",
-  },
-  {
-    token: "euiRelativeTab.roundingLabel",
-    defString: "Round to the {unit}",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 196,
-        column: 8,
-      },
-      end: {
-        line: 200,
-        column: 9,
-      },
-    },
-    filepath:
-      "src/components/date_picker/super_date_picker/date_popover/relative_tab.tsx",
-  },
-  {
-    token: "euiRelativeTab.relativeDate",
-    defString: "{position} date",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 218,
-        column: 14,
-      },
-      end: {
-        line: 222,
-        column: 16,
+        line: 133,
+        column: 3,
+        index: 4035,
       },
     },
     filepath:
@@ -1806,16 +3195,626 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 228,
+        line: 181,
         column: 12,
+        index: 5535,
       },
       end: {
-        line: 232,
+        line: 185,
         column: 14,
+        index: 5716,
       },
     },
     filepath:
       "src/components/date_picker/super_date_picker/date_popover/relative_tab.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationSeconds",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} second${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 30,
+        column: 5,
+        index: 1062,
+      },
+      end: {
+        line: 34,
+        column: 3,
+        index: 1216,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nextDurationSeconds",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} second${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 35,
+        column: 8,
+        index: 1226,
+      },
+      end: {
+        line: 39,
+        column: 3,
+        index: 1380,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationMinutes",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} minute${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 40,
+        column: 5,
+        index: 1387,
+      },
+      end: {
+        line: 44,
+        column: 3,
+        index: 1541,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nextDurationMinutes",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} minute${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 45,
+        column: 8,
+        index: 1551,
+      },
+      end: {
+        line: 49,
+        column: 3,
+        index: 1705,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationHours",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} hour${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 50,
+        column: 5,
+        index: 1712,
+      },
+      end: {
+        line: 54,
+        column: 3,
+        index: 1862,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nextDurationHours",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} hour${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 55,
+        column: 8,
+        index: 1872,
+      },
+      end: {
+        line: 59,
+        column: 3,
+        index: 2022,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationDays",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} day${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 60,
+        column: 5,
+        index: 2029,
+      },
+      end: {
+        line: 64,
+        column: 3,
+        index: 2177,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nexttDurationDays",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} day${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 65,
+        column: 8,
+        index: 2187,
+      },
+      end: {
+        line: 69,
+        column: 3,
+        index: 2336,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationWeeks",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} week${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 70,
+        column: 5,
+        index: 2343,
+      },
+      end: {
+        line: 74,
+        column: 3,
+        index: 2493,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nextDurationWeeks",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} week${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 75,
+        column: 8,
+        index: 2503,
+      },
+      end: {
+        line: 79,
+        column: 3,
+        index: 2653,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationMonths",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} month${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 80,
+        column: 5,
+        index: 2660,
+      },
+      end: {
+        line: 84,
+        column: 3,
+        index: 2812,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nextDurationMonths",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} month${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 85,
+        column: 8,
+        index: 2822,
+      },
+      end: {
+        line: 89,
+        column: 3,
+        index: 2974,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.lastDurationYears",
+    defString:
+      "({\n  duration\n}) => `Last ${duration} year${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 90,
+        column: 5,
+        index: 2981,
+      },
+      end: {
+        line: 94,
+        column: 3,
+        index: 3131,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.nextDurationYears",
+    defString:
+      "({\n  duration\n}) => `Next ${duration} year${duration === 1 ? '' : 's'}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 95,
+        column: 8,
+        index: 3141,
+      },
+      end: {
+        line: 99,
+        column: 3,
+        index: 3291,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToSecond",
+    defString: "{prettyDuration} rounded to the second",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 103,
+        column: 5,
+        index: 3373,
+      },
+      end: {
+        line: 107,
+        column: 3,
+        index: 3506,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToMinute",
+    defString: "{prettyDuration} rounded to the minute",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 108,
+        column: 5,
+        index: 3513,
+      },
+      end: {
+        line: 112,
+        column: 3,
+        index: 3646,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToHour",
+    defString: "{prettyDuration} rounded to the hour",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 113,
+        column: 5,
+        index: 3653,
+      },
+      end: {
+        line: 117,
+        column: 3,
+        index: 3782,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToDay",
+    defString: "{prettyDuration} rounded to the day",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 118,
+        column: 5,
+        index: 3789,
+      },
+      end: {
+        line: 122,
+        column: 3,
+        index: 3916,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToWeek",
+    defString: "{prettyDuration} rounded to the week",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 123,
+        column: 5,
+        index: 3923,
+      },
+      end: {
+        line: 127,
+        column: 3,
+        index: 4052,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToMonth",
+    defString: "{prettyDuration} rounded to the month",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 128,
+        column: 5,
+        index: 4059,
+      },
+      end: {
+        line: 132,
+        column: 3,
+        index: 4190,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.durationRoundedToYear",
+    defString: "{prettyDuration} rounded to the year",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 133,
+        column: 5,
+        index: 4197,
+      },
+      end: {
+        line: 137,
+        column: 3,
+        index: 4326,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.now",
+    defString: "now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 162,
+        column: 21,
+        index: 4777,
+      },
+      end: {
+        line: 162,
+        column: 63,
+        index: 4819,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.invalid",
+    defString: "Invalid date",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 163,
+        column: 29,
+        index: 4850,
+      },
+      end: {
+        line: 166,
+        column: 3,
+        index: 4917,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyDuration.fallbackDuration",
+    defString: "{displayFrom} to {displayTo}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 279,
+        column: 27,
+        index: 8250,
+      },
+      end: {
+        line: 283,
+        column: 3,
+        index: 8374,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_duration.tsx",
+  },
+  {
+    token: "euiPrettyInterval.seconds",
+    defString: "({\n  interval\n}) => `${interval} second${interval > 1 ? 's' : ''}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 33,
+        column: 5,
+        index: 854,
+      },
+      end: {
+        line: 37,
+        column: 3,
+        index: 989,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.minutes",
+    defString: "({\n  interval\n}) => `${interval} minute${interval > 1 ? 's' : ''}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 38,
+        column: 5,
+        index: 996,
+      },
+      end: {
+        line: 42,
+        column: 3,
+        index: 1131,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.hours",
+    defString: "({\n  interval\n}) => `${interval} hour${interval > 1 ? 's' : ''}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 43,
+        column: 5,
+        index: 1138,
+      },
+      end: {
+        line: 47,
+        column: 3,
+        index: 1269,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.days",
+    defString: "({\n  interval\n}) => `${interval} day${interval > 1 ? 's' : ''}`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 48,
+        column: 5,
+        index: 1276,
+      },
+      end: {
+        line: 52,
+        column: 3,
+        index: 1405,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.secondsShorthand",
+    defString: "{interval} s",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 54,
+        column: 7,
+        index: 1429,
+      },
+      end: {
+        line: 56,
+        column: 6,
+        index: 1518,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.minutesShorthand",
+    defString: "{interval} m",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 57,
+        column: 7,
+        index: 1527,
+      },
+      end: {
+        line: 59,
+        column: 6,
+        index: 1616,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.hoursShorthand",
+    defString: "{interval} h",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 60,
+        column: 7,
+        index: 1625,
+      },
+      end: {
+        line: 62,
+        column: 6,
+        index: 1712,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.daysShorthand",
+    defString: "{interval} d",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 63,
+        column: 7,
+        index: 1721,
+      },
+      end: {
+        line: 65,
+        column: 6,
+        index: 1807,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
+  },
+  {
+    token: "euiPrettyInterval.off",
+    defString: "Off",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 103,
+        column: 14,
+        index: 2870,
+      },
+      end: {
+        line: 103,
+        column: 56,
+        index: 2912,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/pretty_interval.ts",
   },
   {
     token: "euiCommonlyUsedTimeRanges.legend",
@@ -1823,33 +3822,37 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 52,
-        column: 10,
+        line: 27,
+        column: 16,
+        index: 995,
       },
       end: {
-        line: 55,
-        column: 12,
+        line: 27,
+        column: 79,
+        index: 1058,
       },
     },
     filepath:
       "src/components/date_picker/super_date_picker/quick_select_popover/commonly_used_time_ranges.tsx",
   },
   {
-    token: "euiQuickSelect.legendText",
-    defString: "Quick select a time range",
+    token: "euiQuickSelectPopover.buttonLabel",
+    defString: "Date quick select",
     highlighting: "string",
     loc: {
       start: {
-        line: 172,
-        column: 8,
+        line: 90,
+        column: 22,
+        index: 2948,
       },
       end: {
-        line: 175,
-        column: 9,
+        line: 93,
+        column: 3,
+        index: 3028,
       },
     },
     filepath:
-      "src/components/date_picker/super_date_picker/quick_select_popover/quick_select.tsx",
+      "src/components/date_picker/super_date_picker/quick_select_popover/quick_select_popover.tsx",
   },
   {
     token: "euiQuickSelect.quickSelectTitle",
@@ -1857,12 +3860,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 193,
-        column: 12,
+        line: 166,
+        column: 10,
+        index: 4766,
       },
       end: {
-        line: 196,
-        column: 13,
+        line: 169,
+        column: 12,
+        index: 4874,
       },
     },
     filepath:
@@ -1874,12 +3879,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 207,
-        column: 16,
+        line: 188,
+        column: 12,
+        index: 5456,
       },
       end: {
-        line: 210,
-        column: 17,
+        line: 191,
+        column: 13,
+        index: 5574,
       },
     },
     filepath:
@@ -1891,12 +3898,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 223,
-        column: 16,
+        line: 204,
+        column: 12,
+        index: 6006,
       },
       end: {
-        line: 226,
-        column: 17,
+        line: 207,
+        column: 13,
+        index: 6116,
       },
     },
     filepath:
@@ -1908,12 +3917,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 244,
+        line: 222,
         column: 12,
+        index: 6604,
       },
       end: {
-        line: 244,
+        line: 222,
         column: 76,
+        index: 6668,
       },
     },
     filepath:
@@ -1925,12 +3936,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 259,
+        line: 237,
         column: 12,
+        index: 7190,
       },
       end: {
-        line: 259,
+        line: 237,
         column: 76,
+        index: 7254,
       },
     },
     filepath:
@@ -1942,12 +3955,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 273,
+        line: 251,
         column: 12,
+        index: 7736,
       },
       end: {
-        line: 273,
+        line: 251,
         column: 74,
+        index: 7798,
       },
     },
     filepath:
@@ -1959,12 +3974,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 295,
+        line: 274,
         column: 14,
+        index: 8681,
       },
       end: {
-        line: 295,
+        line: 274,
         column: 76,
+        index: 8743,
       },
     },
     filepath:
@@ -1976,12 +3993,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 302,
+        line: 280,
         column: 12,
+        index: 8900,
       },
       end: {
-        line: 310,
+        line: 288,
         column: 14,
+        index: 9174,
       },
     },
     filepath:
@@ -1993,116 +4012,18 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 58,
-        column: 10,
+        line: 33,
+        column: 16,
+        index: 1123,
       },
       end: {
-        line: 61,
-        column: 12,
+        line: 36,
+        column: 3,
+        index: 1200,
       },
     },
     filepath:
       "src/components/date_picker/super_date_picker/quick_select_popover/recently_used.tsx",
-  },
-  {
-    token: "euiRefreshInterval.legend",
-    defString: "Refresh every",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 179,
-        column: 12,
-      },
-      end: {
-        line: 182,
-        column: 14,
-      },
-    },
-    filepath:
-      "src/components/date_picker/super_date_picker/quick_select_popover/refresh_interval.tsx",
-  },
-  {
-    token: "euiRefreshInterval.start",
-    defString: "Start",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 221,
-        column: 16,
-      },
-      end: {
-        line: 221,
-        column: 76,
-      },
-    },
-    filepath:
-      "src/components/date_picker/super_date_picker/quick_select_popover/refresh_interval.tsx",
-  },
-  {
-    token: "euiRefreshInterval.stop",
-    defString: "Stop",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 223,
-        column: 16,
-      },
-      end: {
-        line: 223,
-        column: 74,
-      },
-    },
-    filepath:
-      "src/components/date_picker/super_date_picker/quick_select_popover/refresh_interval.tsx",
-  },
-  {
-    token: "euiRefreshInterval.fullDescription",
-    defString: "Refresh interval currently set to {optionValue} {optionText}.",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 230,
-        column: 12,
-      },
-      end: {
-        line: 237,
-        column: 14,
-      },
-    },
-    filepath:
-      "src/components/date_picker/super_date_picker/quick_select_popover/refresh_interval.tsx",
-  },
-  {
-    token: "euiSuperDatePicker.showDatesButtonLabel",
-    defString: "Show dates",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 410,
-        column: 14,
-      },
-      end: {
-        line: 413,
-        column: 16,
-      },
-    },
-    filepath: "src/components/date_picker/super_date_picker/super_date_picker.tsx",
-  },
-  {
-    token: "euiSuperUpdateButton.refreshButtonLabel",
-    defString: "Refresh",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 105,
-        column: 6,
-      },
-      end: {
-        line: 108,
-        column: 8,
-      },
-    },
-    filepath: "src/components/date_picker/super_date_picker/super_update_button.tsx",
   },
   {
     token: "euiSuperUpdateButton.updatingButtonLabel",
@@ -2110,12 +4031,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 112,
+        line: 204,
         column: 8,
+        index: 5158,
       },
       end: {
-        line: 115,
+        line: 207,
         column: 10,
+        index: 5265,
       },
     },
     filepath: "src/components/date_picker/super_date_picker/super_update_button.tsx",
@@ -2126,12 +4049,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 117,
+        line: 213,
         column: 8,
+        index: 5328,
       },
       end: {
-        line: 120,
+        line: 216,
         column: 10,
+        index: 5431,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/super_update_button.tsx",
+  },
+  {
+    token: "euiSuperUpdateButton.refreshButtonLabel",
+    defString: "Refresh",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 221,
+        column: 6,
+        index: 5467,
+      },
+      end: {
+        line: 224,
+        column: 8,
+        index: 5566,
       },
     },
     filepath: "src/components/date_picker/super_date_picker/super_update_button.tsx",
@@ -2142,12 +4085,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 127,
+        line: 231,
         column: 8,
+        index: 5681,
       },
       end: {
-        line: 130,
+        line: 234,
         column: 10,
+        index: 5793,
       },
     },
     filepath: "src/components/date_picker/super_date_picker/super_update_button.tsx",
@@ -2158,15 +4103,719 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 134,
+        line: 240,
         column: 8,
+        index: 5892,
       },
       end: {
-        line: 137,
+        line: 243,
         column: 10,
+        index: 6005,
       },
     },
     filepath: "src/components/date_picker/super_date_picker/super_update_button.tsx",
+  },
+  {
+    token: "euiTimeOptions.last",
+    defString: "Last",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 35,
+        column: 25,
+        index: 1138,
+      },
+      end: {
+        line: 35,
+        column: 66,
+        index: 1179,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.next",
+    defString: "Next",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 36,
+        column: 25,
+        index: 1208,
+      },
+      end: {
+        line: 36,
+        column: 66,
+        index: 1249,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.seconds",
+    defString: "Seconds",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 40,
+        column: 24,
+        index: 1312,
+      },
+      end: {
+        line: 40,
+        column: 71,
+        index: 1359,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.minutes",
+    defString: "Minutes",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 41,
+        column: 24,
+        index: 1387,
+      },
+      end: {
+        line: 41,
+        column: 71,
+        index: 1434,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.hours",
+    defString: "Hours",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 42,
+        column: 24,
+        index: 1462,
+      },
+      end: {
+        line: 42,
+        column: 67,
+        index: 1505,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.days",
+    defString: "Days",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 43,
+        column: 24,
+        index: 1533,
+      },
+      end: {
+        line: 43,
+        column: 65,
+        index: 1574,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.weeks",
+    defString: "Weeks",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 44,
+        column: 24,
+        index: 1602,
+      },
+      end: {
+        line: 44,
+        column: 67,
+        index: 1645,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.months",
+    defString: "Months",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 45,
+        column: 24,
+        index: 1673,
+      },
+      end: {
+        line: 45,
+        column: 69,
+        index: 1718,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.years",
+    defString: "Years",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 46,
+        column: 24,
+        index: 1746,
+      },
+      end: {
+        line: 46,
+        column: 67,
+        index: 1789,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.secondsAgo",
+    defString: "Seconds ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 54,
+        column: 12,
+        index: 1893,
+      },
+      end: {
+        line: 54,
+        column: 66,
+        index: 1947,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.minutesAgo",
+    defString: "Minutes ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 58,
+        column: 12,
+        index: 1992,
+      },
+      end: {
+        line: 58,
+        column: 66,
+        index: 2046,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.hoursAgo",
+    defString: "Hours ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 62,
+        column: 12,
+        index: 2091,
+      },
+      end: {
+        line: 62,
+        column: 62,
+        index: 2141,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.daysAgo",
+    defString: "Days ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 66,
+        column: 12,
+        index: 2186,
+      },
+      end: {
+        line: 66,
+        column: 60,
+        index: 2234,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.weeksAgo",
+    defString: "Weeks ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 70,
+        column: 12,
+        index: 2279,
+      },
+      end: {
+        line: 70,
+        column: 62,
+        index: 2329,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.monthsAgo",
+    defString: "Months ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 74,
+        column: 12,
+        index: 2374,
+      },
+      end: {
+        line: 74,
+        column: 64,
+        index: 2426,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.yearsAgo",
+    defString: "Years ago",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 78,
+        column: 12,
+        index: 2471,
+      },
+      end: {
+        line: 78,
+        column: 62,
+        index: 2521,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.secondsFromNow",
+    defString: "Seconds from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 82,
+        column: 12,
+        index: 2566,
+      },
+      end: {
+        line: 82,
+        column: 75,
+        index: 2629,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.minutesFromNow",
+    defString: "Minutes from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 86,
+        column: 12,
+        index: 2675,
+      },
+      end: {
+        line: 86,
+        column: 75,
+        index: 2738,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.hoursFromNow",
+    defString: "Hours from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 90,
+        column: 12,
+        index: 2784,
+      },
+      end: {
+        line: 90,
+        column: 71,
+        index: 2843,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.daysFromNow",
+    defString: "Days from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 94,
+        column: 12,
+        index: 2889,
+      },
+      end: {
+        line: 94,
+        column: 69,
+        index: 2946,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.weeksFromNow",
+    defString: "Weeks from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 98,
+        column: 12,
+        index: 2992,
+      },
+      end: {
+        line: 98,
+        column: 71,
+        index: 3051,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.monthsFromNow",
+    defString: "Months from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 102,
+        column: 12,
+        index: 3097,
+      },
+      end: {
+        line: 102,
+        column: 73,
+        index: 3158,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.yearsFromNow",
+    defString: "Years from now",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 106,
+        column: 12,
+        index: 3204,
+      },
+      end: {
+        line: 106,
+        column: 71,
+        index: 3263,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToSecond",
+    defString: "Round to the second",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 112,
+        column: 7,
+        index: 3339,
+      },
+      end: {
+        line: 112,
+        column: 72,
+        index: 3404,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToMinute",
+    defString: "Round to the minute",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 113,
+        column: 7,
+        index: 3413,
+      },
+      end: {
+        line: 113,
+        column: 72,
+        index: 3478,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToHour",
+    defString: "Round to the hour",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 114,
+        column: 7,
+        index: 3487,
+      },
+      end: {
+        line: 114,
+        column: 68,
+        index: 3548,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToDay",
+    defString: "Round to the day",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 115,
+        column: 7,
+        index: 3557,
+      },
+      end: {
+        line: 115,
+        column: 66,
+        index: 3616,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToWeek",
+    defString: "Round to the week",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 116,
+        column: 7,
+        index: 3625,
+      },
+      end: {
+        line: 116,
+        column: 68,
+        index: 3686,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToMonth",
+    defString: "Round to the month",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 117,
+        column: 7,
+        index: 3695,
+      },
+      end: {
+        line: 117,
+        column: 70,
+        index: 3758,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.roundToYear",
+    defString: "Round to the year",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 118,
+        column: 7,
+        index: 3767,
+      },
+      end: {
+        line: 118,
+        column: 68,
+        index: 3828,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.today",
+    defString: "Today",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 135,
+        column: 13,
+        index: 4171,
+      },
+      end: {
+        line: 135,
+        column: 56,
+        index: 4214,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.thisWeek",
+    defString: "This week",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 140,
+        column: 13,
+        index: 4284,
+      },
+      end: {
+        line: 140,
+        column: 63,
+        index: 4334,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.thisMonth",
+    defString: "This month",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 145,
+        column: 13,
+        index: 4404,
+      },
+      end: {
+        line: 145,
+        column: 65,
+        index: 4456,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.thisYear",
+    defString: "This year",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 150,
+        column: 13,
+        index: 4526,
+      },
+      end: {
+        line: 150,
+        column: 63,
+        index: 4576,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.yesterday",
+    defString: "Yesterday",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 155,
+        column: 13,
+        index: 4652,
+      },
+      end: {
+        line: 155,
+        column: 64,
+        index: 4703,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.weekToDate",
+    defString: "Week to date",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 160,
+        column: 13,
+        index: 4771,
+      },
+      end: {
+        line: 160,
+        column: 68,
+        index: 4826,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.monthToDate",
+    defString: "Month to date",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 165,
+        column: 13,
+        index: 4894,
+      },
+      end: {
+        line: 165,
+        column: 70,
+        index: 4951,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiTimeOptions.yearToDate",
+    defString: "Year to date",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 170,
+        column: 13,
+        index: 5019,
+      },
+      end: {
+        line: 170,
+        column: 68,
+        index: 5074,
+      },
+    },
+    filepath: "src/components/date_picker/super_date_picker/time_options.tsx",
+  },
+  {
+    token: "euiErrorBoundary.error",
+    defString: "Error",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 110,
+        column: 12,
+        index: 3054,
+      },
+      end: {
+        line: 110,
+        column: 70,
+        index: 3112,
+      },
+    },
+    filepath: "src/components/error_boundary/error_boundary.tsx",
   },
   {
     token: "euiFilterButton.filterBadgeActiveAriaLabel",
@@ -2174,12 +4823,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 97,
+        line: 111,
         column: 27,
+        index: 3220,
       },
       end: {
-        line: 101,
+        line: 115,
         column: 3,
+        index: 3341,
       },
     },
     filepath: "src/components/filter_group/filter_button.tsx",
@@ -2190,28 +4841,88 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 102,
+        line: 116,
         column: 30,
+        index: 3373,
       },
       end: {
-        line: 106,
+        line: 120,
         column: 3,
+        index: 3500,
       },
     },
     filepath: "src/components/filter_group/filter_button.tsx",
   },
   {
-    token: "euiFlyout.closeAriaLabel",
+    token: "euiFlyoutCloseButton.ariaLabel",
     defString: "Close this dialog",
     highlighting: "string",
     loc: {
       start: {
-        line: 323,
-        column: 8,
+        line: 34,
+        column: 20,
+        index: 1345,
       },
       end: {
-        line: 323,
-        column: 78,
+        line: 37,
+        column: 3,
+        index: 1422,
+      },
+    },
+    filepath: "src/components/flyout/_flyout_close_button.tsx",
+  },
+  {
+    token: "euiFlyout.screenReaderModalDialog",
+    defString:
+      "You are in a modal dialog. Press Escape or tap/click outside the dialog on the shadowed overlay to close.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 336,
+        column: 14,
+        index: 10903,
+      },
+      end: {
+        line: 339,
+        column: 16,
+        index: 11118,
+      },
+    },
+    filepath: "src/components/flyout/flyout.tsx",
+  },
+  {
+    token: "euiFlyout.screenReaderNonModalDialog",
+    defString: "You are in a non-modal dialog. To close the dialog, press Escape.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 341,
+        column: 14,
+        index: 11151,
+      },
+      end: {
+        line: 344,
+        column: 16,
+        index: 11329,
+      },
+    },
+    filepath: "src/components/flyout/flyout.tsx",
+  },
+  {
+    token: "euiFlyout.screenReaderFixedHeaders",
+    defString:
+      "You can still continue tabbing through the page headers in addition to the dialog.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 347,
+        column: 14,
+        index: 11406,
+      },
+      end: {
+        line: 350,
+        column: 16,
+        index: 11599,
       },
     },
     filepath: "src/components/flyout/flyout.tsx",
@@ -2223,12 +4934,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 88,
+        line: 105,
         column: 49,
+        index: 2960,
       },
       end: {
-        line: 94,
+        line: 111,
         column: 3,
+        index: 3181,
       },
     },
     filepath: "src/components/form/field_password/field_password.tsx",
@@ -2239,15 +4952,35 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 88,
+        line: 105,
         column: 49,
+        index: 2960,
       },
       end: {
-        line: 94,
+        line: 111,
         column: 3,
+        index: 3181,
       },
     },
     filepath: "src/components/form/field_password/field_password.tsx",
+  },
+  {
+    token: "euiFieldSearch.clearSearchButtonLabel",
+    defString: "Clear search input",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 260,
+        column: 6,
+        index: 7437,
+      },
+      end: {
+        line: 263,
+        column: 7,
+        index: 7544,
+      },
+    },
+    filepath: "src/components/form/field_search/field_search.tsx",
   },
   {
     token: "euiFilePicker.promptText",
@@ -2255,12 +4988,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 64,
+        line: 76,
         column: 6,
+        index: 2335,
       },
       end: {
-        line: 67,
+        line: 79,
         column: 8,
+        index: 2442,
       },
     },
     filepath: "src/components/form/file_picker/file_picker.tsx",
@@ -2271,28 +5006,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 88,
+        line: 100,
         column: 10,
+        index: 2840,
       },
       end: {
-        line: 92,
+        line: 104,
         column: 12,
+        index: 3022,
       },
     },
     filepath: "src/components/form/file_picker/file_picker.tsx",
   },
   {
-    token: "euiFilePicker.clearSelectedFiles",
-    defString: "Clear selected files",
+    token: "euiFilePicker.removeSelectedAriaLabel",
+    defString: "Remove selected files",
     highlighting: "string",
     loc: {
       start: {
-        line: 132,
+        line: 146,
         column: 6,
+        index: 3885,
       },
       end: {
-        line: 135,
+        line: 149,
         column: 7,
+        index: 3995,
       },
     },
     filepath: "src/components/form/file_picker/file_picker.tsx",
@@ -2303,12 +5042,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 198,
+        line: 263,
         column: 18,
+        index: 7934,
       },
       end: {
-        line: 201,
+        line: 266,
         column: 20,
+        index: 8057,
       },
     },
     filepath: "src/components/form/file_picker/file_picker.tsx",
@@ -2319,16 +5060,36 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 41,
-        column: 4,
+        line: 34,
+        column: 20,
+        index: 1321,
       },
       end: {
-        line: 44,
-        column: 5,
+        line: 37,
+        column: 3,
+        index: 1399,
       },
     },
     filepath:
       "src/components/form/form_control_layout/form_control_layout_clear_button.tsx",
+  },
+  {
+    token: "euiFormControlLayoutDelimited.delimiterLabel",
+    defString: "to",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 121,
+        column: 27,
+        index: 3395,
+      },
+      end: {
+        line: 124,
+        column: 3,
+        index: 3471,
+      },
+    },
+    filepath: "src/components/form/form_control_layout/form_control_layout_delimited.tsx",
   },
   {
     token: "euiForm.addressFormErrors",
@@ -2336,45 +5097,89 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 72,
-        column: 6,
+        line: 97,
+        column: 8,
+        index: 2581,
       },
       end: {
-        line: 75,
-        column: 7,
+        line: 100,
+        column: 9,
+        index: 2702,
       },
     },
     filepath: "src/components/form/form.tsx",
   },
   {
-    token: "euiSuperSelectControl.selectAnOption",
-    defString: "Select an option: {selectedValue}, is selected",
+    token: "euiDualRange.sliderScreenReaderInstructions",
+    defString:
+      "You are in a custom range slider. Use the Up and Down arrow keys to change the minimum value. Press Tab to interact with the maximum value.",
     highlighting: "string",
     loc: {
       start: {
-        line: 137,
-        column: 12,
+        line: 593,
+        column: 6,
+        index: 17675,
       },
       end: {
-        line: 141,
-        column: 14,
+        line: 596,
+        column: 8,
+        index: 17910,
       },
     },
-    filepath: "src/components/form/super_select/super_select_control.tsx",
+    filepath: "src/components/form/range/dual_range.tsx",
+  },
+  {
+    token: "euiRange.sliderScreenReaderInstructions",
+    defString:
+      "You are in a custom range slider. Use the Up and Down arrow keys to change the value.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 205,
+        column: 6,
+        index: 5494,
+      },
+      end: {
+        line: 208,
+        column: 8,
+        index: 5671,
+      },
+    },
+    filepath: "src/components/form/range/range.tsx",
   },
   {
     token: "euiSuperSelect.screenReaderAnnouncement",
     defString:
-      "You are in a form selector of {optionsCount} items and must select a single option.\n              Use the up and down keys to navigate or escape to close.",
+      "You are in a form selector and must select a single option.\n              Use the Up and Down arrow keys to navigate or Escape to close.",
     highlighting: "string",
     loc: {
       start: {
-        line: 353,
+        line: 341,
         column: 12,
+        index: 9588,
       },
       end: {
-        line: 358,
+        line: 345,
         column: 14,
+        index: 9834,
+      },
+    },
+    filepath: "src/components/form/super_select/super_select.tsx",
+  },
+  {
+    token: "euiSuperSelect.ariaLabel",
+    defString: "Select listbox",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 348,
+        column: 8,
+        index: 9889,
+      },
+      end: {
+        line: 348,
+        column: 75,
+        index: 9956,
       },
     },
     filepath: "src/components/form/super_select/super_select.tsx",
@@ -2385,12 +5190,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 103,
+        line: 114,
         column: 4,
+        index: 3416,
       },
       end: {
-        line: 103,
+        line: 114,
         column: 75,
+        index: 3487,
       },
     },
     filepath: "src/components/header/header_links/header_links.tsx",
@@ -2401,79 +5208,161 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 117,
+        line: 131,
         column: 4,
+        index: 3915,
       },
       end: {
-        line: 117,
+        line: 131,
         column: 69,
+        index: 3980,
       },
     },
     filepath: "src/components/header/header_links/header_links.tsx",
   },
   {
-    token: "euiImage.closeImage",
-    defString: "Close full screen {alt} image",
+    token: "euiImageButton.openFullScreen",
+    defString: "Click to open this image in fullscreen mode",
     highlighting: "string",
     loc: {
       start: {
-        line: 213,
-        column: 26,
+        line: 59,
+        column: 37,
+        index: 1587,
       },
       end: {
-        line: 217,
-        column: 15,
-      },
-    },
-    filepath: "src/components/image/image.tsx",
-  },
-  {
-    token: "euiImage.openImage",
-    defString: "Open full screen {alt} image",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 242,
-        column: 26,
-      },
-      end: {
-        line: 246,
+        line: 62,
         column: 3,
+        index: 1689,
       },
     },
-    filepath: "src/components/image/image.tsx",
+    filepath: "src/components/image/image_button.tsx",
   },
   {
-    token: "euiLink.external.ariaLabel",
+    token: "euiImageButton.closeFullScreen",
+    defString: "Press Escape or click to close image fullscreen mode",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 63,
+        column: 38,
+        index: 1729,
+      },
+      end: {
+        line: 66,
+        column: 3,
+        index: 1841,
+      },
+    },
+    filepath: "src/components/image/image_button.tsx",
+  },
+  {
+    token: "euiInlineEditForm.saveButtonAriaLabel",
+    defString: "Save edit",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 172,
+        column: 37,
+        index: 5274,
+      },
+      end: {
+        line: 175,
+        column: 3,
+        index: 5350,
+      },
+    },
+    filepath: "src/components/inline_edit/inline_edit_form.tsx",
+  },
+  {
+    token: "euiInlineEditForm.cancelButtonAriaLabel",
+    defString: "Cancel edit",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 176,
+        column: 39,
+        index: 5391,
+      },
+      end: {
+        line: 179,
+        column: 3,
+        index: 5471,
+      },
+    },
+    filepath: "src/components/inline_edit/inline_edit_form.tsx",
+  },
+  {
+    token: "euiInlineEditForm.inputKeyboardInstructions",
+    defString: "Press Enter to save your edited text. Press Escape to cancel your edit.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 300,
+        column: 10,
+        index: 9596,
+      },
+      end: {
+        line: 303,
+        column: 12,
+        index: 9775,
+      },
+    },
+    filepath: "src/components/inline_edit/inline_edit_form.tsx",
+  },
+  {
+    token: "euiInlineEditForm.activateEditModeDescription",
+    defString: "Click to edit this text inline.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 391,
+        column: 10,
+        index: 12623,
+      },
+      end: {
+        line: 394,
+        column: 12,
+        index: 12764,
+      },
+    },
+    filepath: "src/components/inline_edit/inline_edit_form.tsx",
+  },
+  {
+    token: "euiExternalLinkIcon.ariaLabel",
     defString: "External link",
     highlighting: "string",
     loc: {
       start: {
-        line: 112,
-        column: 20,
+        line: 42,
+        column: 24,
+        index: 1528,
       },
       end: {
-        line: 112,
-        column: 77,
+        line: 45,
+        column: 3,
+        index: 1600,
       },
     },
-    filepath: "src/components/link/link.tsx",
+    filepath: "src/components/link/external_link_icon.tsx",
   },
   {
-    token: "euiLink.newTarget.screenReaderOnlyText",
+    token: "euiExternalLinkIcon.newTarget.screenReaderOnlyText",
     defString: "(opens in a new tab or window)",
     highlighting: "string",
     loc: {
       start: {
-        line: 122,
-        column: 10,
+        line: 61,
+        column: 12,
+        index: 1911,
       },
       end: {
-        line: 125,
-        column: 12,
+        line: 64,
+        column: 14,
+        index: 2062,
       },
     },
-    filepath: "src/components/link/link.tsx",
+    filepath: "src/components/link/external_link_icon.tsx",
   },
   {
     token: "euiPinnableListGroup.pinExtraActionLabel",
@@ -2481,12 +5370,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 121,
+        line: 122,
         column: 4,
+        index: 4227,
       },
       end: {
-        line: 127,
+        line: 128,
         column: 5,
+        index: 4417,
       },
     },
     filepath: "src/components/list_group/pinnable_list_group/pinnable_list_group.tsx",
@@ -2497,15 +5388,71 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 121,
+        line: 122,
         column: 4,
+        index: 4227,
       },
       end: {
-        line: 127,
+        line: 128,
         column: 5,
+        index: 4417,
       },
     },
     filepath: "src/components/list_group/pinnable_list_group/pinnable_list_group.tsx",
+  },
+  {
+    token: "euiLoadingStrings.ariaLabel",
+    defString: "Loading",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 12,
+        column: 9,
+        index: 454,
+      },
+      end: {
+        line: 12,
+        column: 61,
+        index: 506,
+      },
+    },
+    filepath: "src/components/loading/_loading_strings.tsx",
+  },
+  {
+    token: "euiMark.highlightStart",
+    defString: "highlight start",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 45,
+        column: 25,
+        index: 1302,
+      },
+      end: {
+        line: 48,
+        column: 3,
+        index: 1369,
+      },
+    },
+    filepath: "src/components/mark/mark.tsx",
+  },
+  {
+    token: "euiMark.highlightEnd",
+    defString: "highlight end",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 49,
+        column: 23,
+        index: 1394,
+      },
+      end: {
+        line: 49,
+        column: 74,
+        index: 1445,
+      },
+    },
+    filepath: "src/components/mark/mark.tsx",
   },
   {
     token: "euiMarkdownEditorFooter.uploadingFiles",
@@ -2513,12 +5460,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 81,
+        line: 89,
         column: 20,
+        index: 2586,
       },
       end: {
-        line: 84,
+        line: 92,
         column: 5,
+        index: 2681,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2529,12 +5478,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 85,
+        line: 93,
         column: 21,
+        index: 2704,
       },
       end: {
-        line: 88,
+        line: 96,
         column: 5,
+        index: 2802,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2545,12 +5496,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 89,
+        line: 97,
         column: 25,
+        index: 2829,
       },
       end: {
-        line: 92,
+        line: 100,
         column: 5,
+        index: 2931,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2561,12 +5514,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 93,
+        line: 101,
         column: 24,
+        index: 2957,
       },
       end: {
-        line: 97,
+        line: 105,
         column: 5,
+        index: 3102,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2577,12 +5532,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 98,
+        line: 106,
         column: 22,
+        index: 3126,
       },
       end: {
-        line: 101,
+        line: 109,
         column: 5,
+        index: 3213,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2593,12 +5550,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 102,
+        line: 110,
         column: 22,
+        index: 3237,
       },
       end: {
-        line: 105,
+        line: 113,
         column: 5,
+        index: 3331,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2609,12 +5568,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 108,
+        line: 116,
         column: 22,
+        index: 3361,
       },
       end: {
-        line: 111,
+        line: 119,
         column: 3,
+        index: 3437,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2625,12 +5586,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 171,
+        line: 189,
         column: 12,
+        index: 5383,
       },
       end: {
-        line: 174,
+        line: 192,
         column: 14,
+        index: 5495,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2641,12 +5604,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 194,
+        line: 212,
         column: 6,
+        index: 6041,
       },
       end: {
-        line: 197,
+        line: 215,
         column: 8,
+        index: 6154,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2657,12 +5622,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 226,
+        line: 246,
         column: 16,
+        index: 7049,
       },
       end: {
-        line: 235,
+        line: 255,
         column: 17,
+        index: 7477,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2674,12 +5641,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 226,
+        line: 246,
         column: 16,
+        index: 7049,
       },
       end: {
-        line: 235,
+        line: 255,
         column: 17,
+        index: 7477,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2690,12 +5659,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 264,
+        line: 284,
         column: 16,
+        index: 8537,
       },
       end: {
-        line: 267,
+        line: 287,
         column: 18,
+        index: 8660,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2706,12 +5677,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 293,
+        line: 314,
         column: 8,
+        index: 9427,
       },
       end: {
-        line: 296,
+        line: 317,
         column: 9,
+        index: 9559,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_footer.tsx",
@@ -2722,12 +5695,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 183,
+        line: 251,
         column: 12,
+        index: 7162,
       },
       end: {
-        line: 183,
+        line: 251,
         column: 80,
+        index: 7230,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_toolbar.tsx",
@@ -2738,12 +5713,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 192,
+        line: 262,
         column: 12,
+        index: 7527,
       },
       end: {
-        line: 195,
+        line: 265,
         column: 14,
+        index: 7645,
       },
     },
     filepath: "src/components/markdown_editor/markdown_editor_toolbar.tsx",
@@ -2754,207 +5731,89 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 88,
+        line: 107,
         column: 10,
+        index: 3169,
       },
       end: {
-        line: 91,
+        line: 110,
         column: 11,
+        index: 3276,
       },
     },
     filepath: "src/components/modal/modal.tsx",
   },
   {
-    token: "euiNotificationEventMessages.accordionButtonText",
-    defString: "+ {messagesLength} more",
+    token: "euiPaginationButtonArrow.firstPage",
+    defString: "First page",
     highlighting: "string",
     loc: {
       start: {
-        line: 37,
-        column: 30,
+        line: 48,
+        column: 11,
+        index: 1383,
       },
       end: {
-        line: 41,
-        column: 3,
+        line: 48,
+        column: 73,
+        index: 1445,
       },
     },
-    filepath: "src/components/notification/notification_event_messages.tsx",
+    filepath: "src/components/pagination/pagination_button_arrow.tsx",
   },
   {
-    token: "euiNotificationEventMessages.accordionAriaLabelButtonText",
-    defString: "+ {messagesLength} messages for {eventName}",
+    token: "euiPaginationButtonArrow.previousPage",
+    defString: "Previous page",
     highlighting: "string",
     loc: {
       start: {
-        line: 43,
-        column: 39,
-      },
-      end: {
-        line: 50,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_messages.tsx",
-  },
-  {
-    token: "euiNotificationEventMessages.accordionHideText",
-    defString: "hide",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 52,
-        column: 28,
-      },
-      end: {
-        line: 55,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_messages.tsx",
-  },
-  {
-    token: "euiNotificationEventMeta.contextMenuButton",
-    defString: "Menu for {eventName}",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 136,
+        line: 49,
         column: 14,
+        index: 1461,
       },
       end: {
-        line: 142,
-        column: 15,
-      },
-    },
-    filepath: "src/components/notification/notification_event_meta.tsx",
-  },
-  {
-    token: "euiNotificationEventReadButton.markAsReadAria",
-    defString: "Mark {eventName} as read",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 44,
-        column: 25,
-      },
-      end: {
-        line: 50,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_read_button.tsx",
-  },
-  {
-    token: "euiNotificationEventReadButton.markAsUnreadAria",
-    defString: "Mark {eventName} as unread",
-    highlighting: "string",
-    loc: {
-      start: {
         line: 52,
-        column: 27,
-      },
-      end: {
-        line: 58,
-        column: 3,
+        column: 5,
+        index: 1547,
       },
     },
-    filepath: "src/components/notification/notification_event_read_button.tsx",
+    filepath: "src/components/pagination/pagination_button_arrow.tsx",
   },
   {
-    token: "euiNotificationEventReadButton.markAsRead",
-    defString: "Mark as read",
+    token: "euiPaginationButtonArrow.nextPage",
+    defString: "Next page",
     highlighting: "string",
     loc: {
       start: {
-        line: 60,
-        column: 21,
-      },
-      end: {
-        line: 63,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_read_button.tsx",
-  },
-  {
-    token: "euiNotificationEventReadButton.markAsUnread",
-    defString: "Mark as unread",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 65,
-        column: 23,
-      },
-      end: {
-        line: 68,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_read_button.tsx",
-  },
-  {
-    token: "euiNotificationEventReadIcon.readAria",
-    defString: "{eventName} is read",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 39,
-        column: 19,
-      },
-      end: {
-        line: 45,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_read_icon.tsx",
-  },
-  {
-    token: "euiNotificationEventReadIcon.unreadAria",
-    defString: "{eventName} is unread",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 47,
-        column: 21,
+        line: 53,
+        column: 10,
+        index: 1559,
       },
       end: {
         line: 53,
-        column: 3,
+        column: 70,
+        index: 1619,
       },
     },
-    filepath: "src/components/notification/notification_event_read_icon.tsx",
+    filepath: "src/components/pagination/pagination_button_arrow.tsx",
   },
   {
-    token: "euiNotificationEventReadIcon.read",
-    defString: "Read",
+    token: "euiPaginationButtonArrow.lastPage",
+    defString: "Last page",
     highlighting: "string",
     loc: {
       start: {
         line: 54,
-        column: 20,
+        column: 10,
+        index: 1631,
       },
       end: {
         line: 54,
-        column: 75,
+        column: 70,
+        index: 1691,
       },
     },
-    filepath: "src/components/notification/notification_event_read_icon.tsx",
-  },
-  {
-    token: "euiNotificationEventReadIcon.unread",
-    defString: "Unread",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 55,
-        column: 22,
-      },
-      end: {
-        line: 58,
-        column: 3,
-      },
-    },
-    filepath: "src/components/notification/notification_event_read_icon.tsx",
+    filepath: "src/components/pagination/pagination_button_arrow.tsx",
   },
   {
     token: "euiPaginationButton.longPageString",
@@ -2962,12 +5821,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 69,
+        line: 66,
         column: 4,
+        index: 1918,
       },
       end: {
-        line: 73,
+        line: 70,
         column: 5,
+        index: 2085,
       },
     },
     filepath: "src/components/pagination/pagination_button.tsx",
@@ -2978,44 +5839,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 75,
+        line: 72,
         column: 8,
+        index: 2131,
       },
       end: {
-        line: 79,
+        line: 76,
         column: 9,
+        index: 2275,
       },
     },
     filepath: "src/components/pagination/pagination_button.tsx",
   },
   {
-    token: "euiPagination.previousPage",
-    defString: "Previous page, {page}",
+    token: "euiPagination.pageOfTotalCompressed",
+    defString: "{page} of {total}",
     highlighting: "string",
     loc: {
       start: {
-        line: 109,
-        column: 4,
+        line: 158,
+        column: 10,
+        index: 4477,
       },
       end: {
-        line: 113,
-        column: 5,
-      },
-    },
-    filepath: "src/components/pagination/pagination.tsx",
-  },
-  {
-    token: "euiPagination.disabledPreviousPage",
-    defString: "Previous page",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 115,
-        column: 8,
-      },
-      end: {
-        line: 118,
-        column: 9,
+        line: 165,
+        column: 12,
+        index: 4729,
       },
     },
     filepath: "src/components/pagination/pagination.tsx",
@@ -3026,12 +5875,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 145,
-        column: 8,
+        line: 210,
+        column: 12,
+        index: 5723,
       },
       end: {
-        line: 150,
-        column: 9,
+        line: 215,
+        column: 13,
+        index: 5947,
       },
     },
     filepath: "src/components/pagination/pagination.tsx",
@@ -3042,76 +5893,123 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 181,
-        column: 8,
-      },
-      end: {
-        line: 186,
-        column: 9,
-      },
-    },
-    filepath: "src/components/pagination/pagination.tsx",
-  },
-  {
-    token: "euiPagination.nextPage",
-    defString: "Next page, {page}",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 219,
-        column: 4,
-      },
-      end: {
-        line: 223,
-        column: 5,
-      },
-    },
-    filepath: "src/components/pagination/pagination.tsx",
-  },
-  {
-    token: "euiPagination.disabledNextPage",
-    defString: "Next page",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 225,
-        column: 8,
-      },
-      end: {
-        line: 225,
-        column: 76,
-      },
-    },
-    filepath: "src/components/pagination/pagination.tsx",
-  },
-  {
-    token: "euiPagination.pageOfTotalCompressed",
-    defString: "{page} of {total}",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 266,
+        line: 251,
         column: 12,
+        index: 6982,
       },
       end: {
-        line: 273,
-        column: 14,
+        line: 259,
+        column: 13,
+        index: 7289,
+      },
+    },
+    filepath: "src/components/pagination/pagination.tsx",
+  },
+  {
+    token: "euiPagination.last",
+    defString: "Last",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 306,
+        column: 20,
+        index: 8472,
+      },
+      end: {
+        line: 306,
+        column: 60,
+        index: 8512,
+      },
+    },
+    filepath: "src/components/pagination/pagination.tsx",
+  },
+  {
+    token: "euiPagination.page",
+    defString: "Page",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 307,
+        column: 20,
+        index: 8534,
+      },
+      end: {
+        line: 307,
+        column: 60,
+        index: 8574,
+      },
+    },
+    filepath: "src/components/pagination/pagination.tsx",
+  },
+  {
+    token: "euiPagination.of",
+    defString: "of",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 308,
+        column: 18,
+        index: 8594,
+      },
+      end: {
+        line: 308,
+        column: 54,
+        index: 8630,
+      },
+    },
+    filepath: "src/components/pagination/pagination.tsx",
+  },
+  {
+    token: "euiPagination.collection",
+    defString: "collection",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 309,
+        column: 26,
+        index: 8658,
+      },
+      end: {
+        line: 309,
+        column: 78,
+        index: 8710,
+      },
+    },
+    filepath: "src/components/pagination/pagination.tsx",
+  },
+  {
+    token: "euiPagination.fromEndLabel",
+    defString: "from end",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 310,
+        column: 23,
+        index: 8735,
+      },
+      end: {
+        line: 310,
+        column: 75,
+        index: 8787,
       },
     },
     filepath: "src/components/pagination/pagination.tsx",
   },
   {
     token: "euiPopover.screenReaderAnnouncement",
-    defString: "You are in a dialog. To close this dialog, hit escape.",
+    defString:
+      "You are in a dialog. Press Escape, or tap/click outside the dialog to close.",
     highlighting: "string",
     loc: {
       start: {
-        line: 746,
-        column: 14,
+        line: 698,
+        column: 16,
+        index: 20714,
       },
       end: {
-        line: 749,
-        column: 16,
+        line: 701,
+        column: 18,
+        index: 20908,
       },
     },
     filepath: "src/components/popover/popover.tsx",
@@ -3122,44 +6020,50 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 194,
+        line: 139,
         column: 6,
+        index: 3868,
       },
       end: {
-        line: 200,
+        line: 145,
         column: 8,
+        index: 3996,
       },
     },
     filepath: "src/components/progress/progress.tsx",
   },
   {
     token: "euiResizableButton.horizontalResizerAriaLabel",
-    defString: "Press left or right to adjust panels size",
+    defString: "Press the left or right arrow keys to adjust panels size",
     highlighting: "string",
     loc: {
       start: {
-        line: 111,
-        column: 4,
+        line: 98,
+        column: 6,
+        index: 3160,
       },
       end: {
-        line: 120,
-        column: 5,
+        line: 107,
+        column: 7,
+        index: 3489,
       },
     },
     filepath: "src/components/resizable_container/resizable_button.tsx",
   },
   {
     token: "euiResizableButton.verticalResizerAriaLabel",
-    defString: "Press up or down to adjust panels size",
+    defString: "Press the up or down arrow keys to adjust panels size",
     highlighting: "string",
     loc: {
       start: {
-        line: 111,
-        column: 4,
+        line: 98,
+        column: 6,
+        index: 3160,
       },
       end: {
-        line: 120,
-        column: 5,
+        line: 107,
+        column: 7,
+        index: 3489,
       },
     },
     filepath: "src/components/resizable_container/resizable_button.tsx",
@@ -3170,44 +6074,124 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 330,
+        line: 321,
         column: 32,
+        index: 9643,
       },
       end: {
-        line: 333,
+        line: 324,
         column: 3,
+        index: 9738,
       },
     },
     filepath: "src/components/resizable_container/resizable_panel.tsx",
   },
   {
-    token: "euiSelectableListItem.includedOption",
-    defString: "Included option.",
+    token: "euiSearchBox.placeholder",
+    defString: "Search...",
     highlighting: "string",
     loc: {
       start: {
-        line: 110,
-        column: 12,
+        line: 49,
+        column: 29,
+        index: 1421,
       },
       end: {
-        line: 113,
-        column: 14,
+        line: 52,
+        column: 3,
+        index: 1484,
+      },
+    },
+    filepath: "src/components/search_bar/search_box.tsx",
+  },
+  {
+    token: "euiSearchBox.incrementalAriaLabel",
+    defString:
+      "This is a search bar. As you type, the results lower in the page will automatically filter.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 53,
+        column: 31,
+        index: 1517,
+      },
+      end: {
+        line: 56,
+        column: 3,
+        index: 1671,
+      },
+    },
+    filepath: "src/components/search_bar/search_box.tsx",
+  },
+  {
+    token: "euiSearchBox.ariaLabel",
+    defString:
+      "This is a search bar. After typing your query, hit enter to filter the results lower in the page.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 57,
+        column: 25,
+        index: 1698,
+      },
+      end: {
+        line: 60,
+        column: 3,
+        index: 1847,
+      },
+    },
+    filepath: "src/components/search_bar/search_box.tsx",
+  },
+  {
+    token: "euiSelectableListItem.checkedOption",
+    defString: "Checked option.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 224,
+        column: 10,
+        index: 6703,
+      },
+      end: {
+        line: 227,
+        column: 12,
+        index: 6818,
       },
     },
     filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
   },
   {
-    token: "euiSelectableListItem.includedOptionInstructions",
-    defString: "To exclude this option, press enter.",
+    token: "euiSelectableListItem.checkOptionInstructions",
+    defString: "To check this option, press Enter.",
     highlighting: "string",
     loc: {
       start: {
-        line: 120,
-        column: 12,
+        line: 230,
+        column: 10,
+        index: 6864,
       },
       end: {
-        line: 123,
-        column: 14,
+        line: 233,
+        column: 12,
+        index: 7008,
+      },
+    },
+    filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
+  },
+  {
+    token: "euiSelectableListItem.uncheckOptionInstructions",
+    defString: "To uncheck this option, press Enter.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 238,
+        column: 10,
+        index: 7082,
+      },
+      end: {
+        line: 241,
+        column: 12,
+        index: 7230,
       },
     },
     filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
@@ -3218,28 +6202,104 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 131,
-        column: 12,
+        line: 246,
+        column: 10,
+        index: 7296,
       },
       end: {
-        line: 134,
-        column: 14,
+        line: 249,
+        column: 12,
+        index: 7413,
       },
     },
     filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
   },
   {
-    token: "euiSelectableListItem.excludedOptionInstructions",
-    defString: "To deselect this option, press enter.",
+    token: "euiSelectableListItem.excludeOptionInstructions",
+    defString: "To exclude this option, press Enter.",
     highlighting: "string",
     loc: {
       start: {
-        line: 141,
-        column: 12,
+        line: 252,
+        column: 10,
+        index: 7459,
       },
       end: {
-        line: 144,
-        column: 14,
+        line: 255,
+        column: 12,
+        index: 7607,
+      },
+    },
+    filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
+  },
+  {
+    token: "euiSelectableListItem.mixedOption",
+    defString: "Mixed (indeterminate) option.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 260,
+        column: 10,
+        index: 7670,
+      },
+      end: {
+        line: 263,
+        column: 12,
+        index: 7797,
+      },
+    },
+    filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
+  },
+  {
+    token: "euiSelectableListItem.mixedOptionInstructions",
+    defString: "To check this option for all, press Enter once.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 266,
+        column: 10,
+        index: 7843,
+      },
+      end: {
+        line: 269,
+        column: 12,
+        index: 8000,
+      },
+    },
+    filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
+  },
+  {
+    token: "euiSelectableListItem.mixedOptionUncheckInstructions",
+    defString: "To uncheck this option for all, press Enter twice.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 272,
+        column: 10,
+        index: 8053,
+      },
+      end: {
+        line: 275,
+        column: 12,
+        index: 8220,
+      },
+    },
+    filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
+  },
+  {
+    token: "euiSelectableListItem.mixedOptionExcludeInstructions",
+    defString: "To exclude this option for all, press Enter twice.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 278,
+        column: 10,
+        index: 8273,
+      },
+      end: {
+        line: 281,
+        column: 12,
+        index: 8440,
       },
     },
     filepath: "src/components/selectable/selectable_list/selectable_list_item.tsx",
@@ -3250,12 +6310,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 114,
+        line: 93,
         column: 30,
+        index: 2824,
       },
       end: {
-        line: 117,
+        line: 96,
         column: 3,
+        index: 2927,
       },
     },
     filepath:
@@ -3267,12 +6329,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 188,
+        line: 179,
         column: 8,
+        index: 4981,
       },
       end: {
-        line: 191,
+        line: 182,
         column: 10,
+        index: 5099,
       },
     },
     filepath:
@@ -3284,12 +6348,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 199,
+        line: 190,
         column: 8,
+        index: 5242,
       },
       end: {
-        line: 202,
+        line: 193,
         column: 10,
+        index: 5360,
       },
     },
     filepath:
@@ -3301,12 +6367,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 246,
+        line: 247,
         column: 12,
+        index: 6991,
       },
       end: {
-        line: 249,
+        line: 250,
         column: 14,
+        index: 7113,
       },
     },
     filepath:
@@ -3318,12 +6386,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 469,
+        line: 627,
         column: 16,
+        index: 20279,
       },
       end: {
-        line: 472,
+        line: 630,
         column: 18,
+        index: 20405,
       },
     },
     filepath: "src/components/selectable/selectable.tsx",
@@ -3334,12 +6404,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 491,
+        line: 649,
         column: 14,
+        index: 20893,
       },
       end: {
-        line: 495,
+        line: 653,
         column: 16,
+        index: 21113,
       },
     },
     filepath: "src/components/selectable/selectable.tsx",
@@ -3350,12 +6422,33 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 510,
+        line: 668,
         column: 14,
+        index: 21524,
       },
       end: {
-        line: 513,
+        line: 671,
         column: 16,
+        index: 21653,
+      },
+    },
+    filepath: "src/components/selectable/selectable.tsx",
+  },
+  {
+    token: "euiSelectable.screenReaderInstructions",
+    defString:
+      "Use the Up and Down arrow keys to move focus over options. Press Enter to select. Press Escape to collapse options.",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 733,
+        column: 6,
+        index: 23318,
+      },
+      end: {
+        line: 742,
+        column: 7,
+        index: 23646,
       },
     },
     filepath: "src/components/selectable/selectable.tsx",
@@ -3366,12 +6459,33 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 577,
+        line: 733,
         column: 6,
+        index: 23318,
       },
       end: {
-        line: 577,
-        column: 78,
+        line: 742,
+        column: 7,
+        index: 23646,
+      },
+    },
+    filepath: "src/components/selectable/selectable.tsx",
+  },
+  {
+    token: "euiSelectable.searchResults",
+    defString:
+      "({\n  resultsLength\n}) => `${resultsLength} result${resultsLength === 1 ? '' : 's'} available`;",
+    highlighting: "code",
+    loc: {
+      start: {
+        line: 780,
+        column: 6,
+        index: 25084,
+      },
+      end: {
+        line: 786,
+        column: 8,
+        index: 25309,
       },
     },
     filepath: "src/components/selectable/selectable.tsx",
@@ -3382,15 +6496,71 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 608,
+        line: 798,
         column: 6,
+        index: 25603,
       },
       end: {
-        line: 608,
+        line: 798,
         column: 78,
+        index: 25675,
       },
     },
     filepath: "src/components/selectable/selectable.tsx",
+  },
+  {
+    token: "euiSideNav.mobileToggleAriaLabel",
+    defString: "Toggle navigation",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 208,
+        column: 16,
+        index: 6304,
+      },
+      end: {
+        line: 211,
+        column: 17,
+        index: 6435,
+      },
+    },
+    filepath: "src/components/side_nav/side_nav.tsx",
+  },
+  {
+    token: "euiSkeletonLoading.loadedAriaText",
+    defString: "Loaded {contentAriaLabel}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 73,
+        column: 25,
+        index: 2343,
+      },
+      end: {
+        line: 77,
+        column: 3,
+        index: 2457,
+      },
+    },
+    filepath: "src/components/skeleton/skeleton_loading.tsx",
+  },
+  {
+    token: "euiSkeletonLoading.loadingAriaText",
+    defString: "Loading {contentAriaLabel}",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 79,
+        column: 27,
+        index: 2487,
+      },
+      end: {
+        line: 83,
+        column: 3,
+        index: 2603,
+      },
+    },
+    filepath: "src/components/skeleton/skeleton_loading.tsx",
   },
   {
     token: "euiStat.loadingText",
@@ -3398,12 +6568,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 150,
-        column: 10,
+        line: 94,
+        column: 32,
+        index: 2304,
       },
       end: {
-        line: 150,
-        column: 80,
+        line: 97,
+        column: 3,
+        index: 2373,
       },
     },
     filepath: "src/components/stat/stat.tsx",
@@ -3416,10 +6588,12 @@ const tokens = [
       start: {
         line: 14,
         column: 17,
+        index: 529,
       },
       end: {
         line: 17,
         column: 4,
+        index: 618,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3432,10 +6606,12 @@ const tokens = [
       start: {
         line: 19,
         column: 23,
+        index: 644,
       },
       end: {
         line: 23,
         column: 3,
+        index: 728,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3448,10 +6624,12 @@ const tokens = [
       start: {
         line: 29,
         column: 17,
+        index: 867,
       },
       end: {
         line: 36,
         column: 3,
+        index: 994,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3464,10 +6642,12 @@ const tokens = [
       start: {
         line: 38,
         column: 23,
+        index: 1020,
       },
       end: {
         line: 42,
         column: 3,
+        index: 1120,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3480,10 +6660,12 @@ const tokens = [
       start: {
         line: 48,
         column: 17,
+        index: 1258,
       },
       end: {
         line: 55,
         column: 3,
+        index: 1385,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3496,10 +6678,12 @@ const tokens = [
       start: {
         line: 57,
         column: 23,
+        index: 1411,
       },
       end: {
         line: 61,
         column: 3,
+        index: 1511,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3512,10 +6696,12 @@ const tokens = [
       start: {
         line: 67,
         column: 17,
+        index: 1648,
       },
       end: {
         line: 74,
         column: 3,
+        index: 1772,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3528,10 +6714,12 @@ const tokens = [
       start: {
         line: 76,
         column: 23,
+        index: 1798,
       },
       end: {
         line: 80,
         column: 3,
+        index: 1895,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3544,10 +6732,12 @@ const tokens = [
       start: {
         line: 86,
         column: 17,
+        index: 2036,
       },
       end: {
         line: 93,
         column: 3,
+        index: 2167,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3560,10 +6750,12 @@ const tokens = [
       start: {
         line: 95,
         column: 23,
+        index: 2193,
       },
       end: {
         line: 99,
         column: 3,
+        index: 2297,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3576,10 +6768,12 @@ const tokens = [
       start: {
         line: 105,
         column: 17,
+        index: 2436,
       },
       end: {
         line: 112,
         column: 3,
+        index: 2563,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3592,10 +6786,12 @@ const tokens = [
       start: {
         line: 114,
         column: 23,
+        index: 2589,
       },
       end: {
         line: 118,
         column: 3,
+        index: 2689,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3608,10 +6804,12 @@ const tokens = [
       start: {
         line: 124,
         column: 17,
+        index: 2827,
       },
       end: {
         line: 131,
         column: 3,
+        index: 2952,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3624,10 +6822,12 @@ const tokens = [
       start: {
         line: 133,
         column: 23,
+        index: 2978,
       },
       end: {
         line: 137,
         column: 3,
+        index: 3076,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3640,10 +6840,12 @@ const tokens = [
       start: {
         line: 143,
         column: 17,
+        index: 3214,
       },
       end: {
         line: 150,
         column: 3,
+        index: 3336,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3656,10 +6858,12 @@ const tokens = [
       start: {
         line: 152,
         column: 23,
+        index: 3362,
       },
       end: {
         line: 156,
         column: 3,
+        index: 3460,
       },
     },
     filepath: "src/components/steps/step_strings.tsx",
@@ -3670,12 +6874,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 69,
+        line: 76,
         column: 8,
+        index: 1963,
       },
       end: {
-        line: 69,
+        line: 76,
         column: 72,
+        index: 2027,
       },
     },
     filepath: "src/components/table/mobile/table_sort_mobile.tsx",
@@ -3686,15 +6892,35 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 92,
+        line: 85,
         column: 10,
+        index: 2640,
       },
       end: {
-        line: 96,
+        line: 89,
         column: 11,
+        index: 2814,
       },
     },
     filepath: "src/components/table/table_header_cell.tsx",
+  },
+  {
+    token: "euiTablePagination.allRows",
+    defString: "Showing all rows",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 97,
+        column: 8,
+        index: 2918,
+      },
+      end: {
+        line: 100,
+        column: 10,
+        index: 3019,
+      },
+    },
+    filepath: "src/components/table/table_pagination/table_pagination.tsx",
   },
   {
     token: "euiTablePagination.rowsPerPage",
@@ -3702,12 +6928,32 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 81,
-        column: 8,
+        line: 103,
+        column: 10,
+        index: 3053,
       },
       end: {
-        line: 84,
-        column: 10,
+        line: 106,
+        column: 12,
+        index: 3161,
+      },
+    },
+    filepath: "src/components/table/table_pagination/table_pagination.tsx",
+  },
+  {
+    token: "euiTablePagination.rowsPerPageOptionShowAllRows",
+    defString: "Show all rows",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 129,
+        column: 12,
+        index: 3829,
+      },
+      end: {
+        line: 132,
+        column: 14,
+        index: 3960,
       },
     },
     filepath: "src/components/table/table_pagination/table_pagination.tsx",
@@ -3718,31 +6964,53 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 99,
-        column: 8,
+        line: 134,
+        column: 12,
+        index: 3989,
       },
       end: {
-        line: 103,
-        column: 10,
+        line: 138,
+        column: 14,
+        index: 4173,
       },
     },
     filepath: "src/components/table/table_pagination/table_pagination.tsx",
   },
   {
-    token: "euiToast.dismissToast",
-    defString: "Dismiss toast",
+    token: "euiGlobalToastList.clearAllToastsButtonAriaLabel",
+    defString: "Clear all toast notifications",
     highlighting: "string",
     loc: {
       start: {
-        line: 80,
-        column: 6,
+        line: 322,
+        column: 8,
+        index: 10937,
       },
       end: {
-        line: 80,
-        column: 69,
+        line: 329,
+        column: 9,
+        index: 11220,
       },
     },
-    filepath: "src/components/toast/toast.tsx",
+    filepath: "src/components/toast/global_toast_list.tsx",
+  },
+  {
+    token: "euiGlobalToastList.clearAllToastsButtonDisplayText",
+    defString: "Clear all",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 322,
+        column: 8,
+        index: 10937,
+      },
+      end: {
+        line: 329,
+        column: 9,
+        index: 11220,
+      },
+    },
+    filepath: "src/components/toast/global_toast_list.tsx",
   },
   {
     token: "euiToast.newNotification",
@@ -3750,12 +7018,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 110,
+        line: 59,
         column: 10,
+        index: 1823,
       },
       end: {
-        line: 113,
+        line: 62,
         column: 12,
+        index: 1938,
       },
     },
     filepath: "src/components/toast/toast.tsx",
@@ -3766,15 +7036,107 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 117,
+        line: 67,
         column: 6,
+        index: 2009,
       },
       end: {
-        line: 117,
+        line: 67,
         column: 68,
+        index: 2071,
       },
     },
     filepath: "src/components/toast/toast.tsx",
+  },
+  {
+    token: "euiToast.dismissToast",
+    defString: "Dismiss toast",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 95,
+        column: 8,
+        index: 2760,
+      },
+      end: {
+        line: 95,
+        column: 71,
+        index: 2823,
+      },
+    },
+    filepath: "src/components/toast/toast.tsx",
+  },
+  {
+    token: "euiIconTip.defaultAriaLabel",
+    defString: "Info",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 65,
+        column: 27,
+        index: 1862,
+      },
+      end: {
+        line: 65,
+        column: 76,
+        index: 1911,
+      },
+    },
+    filepath: "src/components/tool_tip/icon_tip.tsx",
+  },
+  {
+    token: "euiTourFooter.endTour",
+    defString: "End tour",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 95,
+        column: 14,
+        index: 2888,
+      },
+      end: {
+        line: 102,
+        column: 15,
+        index: 3156,
+      },
+    },
+    filepath: "src/components/tour/_tour_footer.tsx",
+  },
+  {
+    token: "euiTourFooter.skipTour",
+    defString: "Skip tour",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 95,
+        column: 14,
+        index: 2888,
+      },
+      end: {
+        line: 102,
+        column: 15,
+        index: 3156,
+      },
+    },
+    filepath: "src/components/tour/_tour_footer.tsx",
+  },
+  {
+    token: "euiTourFooter.closeTour",
+    defString: "Close tour",
+    highlighting: "string",
+    loc: {
+      start: {
+        line: 95,
+        column: 14,
+        index: 2888,
+      },
+      end: {
+        line: 102,
+        column: 15,
+        index: 3156,
+      },
+    },
+    filepath: "src/components/tour/_tour_footer.tsx",
   },
   {
     token: "euiTourStepIndicator.isActive",
@@ -3782,12 +7144,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 49,
+        line: 35,
         column: 6,
+        index: 1131,
       },
       end: {
-        line: 49,
+        line: 35,
         column: 70,
+        index: 1195,
       },
     },
     filepath: "src/components/tour/tour_step_indicator.tsx",
@@ -3798,12 +7162,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 63,
+        line: 48,
         column: 6,
+        index: 1479,
       },
       end: {
-        line: 63,
+        line: 48,
         column: 74,
+        index: 1547,
       },
     },
     filepath: "src/components/tour/tour_step_indicator.tsx",
@@ -3814,12 +7180,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 76,
+        line: 56,
         column: 6,
+        index: 1759,
       },
       end: {
-        line: 76,
+        line: 56,
         column: 78,
+        index: 1831,
       },
     },
     filepath: "src/components/tour/tour_step_indicator.tsx",
@@ -3830,63 +7198,17 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 90,
+        line: 65,
         column: 4,
+        index: 1999,
       },
       end: {
-        line: 94,
+        line: 69,
         column: 5,
+        index: 2131,
       },
     },
     filepath: "src/components/tour/tour_step_indicator.tsx",
-  },
-  {
-    token: "euiTourStep.endTour",
-    defString: "End tour",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 171,
-        column: 10,
-      },
-      end: {
-        line: 178,
-        column: 11,
-      },
-    },
-    filepath: "src/components/tour/tour_step.tsx",
-  },
-  {
-    token: "euiTourStep.skipTour",
-    defString: "Skip tour",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 171,
-        column: 10,
-      },
-      end: {
-        line: 178,
-        column: 11,
-      },
-    },
-    filepath: "src/components/tour/tour_step.tsx",
-  },
-  {
-    token: "euiTourStep.closeTour",
-    defString: "Close tour",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 171,
-        column: 10,
-      },
-      end: {
-        line: 178,
-        column: 11,
-      },
-    },
-    filepath: "src/components/tour/tour_step.tsx",
   },
   {
     token: "euiTreeView.listNavigationInstructions",
@@ -3894,28 +7216,14 @@ const tokens = [
     highlighting: "string",
     loc: {
       start: {
-        line: 275,
-        column: 12,
+        line: 291,
+        column: 10,
+        index: 8053,
       },
       end: {
-        line: 278,
-        column: 13,
-      },
-    },
-    filepath: "src/components/tree_view/tree_view.tsx",
-  },
-  {
-    token: "euiTreeView.ariaLabel",
-    defString: "{nodeLabel} child of {ariaLabel}",
-    highlighting: "string",
-    loc: {
-      start: {
-        line: 302,
-        column: 20,
-      },
-      end: {
-        line: 310,
-        column: 21,
+        line: 294,
+        column: 11,
+        index: 8207,
       },
     },
     filepath: "src/components/tree_view/tree_view.tsx",

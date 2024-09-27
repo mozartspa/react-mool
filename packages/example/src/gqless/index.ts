@@ -2,8 +2,8 @@
  * GQLESS: You can safely modify this file and Query Fetcher based on your needs
  */
 
-import { createReactClient } from "@gqless/react"
-import { createClient, QueryFetcher } from "gqless"
+import { createClient, QueryFetcher } from "@mozartspa/gqless"
+import { createReactClient } from "@mozartspa/gqless-react"
 import {
   generatedSchema,
   GeneratedSchema,
@@ -68,7 +68,7 @@ export const {
 
 // Enable gqless logger
 if (process.env.NODE_ENV === "development") {
-  import("@gqless/logger").then(({ createLogger }) => {
+  import("@mozartspa/gqless-logger").then(({ createLogger }) => {
     const logger = createLogger(client, {
       // Custom options...
     })

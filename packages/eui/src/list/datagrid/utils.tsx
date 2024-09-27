@@ -1,8 +1,9 @@
 import { DefaultItemAction, EuiBasicTableColumn } from "@elastic/eui"
-import { ResourceDefinition, UseTranslateResult } from "@react-mool/core"
+import { ResourceDefinition, useListContext, UseTranslateResult } from "@react-mool/core"
 import get from "dlv"
 import { cloneElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
+import { t } from "../../i18n"
 import { Column, ColumnElement } from "../column"
 import { DatagridAction, DatagridRowClick } from "./types"
 
@@ -11,8 +12,37 @@ export function columnHeader(
   resource: string,
   translate: UseTranslateResult
 ) {
-  return col.props.header ?? getFieldLabel(resource, col.props.name, translate)
+  const { sortable, name, header } = col.props
+  const fieldName = header ?? getFieldLabel(resource, name, translate)
+  const isSortable = typeof sortable === "string" ? true : sortable
+
+  if (isSortable) {
+    const { sortField = "", sortOrder } = useListContext()
+    const sortMessage =
+      sortField === name
+        ? sortOrder === "asc"
+          ? translate(t.eui.sort.asc)
+          : translate(t.eui.sort.desc)
+        : undefined
+
+    return (
+      <>
+        {fieldName}
+        <div
+          aria-live="polite"
+          role="status"
+          key={`${name}_sortMessage`}
+          className="sr-only"
+        >
+          {sortMessage}
+        </div>
+      </>
+    )
+  }
+
+  return fieldName
 }
+
 // TODO DA CAPIRE PROPS isMobileHeader & hideForMobile
 export function toEuiColumn(
   col: ColumnElement,
@@ -26,6 +56,7 @@ export function toEuiColumn(
     sortable,
     align,
     truncateText,
+    textOnly,
     mobileOptions,
     style,
     className,
@@ -40,6 +71,7 @@ export function toEuiColumn(
     sortable: typeof sortable === "string" ? true : sortable,
     align,
     truncateText,
+    textOnly,
     mobileOptions: mobileOptions
       ? {
           ...mobileOptions,
@@ -95,7 +127,12 @@ export function toEuiAction(action: DatagridAction): DefaultItemAction<any> {
 
   return {
     name,
-    description: description ?? typeof name === "string" ? String(name) : "",
+    description: (item: any) => {
+      if (description) {
+        return typeof description === "function" ? description(item) : description
+      }
+      return typeof name === "function" ? name(item) : name
+    },
     type: "icon",
     icon: (icon ?? "empty") as any,
     color,

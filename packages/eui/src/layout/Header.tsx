@@ -26,11 +26,11 @@ export const Header = (props: HeaderProps) => {
     <EuiHeader position="fixed">
       <EuiHeaderSection>
         {!!menu && (
-          <EuiHeaderSectionItem border="right">
+          <EuiHeaderSectionItem>
             <HeaderNav menu={menu} size={menuSize} />
           </EuiHeaderSectionItem>
         )}
-        <EuiHeaderSectionItem border="right">
+        <EuiHeaderSectionItem>
           <EuiHeaderLogo iconType={appLogo} {...linkProps("/")}>
             {appTitle}
           </EuiHeaderLogo>
@@ -39,7 +39,7 @@ export const Header = (props: HeaderProps) => {
       </EuiHeaderSection>
 
       <EuiHeaderSection>
-        <EuiHeaderSectionItem border="left">
+        <EuiHeaderSectionItem>
           <HeaderUserMenu />
         </EuiHeaderSectionItem>
       </EuiHeaderSection>

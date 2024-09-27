@@ -2,11 +2,12 @@ import { EditBase, EditBaseProps } from "@react-mool/core"
 import { Fragment, ReactNode } from "react"
 import { PreventLeaveForm } from "../leave"
 import { EditBreadcrumbs } from "./EditBreadcrumbs"
+import type { FormValues } from "@mozartspa/mobx-form"
 
-export type EditProps<TRecord = any, TUpdate = TRecord> = EditBaseProps<
-  TRecord,
-  TUpdate
-> & {
+export type EditProps<
+  TRecord extends FormValues = any,
+  TUpdate extends FormValues = TRecord
+> = EditBaseProps<TRecord, TUpdate> & {
   breadcrumbs?: ReactNode
   preventLeave?: boolean
 }

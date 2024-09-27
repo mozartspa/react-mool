@@ -1,5 +1,6 @@
 import {
   useDataProvider,
+  useGetRecordName,
   useNotify,
   useRedirect,
   useRefresh,
@@ -27,9 +28,12 @@ export function useDefaultDatagridActions<TRecord = any>(
   const refresh = useRefresh()
   const confirm = useConfirmation()
 
+  const recordName = useGetRecordName(resource)
+
   const view: DatagridAction<TRecord> = useMemo(
     () => ({
-      name: translate(t.eui.action.view),
+      name: (item: TRecord) => translate(t.eui.action.view) + " " + recordName(item),
+      bulkName: translate(t.eui.action.view),
       icon: "eye",
       run: (items) => {
         const id = dataprovider.id(resource, items[0])
@@ -41,7 +45,8 @@ export function useDefaultDatagridActions<TRecord = any>(
 
   const edit: DatagridAction<TRecord> = useMemo(
     () => ({
-      name: translate(t.eui.action.edit),
+      name: (item: TRecord) => translate(t.eui.action.edit) + " " + recordName(item),
+      bulkName: translate(t.eui.action.edit),
       icon: "pencil",
       color: "primary",
       run: (items) => {
@@ -54,7 +59,8 @@ export function useDefaultDatagridActions<TRecord = any>(
 
   const remove: DatagridAction<TRecord> = useMemo(
     () => ({
-      name: translate(t.eui.action.delete),
+      name: (item: TRecord) => translate(t.eui.action.delete) + " " + recordName(item),
+      bulkName: translate(t.eui.action.delete),
       icon: "trash",
       color: "danger",
       run: async (items) => {

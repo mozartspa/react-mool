@@ -1,5 +1,5 @@
 import { EuiBreadcrumbsProps, EuiHeaderBreadcrumbs, EuiLinkColor } from "@elastic/eui"
-import { EuiBreadcrumbProps } from "@elastic/eui/src/components/breadcrumbs/breadcrumb"
+import type { EuiBreadcrumbProps } from "@elastic/eui/src/components/breadcrumbs/types"
 import { useLinkProps } from "@react-mool/core"
 import { MouseEventHandler, ReactNode } from "react"
 import { createStackCollector } from "../helpers/createStackCollector"

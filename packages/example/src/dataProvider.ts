@@ -1,5 +1,5 @@
 import { DataProvider, ValidationError } from "@react-mool/core"
-import { selectFields } from "gqless"
+import { selectFields } from "@mozartspa/gqless"
 import pluralize from "pluralize"
 import { client, resolved } from "./gqless"
 

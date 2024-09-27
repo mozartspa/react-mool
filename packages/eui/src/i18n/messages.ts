@@ -77,6 +77,13 @@ export const englishEuiMessages = {
       content:
         "The item has been changed in the meantime. If you update, you will lose your unsaved changes.",
     },
+    sort: {
+      asc: "sorted ascending",
+      desc: "sorted descending",
+    },
+    notifications: {
+      ariaLabel: "Notifications",
+    },
   },
   euiTokens,
 }

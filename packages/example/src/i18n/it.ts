@@ -1,7 +1,9 @@
 import { buildPartialTranslations } from "@react-mool/core"
+import messages from "@react-mool/i18n-it"
 import { englishMessages, Messages } from "./en"
 
 export const italianMessages: Messages = buildPartialTranslations(englishMessages, {
+  ...messages,
   core: {
     crud: {
       created: "Elemento creato",

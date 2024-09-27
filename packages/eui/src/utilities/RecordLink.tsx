@@ -6,7 +6,7 @@ import {
   useLinkProps,
   useRedirectLink,
 } from "@react-mool/core"
-import { MouseEventHandler, ReactNode } from "react"
+import { CSSProperties, MouseEventHandler, ReactNode } from "react"
 
 export type RecordLinkTo<TRecord = any> =
   | RedirectToPage
@@ -21,10 +21,19 @@ export type RecordLinkProps<TRecord = any> = {
   className?: string
   onClick?: MouseEventHandler<HTMLAnchorElement>
   children?: ReactNode
+  lineClamp?: number | boolean
 }
 
 export const RecordLink = <TRecord extends any>(props: RecordLinkProps<TRecord>) => {
-  const { record, resource, linkTo, className, onClick, children } = props
+  const {
+    record,
+    resource,
+    linkTo,
+    className,
+    onClick,
+    children,
+    lineClamp = false,
+  } = props
 
   const getId = useGetRecordId(resource)
   const getName = useGetRecordName(resource)
@@ -33,8 +42,15 @@ export const RecordLink = <TRecord extends any>(props: RecordLinkProps<TRecord>)
 
   const content = children ?? getName(record)
 
+  const lineClampStyle: CSSProperties = {
+    display: "-webkit-box",
+    WebkitLineClamp: typeof lineClamp === "boolean" ? 1 : lineClamp,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  }
+
   if (!linkTo) {
-    return <>{content}</>
+    return <div style={!!lineClamp ? lineClampStyle : undefined}>{content}</div>
   }
 
   const anchorProps =
@@ -45,7 +61,12 @@ export const RecordLink = <TRecord extends any>(props: RecordLinkProps<TRecord>)
       : redirectLink(linkTo.to, { id: getId(record), resource, ...linkTo.options })
 
   return (
-    <a {...anchorProps} onClick={onClick ?? anchorProps.onClick} className={className}>
+    <a
+      style={!!lineClamp ? lineClampStyle : undefined}
+      {...anchorProps}
+      onClick={onClick ?? anchorProps.onClick}
+      className={className}
+    >
       {content}
     </a>
   )
