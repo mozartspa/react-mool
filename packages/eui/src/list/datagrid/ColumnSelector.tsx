@@ -76,7 +76,13 @@ export const ColumnSelector = (props: ColumnSelectorProps) => {
               {orderedColumnIds.map((id, index) => {
                 const label = columnLabel?.(id) ?? id
                 return (
-                  <EuiDraggable key={id} draggableId={id} index={index} spacing="m">
+                  <EuiDraggable
+                    key={id}
+                    draggableId={id}
+                    index={index}
+                    spacing="m"
+                    usePortal
+                  >
                     {(_, state) => (
                       <div
                         className={`euiDataGridColumnSelector__item ${
