@@ -50,3 +50,8 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.euiSuperSelect__listbox {
+  max-block-size: 300px;
+  overflow: hidden auto;
+}
