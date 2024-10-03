@@ -9,6 +9,7 @@ import {
   ListHeader,
   NumberColumn,
   SelectOption,
+  SelectResourceFilter,
   TabbedFilterGroups,
   TextColumn,
   TextFilter,
@@ -58,7 +59,20 @@ export const ProductList = () => {
       />
       <EuiSpacer size="xxl" />
       <FilterBar
-        filters={[<TextFilter name="q" placeholder="Search..." alwaysOn grow />]}
+        filters={[
+          <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
+          <SelectResourceFilter
+            name="product.some"
+            resource="product"
+            multiple
+            format={(value) => {
+              return value?.id?.in
+            }}
+            parse={(value) => {
+              return value.length > 0 ? { id: { in: value } } : undefined
+            }}
+          />,
+        ]}
       />
       <Datagrid
         columns={[

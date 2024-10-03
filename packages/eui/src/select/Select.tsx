@@ -4,6 +4,7 @@ import {
   EuiInputPopover,
   EuiPopover,
   EuiPopoverProps,
+  EuiPopoverTitle,
   EuiSelectable,
   EuiSelectableOption,
   EuiSelectableOptionsListProps,
@@ -319,7 +320,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
         >
           {(list, search) => (
             <>
-              {search}
+              <EuiPopoverTitle paddingSize="s">{search}</EuiPopoverTitle>
               {list}
             </>
           )}
@@ -347,6 +348,8 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
         fullWidth={fullWidth}
         style={style}
         className={className}
+        repositionOnScroll={true}
+        anchorPosition="downRight"
         {...popoverProps}
       >
         {renderContent()}
@@ -362,6 +365,8 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
         display={fullWidth ? "block" : "inlineBlock"}
         style={style}
         className={className}
+        repositionOnScroll={true}
+        anchorPosition="downRight"
         {...popoverProps}
       >
         {renderContent()}

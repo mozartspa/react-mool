@@ -40,6 +40,9 @@ export const HeaderNav = (props: HeaderNavProps) => {
       aria-label={translate(t.eui.layout.main_navigation)}
       isOpen={navIsOpen}
       isDocked={navIsDocked}
+      maskProps={{
+        className: "euiOverlayMask--belowHeader",
+      }}
       button={
         <EuiHeaderSectionItemButton
           aria-label={translate(t.eui.layout.toggle_main_navigation)}
@@ -53,6 +56,7 @@ export const HeaderNav = (props: HeaderNavProps) => {
       css={{
         backgroundColor: euiTheme.colors.body,
       }}
+      className="euiCollapsibleNav"
     >
       <EuiFlexItem className="eui-yScroll">{menu}</EuiFlexItem>
       <EuiFlexItem grow={false}>
