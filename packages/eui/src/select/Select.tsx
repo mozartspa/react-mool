@@ -4,6 +4,7 @@ import {
   EuiInputPopover,
   EuiPopover,
   EuiPopoverProps,
+  EuiPopoverTitle,
   EuiSelectable,
   EuiSelectableOption,
   EuiSelectableOptionsListProps,
@@ -316,13 +317,10 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
           onChange={handleSelectableChange}
           listProps={{ onFocusBadge: false, ...searchListProps }}
           renderOption={renderOption}
-          searchProps={{
-            compressed: true,
-          }}
         >
           {(list, search) => (
             <>
-              {search}
+              <EuiPopoverTitle paddingSize="s">{search}</EuiPopoverTitle>
               {list}
             </>
           )}
