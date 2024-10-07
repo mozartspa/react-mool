@@ -4,6 +4,7 @@ import {
   EuiButtonIconProps,
   EuiButtonProps,
   EuiLoadingSpinner,
+  useEuiTheme,
 } from "@elastic/eui"
 import { useFormContext } from "@mozartspa/mobx-form"
 import { useResource, useTranslate } from "@react-mool/core"
@@ -18,6 +19,7 @@ export type SaveButtonProps = BaseButtonProps & {
 export const SaveButton = observer((props: SaveButtonProps) => {
   const { disableIfPristine = true, children, asIcon, ...buttonProps } = props
 
+  const { euiTheme } = useEuiTheme()
   const resource = useResource()
   const translate = useTranslate()
 
@@ -34,6 +36,12 @@ export const SaveButton = observer((props: SaveButtonProps) => {
     isLoading: form.isSubmitting,
   }
 
+  // If the button is disabled, we want to show it with a different background color overriding the EUI theme
+  const style = {
+    backgroundColor: commonProps.disabled ? euiTheme.colors.disabled : "inherit",
+    ...buttonProps.style,
+  }
+
   if (asIcon) {
     return (
       <EuiButtonIcon
@@ -48,6 +56,7 @@ export const SaveButton = observer((props: SaveButtonProps) => {
             ? EuiLoadingSpinner
             : buttonProps.iconType || commonProps.iconType
         }
+        style={style}
       />
     )
   } else {
@@ -56,6 +65,7 @@ export const SaveButton = observer((props: SaveButtonProps) => {
         fill={true}
         {...commonProps}
         {...(buttonProps as Partial<EuiButtonProps>)}
+        style={style}
       >
         {children ?? label}
       </EuiButton>

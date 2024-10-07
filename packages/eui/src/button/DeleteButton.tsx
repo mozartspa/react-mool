@@ -4,6 +4,7 @@ import {
   EuiButtonIconProps,
   EuiButtonProps,
   EuiLoadingSpinner,
+  useEuiTheme,
 } from "@elastic/eui"
 import {
   RecordID,
@@ -55,6 +56,8 @@ export const DeleteButton = (props: DeleteButtonProps) => {
 
   const isMounted = useIsMounted()
   const [isLoading, setLoading] = useState(false)
+
+  const { euiTheme } = useEuiTheme()
 
   const handleDelete = useCallback(async () => {
     if (
@@ -116,6 +119,12 @@ export const DeleteButton = (props: DeleteButtonProps) => {
   const isBtnLoading = buttonProps.isLoading ?? isLoading
   const iconType = isBtnLoading ? EuiLoadingSpinner : buttonProps.iconType || "trash"
 
+  // If the button is disabled, we want to show it with a different background color overriding the EUI theme
+  const style = {
+    backgroundColor: buttonProps.isDisabled ? euiTheme.colors.disabled : "inherit",
+    ...buttonProps.style,
+  }
+
   if (asIcon) {
     return (
       <EuiButtonIcon
@@ -128,6 +137,7 @@ export const DeleteButton = (props: DeleteButtonProps) => {
         isDisabled={isBtnLoading || buttonProps.isDisabled}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
         iconType={iconType}
+        style={style}
       />
     )
   } else {
@@ -137,6 +147,7 @@ export const DeleteButton = (props: DeleteButtonProps) => {
         onClick={handleDelete}
         isLoading={isBtnLoading}
         {...(buttonProps as Partial<EuiButtonProps>)}
+        style={style}
       >
         {children ?? label}
       </EuiButton>

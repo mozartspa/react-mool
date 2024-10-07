@@ -3,6 +3,7 @@ import {
   EuiButtonIcon,
   EuiButtonIconProps,
   EuiButtonProps,
+  useEuiTheme,
 } from "@elastic/eui"
 import { RecordID, useRedirectLink, useResource, useTranslate } from "@react-mool/core"
 import { t } from "../i18n"
@@ -20,9 +21,17 @@ export const EditButton = (props: EditButtonProps) => {
   const link = useRedirectLink({ resource })
   const translate = useTranslate()
 
+  const { euiTheme } = useEuiTheme()
+
   const label = translate(`resources.${resource}.action.edit`, {
     defaultValue: translate(t.eui.action.edit),
   })
+
+  // If the button is disabled, we want to show it with a different background color overriding the EUI theme
+  const style = {
+    backgroundColor: buttonProps.isDisabled ? euiTheme.colors.disabled : "inherit",
+    ...buttonProps.style,
+  }
 
   if (asIcon) {
     return (
@@ -33,6 +42,7 @@ export const EditButton = (props: EditButtonProps) => {
         aria-label={label}
         {...link("edit", { id })}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
+        style={style}
       />
     )
   } else {
@@ -42,6 +52,7 @@ export const EditButton = (props: EditButtonProps) => {
         iconType="pencil"
         {...link("edit", { id })}
         {...(buttonProps as Partial<EuiButtonProps>)}
+        style={style}
       >
         {children ?? label}
       </EuiButton>

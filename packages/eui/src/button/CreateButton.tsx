@@ -3,6 +3,7 @@ import {
   EuiButtonIcon,
   EuiButtonIconProps,
   EuiButtonProps,
+  useEuiTheme,
 } from "@elastic/eui"
 import {
   useGetResourceLabel,
@@ -25,9 +26,17 @@ export const CreateButton = (props: CreateButtonProps) => {
   const getResourceLabel = useGetResourceLabel()
   const translate = useTranslate()
 
+  const { euiTheme } = useEuiTheme()
+
   const label = translate(`resources.${resource}.action.create`, {
     defaultValue: `${translate(t.eui.action.create)} ${getResourceLabel(resource)}`,
   })
+
+  // If the button is disabled, we want to show it with a different background color overriding the EUI theme
+  const style = {
+    backgroundColor: buttonProps.isDisabled ? euiTheme.colors.disabled : "inherit",
+    ...buttonProps.style,
+  }
 
   if (asIcon) {
     return (
@@ -38,6 +47,7 @@ export const CreateButton = (props: CreateButtonProps) => {
         aria-label={label}
         {...link("create")}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
+        style={style}
       />
     )
   } else {
@@ -47,6 +57,7 @@ export const CreateButton = (props: CreateButtonProps) => {
         iconType="plusInCircleFilled"
         {...link("create")}
         {...(buttonProps as Partial<EuiButtonProps>)}
+        style={style}
       >
         {children ?? label}
       </EuiButton>
