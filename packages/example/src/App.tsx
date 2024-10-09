@@ -20,14 +20,6 @@ const customRoutes = [
   </CustomRoute>,
 ]
 
-const colors = {
-  LIGHT: {
-    body: "#ffffff",
-    disabled: "#34374126",
-    disabledText: "#515761",
-  },
-}
-
 function App() {
   const [i18nProvider, setI18nProvider] = useState<I18nProvider | undefined>(undefined)
 
@@ -41,7 +33,6 @@ function App() {
 
   return (
     <Admin
-      euiProviderProps={{ colorMode: "light", modify: { colors } }}
       dataProvider={dataProvider}
       i18nProvider={i18nProvider}
       authProvider={authProvider}
