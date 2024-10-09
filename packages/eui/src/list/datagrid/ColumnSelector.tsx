@@ -9,6 +9,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiIcon,
+  EuiPanel,
   EuiPopover,
   EuiPopoverFooter,
   EuiSwitch,
@@ -56,14 +57,15 @@ export const ColumnSelector = (props: ColumnSelectorProps) => {
       isOpen={isOpen}
       closePopover={() => setOpen(false)}
       anchorPosition="downLeft"
-      panelPaddingSize="s"
       panelClassName="euiDataGridColumnSelectorPopover"
+      panelPaddingSize="none"
+      panelProps={{ css: { minWidth: 235 } }}
+      css={{ width: "fit-content" }}
       button={
         <EuiButtonEmpty
           size="xs"
           iconType="tableDensityNormal"
           onClick={() => setOpen(!isOpen)}
-          flush="left"
         >
           {translate(t.eui.columns.manage)}
         </EuiButtonEmpty>
@@ -80,15 +82,11 @@ export const ColumnSelector = (props: ColumnSelectorProps) => {
                     key={id}
                     draggableId={id}
                     index={index}
-                    spacing="m"
+                    spacing="s"
                     usePortal
                   >
                     {(_, state) => (
-                      <div
-                        className={`euiDataGridColumnSelector__item ${
-                          state.isDragging && "euiDataGridColumnSelector__item-isDragging"
-                        }`}
-                      >
+                      <EuiPanel hasShadow={state.isDragging} paddingSize="xs">
                         <EuiFlexGroup
                           responsive={false}
                           gutterSize="m"
@@ -108,7 +106,7 @@ export const ColumnSelector = (props: ColumnSelectorProps) => {
                             <EuiIcon type="grab" color="subdued" />
                           </EuiFlexItem>
                         </EuiFlexGroup>
-                      </div>
+                      </EuiPanel>
                     )}
                   </EuiDraggable>
                 )
