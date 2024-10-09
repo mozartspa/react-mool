@@ -66,7 +66,6 @@ export const ColumnSelector = (props: ColumnSelectorProps) => {
           size="xs"
           iconType="tableDensityNormal"
           onClick={() => setOpen(!isOpen)}
-          flush="left"
         >
           {translate(t.eui.columns.manage)}
         </EuiButtonEmpty>
