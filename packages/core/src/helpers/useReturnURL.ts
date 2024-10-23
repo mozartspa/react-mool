@@ -6,9 +6,13 @@ function removeBasenameFromPath(basename: string | undefined, path: string) {
   if (basename == null) {
     return path
   }
-  const token = `/${basename}/`
-  if (path.startsWith(token)) {
-    return "/" + path.slice(token.length)
+
+  const token1 = `/${basename}/`
+  const token2 = `/${basename}`
+  if (path.startsWith(token1)) {
+    return "/" + path.slice(token1.length)
+  } else if (path === token2) {
+    return "/" + path.slice(token2.length)
   } else {
     return path
   }
