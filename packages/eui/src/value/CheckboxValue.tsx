@@ -22,7 +22,7 @@ export const CheckboxValue = (props: CheckboxValueProps) => {
           </>
         ) : (
           <EuiTextColor color="subdued">
-            <EuiIcon type="crossInACircleFilled" /> {tCheckboxLabel}
+            <EuiIcon type="crossInCircle" /> {tCheckboxLabel}
           </EuiTextColor>
         )
       }}
