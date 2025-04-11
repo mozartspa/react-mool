@@ -1,4 +1,9 @@
-import { EuiBadge, EuiComboBoxOptionOption, EuiComboBoxProps } from "@elastic/eui"
+import {
+  EuiBadge,
+  EuiBadgeGroup,
+  EuiComboBoxOptionOption,
+  EuiComboBoxProps,
+} from "@elastic/eui"
 import React from "react"
 import { Value, ValueProps } from "./Value"
 
@@ -27,7 +32,7 @@ export const ComboBoxValue = (props: ComboBoxValueProps) => {
   return (
     <Value {...props}>
       {({ value }) => {
-        return renderContent(value)
+        return <EuiBadgeGroup>{renderContent(value)}</EuiBadgeGroup>
       }}
     </Value>
   )
