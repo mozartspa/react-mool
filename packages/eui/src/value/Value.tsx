@@ -1,7 +1,14 @@
 import { EuiFormRow, formatAuto } from "@elastic/eui"
 import { useRecord, useRecordValue, useTranslate } from "@react-mool/core"
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 import { useGetResourceFieldLabel } from "../helpers"
+import { ValueContainer, ValueContainerProps } from "./ValueContainer"
+
+export type RenderValueFunc = (args: {
+  value: any
+  record: any
+  defaultContent: ReactNode
+}) => ReactNode
 
 export type ValueProps = {
   name: string
@@ -9,7 +16,10 @@ export type ValueProps = {
   fullWidth?: boolean
   helpText?: ReactNode | ReactNode[]
   format?: (value: any) => any
+  customRenderValue?: RenderValueFunc
+  valueContainerProps?: ValueContainerProps
   noFormRow?: boolean
+  noValueContainer?: boolean
 }
 
 export type ValueRenderProps<TValue = any, TRecord = any> = {
@@ -21,8 +31,19 @@ export type ValueComponentProps<TValue = any, TRecord = any> = ValueProps & {
   children?: (props: ValueRenderProps<TValue, TRecord>) => ReactNode
 }
 
-export const Value = (props: ValueComponentProps) => {
-  const { name, label, fullWidth, helpText, format, noFormRow, children } = props
+export const Value: React.FC<ValueComponentProps> = (props) => {
+  const {
+    name,
+    label,
+    fullWidth,
+    helpText,
+    format,
+    noFormRow = false,
+    customRenderValue,
+    valueContainerProps,
+    noValueContainer = noFormRow,
+    children,
+  } = props
 
   const record = useRecord()
   const recordValue = useRecordValue(name)
@@ -31,10 +52,19 @@ export const Value = (props: ValueComponentProps) => {
 
   const value = format ? format(recordValue) : recordValue
   const valueLabel = translate(label) ?? getFieldLabel(name)
-  const content = <>{children ? children({ value, record }) : formatAuto(value)}</>
+  const defaultContent = children ? children({ value, record }) : formatAuto(value)
+  const content = customRenderValue
+    ? customRenderValue({ value, record, defaultContent })
+    : defaultContent
+
+  const wrappedContent = noValueContainer ? (
+    <>{content}</>
+  ) : (
+    <ValueContainer {...valueContainerProps}>{content}</ValueContainer>
+  )
 
   if (noFormRow) {
-    return content
+    return wrappedContent
   } else {
     return (
       <EuiFormRow
@@ -42,7 +72,7 @@ export const Value = (props: ValueComponentProps) => {
         fullWidth={fullWidth}
         helpText={translate(helpText)}
       >
-        {content}
+        {wrappedContent}
       </EuiFormRow>
     )
   }
