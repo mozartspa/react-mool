@@ -4,14 +4,17 @@ import { Value, ValueProps } from "./Value"
 
 export type TextAreaValueProps = ValueProps & {
   whiteSpace?: CSSProperties["whiteSpace"]
+  style?: CSSProperties
 }
 
 export const TextAreaValue = (props: TextAreaValueProps) => {
-  const { whiteSpace = "pre-wrap", ...valueProps } = props
+  const { whiteSpace = "pre-wrap", style, ...valueProps } = props
 
   return (
     <Value {...valueProps}>
-      {({ value }) => <span style={{ whiteSpace }}>{formatText(value)}</span>}
+      {({ value }) => (
+        <span style={{ lineHeight: 1.5, ...style, whiteSpace }}>{formatText(value)}</span>
+      )}
     </Value>
   )
 }
