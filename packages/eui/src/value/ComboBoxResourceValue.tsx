@@ -1,4 +1,4 @@
-import { EuiBadge, EuiComboBoxOptionOption } from "@elastic/eui"
+import { EuiBadge, EuiBadgeGroup, EuiComboBoxOptionOption } from "@elastic/eui"
 import { GetMany, useDataProvider, useGetRecordName } from "@react-mool/core"
 import React, { ReactNode, useCallback } from "react"
 import { ComboBoxResourceInputProps } from "../input"
@@ -50,7 +50,7 @@ export const ComboBoxResourceValue = <TRecord extends any>(
         errorView={errorView}
       >
         {(records) => {
-          return renderRecords(records ?? [])
+          return <EuiBadgeGroup>{renderRecords(records ?? [])}</EuiBadgeGroup>
         }}
       </GetMany>
     )
