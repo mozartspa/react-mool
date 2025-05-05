@@ -1,6 +1,7 @@
 import {
   EuiButtonIcon,
   EuiFlexGroup,
+  EuiFlexGroupProps,
   EuiFlexItem,
   EuiSelectableOption,
   EuiShowFor,
@@ -51,6 +52,7 @@ export type FilterBarProps<TFilter extends FormValues = any, TFilterOut = TFilte
   restoreStorage?: Storage
   allowUnusedFilterValues?: boolean
   onChange?: (values: TFilter) => void
+  flexGroupProps?: EuiFlexGroupProps
   children?: ReactNode
 }
 
@@ -64,6 +66,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     restoreStorage,
     allowUnusedFilterValues = false,
     onChange,
+    flexGroupProps,
     children,
   } = props
 
@@ -204,7 +207,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     return (
       <EuiFlexGroup responsive={false}>
         <EuiFlexItem grow={true}>
-          <EuiFlexGroup gutterSize={isMobile ? "none" : "l"}>
+          <EuiFlexGroup gutterSize={isMobile ? "none" : "l"} {...flexGroupProps}>
             {shownFilters.map((filter, i) => (
               <EuiFlexItem key={filter.props.name || i} grow={filter.props.grow || false}>
                 <EuiFlexGroup alignItems="center" gutterSize="xs" responsive={false}>
