@@ -60,7 +60,15 @@ export const ProductList = () => {
       <EuiSpacer size="xxl" />
       <FilterBar
         filters={[
-          <TextFilter name="q" placeholder="Search..." alwaysOn grow />,
+          ...Array.from({ length: 15 }, (_, i) => (
+            <TextFilter
+              key={i}
+              name={`q${i}`}
+              placeholder={`Search ${i + 1}...`}
+              grow
+              alwaysOn={i === 0}
+            />
+          )),
           <SelectResourceFilter
             name="product.some"
             resource="product"

@@ -71,7 +71,7 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
         </EuiPopoverTitle>
       )}
 
-      <div style={{ width: 240 }}>
+      <div style={{ width: 240, maxBlockSize: "300px", overflow: "hidden auto" }}>
         <EuiContextMenuPanel size="s" items={items} />
       </div>
 
