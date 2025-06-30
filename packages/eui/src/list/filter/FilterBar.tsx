@@ -54,13 +54,29 @@ export type FilterBarProps<TFilter extends FormValues = any, TFilterOut = TFilte
   onChange?: (values: TFilter) => void
   flexGroupProps?: EuiFlexGroupProps
   children?: ReactNode
+  /**
+   * If true, the filter list will be searchable.
+   * @default undefined
+   */
+  searchable?: boolean
+  /**
+   * If set, the filter list will be searchable only when the number of filters is greater than this value.
+   * This is useful to avoid showing a search input when there are few filters.
+   * @default 7
+   */
+  searchableWhenMoreThan?: number
+  /**
+   * If true, the filter list will be sorted.
+   * @default true
+   */
+  sorted?: boolean
 }
 
 function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
   props: FilterBarProps<TFilter, TFilterOut>
 ) {
   const {
-    filters,
+    filters: oFilters,
     restoreFromLast,
     restoreKey,
     restoreStorage,
@@ -68,6 +84,8 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     onChange,
     flexGroupProps,
     children,
+    sorted = true,
+    searchableWhenMoreThan = 7,
   } = props
 
   const translate = useTranslate()
@@ -125,6 +143,37 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     []
   )
 
+  // Translate filter name
+  const translateFilterName = useCallback(
+    (name: string) => {
+      return translate(`resources.${resource}.filters.${name}`, {
+        defaultValue: translate(`resources.${resource}.fields.${name}`, {
+          defaultValue: humanize(name),
+        }),
+      })
+    },
+    [resource, translate]
+  )
+
+  // Sorted filters
+  const filters = useMemo(() => {
+    // In case filters should be sorted, sort them by name, moving always-on filters to the top.
+    if (!sorted) {
+      return oFilters
+    }
+
+    const alwaysOnFilters = oFilters.filter((f) => f.props.alwaysOn)
+    const rest = oFilters
+      .filter((f) => !f.props.alwaysOn)
+      .sort((a, b) => {
+        const nameA = a.props.label || translateFilterName(a.props.name)
+        const nameB = b.props.label || translateFilterName(b.props.name)
+        return nameA.localeCompare(nameB)
+      })
+
+    return [...alwaysOnFilters, ...rest]
+  }, [oFilters, sorted, translateFilterName])
+
   // Remove filter values that are not used by any filter element.
   useEffect(() => {
     if (allowUnusedFilterValues) {
@@ -138,15 +187,6 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
       form.setValues(nextValues)
     }
   })
-
-  // Translate filter name
-  const translateFilterName = (name: string) => {
-    return translate(`resources.${resource}.filters.${name}`, {
-      defaultValue: translate(`resources.${resource}.fields.${name}`, {
-        defaultValue: humanize(name),
-      }),
-    })
-  }
 
   // Calc which filters should be shown
   const shownFilters = filters.filter((filter) => {
@@ -164,6 +204,9 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
         label: filter.props.label || translateFilterName(filter.props.name),
       }
     })
+
+  // Filters searchable
+  const searchable = props.searchable ?? filterOptions.length > searchableWhenMoreThan
 
   // Add filter
   const handleAddFilter = useCallback((option: EuiSelectableOption) => {
@@ -235,6 +278,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
             filterOptions={filterOptions}
             onSelect={handleAddFilter}
             onReset={handleResetFilters}
+            searchable={searchable}
           />
         </EuiFlexItem>
       </EuiFlexGroup>
