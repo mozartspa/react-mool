@@ -1,11 +1,11 @@
 import {
   EuiButton,
   EuiButtonIcon,
-  EuiContextMenuItem,
-  EuiContextMenuPanel,
+  EuiIcon,
   EuiPopover,
   EuiPopoverFooter,
   EuiPopoverTitle,
+  EuiSelectable,
   EuiSelectableOption,
   EuiTextAlign,
 } from "@elastic/eui"
@@ -17,10 +17,11 @@ export type FilterBarButtonProps = {
   filterOptions: EuiSelectableOption[]
   onSelect?: (option: EuiSelectableOption) => void
   onReset?: () => void
+  searchable?: boolean
 }
 
 export const FilterBarButton = (props: FilterBarButtonProps) => {
-  const { filterOptions, onSelect, onReset } = props
+  const { filterOptions, onSelect, onReset, searchable } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
 
@@ -42,18 +43,20 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
     />
   )
 
-  const items = filterOptions.map((filter) => (
-    <EuiContextMenuItem
-      key={filter.key}
-      icon="plusInCircleFilled"
-      onClick={() => {
-        setPopoverOpen(false)
-        onSelect?.(filter)
-      }}
-    >
-      {filter.label}
-    </EuiContextMenuItem>
-  ))
+  const options = filterOptions.map(
+    (filter): EuiSelectableOption => ({
+      ...filter,
+      prepend: <EuiIcon type="plusInCircleFilled" />,
+    })
+  )
+
+  const setOptions = (options: EuiSelectableOption[]) => {
+    const selectedOptions = options.filter((option) => option.checked === "on")
+    if (selectedOptions.length > 0) {
+      setPopoverOpen(false)
+      onSelect?.(selectedOptions[0])
+    }
+  }
 
   return (
     <EuiPopover
@@ -63,7 +66,7 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
       panelPaddingSize="none"
       repositionOnScroll
     >
-      {items.length > 0 && (
+      {options.length > 0 && (
         <EuiPopoverTitle paddingSize="s">
           <EuiTextAlign textAlign="center">
             {translate(t.eui.filter.add_filter)}
@@ -72,7 +75,23 @@ export const FilterBarButton = (props: FilterBarButtonProps) => {
       )}
 
       <div style={{ width: 240, maxBlockSize: "300px", overflow: "hidden auto" }}>
-        <EuiContextMenuPanel size="s" items={items} />
+        <EuiSelectable
+          options={options}
+          onChange={(options) => setOptions(options)}
+          searchable={searchable}
+          listProps={{
+            isVirtualized: false,
+            showIcons: false,
+          }}
+          height={searchable ? 240 : undefined}
+        >
+          {(list, search) => (
+            <>
+              {search}
+              {list}
+            </>
+          )}
+        </EuiSelectable>
       </div>
 
       <EuiPopoverFooter paddingSize="s">
