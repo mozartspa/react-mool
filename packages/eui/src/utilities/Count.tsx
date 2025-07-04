@@ -1,4 +1,4 @@
-import { useGetList, useResource } from "@react-mool/core"
+import { useGetListForOptions, useResource } from "@react-mool/core"
 import { ReactNode } from "react"
 
 export type CountProps<TFilter = any> = {
@@ -12,7 +12,7 @@ export const Count = (props: CountProps) => {
 
   const resource = useResource(props.resource)
 
-  const { data } = useGetList(
+  const { data } = useGetListForOptions(
     {
       page: 1,
       pageSize: 1,

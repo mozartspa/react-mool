@@ -109,3 +109,23 @@ export function useGetList<TRecord = any, TFilter = any>(
 
   return query
 }
+
+export function useGetListForOptions<TRecord = any, TFilter = any>(
+  params: GetListParams<TFilter>,
+  options: UseGetListOptions<TRecord> = {}
+) {
+  const resource = useResource(options.resource)
+  const dataProvider = useResourceDataProvider<TRecord>(resource)
+  const query = useQuery(
+    [resource, "listForOptions", params],
+    () => {
+      return dataProvider.getListForOptions(params)
+    },
+    {
+      keepPreviousData: true,
+      ...options,
+    }
+  )
+
+  return query
+}

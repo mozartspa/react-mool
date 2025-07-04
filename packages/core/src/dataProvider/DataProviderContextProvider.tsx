@@ -1,10 +1,10 @@
 import { ReactNode, useMemo } from "react"
 import { AuthContextValue, useAuthContext } from "../auth"
 import { UnauthorizedError } from "../errors"
-import { DataProvider, DataProviderContext } from "./dataProvider"
+import { DataProvider, DataProviderContext, PartialDataProvider } from "./dataProvider"
 
 function withUnauthorizedHandler<TRecord, TCreate, TUpdate, TFilter>(
-  dataProvider: DataProvider<TRecord, TCreate, TUpdate, TFilter>,
+  dataProvider: PartialDataProvider<TRecord, TCreate, TUpdate, TFilter>,
   authRefresh: AuthContextValue["refresh"]
 ) {
   function wrap<TInput extends Array<any>, TOutput>(
@@ -33,6 +33,7 @@ function withUnauthorizedHandler<TRecord, TCreate, TUpdate, TFilter>(
     id: dataProvider.id,
     getOne: wrap(dataProvider.getOne),
     getList: wrap(dataProvider.getList),
+    getListForOptions: wrap(dataProvider.getListForOptions ?? dataProvider.getList),
     create: wrap(dataProvider.create),
     update: wrap(dataProvider.update),
     delete: wrap(dataProvider.delete),
@@ -42,7 +43,7 @@ function withUnauthorizedHandler<TRecord, TCreate, TUpdate, TFilter>(
 }
 
 export type DataProviderContextProviderProps = {
-  dataProvider: DataProvider
+  dataProvider: PartialDataProvider
   children?: ReactNode
 }
 

@@ -1,7 +1,7 @@
 import { EuiBadge, EuiTab, EuiTabs } from "@elastic/eui"
 import {
   useAddFilter,
-  useGetList,
+  useGetListForOptions,
   useListContext,
   useResource,
   useStorage,
@@ -116,7 +116,7 @@ function BadgeCount(props: BadgeCountProps) {
 
   const { baseFilter, mergeFilters } = useListContext()
 
-  const query = useGetList({
+  const query = useGetListForOptions({
     page: 1,
     pageSize: 1,
     filter: mergeFilters(group.filter, baseFilter),

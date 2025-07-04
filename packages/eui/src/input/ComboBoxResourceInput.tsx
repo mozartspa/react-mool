@@ -2,7 +2,7 @@ import { EuiComboBoxOptionOption } from "@elastic/eui"
 import {
   GetListParams,
   useDataProvider,
-  useGetList,
+  useGetListForOptions,
   useGetRecordId,
   useGetRecordName,
 } from "@react-mool/core"
@@ -38,7 +38,7 @@ export const ComboBoxResourceInput = <TRecord extends any = any, TFilter = any>(
   const getName = useGetRecordName(resource)
   const dataProvider = useDataProvider()
 
-  const query = useGetList<TRecord, TFilter>(
+  const query = useGetListForOptions<TRecord, TFilter>(
     { page: 1, pageSize: maxSize, filter, sortField, sortOrder },
     {
       resource,

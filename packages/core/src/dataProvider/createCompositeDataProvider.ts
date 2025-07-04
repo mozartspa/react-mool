@@ -1,11 +1,13 @@
-import { DataProvider } from "./dataProvider"
+import { DataProvider, PartialDataProvider } from "./dataProvider"
 
 export type CompositeDataProviderConfig = {
-  resources: Record<string, Partial<DataProvider>>
-  fallback?: DataProvider
+  resources: Record<string, Partial<PartialDataProvider>>
+  fallback?: PartialDataProvider
 }
 
-export function createCompositeDataProvider(config: CompositeDataProviderConfig) {
+export function createCompositeDataProvider(
+  config: CompositeDataProviderConfig
+): DataProvider {
   const { resources } = config
 
   const fallback: DataProvider = {
@@ -19,6 +21,9 @@ export function createCompositeDataProvider(config: CompositeDataProviderConfig)
       throw new Error("Not implemented")
     },
     getList: () => {
+      throw new Error("Not implemented")
+    },
+    getListForOptions: () => {
       throw new Error("Not implemented")
     },
     getOne: () => {
@@ -43,6 +48,16 @@ export function createCompositeDataProvider(config: CompositeDataProviderConfig)
 
     getList: (resource, params) => {
       const func = resources[resource]?.getList ?? fallback.getList
+      return func(resource, params)
+    },
+
+    getListForOptions: (resource, params) => {
+      const func =
+        resources[resource]?.getListForOptions ??
+        resources[resource]?.getList ??
+        fallback.getListForOptions ??
+        fallback.getList
+
       return func(resource, params)
     },
 

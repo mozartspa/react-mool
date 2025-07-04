@@ -1,7 +1,7 @@
 import { ReactNode, useState } from "react"
 import { DefaultOptions, QueryClient, QueryClientProvider } from "react-query"
 import { AuthContextProvider, AuthProvider, defaultAuthProvider } from "../auth"
-import { DataProvider, DataProviderContextProvider } from "../dataProvider"
+import { DataProviderContextProvider, PartialDataProvider } from "../dataProvider"
 import { I18nProvider, TranslationContextProvider } from "../i18n"
 import { defaultI18nProvider } from "../i18n/defaultI18nProvider"
 import { NotificationContext, useNotification } from "../notify"
@@ -17,7 +17,7 @@ const queryClientDefaultOptions: DefaultOptions = {
 }
 
 export type AdminContextProps = {
-  dataProvider: DataProvider
+  dataProvider: PartialDataProvider
   i18nProvider?: I18nProvider
   authProvider?: AuthProvider
   queryClient?: QueryClient

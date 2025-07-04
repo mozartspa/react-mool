@@ -40,6 +40,7 @@ export interface ResourceDataProvider<
   id: (record: TRecord) => RecordID
   getOne: (params: GetOneParams) => Promise<TRecord>
   getList: (params: GetListParams<TFilter>) => Promise<GetListOutput<TRecord>>
+  getListForOptions: (params: GetListParams<TFilter>) => Promise<GetListOutput<TRecord>>
   create: (params: TCreate) => Promise<TRecord>
   update: (params: UpdateParams<TUpdate>) => Promise<TRecord>
   delete: (params: DeleteParams) => Promise<TRecord | undefined>
@@ -57,9 +58,27 @@ export interface DataProvider<
     resource: string,
     params: GetListParams<TFilter>
   ) => Promise<GetListOutput<TRecord>>
+  getListForOptions: (
+    resource: string,
+    params: GetListParams<TFilter>
+  ) => Promise<GetListOutput<TRecord>>
   create: (resource: string, params: TCreate) => Promise<TRecord>
   update: (resource: string, params: UpdateParams<TUpdate>) => Promise<TRecord>
   delete: (resource: string, params: DeleteParams) => Promise<TRecord | undefined>
+}
+
+export type PartialDataProvider<
+  TRecord = any,
+  TCreate = any,
+  TUpdate = any,
+  TFilter = any
+> = Omit<DataProvider<TRecord, TCreate, TUpdate, TFilter>, "getListForOptions"> & {
+  getListForOptions?: DataProvider<
+    TRecord,
+    TCreate,
+    TUpdate,
+    TFilter
+  >["getListForOptions"]
 }
 
 export const DataProviderContext = React.createContext<DataProvider | undefined>(
@@ -89,6 +108,7 @@ function createResourceDataProvider(
     id: (...args) => dataProvider.id(resource, ...args),
     getOne: (...args) => dataProvider.getOne(resource, ...args),
     getList: (...args) => dataProvider.getList(resource, ...args),
+    getListForOptions: (...args) => dataProvider.getListForOptions(resource, ...args),
     create: (...args) => dataProvider.create(resource, ...args),
     update: (...args) => dataProvider.update(resource, ...args),
     delete: (...args) => dataProvider.delete(resource, ...args),
