@@ -1,6 +1,6 @@
 import {
   GetListParams,
-  useGetList,
+  useGetListForOptions,
   useGetRecordId,
   useGetRecordName,
 } from "@react-mool/core"
@@ -35,7 +35,7 @@ export const SelectResource = <TRecord extends any, TFilter>(
   const getId = useGetRecordId(resource)
   const getName = useGetRecordName(resource)
 
-  const query = useGetList<TRecord, TFilter>(
+  const query = useGetListForOptions<TRecord, TFilter>(
     { page: 1, pageSize: maxSize, filter, sortField, sortOrder },
     {
       resource,

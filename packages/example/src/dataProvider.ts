@@ -66,6 +66,39 @@ export const dataProvider: DataProvider = {
       }
     )
   },
+  getListForOptions: async (
+    resource,
+    { page: pageParam, pageSize, sortField, sortOrder, filter }
+  ) => {
+    const page = pageParam - 1
+    return await resolved(
+      () => {
+        const items = (client.query as any)[`all${capitalize(pluralize(resource))}`]({
+          page,
+          perPage: pageSize,
+          sortField,
+          sortOrder,
+          filter,
+        })
+
+        const total = (client.query as any)[`_all${capitalize(pluralize(resource))}Meta`](
+          {
+            page,
+            perPage: pageSize,
+            filter,
+          }
+        )?.count
+
+        return {
+          items: selectFields(items, "*", 1),
+          total,
+        }
+      },
+      {
+        noCache: true,
+      }
+    )
+  },
   create: async (resource, params) => {
     await wait(1000)
     return await resolved(
