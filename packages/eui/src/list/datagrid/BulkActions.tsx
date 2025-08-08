@@ -62,7 +62,7 @@ export const BulkActions = (props: BulkActions) => {
           action.run(selectedItems)
         }}
       >
-        {action.bulkName ?? action.name}
+        {action.bulkName ?? (action.name as string)}
       </EuiContextMenuItem>
     )
   })

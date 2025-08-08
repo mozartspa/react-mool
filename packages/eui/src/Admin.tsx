@@ -6,7 +6,7 @@ import {
   AdminRouterProps,
   I18nProvider,
 } from "@react-mool/core"
-import React from "react"
+import React, { ReactNode } from "react"
 import smoothscroll from "smoothscroll-polyfill"
 import "./Admin.scss"
 import { ErrorBoundary, ErrorBoundaryProps } from "./error"
@@ -19,7 +19,9 @@ import { Login } from "./login"
 // apply smoothscroll polyfill
 smoothscroll.polyfill()
 
-const NoErrorBoundary: React.FC = ({ children }) => <>{children}</>
+const NoErrorBoundary: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <>{children}</>
+)
 
 export type AdminProps = AdminContextProps &
   AdminRouterProps & {

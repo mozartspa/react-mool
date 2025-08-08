@@ -11,6 +11,7 @@ export const NumberInput = (props: NumberInputProps) => (
         step="any"
         fullWidth={props.fullWidth}
         {...inputProps}
+        children={undefined}
       />
     )}
   </Input>

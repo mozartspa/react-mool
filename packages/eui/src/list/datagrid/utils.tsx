@@ -131,7 +131,7 @@ export function toEuiAction(action: DatagridAction): DefaultItemAction<any> {
       if (description) {
         return typeof description === "function" ? description(item) : description
       }
-      return typeof name === "function" ? name(item) : name
+      return typeof name === "function" ? (name(item) as string) : (name as string)
     },
     type: "icon",
     icon: (icon ?? "empty") as any,

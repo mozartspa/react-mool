@@ -76,6 +76,7 @@ export const ComboBoxInput = (props: ComboBoxInputProps) => {
         return (
           <EuiComboBox
             {...inputProps}
+            children={undefined}
             options={options}
             selectedOptions={selectedOptions}
             onBlur={field.input.onBlur}

@@ -102,6 +102,7 @@ export const DateInput = (props: DateInputProps) => {
         return (
           <EuiDatePicker
             {...datePickerProps}
+            children={undefined}
             fullWidth={props.fullWidth}
             selected={selected.isValid() ? selected : null}
             onChange={(value) => {

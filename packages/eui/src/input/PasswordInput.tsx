@@ -11,6 +11,7 @@ export const PasswordInput = (props: PasswordInputProps) => (
         type="dual"
         fullWidth={props.fullWidth}
         {...inputProps}
+        children={undefined}
       />
     )}
   </Input>
