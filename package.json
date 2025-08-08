@@ -24,6 +24,10 @@
     "typescript": "5.1.3"
   },
   "resolutions": {
-    "npm-packlist": "1.1.12"
+    "npm-packlist": "1.1.12",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "react": "^18",
+    "react-dom": "^18"
   }
 }

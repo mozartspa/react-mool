@@ -1,7 +1,7 @@
 import { EuiButtonColor, EuiConfirmModal } from "@elastic/eui"
 import { useTranslate } from "@react-mool/core"
 import { ReactNode, useCallback, useMemo } from "react"
-import { confirmable, createConfirmation } from "react-confirm"
+import { confirmable, createConfirmation, type ConfirmDialogProps } from "react-confirm"
 import { useFreshRef } from "rooks"
 import { t } from "../i18n"
 
@@ -15,13 +15,11 @@ export type ConfirmationOptions = {
 }
 
 type DialogProps = {
-  show: boolean
-  proceed: (value: any) => void
   message: string | ReactNode
   options: ConfirmationOptions
 }
 
-const Dialog = confirmable(({ show, proceed, message, options }: DialogProps) => {
+const Dialog = confirmable(({ show, proceed, message, options }: ConfirmDialogProps<DialogProps, boolean>) => {
   const {
     content,
     buttonColor,

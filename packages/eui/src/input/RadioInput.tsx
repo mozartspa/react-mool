@@ -22,6 +22,7 @@ export const RadioInput = (props: RadioInputProps) => {
         <EuiRadio
           id={id}
           {...inputProps}
+          children={undefined}
           name={field.input.name}
           onBlur={field.input.onBlur}
           checked={!!field.value}

@@ -7,17 +7,30 @@ import {
   useResourceDataProvider,
 } from "./dataProvider"
 
-export type UseGetOneOptions<TRecord = any> = UseQueryOptions<TRecord> & {
-  resource?: string
-}
-
-export type UseGetManyOptions<TRecord = any> = UseQueryOptions<
-  (TRecord | undefined)[]
+export type UseGetOneOptions<TRecord = any> = UseQueryOptions<
+  TRecord,
+  unknown,
+  TRecord,
+  any[]
 > & {
   resource?: string
 }
 
-export type UseGetListOptions<TRecord = any> = UseQueryOptions<GetListOutput<TRecord>> & {
+export type UseGetManyOptions<TRecord = any> = UseQueryOptions<
+  (TRecord | undefined)[],
+  unknown,
+  (TRecord | undefined)[],
+  any[]
+> & {
+  resource?: string
+}
+
+export type UseGetListOptions<TRecord = any> = UseQueryOptions<
+  GetListOutput<TRecord>,
+  unknown,
+  GetListOutput<TRecord>,
+  any[]
+> & {
   resource?: string
 }
 

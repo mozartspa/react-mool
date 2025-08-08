@@ -24,6 +24,7 @@ export const CheckboxInput = (props: CheckboxInputProps) => {
         <Comp
           id={id}
           {...inputProps}
+          children={undefined}
           name={field.input.name}
           onBlur={field.input.onBlur}
           checked={!!field.value}
