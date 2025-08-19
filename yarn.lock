@@ -2649,10 +2649,10 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@mozartspa/mobx-form@^0.7.0-2":
-  version "0.7.0-2"
-  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.7.0-2.tgz#47975cec5248a9bc6005523f9ef27359a574063b"
-  integrity sha512-0U2e3tvTm9PcYtn1W6JVKYlZZw6GgS/dLDyc6vfq1T0beq8VADhwv57KIaCb4RlJS8oiC5tl5s1rz/Hu6CNJJg==
+"@mozartspa/mobx-form@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@mozartspa/mobx-form/-/mobx-form-0.7.0.tgz#6728a25f5f9fba62037bd627a03a711a73c10de6"
+  integrity sha512-gVZuVBwohmINmQEpSLrn7VJ3MpAMCEKwetxBP3zMzWwnXVrWWPkiSAE7YhfXFhVxqNNYLIo4MC0su+vTxBnXfw==
   dependencies:
     debounce-promise "^3.1.2"
     dlv "^1.1.3"

@@ -28,7 +28,7 @@
     "prepublishOnly": "yarn clean && yarn build"
   },
   "devDependencies": {
-    "@mozartspa/mobx-form": "^0.7.0-2",
+    "@mozartspa/mobx-form": "^0.7.0",
     "@react-mool/core": "^0.13.0-alpha.0",
     "@rollup/plugin-commonjs": "^19.0.1",
     "@rollup/plugin-json": "^4.1.0",

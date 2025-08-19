@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@elastic/eui": "^96.0.0",
-    "@mozartspa/mobx-form": "^0.7.0-2",
+    "@mozartspa/mobx-form": "^0.7.0",
     "@types/dlv": "^1.1.2",
     "@types/inflection": "^1.5.28",
     "@types/lodash.debounce": "^4.0.6",
