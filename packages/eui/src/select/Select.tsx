@@ -27,6 +27,7 @@ export type SelectOption<T = any> = {
   dropdownDisplay?: ReactNode
   append?: ReactNode
   prepend?: ReactNode
+  isGroupLabel?: boolean
 }
 
 export type SelectProps<T = any> = {
@@ -145,6 +146,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
         checked: isChecked ? "on" : undefined,
         append: o.append,
         prepend: o.prepend,
+        isGroupLabel: o.isGroupLabel,
         data: {
           __original: o,
         },
