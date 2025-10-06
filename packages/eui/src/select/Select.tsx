@@ -52,6 +52,10 @@ export type SelectProps<T = any> = {
   renderSearchOption?: (opt: SelectOption<T>, searchValue: string) => ReactNode
   selectAll?: string
   onSelectAll?: (isSelectAllChecked: boolean) => void
+  getIsSelectedAll?: (
+    selectedOptions: SelectOption<T>[],
+    allOptions: SelectOption<T>[]
+  ) => boolean
 } & (
   | {
       multiple?: false
@@ -64,6 +68,17 @@ export type SelectProps<T = any> = {
       onChange?: (values: T[]) => void
     }
 )
+
+function defaultGetIsSelectedAll(
+  selectedOptions: SelectOption[],
+  allOptions: SelectOption[]
+) {
+  // Don't consider options with isGroupLabel true
+  return (
+    selectedOptions.filter((o) => !o.isGroupLabel).length ===
+    allOptions.filter((o) => !o.isGroupLabel).length
+  )
+}
 
 export const Select = <T extends any>(props: SelectProps<T>) => {
   const {
@@ -89,6 +104,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     isLoading,
     selectAll,
     onSelectAll,
+    getIsSelectedAll = defaultGetIsSelectedAll,
   } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
@@ -131,8 +147,14 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     }
   }, [options, hasSelectAll, selectAll])
 
-  const isSelectedAll =
-    Array.isArray(selectedOptions) && selectedOptions.length === options.length
+  const isSelectedAll = useMemo(() => {
+    if (hasSelectAll) {
+      if (Array.isArray(selectedOptions)) {
+        return getIsSelectedAll(selectedOptions, options)
+      }
+    }
+    return false
+  }, [hasSelectAll, selectedOptions, options, getIsSelectedAll])
 
   // options for EuiSelectable
   const selectableOptions = useMemo(() => {
