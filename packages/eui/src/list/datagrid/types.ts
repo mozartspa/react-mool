@@ -1,5 +1,5 @@
 import { EuiButtonIconProps } from "@elastic/eui"
-import { ReactNode } from "react"
+import { ReactNode, SyntheticEvent } from "react"
 
 export type DatagridAction<TRecord = any> = {
   name: ((item: TRecord) => ReactNode) | ReactNode
@@ -18,7 +18,7 @@ export type DatagridRowClick<TRecord = any> =
   | "detail"
   | "select"
   | "none"
-  | ((item: TRecord) => void)
+  | ((item: TRecord, event?: SyntheticEvent) => void)
 
 export type ColumnSettings = {
   visibleIds?: string[]

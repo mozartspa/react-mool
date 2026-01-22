@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { SyntheticEvent, useCallback } from "react"
 import { useHistory } from "react-router-dom"
 import { RecordID } from "./dataProvider"
 import { warn } from "./helpers/console"
@@ -21,6 +21,7 @@ export type RedirectToOptions = {
   id?: RecordID
   resource: string
   params?: Record<string, string>
+  event?: SyntheticEvent
 }
 
 export function resolveUrl(to: RedirectToPage, options: RedirectToOptions) {
@@ -65,6 +66,19 @@ export function resolveUrl(to: RedirectToPage, options: RedirectToOptions) {
   }
 }
 
+function shouldOpenInNewTab(event: SyntheticEvent) {
+  const target = event.target as HTMLElement
+  const ev = event as React.MouseEvent<any, MouseEvent>
+  return (
+    ev.button === 1 ||
+    ev.metaKey ||
+    ev.altKey ||
+    ev.ctrlKey ||
+    ev.shiftKey ||
+    (target && target.getAttribute && target.getAttribute("target") === "_blank")
+  )
+}
+
 export type UseRedirectOptions = {
   resource?: string
 }
@@ -79,11 +93,16 @@ export function useRedirect(options: UseRedirectOptions = {}) {
       id = recordContextRef.current?.id,
       resource = resourceRef.current,
       params,
+      event,
     } = options
 
     const url = resolveUrl(to, { id, resource, params })
     if (url) {
-      historyRef.current.push(url)
+      if (event && shouldOpenInNewTab(event)) {
+        window.open(url, "_blank")
+      } else {
+        historyRef.current.push(url)
+      }
     }
   }, [])
 }
