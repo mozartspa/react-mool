@@ -164,11 +164,11 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
         } else {
           // Otherwise it triggers the rowClick behavior.
           if (rowClick === "detail") {
-            redirect("detail", { id: resourceDataProvider.id(item) })
+            redirect("detail", { id: resourceDataProvider.id(item), event })
           } else if (rowClick === "edit") {
-            redirect("edit", { id: resourceDataProvider.id(item) })
+            redirect("edit", { id: resourceDataProvider.id(item), event })
           } else if (rowClick instanceof Function) {
-            return rowClick(item)
+            return rowClick(item, event)
           }
         }
       }
