@@ -1,4 +1,4 @@
-import { EditBase, EditBaseProps } from "@react-mool/core"
+import { EditBase, EditBaseProps, UseEditFormResult } from "@react-mool/core"
 import { Fragment, ReactNode } from "react"
 import { PreventLeaveForm } from "../leave"
 import { EditBreadcrumbs } from "./EditBreadcrumbs"
@@ -10,6 +10,9 @@ export type EditProps<
 > = EditBaseProps<TRecord, TUpdate> & {
   breadcrumbs?: ReactNode
   preventLeave?: boolean
+  formProps?: (
+    form: UseEditFormResult<TRecord, TUpdate>
+  ) => React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 }
 
 export const Edit = (props: EditProps) => {
@@ -17,6 +20,7 @@ export const Edit = (props: EditProps) => {
     breadcrumbs = <EditBreadcrumbs />,
     preventLeave = true,
     children,
+    formProps,
     ...editProps
   } = props
 
@@ -27,7 +31,9 @@ export const Edit = (props: EditProps) => {
       {(edit) => (
         <WrapperLeave>
           {breadcrumbs}
-          {children instanceof Function ? children(edit) : children}
+          <form onSubmit={edit.form.handleSubmit} {...(formProps ? formProps(edit) : {})}>
+            {children instanceof Function ? children(edit) : children}
+          </form>
         </WrapperLeave>
       )}
     </EditBase>

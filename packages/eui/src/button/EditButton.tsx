@@ -31,6 +31,7 @@ export const EditButton = (props: EditButtonProps) => {
         display="base"
         size="m"
         aria-label={label}
+        type="submit"
         {...link("edit", { id })}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
       />
@@ -39,6 +40,7 @@ export const EditButton = (props: EditButtonProps) => {
     return (
       <EuiButton
         fill={true}
+        type="submit"
         iconType="pencil"
         {...link("edit", { id })}
         {...(buttonProps as Partial<EuiButtonProps>)}

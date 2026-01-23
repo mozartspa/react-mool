@@ -1,4 +1,4 @@
-import { CreateBase, CreateBaseProps } from "@react-mool/core"
+import { CreateBase, CreateBaseProps, UseCreateFormResult } from "@react-mool/core"
 import { Fragment, ReactNode } from "react"
 import { PreventLeaveForm } from "../leave"
 import { CreateBreadcrumbs } from "./CreateBreadcrumbs"
@@ -9,6 +9,9 @@ export type CreateProps<TRecord = any, TCreate = TRecord> = CreateBaseProps<
 > & {
   breadcrumbs?: ReactNode
   preventLeave?: boolean
+  formProps?: (
+    form: UseCreateFormResult<TRecord, TCreate>
+  ) => React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 }
 
 export const Create = (props: CreateProps) => {
@@ -16,6 +19,7 @@ export const Create = (props: CreateProps) => {
     breadcrumbs = <CreateBreadcrumbs />,
     preventLeave = true,
     children,
+    formProps,
     ...createProps
   } = props
 
@@ -26,7 +30,12 @@ export const Create = (props: CreateProps) => {
       {(createForm) => (
         <WrapperLeave>
           {breadcrumbs}
-          {children instanceof Function ? children(createForm) : children}
+          <form
+            onSubmit={createForm.form.handleSubmit}
+            {...(formProps ? formProps(createForm) : {})}
+          >
+            {children instanceof Function ? children(createForm) : children}
+          </form>
         </WrapperLeave>
       )}
     </CreateBase>
