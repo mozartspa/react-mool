@@ -5,5 +5,5 @@
 To publish on NPM, run:
 
 ```bash
-lerna publish from-git --no-verify-access --yes
+lerna publish --no-verify-access --yes
 ```
