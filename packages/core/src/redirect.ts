@@ -66,7 +66,7 @@ export function resolveUrl(to: RedirectToPage, options: RedirectToOptions) {
   }
 }
 
-function shouldOpenInNewTab(event: SyntheticEvent) {
+export function shouldOpenInNewTab(event: SyntheticEvent) {
   const target = event.target as HTMLElement
   const ev = event as React.MouseEvent<any, MouseEvent>
   return (
