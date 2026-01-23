@@ -6,6 +6,7 @@ import { useImmediateRef } from "./helpers/useImmediateRef"
 import { useLinkProps } from "./helpers/useLinkProps"
 import { RecordContext } from "./record"
 import { useResource } from "./resource"
+import { useBasename } from "./admin"
 
 function encodeQueryString(params: Record<string, string>) {
   return Object.entries(params)
@@ -87,6 +88,7 @@ export function useRedirect(options: UseRedirectOptions = {}) {
   const recordContextRef = useImmediateRef(React.useContext(RecordContext))
   const resourceRef = useImmediateRef(useResource(options.resource))
   const historyRef = useImmediateRef(useHistory())
+  const baseNameRef = useImmediateRef(useBasename())
 
   return useCallback((to: RedirectToPage, options: Partial<RedirectToOptions> = {}) => {
     const {
@@ -99,7 +101,7 @@ export function useRedirect(options: UseRedirectOptions = {}) {
     const url = resolveUrl(to, { id, resource, params })
     if (url) {
       if (event && shouldOpenInNewTab(event)) {
-        window.open(url, "_blank")
+        window.open(`${baseNameRef.current ?? ""}${url}`, "_blank")
       } else {
         historyRef.current.push(url)
       }
