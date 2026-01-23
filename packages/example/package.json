@@ -1,6 +1,6 @@
 {
   "name": "example",
-  "version": "0.13.3",
+  "version": "0.13.4",
   "private": true,
   "dependencies": {
     "@elastic/datemath": "^5.0.3",
@@ -10,8 +10,8 @@
     "@mozartspa/gqless": "^2.0.14",
     "@mozartspa/gqless-logger": "^2.0.11",
     "@mozartspa/gqless-react": "^2.0.15",
-    "@react-mool/core": "^0.13.3",
-    "@react-mool/eui": "^0.13.3",
+    "@react-mool/core": "^0.13.4",
+    "@react-mool/eui": "^0.13.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
