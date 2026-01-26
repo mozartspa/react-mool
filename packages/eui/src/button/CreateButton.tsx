@@ -36,7 +36,6 @@ export const CreateButton = (props: CreateButtonProps) => {
         display="base"
         size="m"
         aria-label={label}
-        type="submit"
         {...link("create")}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
       />
@@ -46,7 +45,6 @@ export const CreateButton = (props: CreateButtonProps) => {
       <EuiButton
         fill={true}
         iconType="plusInCircleFilled"
-        type="submit"
         {...link("create")}
         {...(buttonProps as Partial<EuiButtonProps>)}
       >

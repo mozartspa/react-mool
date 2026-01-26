@@ -252,24 +252,47 @@ export type EditBaseProps<
   children: ReactNode | ((edit: UseEditFormResult<TRecord, TUpdate>) => ReactElement)
   mode?: "edit" | "detail"
   debugForm?: boolean
+  wrapWithForm?: boolean
+  formProps?: (
+    edit: UseEditFormResult<TRecord, TUpdate>
+  ) => React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 }
 
 export const EditBase = observer((options: EditBaseProps) => {
-  const { children, mode = "edit", debugForm, ...editOptions } = options
+  const {
+    children,
+    mode = "edit",
+    debugForm,
+    wrapWithForm = true,
+    formProps,
+    ...editOptions
+  } = options
   const edit = useEditForm(editOptions)
 
   const body =
     children instanceof Function ? <Observer>{() => children(edit)}</Observer> : children
+
+  const content = (
+    <>
+      {body}
+      {!!debugForm && <DebugForm />}
+    </>
+  )
+
+  const formElement = wrapWithForm ? (
+    <form onSubmit={edit.form.handleSubmit} {...(formProps?.(edit) ?? {})}>
+      {content}
+    </form>
+  ) : (
+    content
+  )
 
   return (
     <ResourceContext.Provider value={edit.resource}>
       <CrudModeProvider mode={mode}>
         <EditFormContext.Provider value={edit}>
           <RecordContextProvider record={edit.record} id={edit.id}>
-            <FormContext.Provider value={edit.form}>
-              {body}
-              {!!debugForm && <DebugForm />}
-            </FormContext.Provider>
+            <FormContext.Provider value={edit.form}>{formElement}</FormContext.Provider>
           </RecordContextProvider>
         </EditFormContext.Provider>
       </CrudModeProvider>

@@ -41,7 +41,6 @@ export const SaveButton = observer((props: SaveButtonProps) => {
         size="m"
         aria-label={label}
         onClick={commonProps.onClick}
-        type="submit"
         isDisabled={commonProps.isLoading || commonProps.disabled}
         {...(buttonProps as Partial<EuiButtonIconProps>)}
         iconType={
@@ -55,7 +54,6 @@ export const SaveButton = observer((props: SaveButtonProps) => {
     return (
       <EuiButton
         fill={true}
-        type="submit"
         {...commonProps}
         {...(buttonProps as Partial<EuiButtonProps>)}
       >
