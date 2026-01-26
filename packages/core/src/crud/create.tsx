@@ -174,10 +174,20 @@ export type CreateBaseProps<TRecord = any, TCreate = TRecord> = UseCreateFormOpt
 > & {
   children: ReactNode | ((create: UseCreateFormResult<TRecord, TCreate>) => ReactElement)
   debugForm?: boolean
+  wrapWithForm?: boolean
+  formProps?: (
+    create: UseCreateFormResult<TRecord, TCreate>
+  ) => React.DetailedHTMLProps<React.FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>
 }
 
 export const CreateBase = observer((options: CreateBaseProps) => {
-  const { children, debugForm, ...createOptions } = options
+  const {
+    children,
+    debugForm,
+    wrapWithForm = true,
+    formProps,
+    ...createOptions
+  } = options
   const create = useCreateForm(createOptions)
 
   const body =
@@ -187,14 +197,26 @@ export const CreateBase = observer((options: CreateBaseProps) => {
       children
     )
 
+  const content = (
+    <>
+      {body}
+      {!!debugForm && <DebugForm />}
+    </>
+  )
+
+  const formElement = wrapWithForm ? (
+    <form onSubmit={create.form.handleSubmit} {...(formProps?.(create) ?? {})}>
+      {content}
+    </form>
+  ) : (
+    content
+  )
+
   return (
     <ResourceContext.Provider value={create.resource}>
       <CrudModeProvider mode="create">
         <CreateFormContext.Provider value={create}>
-          <FormContext.Provider value={create.form}>
-            {body}
-            {!!debugForm && <DebugForm />}
-          </FormContext.Provider>
+          <FormContext.Provider value={create.form}>{formElement}</FormContext.Provider>
         </CreateFormContext.Provider>
       </CrudModeProvider>
     </ResourceContext.Provider>
