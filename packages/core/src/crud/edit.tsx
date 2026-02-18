@@ -59,6 +59,7 @@ export type UseEditFormOptions<
   onSaveError?: SaveErrorHandler<TRecord, TUpdate>
   onLoadSuccess?: LoadSuccessHandler<TRecord>
   onLoadError?: LoadErrorHandler
+  onBeforeSubmit?: (values: TUpdate) => Promise<boolean> | boolean
   refetchOnReconnect?: boolean
   refetchOnWindowFocus?: boolean
 }
@@ -100,6 +101,7 @@ export function useEditForm<
     onLoadError,
     refetchOnReconnect = false,
     refetchOnWindowFocus = false,
+    onBeforeSubmit,
     ...formOptions
   } = options
 
@@ -137,6 +139,12 @@ export function useEditForm<
 
   const handleSubmit = async (values: TUpdate): Promise<FormErrorsInput | void> => {
     try {
+      if (onBeforeSubmit) {
+        if (!(await onBeforeSubmit(values))) {
+          return undefined
+        }
+      }
+
       // mutate
       const data = transform?.(values) ?? values
       const record = await mutation.mutateAsync({ id, data })
