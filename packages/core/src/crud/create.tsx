@@ -34,6 +34,7 @@ export type UseCreateFormOptions<TRecord = any, TCreate = TRecord> = Partial<
   resetAfterSave?: boolean
   onSaveSuccess?: SaveSuccessHandler<TRecord, TCreate>
   onSaveError?: SaveErrorHandler<TRecord, TCreate>
+  onBeforeSubmit?: (values: TCreate) => Promise<boolean> | boolean
 }
 
 export type UseCreateFormResult<TRecord = any, TCreate = TRecord> = {
@@ -59,6 +60,7 @@ export function useCreateForm<
     resetAfterSave = true,
     onSaveSuccess,
     onSaveError,
+    onBeforeSubmit,
     ...formOptions
   } = options
 
@@ -71,6 +73,12 @@ export function useCreateForm<
 
   const handleSubmit = async (values: TCreate): Promise<FormErrorsInput | void> => {
     try {
+      if (onBeforeSubmit) {
+        if (!(await onBeforeSubmit(values))) {
+          return undefined
+        }
+      }
+
       // mutate
       const data = transform?.(values) ?? values
       const record = await mutation.mutateAsync(data)
