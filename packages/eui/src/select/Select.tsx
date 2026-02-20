@@ -13,6 +13,7 @@ import {
 } from "@elastic/eui"
 import { ReactNode, useMemo, useState } from "react"
 import { SelectOptionList } from "./SelectOptionList"
+import { useUpdateEffect } from "rooks"
 
 const DEFAULT_EMPTY_VALUE = () => undefined
 
@@ -56,6 +57,7 @@ export type SelectProps<T = any> = {
     selectedOptions: SelectOption<T>[],
     allOptions: SelectOption<T>[]
   ) => boolean
+  updateValueOnOptionsChange?: boolean
 } & (
   | {
       multiple?: false
@@ -105,6 +107,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     selectAll,
     onSelectAll,
     getIsSelectedAll = defaultGetIsSelectedAll,
+    updateValueOnOptionsChange = false,
   } = props
 
   const [isPopoverOpen, setPopoverOpen] = useState(false)
@@ -217,6 +220,35 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
 
     return values
   }, [selectedOptions, hasSelectAll, isSelectedAll])
+
+  // Update value on options change if the currently selected value(s) is not present in the new options list
+  useUpdateEffect(() => {
+    if (!updateValueOnOptionsChange || isLoading) {
+      return
+    }
+
+    const shouldUpdateValueOnOptionsChange = () => {
+      if (multiple) {
+        return (
+          Array.isArray(value) && value.some((v) => !options.some((o) => o.value === v))
+        )
+      } else {
+        return value != null && !options.some((o) => o.value === value)
+      }
+    }
+
+    if (shouldUpdateValueOnOptionsChange()) {
+      if (multiple) {
+        const newValue = Array.isArray(value)
+          ? value.filter((v) => options.some((o) => o.value === v))
+          : []
+        onChangeSafe(newValue)
+      } else {
+        const newValue = options.some((o) => o.value === value) ? value : emptyValue()
+        onChangeSafe(newValue)
+      }
+    }
+  }, [options, updateValueOnOptionsChange, isLoading])
 
   const keyToOptionValue = (key: string) => {
     const index = selectOptionKeys.indexOf(key)
