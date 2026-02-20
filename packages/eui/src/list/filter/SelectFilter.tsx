@@ -15,6 +15,7 @@ export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
           onChange={(value) => {
             field.setValue(value)
           }}
+          updateValueOnOptionsChange={props.updateValueOnOptionsChange ?? true}
         />
       )}
     </Filter>

@@ -15,6 +15,7 @@ export const SelectResourceFilter: React.FC<SelectResourceFilterProps> = (props)
             field.setValue(value)
           }}
           onBlur={() => field.setTouched()}
+          updateValueOnOptionsChange={props.updateValueOnOptionsChange ?? true}
         />
       )}
     </Filter>
