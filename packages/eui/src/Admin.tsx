@@ -44,6 +44,7 @@ export const Admin = (props: AdminProps) => {
     i18nProvider = defaultI18nProvider,
     basename,
     euiProviderProps = { colorMode: "light" },
+    adminWrapper,
     ...coreProps
   } = props
 
@@ -64,6 +65,7 @@ export const Admin = (props: AdminProps) => {
               catchAll={catchAll}
               autoScrollToTop={autoScrollToTop}
               basename={basename}
+              adminWrapper={adminWrapper}
             >
               {children}
             </AdminRouter>

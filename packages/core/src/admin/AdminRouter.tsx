@@ -1,4 +1,4 @@
-import React, { ComponentType, ReactElement, ReactNode } from "react"
+import React, { ComponentType, ReactElement, ReactNode, Fragment } from "react"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom"
 import { Authenticated } from "../auth"
 import { CustomRouteProps } from "../customRoute"
@@ -25,6 +25,7 @@ export type AdminRouterProps = {
   autoScrollToTop?: boolean
   basename?: string
   children?: ReactNode
+  adminWrapper?: ComponentType<{ children: ReactNode }>
 }
 
 export const AdminRouter = (props: AdminRouterProps) => {
@@ -37,6 +38,7 @@ export const AdminRouter = (props: AdminRouterProps) => {
     autoScrollToTop = true,
     basename,
     children,
+    adminWrapper: AdminWrapper = Fragment,
   } = props
 
   const resourceDefinitions = useResourceDefinitionList()
@@ -74,24 +76,26 @@ export const AdminRouter = (props: AdminRouterProps) => {
   return (
     <BasenameContextProvider basename={basename}>
       <BrowserRouter basename={basename}>
-        {!!autoScrollToTop && <ScrollToTop />}
-        <Switch>
-          {customRoutesWithoutLayout}
-          {!!loginPage && <Route path="/login">{loginPage}</Route>}
-          <Route>
-            <Authenticated>
-              <Layout hasDashboard={!!dashboard}>
-                <Switch>
-                  {customRoutesWithLayout}
-                  {dashboardRoute}
-                  {resourceRoutes}
-                  {!!catchAll && <Route>{catchAll}</Route>}
-                </Switch>
-              </Layout>
-            </Authenticated>
-          </Route>
-        </Switch>
-        {children}
+        <AdminWrapper>
+          {!!autoScrollToTop && <ScrollToTop />}
+          <Switch>
+            {customRoutesWithoutLayout}
+            {!!loginPage && <Route path="/login">{loginPage}</Route>}
+            <Route>
+              <Authenticated>
+                <Layout hasDashboard={!!dashboard}>
+                  <Switch>
+                    {customRoutesWithLayout}
+                    {dashboardRoute}
+                    {resourceRoutes}
+                    {!!catchAll && <Route>{catchAll}</Route>}
+                  </Switch>
+                </Layout>
+              </Authenticated>
+            </Route>
+          </Switch>
+          {children}
+        </AdminWrapper>
       </BrowserRouter>
     </BasenameContextProvider>
   )
