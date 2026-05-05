@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react"
 import { UseQueryResult } from "react-query"
@@ -42,6 +43,7 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   mergeFilters?: MergeFiltersFunc<TFilter>
   onLoadSuccess?: LoadListSuccessHandler<TRecord>
   onLoadError?: LoadListErrorHandler<TFilter>
+  onFilterChange?: (filter: TFilter | undefined) => void
   syncWithURL?: boolean
   restoreFromLast?: boolean
   restoreKey?: string
@@ -95,6 +97,7 @@ export function useList<TRecord = any, TFilter = any>(
     restoreFromLast = true,
     restoreKey,
     restoreStorage,
+    onFilterChange,
   } = options
 
   const resource = useResource(resourceOpt)
@@ -135,6 +138,17 @@ export function useList<TRecord = any, TFilter = any>(
     sortOrder: sortOrder,
     filter: mergedFilter,
   }
+
+  // Keep the onFilterChange callback always up to date with the latest merged filter
+  const onFilterChangeRef = useRef(onFilterChange)
+
+  useEffect(() => {
+    onFilterChangeRef.current = onFilterChange
+  }, [onFilterChange])
+
+  useEffect(() => {
+    onFilterChangeRef.current?.(mergedFilter)
+  }, [mergedFilter])
 
   const query = useGetList<TRecord, TFilter>(listParams, {
     resource,
