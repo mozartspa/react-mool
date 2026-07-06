@@ -92,11 +92,12 @@ export function useNotify() {
         id?: string
         type?: NotificationType
         text?: ReactNode
+        duration?: number
       } = {}
     ) => {
-      const { id, type = "primary", text } = options
+      const { id, type = "primary", text, duration } = options
 
-      contextRef.current.add({ id, title, type, text })
+      contextRef.current.add({ id, title, type, text, duration })
     },
     []
   )
