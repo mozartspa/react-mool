@@ -70,7 +70,7 @@ yarn workspace example generate
 
 ## Publishing to npm
 
-Publishing requires an npm access token generated from the npm web dashboard.
+Publishing requires an npm access token generated from the npm web dashboard with the `bypass two-factor authentication` capability.
 
 Create or update a local `.npmrc` file (for example in your home directory) with your token:
 
