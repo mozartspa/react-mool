@@ -9,6 +9,7 @@ export type NewNotification = {
   title: ReactNode
   type: NotificationType
   text?: ReactNode
+  duration?: number
 }
 
 export type Notification = NewNotification & {

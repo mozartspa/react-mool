@@ -21,6 +21,7 @@ export function Notifications(props: NotificationsProps) {
         title: translate(item.title),
         text: item.text ? <>{translate(item.text)}</> : undefined,
         color: item.type,
+        toastLifeTimeMs: item.duration,
       })
     )
   }, [notifications])
