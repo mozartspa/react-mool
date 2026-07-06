@@ -1,6 +1,6 @@
 {
   "name": "@react-mool/core",
-  "version": "0.13.10",
+  "version": "0.13.11",
   "files": [
     "dist",
     "src"
