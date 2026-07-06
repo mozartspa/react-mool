@@ -70,6 +70,14 @@ yarn workspace example generate
 
 ## Publishing to npm
 
+Publishing requires an npm access token generated from the npm web dashboard.
+
+Create or update a local `.npmrc` file (for example in your home directory) with your token:
+
+```bash
+//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN
+```
+
 Before publishing, verify that you are authenticated with npm:
 
 ```bash
