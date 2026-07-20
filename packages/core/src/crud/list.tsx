@@ -139,6 +139,8 @@ export function useList<TRecord = any, TFilter = any>(
     filter: mergedFilter,
   }
 
+  const mergedFilterKey = JSON.stringify(mergedFilter)
+
   // Keep the onFilterChange callback always up to date with the latest merged filter
   const onFilterChangeRef = useRef(onFilterChange)
 
@@ -148,7 +150,7 @@ export function useList<TRecord = any, TFilter = any>(
 
   useEffect(() => {
     onFilterChangeRef.current?.(mergedFilter)
-  }, [mergedFilter])
+  }, [mergedFilterKey])
 
   const query = useGetList<TRecord, TFilter>(listParams, {
     resource,
