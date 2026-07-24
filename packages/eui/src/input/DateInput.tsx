@@ -106,7 +106,7 @@ export const DateInput = (props: DateInputProps) => {
             fullWidth={props.fullWidth}
             selected={selected.isValid() ? selected : null}
             onChange={(value) => {
-              const next = utc ? value : value?.local(true)
+              const next = utc ? value?.utcOffset(0, true) : value?.local(true)
               field.setValue(next?.format())
             }}
             onBlur={() => field.setTouched(true)}
