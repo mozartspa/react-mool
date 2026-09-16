@@ -12,7 +12,7 @@ react-mool is a Yarn Workspaces and Lerna monorepo containing the core packages 
 
 ## Requirements
 
-- Node.js
+- Node.js (version in `.nvmrc`, run `nvm use`)
 - Yarn
 
 ## Getting started
@@ -70,28 +70,54 @@ yarn workspace example generate
 
 ## Publishing to npm
 
-Publishing requires an npm access token generated from the npm web dashboard with the `bypass two-factor authentication` capability.
+### Prerequisites
 
-Create or update a local `.npmrc` file (for example in your home directory) with your token:
+- Your npm account must have two-factor authentication enabled (npmjs.com → Account → Two-Factor Authentication). If npm only offers a passkey or security key (no authenticator app), register one of those. Store the recovery codes somewhere safe, such as a password manager.
+- You must be an owner of the packages (`npm owner ls @react-mool/core`).
+- Use the Node.js version from `.nvmrc`:
 
 ```bash
-//registry.npmjs.org/:_authToken=YOUR_NPM_TOKEN
+nvm use
 ```
 
-Before publishing, verify that you are authenticated with npm:
+### Log in
+
+Log in with the web flow (no access token needed):
 
 ```bash
+npm login --auth-type web
 npm whoami
 ```
 
-Publish the packages with Lerna:
+If publishing later fails with an authentication error, run `npm login --auth-type web` again.
+
+### Publish
 
 ```bash
-lerna publish --no-verify-access --yes
+yarn lerna publish --no-verify-access --yes
 ```
 
-If the publish step fails after Lerna has already created the version and Git tag, retry from the existing tags:
+Lerna creates the version commit and Git tag, pushes them, then publishes every changed package. For each package npm asks for a one-time password and prints a link: open it, confirm with your passkey, and paste the code shown on the page into the terminal. Each code can be used only once, so get a new one for every package.
+
+### If publishing fails halfway
+
+When the version commit and tag already exist but some packages were not published, first discard the `gitHead` field Lerna leaves in the `package.json` files:
 
 ```bash
-lerna publish from-git --no-verify-access --yes
+git checkout -- packages/*/package.json
 ```
+
+Then retry. `from-package` publishes only the packages whose current version is not on npm yet (`from-git` would try to publish all of them again and fail on the ones already published):
+
+```bash
+yarn lerna publish from-package --no-verify-access --yes
+```
+
+Alternatively, publish the missing packages one by one with npm, in dependency order (`core`, `eui`, `i18n-it`, `react-mool`). Build first, because `--ignore-scripts` skips the `prepublishOnly` build:
+
+```bash
+yarn lerna run build
+cd packages/core && npm publish --ignore-scripts
+```
+
+Check what is on npm with `npm view <package> version`.
