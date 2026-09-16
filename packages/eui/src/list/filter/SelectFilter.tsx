@@ -25,4 +25,5 @@ export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
 SelectFilter.defaultProps = {
   emptyValue: () => undefined,
   popoverMode: "detached",
+  isClearable: true,
 }

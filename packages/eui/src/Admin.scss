@@ -55,3 +55,26 @@
   max-block-size: 300px;
   overflow: hidden auto;
 }
+
+/* Select with clear button (replicates EuiComboBox clear button) */
+.muiSelect--clearable {
+  position: relative;
+}
+
+/* Reserve space for the clear button, just before the arrow icon */
+.muiSelect--clearable .euiButtonEmpty__content > .euiIcon:last-child {
+  box-sizing: content-box;
+  padding-left: 24px;
+}
+
+.muiSelect__clearButton {
+  position: absolute;
+  top: 50%;
+  right: 28px;
+  transform: translateY(-50%);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  line-height: 0;
+  cursor: pointer;
+}
