@@ -25,4 +25,5 @@ export const SelectResourceFilter: React.FC<SelectResourceFilterProps> = (props)
 SelectResourceFilter.defaultProps = {
   emptyValue: () => undefined,
   popoverMode: "detached",
+  isClearable: true,
 }

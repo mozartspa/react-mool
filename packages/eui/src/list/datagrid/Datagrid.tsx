@@ -34,6 +34,8 @@ import {
   toEuiColumn,
 } from "./utils"
 
+const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50, 100]
+
 export type DatagridProps<TRecord = any> = {
   columns?: ColumnElement[]
   rowClick?: DatagridRowClick<TRecord>
@@ -50,6 +52,7 @@ export type DatagridProps<TRecord = any> = {
   showTopPagination?: boolean
   showBottomPagination?: boolean
   showPageSize?: boolean
+  pageSizeOptions?: number[]
   showToolbar?: boolean
   showBulkActions?: boolean
   showSelectedCount?: boolean
@@ -74,6 +77,7 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     showTopPagination = true,
     showBottomPagination = true,
     showPageSize = true,
+    pageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS,
     showToolbar = true,
     showBulkActions = bulkActions ? true : false,
     showSelectedCount = selectableProp ? true : false,
@@ -286,6 +290,7 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
                 pageSize,
                 totalItemCount: total,
                 showPerPageOptions: showPageSize,
+                pageSizeOptions,
               }
             : undefined
         }

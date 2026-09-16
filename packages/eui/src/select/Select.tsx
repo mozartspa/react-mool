@@ -1,6 +1,7 @@
 import {
   EuiFilterButton,
   EuiFilterGroup,
+  EuiIcon,
   EuiInputPopover,
   EuiPopover,
   EuiPopoverProps,
@@ -10,6 +11,8 @@ import {
   EuiSelectableOptionsListProps,
   EuiSelectableProps,
   EuiText,
+  useEuiI18n,
+  useEuiTheme,
 } from "@elastic/eui"
 import { ReactNode, useMemo, useState } from "react"
 import { SelectOptionList } from "./SelectOptionList"
@@ -50,6 +53,7 @@ export type SelectProps<T = any> = {
   onBlur?: () => void
   isDisabled?: boolean
   isLoading?: boolean
+  isClearable?: boolean
   renderSearchOption?: (opt: SelectOption<T>, searchValue: string) => ReactNode
   selectAll?: string
   onSelectAll?: (isSelectAllChecked: boolean) => void
@@ -104,6 +108,7 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     onBlur,
     isDisabled,
     isLoading,
+    isClearable = false,
     selectAll,
     onSelectAll,
     getIsSelectedAll = defaultGetIsSelectedAll,
@@ -307,12 +312,36 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
     }
   }
 
+  const hasValue = Array.isArray(selectedOptions)
+    ? selectedOptions.length > 0
+    : selectedOptions != null
+  const showClearButton = isClearable && hasValue && !isDisabled && !isLoading
+
+  const handleClear = () => {
+    onChangeSafe(multiple ? [] : emptyValue())
+    onBlur?.()
+  }
+
   function renderSelectedOption(option: SelectOption) {
     const { label, inputDisplay } = option
     return inputDisplay || label
   }
 
   function renderButton() {
+    const button = renderFilterButton()
+    if (!isClearable) {
+      return button
+    }
+    // Always wrap when clearable, so that the button is not remounted when the value changes
+    return (
+      <div className={showClearButton ? "muiSelect--clearable" : undefined}>
+        {button}
+        {showClearButton && <SelectClearButton onClick={handleClear} />}
+      </div>
+    )
+  }
+
+  function renderFilterButton() {
     if (Array.isArray(selectedOptions)) {
       const isActive = selectedOptions.length > 0
       return (
@@ -429,4 +458,34 @@ export const Select = <T extends any>(props: SelectProps<T>) => {
       </EuiPopover>
     )
   }
+}
+
+// Replicates EuiFormControlLayoutClearButton (used by EuiComboBox), which is not exported by EUI
+const SelectClearButton = ({ onClick }: { onClick: () => void }) => {
+  const { euiTheme, colorMode } = useEuiTheme()
+  const ariaLabel = useEuiI18n("euiFormControlLayoutClearButton.label", "Clear input")
+
+  return (
+    <button
+      type="button"
+      className="muiSelect__clearButton"
+      aria-label={ariaLabel}
+      onClick={onClick}
+      style={{
+        backgroundColor:
+          colorMode === "DARK" ? euiTheme.colors.darkShade : euiTheme.colors.mediumShade,
+      }}
+    >
+      <EuiIcon
+        type="cross"
+        size="m"
+        style={{
+          transform: "scale(0.5)",
+          fill: euiTheme.colors.emptyShade,
+          stroke: euiTheme.colors.emptyShade,
+          strokeWidth: euiTheme.size.xxs,
+        }}
+      />
+    </button>
+  )
 }

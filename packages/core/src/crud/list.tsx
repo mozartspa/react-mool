@@ -85,7 +85,7 @@ export function useList<TRecord = any, TFilter = any>(
   const {
     resource: resourceOpt,
     initialPage = 1,
-    initialPageSize = 20,
+    initialPageSize = 25,
     initialSortField,
     initialSortOrder = "asc",
     initialSelectedIds = [],
