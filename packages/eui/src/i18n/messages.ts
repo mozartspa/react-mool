@@ -41,6 +41,8 @@ export const englishEuiMessages = {
       showing: "Showing %{count} of %{total}",
       selected: "Selected",
       no_items: "No items found",
+      no_results_title: "No results",
+      no_results_body: "No items match the current search and filters.",
       sorted_by_asc: "Items sorted by %{field} in ascending order",
       sorted_by_desc: "Items sorted by %{field} in descending order",
     },

@@ -19,6 +19,15 @@ import { useUpdateEffect } from "rooks"
 import { useGetFieldLabel } from "../../helpers"
 import { t } from "../../i18n"
 import { ColumnElement } from "../column"
+import { DatagridNoResults } from "./DatagridNoResults"
+import {
+  getSkeletonItemId,
+  getSkeletonItems,
+  isSkeletonItem,
+  SkeletonItem,
+  skeletonSelection,
+  toSkeletonColumns,
+} from "./DatagridSkeleton"
 import { DatagridToolbar } from "./DatagridToolbar"
 import { DatagridAction, DatagridRowClick } from "./types"
 import { useColumnSettingsStorage } from "./useColumnSettingsStorage"
@@ -44,7 +53,13 @@ export type DatagridProps<TRecord = any> = {
   selectable?: boolean
   actions?: DatagridAction<TRecord>[]
   bulkActions?: DatagridAction<TRecord>[]
+  /** Shown when the list has no items and no filter is set */
   empty?: ReactNode
+  /**
+   * Shown when the list has no items because of the filters set.
+   * Default is `<DatagridNoResults />`, use `<ResetFiltersButton />` to reset the filters.
+   */
+  emptyFiltered?: ReactNode
   responsive?: boolean
   scrollToTop?: boolean
   scrollToTopOffset?: number
@@ -71,6 +86,7 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     actions: actionsProp,
     bulkActions,
     empty,
+    emptyFiltered,
     scrollToTop = true,
     scrollToTopOffset = 50,
     showPagination = true,
@@ -90,7 +106,6 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     resource,
     items,
     isLoading,
-    isLoaded,
     page,
     pageSize,
     total,
@@ -101,6 +116,8 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     setPageSize,
     setSort,
     setSelectedIds,
+    hasActiveFilters,
+    query,
   } = useListContext<TRecord>()
 
   const translate = useTranslate()
@@ -235,19 +252,35 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     }
   }, [page])
 
-  const renderNoItemsMessage = () => {
-    // First loading is when it's loading and it has no data yet
-    const isFirstLoading = isLoading && !isLoaded
+  // Loading with no rows to show: on first load, or when reloading an empty result
+  // (eg. after resetting the filters). Show a skeleton instead of the "no items" message.
+  const isLoadingEmpty = isLoading && items.length === 0
 
-    if (isFirstLoading) {
+  // Placeholder rows shaped like the real table.
+  // Columns guessed from items are not known yet, in that case fallback to a text skeleton.
+  const showSkeletonRows = isLoadingEmpty && euiColumns.length > 0
+  const allColumns = actions ? [...euiColumns, { actions }] : euiColumns
+  const tableColumns = showSkeletonRows ? toSkeletonColumns(allColumns) : allColumns
+  const tableItems: Array<TRecord | SkeletonItem> = showSkeletonRows
+    ? getSkeletonItems(pageSize)
+    : items
+
+  const tableItemId = (item: TRecord | SkeletonItem) =>
+    isSkeletonItem(item) ? getSkeletonItemId(item) : itemId(item)
+
+  const renderNoItemsMessage = () => {
+    if (isLoadingEmpty) {
       return <EuiSkeletonText lines={4} />
+    } else if (hasActiveFilters && !query.isError) {
+      // On load error, don't suggest that the filters are the reason of the empty list
+      return emptyFiltered ?? <DatagridNoResults />
     } else {
       return empty ?? translate(t.eui.grid.no_items)
     }
   }
 
   // Add specific className when it's empty in order to style the empty view
-  const tableClassName = items.length === 0 ? "euiBasicTable--empty" : undefined
+  const tableClassName = tableItems.length === 0 ? "euiBasicTable--empty" : undefined
 
   // Screen reader sort announcement
   const getFieldLabel = useGetFieldLabel()
@@ -280,8 +313,8 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
       <EuiBasicTable
         ref={tableRef}
         className={tableClassName}
-        items={items}
-        columns={actions ? [...euiColumns, { actions }] : euiColumns}
+        items={tableItems}
+        columns={tableColumns}
         loading={isLoading}
         pagination={
           showPagination && showBottomPagination
@@ -301,10 +334,12 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
           },
           readOnly: !sortable,
         }}
-        selection={selectable ? selection : undefined}
-        itemId={itemId}
+        selection={
+          selectable ? (showSkeletonRows ? skeletonSelection : selection) : undefined
+        }
+        itemId={tableItemId}
         onChange={handleChange}
-        rowProps={rowProps}
+        rowProps={showSkeletonRows ? undefined : rowProps}
         noItemsMessage={renderNoItemsMessage()}
       />
     </div>

@@ -78,3 +78,46 @@
   line-height: 0;
   cursor: pointer;
 }
+
+/* Active filter: show the bottom bar that EUI form controls show on focus.
+   The bar color (--euiFormControlStateColor) is set inline by FilterBar. */
+.muiFilter--active .euiFormControlLayout__childrenWrapper > input,
+.muiFilter--active .euiSuperSelectControl,
+.muiFilter--active .euiComboBox__inputWrap {
+  background-size: 100% 100%;
+}
+
+/* Delimited controls (e.g. EuiDatePickerRange): children cover the background,
+   so draw the bar on top of them */
+.muiFilter--active .euiFormControlLayoutDelimited {
+  position: relative;
+  overflow: hidden;
+}
+
+.muiFilter--active .euiFormControlLayoutDelimited::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background-color: var(--euiFormControlStateColor);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.muiFilter--active .euiFilterGroup {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: linear-gradient(
+    to top,
+    var(--euiFormControlStateColor),
+    var(--euiFormControlStateColor) 2px,
+    transparent 2px,
+    transparent 100%
+  );
+}
+
+/* Datagrid skeleton: cell text shrinks to its content, let it fill the cell
+   so that skeleton lines can have a width relative to the column */
+.euiTableCellContent__text:has(> .muiDatagrid__skeletonCell) {
+  flex-grow: 1;
+}

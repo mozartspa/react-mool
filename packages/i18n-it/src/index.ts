@@ -58,6 +58,8 @@ const euiMessages: EuiMessages = {
       showing: "Mostrando %{count} di %{total}",
       selected: "Selezionati",
       no_items: "Nessun elemento da visualizzare",
+      no_results_title: "Nessun risultato",
+      no_results_body: "Nessun elemento corrisponde alla ricerca e ai filtri impostati.",
       sorted_by_asc: "Elementi ordinati per %{field} in ordine ascendente",
       sorted_by_desc: "Elementi ordinati per %{field} in ordine discendente",
     },
