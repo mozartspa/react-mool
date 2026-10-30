@@ -1,4 +1,5 @@
 export * from "./Datagrid"
+export * from "./DatagridNoResults"
 export * from "./DatagridToolbar"
 export * from "./types"
 export * from "./useDefaultDatagridActions"

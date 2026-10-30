@@ -77,6 +77,10 @@ export type UseListResult<TRecord = any, TFilter = any> = {
   addFilter: UseFilterStackAdd<TFilter>
   baseFilter: TFilter | undefined
   mergeFilters: MergeFiltersFunc<TFilter>
+  /** True when some filter set by the user (eg. in a FilterBar) is applied */
+  hasActiveFilters: boolean
+  /** Reset the filters set by the user */
+  resetFilters: () => void
 }
 
 export function useList<TRecord = any, TFilter = any>(
@@ -267,6 +271,8 @@ export function useList<TRecord = any, TFilter = any>(
     addFilter: filterStack.add,
     baseFilter,
     mergeFilters,
+    hasActiveFilters: filterStack.hasActiveFilters,
+    resetFilters: filterStack.resetFilters,
   }
 }
 

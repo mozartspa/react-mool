@@ -5,12 +5,22 @@ import {
   EuiFlexItem,
   EuiSelectableOption,
   EuiShowFor,
+  useEuiTheme,
 } from "@elastic/eui"
 import { FormValues, useForm } from "@mozartspa/mobx-form"
+import get from "dlv"
 import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
 import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react"
+import isEqual from "react-fast-compare"
+import {
+  CSSProperties,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react"
 import { useFreshRef } from "rooks"
 import { humanize } from "../../helpers/humanize"
 import { t } from "../../i18n"
@@ -37,6 +47,19 @@ function removeUnusedFilterValues(values: any, filterNames: string[]) {
   })
 
   return changed ? nextValues : values
+}
+
+function isEmptyFilterValue(value: unknown): boolean {
+  if (value == null || value === "") {
+    return true
+  }
+  if (Array.isArray(value)) {
+    return value.length === 0
+  }
+  if (typeof value === "object" && Object.getPrototypeOf(value) === Object.prototype) {
+    return Object.values(value).every(isEmptyFilterValue)
+  }
+  return false
 }
 
 function getFilterNames(filters: React.ReactElement<FilterBaseProps>[]) {
@@ -90,6 +113,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
 
   const translate = useTranslate()
   const resource = useResource()
+  const { euiTheme } = useEuiTheme()
 
   const storage = useStorage(restoreKey ?? `${resource}-filterbar`, {
     enabled: restoreFromLast,
@@ -113,7 +137,12 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
         ? (props.transformValues(initialValues) as any) // any is ugly, but don't know how to fix it
         : initialValues
     },
-    { debounce: true, onChange }
+    {
+      debounce: true,
+      onChange,
+      // Called by the list `resetFilters` (eg. from the "no results" message)
+      reset: () => handleResetFilters(),
+    }
   )
   const [visibleFilters, setVisibleFilters] = useState(initialVisibleFilters)
 
@@ -136,7 +165,9 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
           setFilter(
             transformValuesRef.current
               ? (transformValuesRef.current(form.values) as any) // any is ugly, but don't know how to fix it
-              : form.values
+              : form.values,
+            // Tell the list whether these values are set by the user
+            { isActive: (getActiveFilterNamesRef.current?.().length ?? 0) > 0 }
           )
         }
       }),
@@ -221,11 +252,27 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     setVisibleFilters((names) => names.filter((o) => o !== filterName))
   }, [])
 
-  // Reset filters
+  // Reset filters, applying them immediately (without waiting for the debounce)
   const handleResetFilters = useCallback(() => {
     form.reset({} as TFilter)
     setVisibleFilters([])
+    setFilter.flush()
   }, [])
+
+  // Filters with a value set by the user: not empty, and different from the default
+  // value given by `initialValues` prop. It reads the form values when called,
+  // so it is up to date also inside the autorun above, which runs before re-rendering.
+  const getActiveFilterNames = () =>
+    getFilterNames(filters).filter((name) => {
+      const value = form.getFieldValue(name)
+      return (
+        !isEmptyFilterValue(value) &&
+        !isEqual(value, get(props.initialValues ?? {}, name))
+      )
+    })
+
+  const getActiveFilterNamesRef = useFreshRef(getActiveFilterNames)
+  const activeFilterNames = new Set(getActiveFilterNames())
 
   // On unmount (or page unload), store state that will be restored
   const visibleFiltersRef = useFreshRef(visibleFilters)
@@ -246,6 +293,24 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     }
   }, [])
 
+  // Active filters show the same bottom bar EUI form controls show on focus
+  const activeFilterStyle = {
+    "--euiFormControlStateColor": euiTheme.colors.primary,
+  } as CSSProperties
+
+  const renderFilter = (filter: React.ReactElement<FilterBaseProps>) => {
+    const isActive = activeFilterNames.has(filter.props.name)
+
+    return (
+      <div
+        className={isActive ? "muiFilter muiFilter--active" : "muiFilter"}
+        style={isActive ? activeFilterStyle : undefined}
+      >
+        {filter}
+      </div>
+    )
+  }
+
   const renderBar = (isMobile: boolean) => {
     return (
       <EuiFlexGroup responsive={false}>
@@ -255,7 +320,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
               <EuiFlexItem key={filter.props.name || i} grow={filter.props.grow || false}>
                 <EuiFlexGroup alignItems="center" gutterSize="xs" responsive={false}>
                   <EuiFlexItem grow={isMobile ? true : filter.props.grow || false}>
-                    {filter}
+                    {renderFilter(filter)}
                   </EuiFlexItem>
 
                   {!filter.props.alwaysOn && (
