@@ -188,3 +188,50 @@
 .muiDatagrid__table:not(:has(> .euiTableHeaderMobile)) > .euiTable {
   min-width: var(--muiDatagridMinWidth, 0);
 }
+
+/* Selection and actions columns stay visible while the table scrolls horizontally.
+   Row colors are set on the row by EUI, and some are translucent: sticky cells paint the
+   row color over an opaque background, otherwise the scrolled cells would show below. */
+.muiDatagrid__table:not(:has(> .euiTableHeaderMobile)) {
+  .euiTableRow {
+    &:hover {
+      --muiDatagridRowColor: var(--muiDatagridRowHoverColor);
+    }
+    &.euiTableRow-isSelected {
+      --muiDatagridRowColor: var(--muiDatagridRowSelectedColor);
+    }
+    &.euiTableRow-isSelected:hover {
+      --muiDatagridRowColor: var(--muiDatagridRowSelectedHoverColor);
+    }
+    &.euiTableRow-isClickable:hover {
+      --muiDatagridRowColor: var(--muiDatagridRowClickableHoverColor);
+    }
+    &.euiTableRow-isClickable:focus {
+      --muiDatagridRowColor: var(--muiDatagridRowClickableFocusColor);
+    }
+  }
+
+  .euiTableHeaderCellCheckbox,
+  .euiTableRowCellCheckbox,
+  &.muiDatagrid__table--hasActions .euiTableHeaderCell:last-child,
+  .euiTableRowCell--hasActions {
+    position: sticky;
+    /* Above the column resizers */
+    z-index: 2;
+    background: linear-gradient(
+        var(--muiDatagridRowColor, transparent),
+        var(--muiDatagridRowColor, transparent)
+      ),
+      var(--muiDatagridBackgroundColor);
+  }
+
+  .euiTableHeaderCellCheckbox,
+  .euiTableRowCellCheckbox {
+    left: 0;
+  }
+
+  &.muiDatagrid__table--hasActions .euiTableHeaderCell:last-child,
+  .euiTableRowCell--hasActions {
+    right: 0;
+  }
+}

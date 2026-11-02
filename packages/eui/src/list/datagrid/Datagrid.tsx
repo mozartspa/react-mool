@@ -6,6 +6,9 @@ import {
   EuiSpacer,
   EuiTablePagination,
   EuiTableSelectionType,
+  shade,
+  tint,
+  transparentize,
   useEuiTheme,
 } from "@elastic/eui"
 import {
@@ -136,10 +139,11 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     setSelectedIds,
     hasActiveFilters,
     query,
+    defaults,
   } = useListContext<TRecord>()
 
   const translate = useTranslate()
-  const { euiTheme } = useEuiTheme()
+  const { euiTheme, colorMode } = useEuiTheme()
   const redirect = useRedirect()
   const resourceDefinition = useResourceDefinition(resource)
   const resourceDataProvider = useResourceDataProvider(resource)
@@ -191,10 +195,19 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
         setPageSize(page.size)
       }
       if (sort) {
-        setSort(getSortField(String(sort.field), columnsProp), sort.direction)
+        const field = getSortField(String(sort.field), columnsProp)
+
+        const isThirdClick =
+          field === sortField && sortOrder === "desc" && sort.direction === "asc"
+
+        if (isThirdClick && field !== defaults.sortField) {
+          setSort(defaults.sortField, defaults.sortOrder)
+        } else {
+          setSort(field, sort.direction)
+        }
       }
     },
-    [setPage, setPageSize, setSort, columnsProp]
+    [setPage, setPageSize, setSort, columnsProp, sortField, sortOrder, defaults]
   )
 
   // handle Toolbar onChangePage
@@ -341,10 +354,13 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
   }
 
   // Add specific className when it's empty in order to style the empty view
-  const tableClassName =
-    tableItems.length === 0
-      ? "muiDatagrid__table euiBasicTable--empty"
-      : "muiDatagrid__table"
+  const tableClassName = [
+    "muiDatagrid__table",
+    tableItems.length === 0 && "euiBasicTable--empty",
+    actions && "muiDatagrid__table--hasActions",
+  ]
+    .filter(Boolean)
+    .join(" ")
 
   // Screen reader sort announcement
   const getFieldLabel = useGetFieldLabel()
@@ -370,15 +386,33 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
 
   // Colors of the column resizers are set once here, instead of in every resizer
   const resizeStyle = resizableColumns
-    ? ({
+    ? {
         "--muiColumnResizerColor": euiTheme.border.color,
         "--muiColumnResizerActiveColor": euiTheme.colors.primary,
         "--muiDatagridMinWidth": tableMinWidth ? `${tableMinWidth}px` : undefined,
-      } as CSSProperties)
+      }
     : undefined
 
+  // Colors of the sticky selection and actions columns,
+  // the same that EUI sets on the table and its rows
+  const isDark = colorMode === "DARK"
+  const stickyStyle = {
+    "--muiDatagridBackgroundColor": euiTheme.colors.emptyShade,
+    "--muiDatagridRowHoverColor": isDark
+      ? euiTheme.colors.lightestShade
+      : tint(euiTheme.colors.lightestShade, 0.5),
+    "--muiDatagridRowSelectedColor": isDark
+      ? shade(euiTheme.colors.primary, 0.7)
+      : tint(euiTheme.colors.primary, 0.96),
+    "--muiDatagridRowSelectedHoverColor": isDark
+      ? shade(euiTheme.colors.primary, 0.75)
+      : tint(euiTheme.colors.primary, 0.9),
+    "--muiDatagridRowClickableHoverColor": transparentize(euiTheme.colors.primary, 0.05),
+    "--muiDatagridRowClickableFocusColor": transparentize(euiTheme.colors.primary, 0.1),
+  }
+
   return (
-    <div style={resizeStyle}>
+    <div style={{ ...stickyStyle, ...resizeStyle } as CSSProperties}>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
       {showToolbar && (
         <DatagridToolbar
