@@ -5,16 +5,30 @@ import { cloneElement, SyntheticEvent } from "react"
 import { getFieldLabel } from "../../helpers/useGetFieldLabel"
 import { t } from "../../i18n"
 import { Column, ColumnElement } from "../column"
+import { ColumnResizer, ColumnWidths } from "./ColumnResizer"
 import { DatagridAction, DatagridRowClick } from "./types"
 
 export function columnHeader(
   col: ColumnElement,
   resource: string,
-  translate: UseTranslateResult
+  translate: UseTranslateResult,
+  onResize?: (widths: ColumnWidths) => void
 ) {
   const { sortable, name, header } = col.props
-  const fieldName = header ?? getFieldLabel(resource, name, translate)
+  const fieldLabel = getFieldLabel(resource, name, translate)
+  const fieldName = header ?? fieldLabel
   const isSortable = typeof sortable === "string" ? true : sortable
+
+  const resizer = onResize ? (
+    <ColumnResizer
+      key={`${name}_resizer`}
+      columnId={getColumnId(col)}
+      label={translate(t.eui.columns.resize, {
+        column: typeof header === "string" ? header : fieldLabel,
+      })}
+      onResize={onResize}
+    />
+  ) : null
 
   if (isSortable) {
     const { sortField = "", sortOrder } = useListContext()
@@ -36,18 +50,32 @@ export function columnHeader(
         >
           {sortMessage}
         </div>
+        {resizer}
       </>
     )
   }
 
-  return fieldName
+  return resizer ? (
+    <>
+      {fieldName}
+      {resizer}
+    </>
+  ) : (
+    fieldName
+  )
 }
 
 // TODO DA CAPIRE PROPS isMobileHeader & hideForMobile
 export function toEuiColumn(
   col: ColumnElement,
   resource: string,
-  translate: UseTranslateResult
+  translate: UseTranslateResult,
+  options: {
+    /** Overrides the width set on the column */
+    width?: string
+    /** When set, the column can be resized by the user */
+    onResize?: (widths: ColumnWidths) => void
+  } = {}
 ): EuiBasicTableColumn<any> {
   const {
     name,
@@ -65,9 +93,9 @@ export function toEuiColumn(
 
   return {
     field: name,
-    name: columnHeader(col, resource, translate),
+    name: columnHeader(col, resource, translate, options.onResize),
     description,
-    width,
+    width: options.width ?? width,
     sortable: typeof sortable === "string" ? true : sortable,
     align,
     truncateText,
@@ -232,6 +260,15 @@ export function getEuiSortField(sortField: string, columns: ColumnElement[] | un
   } else {
     return sortField
   }
+}
+
+/**
+ * Width in pixels, if expressed in pixels (eg. "180px") or unitless (eg. "180"),
+ * as EuiBasicTable does. Relative widths (eg. "20%") are not in pixels.
+ */
+export function parsePixels(width: string | undefined) {
+  const match = width?.match(/^(\d+(?:\.\d+)?)(?:px)?$/)
+  return match ? Number(match[1]) : undefined
 }
 
 export function getColumnId(column: ColumnElement) {

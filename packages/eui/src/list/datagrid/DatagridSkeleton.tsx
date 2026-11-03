@@ -14,8 +14,8 @@ const SKELETON_WIDTHS = ["80%", "55%", "70%", "45%", "65%"]
 
 export type SkeletonItem = { __skeleton: number }
 
-export function isSkeletonItem(item: object): item is SkeletonItem {
-  return "__skeleton" in item
+export function isSkeletonItem(item: object | undefined): item is SkeletonItem {
+  return item != null && "__skeleton" in item
 }
 
 export function getSkeletonItemId(item: SkeletonItem) {

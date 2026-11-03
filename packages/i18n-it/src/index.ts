@@ -66,6 +66,7 @@ const euiMessages: EuiMessages = {
     columns: {
       manage: "Gestisci colonne",
       reset: "Reimposta colonne",
+      resize: "Ridimensiona colonna %{column}",
     },
     filter: {
       add_filter: "Aggiungi filtro",

@@ -121,3 +121,117 @@
 .euiTableCellContent__text:has(> .muiDatagrid__skeletonCell) {
   flex-grow: 1;
 }
+
+/* Datagrid column resize handle, rendered on the right edge of the header cell */
+.euiTableHeaderCell:has(> .muiDatagrid__columnResizer) {
+  position: relative;
+}
+
+/* Same geometry as EuiDataGrid resizer: a 16px hit area centered on the border
+   between two columns, with a full height line */
+.muiDatagrid__columnResizer {
+  position: absolute;
+  inset: 0 -8px 0 auto;
+  width: 16px;
+  cursor: col-resize;
+  touch-action: none;
+  z-index: 1;
+
+  /* Always visible as a light divider, highlighted while hovered, dragged or focused */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background-color: var(--muiColumnResizerColor);
+    transition: background-color 150ms, width 150ms;
+  }
+
+  &:hover::after,
+  &:active::after,
+  &:focus-visible::after {
+    width: 3px;
+    background-color: var(--muiColumnResizerActiveColor);
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+/* On the right edge of the table the hit area stays inside the cell,
+   and the line is shown only while hovered */
+.euiTableHeaderCell:last-child > .muiDatagrid__columnResizer {
+  right: 0;
+  width: 8px;
+
+  &::after {
+    left: auto;
+    right: 0;
+    transform: none;
+  }
+
+  &:not(:hover, :active, :focus-visible)::after {
+    background-color: transparent;
+  }
+}
+
+/* Resized columns can exceed the available width: scroll instead of overflowing.
+   The bottom pagination is rendered outside, so it doesn't scroll with the table. */
+.muiDatagrid__table {
+  overflow-x: auto;
+}
+
+/* Min width of the table, set by the Datagrid when the columns are resized.
+   Not in the mobile layout (rendered with the mobile header), where widths don't apply. */
+.muiDatagrid__table:not(:has(> .euiTableHeaderMobile)) > .euiTable {
+  min-width: var(--muiDatagridMinWidth, 0);
+}
+
+/* Selection and actions columns stay visible while the table scrolls horizontally.
+   Row colors are set on the row by EUI, and some are translucent: sticky cells paint the
+   row color over an opaque background, otherwise the scrolled cells would show below. */
+.muiDatagrid__table:not(:has(> .euiTableHeaderMobile)) {
+  .euiTableRow {
+    &:hover {
+      --muiDatagridRowColor: var(--muiDatagridRowHoverColor);
+    }
+    &.euiTableRow-isSelected {
+      --muiDatagridRowColor: var(--muiDatagridRowSelectedColor);
+    }
+    &.euiTableRow-isSelected:hover {
+      --muiDatagridRowColor: var(--muiDatagridRowSelectedHoverColor);
+    }
+    &.euiTableRow-isClickable:hover {
+      --muiDatagridRowColor: var(--muiDatagridRowClickableHoverColor);
+    }
+    &.euiTableRow-isClickable:focus {
+      --muiDatagridRowColor: var(--muiDatagridRowClickableFocusColor);
+    }
+  }
+
+  .euiTableHeaderCellCheckbox,
+  .euiTableRowCellCheckbox,
+  &.muiDatagrid__table--hasActions .euiTableHeaderCell:last-child,
+  .euiTableRowCell--hasActions {
+    position: sticky;
+    /* Above the column resizers */
+    z-index: 2;
+    background: linear-gradient(
+        var(--muiDatagridRowColor, transparent),
+        var(--muiDatagridRowColor, transparent)
+      ),
+      var(--muiDatagridBackgroundColor);
+  }
+
+  .euiTableHeaderCellCheckbox,
+  .euiTableRowCellCheckbox {
+    left: 0;
+  }
+
+  &.muiDatagrid__table--hasActions .euiTableHeaderCell:last-child,
+  .euiTableRowCell--hasActions {
+    right: 0;
+  }
+}

@@ -23,4 +23,6 @@ export type DatagridRowClick<TRecord = any> =
 export type ColumnSettings = {
   visibleIds?: string[]
   orderedIds?: string[]
+  /** Column widths set by the user, by column id */
+  widths?: Record<string, string>
 }

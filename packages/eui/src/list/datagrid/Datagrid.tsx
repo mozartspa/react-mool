@@ -4,7 +4,12 @@ import {
   EuiScreenReaderLive,
   EuiSkeletonText,
   EuiSpacer,
+  EuiTablePagination,
   EuiTableSelectionType,
+  shade,
+  tint,
+  transparentize,
+  useEuiTheme,
 } from "@elastic/eui"
 import {
   useListContext,
@@ -13,7 +18,15 @@ import {
   useResourceDefinition,
   useTranslate,
 } from "@react-mool/core"
-import { ReactNode, SyntheticEvent, useCallback, useEffect, useMemo, useRef } from "react"
+import {
+  CSSProperties,
+  ReactNode,
+  SyntheticEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react"
 import isEqual from "react-fast-compare"
 import { useUpdateEffect } from "rooks"
 import { useGetFieldLabel } from "../../helpers"
@@ -28,6 +41,7 @@ import {
   skeletonSelection,
   toSkeletonColumns,
 } from "./DatagridSkeleton"
+import { ColumnWidths, MIN_AUTO_COLUMN_WIDTH } from "./ColumnResizer"
 import { DatagridToolbar } from "./DatagridToolbar"
 import { DatagridAction, DatagridRowClick } from "./types"
 import { useColumnSettingsStorage } from "./useColumnSettingsStorage"
@@ -36,14 +50,18 @@ import {
   canHandleRowClick,
   columnHeader,
   getDefaultRowClick,
+  getColumnId,
   getEuiSortField,
   getSortField,
   guessColumns,
+  parsePixels,
   toEuiAction,
   toEuiColumn,
 } from "./utils"
 
 const DEFAULT_PAGE_SIZE_OPTIONS = [10, 25, 50, 100]
+
+const SELECTION_COLUMN_WIDTH = 32
 
 export type DatagridProps<TRecord = any> = {
   columns?: ColumnElement[]
@@ -74,6 +92,8 @@ export type DatagridProps<TRecord = any> = {
   columnSettings?: boolean
   columnSettingsStorage?: Storage
   columnSettingsStorageKey?: string
+  /** Allows the user to resize the columns. Widths are stored with the column settings. */
+  resizableColumns?: boolean
 }
 
 export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRecord>) {
@@ -100,6 +120,7 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     columnSettings = true,
     columnSettingsStorage,
     columnSettingsStorageKey,
+    resizableColumns = true,
   } = props
 
   const {
@@ -118,9 +139,11 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     setSelectedIds,
     hasActiveFilters,
     query,
+    defaults,
   } = useListContext<TRecord>()
 
   const translate = useTranslate()
+  const { euiTheme, colorMode } = useEuiTheme()
   const redirect = useRedirect()
   const resourceDefinition = useResourceDefinition(resource)
   const resourceDataProvider = useResourceDataProvider(resource)
@@ -137,7 +160,28 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
   })
 
   const columns = columnSettings ? columnSelector.orderedVisibleColumns : availableColumns
-  const euiColumns = columns.map((col) => toEuiColumn(col, resource, translate))
+
+  const { columnSettings: storedSettings, setColumnSettings } = columnSettingsStored
+  const columnWidths = resizableColumns ? storedSettings.widths : undefined
+  const setColumnWidths = (changedWidths: ColumnWidths) => {
+    const widths: Record<string, string> = {}
+    Object.entries({ ...storedSettings.widths, ...changedWidths }).forEach(
+      ([id, width]) => {
+        if (width) {
+          widths[id] = width
+        }
+      }
+    )
+    setColumnSettings({ ...storedSettings, widths })
+  }
+
+  const euiColumns = columns.map((col) => {
+    const id = getColumnId(col)
+    return toEuiColumn(col, resource, translate, {
+      width: columnWidths?.[id],
+      onResize: resizableColumns ? setColumnWidths : undefined,
+    })
+  })
 
   const actions = actionsProp
     ? actionsProp.map((action) => toEuiAction(action))
@@ -151,10 +195,19 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
         setPageSize(page.size)
       }
       if (sort) {
-        setSort(getSortField(String(sort.field), columnsProp), sort.direction)
+        const field = getSortField(String(sort.field), columnsProp)
+
+        const isThirdClick =
+          field === sortField && sortOrder === "desc" && sort.direction === "asc"
+
+        if (isThirdClick && field !== defaults.sortField) {
+          setSort(defaults.sortField, defaults.sortOrder)
+        } else {
+          setSort(field, sort.direction)
+        }
       }
     },
-    [setPage, setPageSize, setSort, columnsProp]
+    [setPage, setPageSize, setSort, columnsProp, sortField, sortOrder, defaults]
   )
 
   // handle Toolbar onChangePage
@@ -163,6 +216,15 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
       setPage(page + 1)
     },
     [setPage]
+  )
+
+  // handle bottom pagination onChangeItemsPerPage
+  const handleChangePageSize = useCallback(
+    (size: number) => {
+      setPage(1)
+      setPageSize(size)
+    },
+    [setPage, setPageSize]
   )
 
   const rowClick = getDefaultRowClick(rowClickProp, resourceDefinition)
@@ -214,9 +276,9 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
   )
 
   const initialSelected = useMemo(() => {
-    return selectedIds.map((id) =>
-      items.find((item) => resourceDataProvider.id(item) === id)
-    )
+    return selectedIds
+      .map((id) => items.find((item) => resourceDataProvider.id(item) === id))
+      .filter(Boolean)
   }, [])
 
   const selection: EuiTableSelectionType<any> = useMemo(() => {
@@ -252,6 +314,18 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
     }
   }, [page])
 
+  // The bottom pagination is rendered outside of EuiBasicTable, which scrolls horizontally
+  // when the resized columns are wider than the container (see Admin.scss)
+  const pageCount = Math.max(1, Math.ceil(total / pageSize))
+  const showBottomPaginationBar = showPagination && showBottomPagination && total > 0
+
+  // Back to the last page when the current one is out of range (as EuiBasicTable does)
+  useEffect(() => {
+    if (showBottomPaginationBar && page > pageCount) {
+      setPage(pageCount)
+    }
+  }, [showBottomPaginationBar, page, pageCount, setPage])
+
   // Loading with no rows to show: on first load, or when reloading an empty result
   // (eg. after resetting the filters). Show a skeleton instead of the "no items" message.
   const isLoadingEmpty = isLoading && items.length === 0
@@ -280,7 +354,13 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
   }
 
   // Add specific className when it's empty in order to style the empty view
-  const tableClassName = tableItems.length === 0 ? "euiBasicTable--empty" : undefined
+  const tableClassName = [
+    "muiDatagrid__table",
+    tableItems.length === 0 && "euiBasicTable--empty",
+    actions && "muiDatagrid__table--hasActions",
+  ]
+    .filter(Boolean)
+    .join(" ")
 
   // Screen reader sort announcement
   const getFieldLabel = useGetFieldLabel()
@@ -291,8 +371,48 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
       )
     : null
 
+  // Resized columns can make the table wider than its container (see ColumnResizer):
+  // then its min width is the sum of the column widths, leaving some space to the actions.
+  const tableMinWidth =
+    columnWidths && Object.keys(columnWidths).length > 0
+      ? (selectable ? SELECTION_COLUMN_WIDTH : 0) +
+        (actions ? MIN_AUTO_COLUMN_WIDTH : 0) +
+        columns.reduce(
+          (sum, col) =>
+            sum + (parsePixels(columnWidths[getColumnId(col)] ?? col.props.width) ?? 0),
+          0
+        )
+      : undefined
+
+  // Colors of the column resizers are set once here, instead of in every resizer
+  const resizeStyle = resizableColumns
+    ? {
+        "--muiColumnResizerColor": euiTheme.border.color,
+        "--muiColumnResizerActiveColor": euiTheme.colors.primary,
+        "--muiDatagridMinWidth": tableMinWidth ? `${tableMinWidth}px` : undefined,
+      }
+    : undefined
+
+  // Colors of the sticky selection and actions columns,
+  // the same that EUI sets on the table and its rows
+  const isDark = colorMode === "DARK"
+  const stickyStyle = {
+    "--muiDatagridBackgroundColor": euiTheme.colors.emptyShade,
+    "--muiDatagridRowHoverColor": isDark
+      ? euiTheme.colors.lightestShade
+      : tint(euiTheme.colors.lightestShade, 0.5),
+    "--muiDatagridRowSelectedColor": isDark
+      ? shade(euiTheme.colors.primary, 0.7)
+      : tint(euiTheme.colors.primary, 0.96),
+    "--muiDatagridRowSelectedHoverColor": isDark
+      ? shade(euiTheme.colors.primary, 0.75)
+      : tint(euiTheme.colors.primary, 0.9),
+    "--muiDatagridRowClickableHoverColor": transparentize(euiTheme.colors.primary, 0.05),
+    "--muiDatagridRowClickableFocusColor": transparentize(euiTheme.colors.primary, 0.1),
+  }
+
   return (
-    <div>
+    <div style={{ ...stickyStyle, ...resizeStyle } as CSSProperties}>
       <div ref={topRef} style={{ position: "relative", top: -scrollToTopOffset }}></div>
       {showToolbar && (
         <DatagridToolbar
@@ -316,17 +436,6 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
         items={tableItems}
         columns={tableColumns}
         loading={isLoading}
-        pagination={
-          showPagination && showBottomPagination
-            ? {
-                pageIndex: page - 1,
-                pageSize,
-                totalItemCount: total,
-                showPerPageOptions: showPageSize,
-                pageSizeOptions,
-              }
-            : undefined
-        }
         sorting={{
           sort: {
             field: getEuiSortField(sortField, columnsProp) as any,
@@ -342,6 +451,20 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
         rowProps={showSkeletonRows ? undefined : rowProps}
         noItemsMessage={renderNoItemsMessage()}
       />
+      {showBottomPaginationBar && (
+        <>
+          <EuiSpacer size="m" />
+          <EuiTablePagination
+            activePage={page - 1}
+            pageCount={pageCount}
+            itemsPerPage={pageSize}
+            itemsPerPageOptions={pageSizeOptions}
+            showPerPageOptions={showPageSize}
+            onChangePage={handleChangePage}
+            onChangeItemsPerPage={handleChangePageSize}
+          />
+        </>
+      )}
     </div>
   )
 }

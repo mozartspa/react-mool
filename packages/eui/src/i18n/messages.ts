@@ -49,6 +49,7 @@ export const englishEuiMessages = {
     columns: {
       manage: "Manage columns",
       reset: "Reset columns",
+      resize: "Resize column %{column}",
     },
     filter: {
       add_filter: "Add filter",
