@@ -94,30 +94,24 @@ If publishing later fails with an authentication error, run `npm login --auth-ty
 ### Publish
 
 ```bash
-yarn lerna publish --no-verify-access --yes
+yarn release
 ```
 
-Lerna creates the version commit and Git tag, pushes them, then publishes every changed package. For each package npm asks for a one-time password and prints a link: open it, confirm with your passkey, and paste the code shown on the page into the terminal. Each code can be used only once, so get a new one for every package.
+Lerna asks for the new version, creates the version commit and Git tag, and pushes them. The script then builds the packages and publishes the ones whose version is not on npm yet, in dependency order.
+
+Each package needs its own confirmation:
+
+- With a passkey or security key, npm prints a link: open it and confirm in the browser.
+- With an authenticator app, npm asks for the 6-digit code. Each code can be used only once, so wait for a new one for every package.
+
+Do not use `lerna publish`: Lerna only accepts a typed one-time password and does not handle the browser confirmation.
 
 ### If publishing fails halfway
 
-When the version commit and tag already exist but some packages were not published, first discard the `gitHead` field Lerna leaves in the `package.json` files:
+When the version commit and tag already exist but some packages were not published, resume without creating a new version:
 
 ```bash
-git checkout -- packages/*/package.json
+yarn release:publish
 ```
 
-Then retry. `from-package` publishes only the packages whose current version is not on npm yet (`from-git` would try to publish all of them again and fail on the ones already published):
-
-```bash
-yarn lerna publish from-package --no-verify-access --yes
-```
-
-Alternatively, publish the missing packages one by one with npm, in dependency order (`core`, `eui`, `i18n-it`, `react-mool`). Build first, because `--ignore-scripts` skips the `prepublishOnly` build:
-
-```bash
-yarn lerna run build
-cd packages/core && npm publish --ignore-scripts
-```
-
-Check what is on npm with `npm view <package> version`.
+Packages already on npm are skipped. Check what is on npm with `npm view <package> version`.
