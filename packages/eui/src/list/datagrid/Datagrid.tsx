@@ -276,9 +276,9 @@ export function Datagrid<TRecord extends object = any>(props: DatagridProps<TRec
   )
 
   const initialSelected = useMemo(() => {
-    return selectedIds.map((id) =>
-      items.find((item) => resourceDataProvider.id(item) === id)
-    )
+    return selectedIds
+      .map((id) => items.find((item) => resourceDataProvider.id(item) === id))
+      .filter(Boolean)
   }, [])
 
   const selection: EuiTableSelectionType<any> = useMemo(() => {
