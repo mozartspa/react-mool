@@ -63,38 +63,38 @@ export function useDefaultDatagridActions<TRecord = any>(
       bulkName: translate(t.eui.action.delete),
       icon: "trash",
       color: "danger",
-      run: async (items) => {
-        if (
-          await confirm(
-            translate(t.eui.bulk.delete_confirm, { smart_count: items.length }),
-            { confirmLabel: translate(t.eui.action.delete), buttonColor: "danger" }
-          )
-        ) {
-          return Promise.all(
-            items.map((item) => {
-              const id = dataprovider.id(resource, item)
-              return dataprovider.delete(resource, { id })
-            })
-          )
-            .then(() => {
-              notify(translate(t.eui.bulk.deleted_items, { smart_count: items.length }), {
-                type: "success",
+      run: (items) =>
+        confirm(translate(t.eui.bulk.delete_confirm, { smart_count: items.length }), {
+          confirmLabel: translate(t.eui.action.delete),
+          buttonColor: "danger",
+          onConfirm: () =>
+            Promise.all(
+              items.map((item) => {
+                const id = dataprovider.id(resource, item)
+                return dataprovider.delete(resource, { id })
               })
-            })
-            .catch((err) => {
-              logError(err)
-              notify(
-                err instanceof Error ? err.message : translate(t.eui.error.general),
-                {
-                  type: "danger",
-                }
-              )
-            })
-            .finally(() => {
-              refresh()
-            })
-        }
-      },
+            )
+              .then(() => {
+                notify(
+                  translate(t.eui.bulk.deleted_items, { smart_count: items.length }),
+                  {
+                    type: "success",
+                  }
+                )
+              })
+              .catch((err) => {
+                logError(err)
+                notify(
+                  err instanceof Error ? err.message : translate(t.eui.error.general),
+                  {
+                    type: "danger",
+                  }
+                )
+              })
+              .finally(() => {
+                refresh()
+              }),
+        }),
     }),
     [translate, resource, dataprovider, redirect, refresh]
   )

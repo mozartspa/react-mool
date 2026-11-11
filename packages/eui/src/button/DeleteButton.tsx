@@ -56,44 +56,43 @@ export const DeleteButton = (props: DeleteButtonProps) => {
   const isMounted = useIsMounted()
   const [isLoading, setLoading] = useState(false)
 
-  const handleDelete = useCallback(async () => {
-    if (
-      await confirm(translate(t.eui.bulk.delete_confirm, { smart_count: 1 }), {
-        confirmLabel: translate(t.eui.action.delete),
-        buttonColor: "danger",
-      })
-    ) {
-      const deleteId = id ?? recordId
+  const handleDelete = useCallback(() => {
+    return confirm(translate(t.eui.bulk.delete_confirm, { smart_count: 1 }), {
+      confirmLabel: translate(t.eui.action.delete),
+      buttonColor: "danger",
+      onConfirm: () => {
+        const deleteId = id ?? recordId
 
-      if (isMounted()) {
-        setLoading(true)
-      }
+        if (isMounted()) {
+          setLoading(true)
+        }
 
-      dataprovider
-        .delete(resource, { id: deleteId })
-        .then(async () => {
-          notify(translate(t.eui.bulk.deleted_items, { smart_count: 1 }), {
-            type: "success",
+        return dataprovider
+          .delete(resource, { id: deleteId })
+          .then(async () => {
+            notify(translate(t.eui.bulk.deleted_items, { smart_count: 1 }), {
+              type: "success",
+            })
+            if (redirectTo !== false) {
+              redirect(redirectTo, { resource, id: deleteId })
+            }
+            await onSuccess?.()
           })
-          if (redirectTo !== false) {
-            redirect(redirectTo, { resource, id: deleteId })
-          }
-          await onSuccess?.()
-        })
-        .catch(async (err) => {
-          logError(err)
-          notify(err instanceof Error ? err.message : translate(t.eui.error.general), {
-            type: "danger",
+          .catch(async (err) => {
+            logError(err)
+            notify(err instanceof Error ? err.message : translate(t.eui.error.general), {
+              type: "danger",
+            })
+            await onError?.(err)
           })
-          await onError?.(err)
-        })
-        .finally(() => {
-          refresh()
-          if (isMounted()) {
-            setLoading(false)
-          }
-        })
-    }
+          .finally(() => {
+            refresh()
+            if (isMounted()) {
+              setLoading(false)
+            }
+          })
+      },
+    })
   }, [
     dataprovider,
     resource,
