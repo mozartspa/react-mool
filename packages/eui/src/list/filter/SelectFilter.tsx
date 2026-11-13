@@ -1,15 +1,22 @@
 import { Select, SelectProps } from "../../select"
-import { Filter, FilterComponentProps } from "./Filter"
+import { EmptyOptionProps, resolveSelectToWhere, useEmptySelectOption } from "./emptyOption"
+import { Filter, FilterComponent, FilterComponentProps } from "./Filter"
 
 export type SelectFilterProps<T = any> = FilterComponentProps &
+  EmptyOptionProps &
   Omit<SelectProps<T>, "value" | "onChange" | "onBlur">
 
-export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
+export const SelectFilter: FilterComponent<SelectFilterProps> = (props) => {
+  const { emptyOption, ...filterProps } = props
+  const { toWhere, ...selectProps } = filterProps
+  const emptySelectOption = useEmptySelectOption(emptyOption)
+
   return (
-    <Filter {...props}>
+    <Filter {...filterProps}>
       {(field) => (
         <Select
-          {...props}
+          {...selectProps}
+          options={emptySelectOption ? [...props.options, emptySelectOption] : props.options}
           value={field.value}
           onBlur={() => field.setTouched(true)}
           onChange={(value) => {
@@ -21,6 +28,8 @@ export const SelectFilter: React.FC<SelectFilterProps> = (props) => {
     </Filter>
   )
 }
+
+SelectFilter.resolveToWhere = resolveSelectToWhere
 
 SelectFilter.defaultProps = {
   emptyValue: () => undefined,

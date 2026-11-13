@@ -17,6 +17,8 @@ export type SelectResourceProps<TRecord = any, TFilter = any> = Omit<
   sortOrder?: GetListParams["sortOrder"]
   maxSize?: number
   toOptions?: (records: TRecord[]) => SelectOption[]
+  /** Options added after the ones of the records, once they are loaded. */
+  extraOptions?: SelectOption[]
 }
 
 export const SelectResource = <TRecord extends any, TFilter>(
@@ -29,6 +31,7 @@ export const SelectResource = <TRecord extends any, TFilter>(
     sortOrder,
     maxSize = 2000,
     toOptions,
+    extraOptions,
     ...rest
   } = props
 
@@ -47,18 +50,18 @@ export const SelectResource = <TRecord extends any, TFilter>(
       return []
     }
 
-    if (toOptions) {
-      return toOptions(query.data.items)
-    }
+    const options = toOptions
+      ? toOptions(query.data.items)
+      : query.data.items.map((item) => {
+          const opt: SelectOption = {
+            value: getId(item),
+            label: getName(item),
+          }
+          return opt
+        })
 
-    return query.data.items.map((item) => {
-      const opt: SelectOption = {
-        value: getId(item),
-        label: getName(item),
-      }
-      return opt
-    })
-  }, [query.data, toOptions, getId, getName])
+    return extraOptions ? [...options, ...extraOptions] : options
+  }, [query.data, toOptions, extraOptions, getId, getName])
 
   return (
     <Select {...rest} options={options} isLoading={rest.isLoading ?? query.isLoading} />

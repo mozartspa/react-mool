@@ -37,6 +37,7 @@ function withUnauthorizedHandler<TRecord, TCreate, TUpdate, TFilter>(
     create: wrap(dataProvider.create),
     update: wrap(dataProvider.update),
     delete: wrap(dataProvider.delete),
+    getFilterOperators: dataProvider.getFilterOperators,
   }
 
   return wrapped

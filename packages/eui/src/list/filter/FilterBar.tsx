@@ -9,7 +9,13 @@ import {
 } from "@elastic/eui"
 import { FormValues, useForm } from "@mozartspa/mobx-form"
 import get from "dlv"
-import { useAddFilter, useResource, useStorage, useTranslate } from "@react-mool/core"
+import {
+  useAddFilter,
+  useFilterOperators,
+  useResource,
+  useStorage,
+  useTranslate,
+} from "@react-mool/core"
 import { autorun } from "mobx"
 import { observer } from "mobx-react-lite"
 import isEqual from "react-fast-compare"
@@ -26,6 +32,7 @@ import { humanize } from "../../helpers/humanize"
 import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
+import { buildListFilter, isEmptyFilterValue } from "./listFilter"
 
 function removeUnusedFilterValues(values: any, filterNames: string[]) {
   // Array is not supported
@@ -49,25 +56,16 @@ function removeUnusedFilterValues(values: any, filterNames: string[]) {
   return changed ? nextValues : values
 }
 
-function isEmptyFilterValue(value: unknown): boolean {
-  if (value == null || value === "") {
-    return true
-  }
-  if (Array.isArray(value)) {
-    return value.length === 0
-  }
-  if (typeof value === "object" && Object.getPrototypeOf(value) === Object.prototype) {
-    return Object.values(value).every(isEmptyFilterValue)
-  }
-  return false
-}
-
 function getFilterNames(filters: React.ReactElement<FilterBaseProps>[]) {
   return filters.map((f) => f.props.name).filter((name) => name != null)
 }
 
 export type FilterBarProps<TFilter extends FormValues = any, TFilterOut = TFilter> = {
   initialValues?: TFilter
+  /**
+   * Turns the values of the filters without `toWhere` into the list filter.
+   * The filters with `toWhere` are added to its result, in and.
+   */
   transformValues?: (values: TFilter) => TFilterOut
   filters: React.ReactElement<FilterBaseProps>[]
   restoreFromLast?: boolean
@@ -113,6 +111,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
 
   const translate = useTranslate()
   const resource = useResource()
+  const operators = useFilterOperators(resource)
   const { euiTheme } = useEuiTheme()
 
   const storage = useStorage(restoreKey ?? `${resource}-filterbar`, {
@@ -129,13 +128,20 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     []
   )
 
+  // Form values to list filter: see `buildListFilter`.
+  const buildFilter = (values: TFilter) =>
+    buildListFilter({
+      values,
+      filters: oFilters,
+      transformValues: props.transformValues,
+      operators,
+    }) as any // any is ugly, but don't know how to fix it
+  const buildFilterRef = useFreshRef(buildFilter)
+
   const setFilter = useAddFilter(
     () => {
-      // Transform filter values if a transform function is provided
-      // and there are initial values.
-      return props.transformValues && initialValues
-        ? (props.transformValues(initialValues) as any) // any is ugly, but don't know how to fix it
-        : initialValues
+      // Transform filter values if there are initial values.
+      return initialValues ? buildFilter(initialValues) : initialValues
     },
     {
       debounce: true,
@@ -151,21 +157,15 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     initialValues,
   })
 
-  // Transform filter values reference
-  const transformValuesRef = useFreshRef(props.transformValues)
-
   // Sync filter with form values.
   // Use mobx autorun for better performances.
   useEffect(
     () =>
       autorun(() => {
         if (form.isValid) {
-          // Transform filter values before applying them,
-          // if a transform function is provided.
+          // Transform filter values before applying them.
           setFilter(
-            transformValuesRef.current
-              ? (transformValuesRef.current(form.values) as any) // any is ugly, but don't know how to fix it
-              : form.values,
+            buildFilterRef.current?.(form.values),
             // Tell the list whether these values are set by the user
             { isActive: (getActiveFilterNamesRef.current?.().length ?? 0) > 0 }
           )
