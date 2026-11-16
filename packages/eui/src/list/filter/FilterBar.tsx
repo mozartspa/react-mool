@@ -32,7 +32,7 @@ import { humanize } from "../../helpers/humanize"
 import { t } from "../../i18n"
 import { FilterBaseProps } from "./Filter"
 import { FilterBarButton } from "./FilterBarButton"
-import { buildListFilter, isEmptyFilterValue } from "./listFilter"
+import { buildListFilter, isEmptyFilterValue, TransformWhere } from "./listFilter"
 
 function removeUnusedFilterValues(values: any, filterNames: string[]) {
   // Array is not supported
@@ -60,19 +60,39 @@ function getFilterNames(filters: React.ReactElement<FilterBaseProps>[]) {
   return filters.map((f) => f.props.name).filter((name) => name != null)
 }
 
-export type FilterBarProps<TFilter extends FormValues = any, TFilterOut = TFilter> = {
-  initialValues?: TFilter
+/**
+ * `TValues` are the values of the filters, `TFilter` the list filter they give.
+ */
+export type FilterBarProps<TValues extends FormValues = any, TFilter = any> = {
+  /** Values of the filters when there are no restored ones. Values without a filter are ignored. */
+  initialValues?: TValues
   /**
-   * Turns the values of the filters without `toWhere` into the list filter.
-   * The filters with `toWhere` are added to its result, in and.
+   * Changes the list filter given by the filters, eg. to add conditions that
+   * no filter gives. It receives `{}` when no filter has a value.
    */
-  transformValues?: (values: TFilter) => TFilterOut
+  transformWhere?: TransformWhere<TFilter>
+  /**
+   * The list filter is the `and` of the conditions of the filters with a value.
+   * A filter gives its condition with `toWhere`, otherwise by its `name`.
+   */
   filters: React.ReactElement<FilterBaseProps>[]
+  /** Restores the values of the filters, and the visible ones, from the last time. */
   restoreFromLast?: boolean
+  /**
+   * Prefix of the storage key, instead of the resource.
+   * The key is `${restoreKey}-filterbar-v${restoreKeyVersion}`.
+   */
   restoreKey?: string
+  /**
+   * Version of the stored values: increase it when the filters change in a way that
+   * makes the stored values wrong (eg. a filter renamed, or with a different value),
+   * so that the values stored before are ignored.
+   * @default 1
+   */
+  restoreKeyVersion?: number
   restoreStorage?: Storage
-  allowUnusedFilterValues?: boolean
-  onChange?: (values: TFilter) => void
+  /** Called when the list filter changes */
+  onChange?: (filter: TFilter) => void
   flexGroupProps?: EuiFlexGroupProps
   children?: ReactNode
   /**
@@ -93,15 +113,15 @@ export type FilterBarProps<TFilter extends FormValues = any, TFilterOut = TFilte
   sorted?: boolean
 }
 
-function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
-  props: FilterBarProps<TFilter, TFilterOut>
+function FilterBarComp<TValues extends FormValues, TFilter = any>(
+  props: FilterBarProps<TValues, TFilter>
 ) {
   const {
     filters: oFilters,
     restoreFromLast,
     restoreKey,
+    restoreKeyVersion = 1,
     restoreStorage,
-    allowUnusedFilterValues = false,
     onChange,
     flexGroupProps,
     children,
@@ -111,13 +131,17 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
 
   const translate = useTranslate()
   const resource = useResource()
-  const operators = useFilterOperators(resource)
+  const operators = useFilterOperators<TFilter>(resource)
   const { euiTheme } = useEuiTheme()
 
-  const storage = useStorage(restoreKey ?? `${resource}-filterbar`, {
-    enabled: restoreFromLast,
-    storage: restoreStorage,
-  })
+  // Own suffix: the list may get the same `restoreKey`
+  const storage = useStorage(
+    `${restoreKey ?? resource}-filterbar-v${restoreKeyVersion}`,
+    {
+      enabled: restoreFromLast,
+      storage: restoreStorage,
+    }
+  )
 
   const initialValues = useMemo(
     () => storage.getValue("filterValues", props.initialValues),
@@ -129,20 +153,18 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
   )
 
   // Form values to list filter: see `buildListFilter`.
-  const buildFilter = (values: TFilter) =>
+  const buildFilter = (values: TValues) =>
     buildListFilter({
       values,
       filters: oFilters,
-      transformValues: props.transformValues,
+      transformWhere: props.transformWhere,
       operators,
-    }) as any // any is ugly, but don't know how to fix it
+    })
   const buildFilterRef = useFreshRef(buildFilter)
 
-  const setFilter = useAddFilter(
-    () => {
-      // Transform filter values if there are initial values.
-      return initialValues ? buildFilter(initialValues) : initialValues
-    },
+  const setFilter = useAddFilter<TFilter>(
+    // Also without initial values, for `transformWhere`
+    () => buildFilter(initialValues ?? ({} as TValues)),
     {
       debounce: true,
       onChange,
@@ -163,9 +185,8 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
     () =>
       autorun(() => {
         if (form.isValid) {
-          // Transform filter values before applying them.
           setFilter(
-            buildFilterRef.current?.(form.values),
+            buildFilterRef.current!(form.values),
             // Tell the list whether these values are set by the user
             { isActive: (getActiveFilterNamesRef.current?.().length ?? 0) > 0 }
           )
@@ -207,10 +228,6 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
 
   // Remove filter values that are not used by any filter element.
   useEffect(() => {
-    if (allowUnusedFilterValues) {
-      return
-    }
-
     const names = getFilterNames(filters)
     const values = form.values
     const nextValues = removeUnusedFilterValues(values, names)
@@ -254,7 +271,7 @@ function FilterBarComp<TFilter extends FormValues, TFilterOut = TFilter>(
 
   // Reset filters, applying them immediately (without waiting for the debounce)
   const handleResetFilters = useCallback(() => {
-    form.reset({} as TFilter)
+    form.reset({} as TValues)
     setVisibleFilters([])
     setFilter.flush()
   }, [])

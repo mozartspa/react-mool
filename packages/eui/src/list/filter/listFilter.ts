@@ -1,6 +1,6 @@
-import { FilterOperators, isNoFilter } from "@react-mool/core"
+import { andFilters, deepMergeFilters, FilterOperators } from "@react-mool/core"
 import get from "dlv"
-import { FilterBaseProps, FilterComponent, getFilterToWhere, ToWhere } from "./Filter"
+import { FilterBaseProps, FilterComponent, getFilterToWhere } from "./Filter"
 
 /** A filter value set by the user: not `null`, `""`, `[]` or an object of empty values. */
 export function isEmptyFilterValue(value: unknown): boolean {
@@ -16,27 +16,9 @@ export function isEmptyFilterValue(value: unknown): boolean {
   return false
 }
 
-function isPlainObject(value: unknown): value is Record<string, any> {
-  return value != null && typeof value === "object" && !Array.isArray(value)
-}
-
-/** Removes the value at `path`, and the objects left empty by the removal. */
-function unsetPath(values: any, path: string[]): any {
-  if (!isPlainObject(values)) {
-    return values
-  }
-  const [key, ...rest] = path
-  if (!(key in values)) {
-    return values
-  }
-  const { [key]: child, ...others } = values
-  if (rest.length === 0) {
-    return others
-  }
-  const next = unsetPath(child, rest)
-  return isPlainObject(next) && Object.keys(next).length === 0
-    ? others
-    : { ...others, [key]: next }
+/** The condition of a filter without `toWhere`: `{ a: { b: value } }` for `name="a.b"`. */
+function implicitWhere(name: string, value: unknown): any {
+  return name.split(".").reduceRight<unknown>((where, key) => ({ [key]: where }), value)
 }
 
 /**
@@ -45,7 +27,9 @@ function unsetPath(values: any, path: string[]): any {
  * forward it) would pass the "(empty)" option to the `toWhere` prop.
  */
 function resolveToWhere(filter: React.ReactElement<FilterBaseProps>) {
-  const { name, emptyOption } = filter.props as FilterBaseProps & { emptyOption?: unknown }
+  const { name, emptyOption } = filter.props as FilterBaseProps & {
+    emptyOption?: unknown
+  }
   if (emptyOption != null && !(filter.type as FilterComponent).resolveToWhere) {
     throw new Error(
       `Filter "${name}": its component does not support "emptyOption". A component wrapping a select filter must forward its "resolveToWhere".`
@@ -54,61 +38,80 @@ function resolveToWhere(filter: React.ReactElement<FilterBaseProps>) {
   return getFilterToWhere(filter)
 }
 
+export type TransformWhereContext<TFilter = any> = {
+  /** Values of all the filters, to read only */
+  values: any
+  /** Operators of the data provider, if it has them */
+  operators: FilterOperators<TFilter> | undefined
+}
+
+/** Changes the list filter of a filter bar, eg. to add conditions that no filter gives. */
+export type TransformWhere<TFilter = any> = (
+  where: TFilter,
+  context: TransformWhereContext<TFilter>
+) => TFilter
+
 export type BuildListFilterParams<TFilter = any> = {
   /** Values of the filter form */
   values: any
   /** Filter elements, in the order they are declared */
   filters: React.ReactElement<FilterBaseProps>[]
-  transformValues?: (values: any) => TFilter
-  /** Required when some filter has `toWhere` */
+  transformWhere?: TransformWhere<TFilter>
+  /** Operators of the data provider. Required by the filters with `toWhere` or `emptyOption`. */
   operators?: FilterOperators<TFilter>
 }
 
 /**
- * The list filter of a filter bar:
+ * The list filter of a filter bar: the `and` of the conditions of the filters with a value.
  *
- *     and([transformValues(values of the filters without toWhere), ...toWhere of each filter])
+ * - The condition of a filter is given by its `toWhere`, otherwise by its `name`:
+ *   `name="code.contains"` gives `{ code: { contains: value } }`.
+ * - Values without a filter (eg. from `initialValues`, or restored) are ignored.
+ * - Conditions that match every record are skipped: `{}` if none is left, the condition
+ *   itself if only one is left.
+ * - Without operators the conditions are merged deeply, which requires no filter to have
+ *   `toWhere`: the result is the filter values, without the empty ones.
  *
- * The result is always an `and`, `{}` if no filter has conditions.
- *
- * `toWhere` is called only for the filters with a value.
- * Without `toWhere` filters, the result is `transformValues(values)`, as it has always been.
+ * The result goes through `transformWhere`, if set. The list combines it with its
+ * `baseFilter` (with the default `mergeFilters`, in `and`).
  */
 export function buildListFilter<TFilter = any>(
   params: BuildListFilterParams<TFilter>
 ): TFilter {
-  const { values, filters, transformValues, operators } = params
+  const { values, filters, transformWhere, operators } = params
 
-  const whereFilters: Array<{ name: string; toWhere: ToWhere }> = []
-  filters.forEach((filter) => {
-    const toWhere = filter.props.name != null ? resolveToWhere(filter) : undefined
-    if (toWhere) {
-      whereFilters.push({ name: filter.props.name, toWhere })
-    }
-  })
-  if (whereFilters.length === 0) {
-    return transformValues ? transformValues(values) : values
-  }
+  const namedFilters = filters
+    .filter((filter) => filter.props.name != null)
+    .map((filter) => ({ name: filter.props.name, toWhere: resolveToWhere(filter) }))
 
   if (!operators) {
-    const names = whereFilters.map((filter) => filter.name).join(", ")
-    throw new Error(
-      `Filters with "toWhere" require the data provider to implement "getFilterOperators" (filters: ${names}).`
-    )
+    const names = namedFilters
+      .filter((filter) => filter.toWhere)
+      .map((filter) => filter.name)
+    if (names.length > 0) {
+      throw new Error(
+        `Filters with "toWhere" or "emptyOption" require the data provider to implement "getFilterOperators" (filters: ${names.join(
+          ", "
+        )}).`
+      )
+    }
   }
 
-  let otherValues = values
-  const parts = whereFilters.map(({ name, toWhere }) => {
-    otherValues = unsetPath(otherValues, name.split("."))
+  const conditions = namedFilters.map(({ name, toWhere }): TFilter | undefined => {
     const value = get(values ?? {}, name)
-    return isEmptyFilterValue(value) ? undefined : toWhere(value, { values, operators })
+    if (isEmptyFilterValue(value)) {
+      return undefined
+    }
+    return toWhere
+      ? toWhere(value, { values, operators: operators! })
+      : implicitWhere(name, value)
   })
 
-  const base = transformValues ? transformValues(otherValues) : otherValues
-  const conditions = [base, ...parts].filter((part) => !isNoFilter(part))
-  // Always `and`, even with one condition: the list deep-merges the result with
-  // its `baseFilter` (default `mergeFilters`), and would mix their keys.
   // Without conditions it is `{}`, as the filter bar has always given: custom
   // `mergeFilters` of the lists may not expect `undefined` (eg. `{ AND: filters }`).
-  return conditions.length > 0 ? operators.and(conditions) : ({} as TFilter)
+  const where = operators
+    ? andFilters(operators, conditions) ?? ({} as TFilter)
+    : deepMergeFilters(...conditions)
+
+  return transformWhere ? transformWhere(where, { values, operators }) : where
 }

@@ -2,25 +2,33 @@ import { EuiFlexItemProps } from "@elastic/eui"
 import { Field, FieldComponentProps, FieldProps } from "@mozartspa/mobx-form"
 import { FilterOperators } from "@react-mool/core"
 
-export type FilterWhereContext = {
+export type FilterWhereContext<TFilter = any> = {
   /** Values of all the filters, to read only */
   values: any
   /** Operators of the data provider, to combine filters */
-  operators: FilterOperators
+  operators: FilterOperators<TFilter>
 }
 
 /** Turns the value of a filter into a list filter. */
-export type ToWhere = (value: any, context: FilterWhereContext) => any
+export type ToWhere<TFilter = any> = (
+  value: any,
+  context: FilterWhereContext<TFilter>
+) => TFilter
 
 export type FilterBaseProps = {
+  /**
+   * Path of the filter value in the filter values.
+   * Without `toWhere`, also the path of the value in the list filter:
+   * `name="code.contains"` gives `{ code: { contains: value } }`.
+   */
   name: string
   label?: string
   alwaysOn?: boolean
   grow?: EuiFlexItemProps["grow"]
   /**
-   * Turns the value of the filter into a list filter.
-   * Called only when the filter has a value.
-   * The value is not passed to the `transformValues` of the filter bar.
+   * Turns the value of the filter into a list filter. Called only when the filter
+   * has a value, with the value as stored in the filter values (ie. after `parse`).
+   * Requires the data provider to implement `getFilterOperators`.
    */
   toWhere?: ToWhere
 }

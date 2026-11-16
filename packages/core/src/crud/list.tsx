@@ -1,4 +1,3 @@
-import merge from "lodash.merge"
 import React, {
   ReactElement,
   ReactNode,
@@ -10,10 +9,14 @@ import React, {
 } from "react"
 import { UseQueryResult } from "react-query"
 import {
+  andFilters,
+  deepMergeFilters,
+  FilterOperators,
   GetListOutput,
   GetListParams,
   RecordID,
   SortOrder,
+  useFilterOperators,
   useGetList,
 } from "../dataProvider"
 import { useStorage } from "../helpers/useStorage"
@@ -24,8 +27,19 @@ import { CrudModeProvider } from "./crudMode"
 import { useFilterStack, UseFilterStackAdd } from "./filter"
 import { LoadListErrorHandler, LoadListSuccessHandler } from "./types"
 
-function defaultMergeFilters<TFilter = any>(...filters: TFilter[]): TFilter {
-  return merge({}, ...filters)
+/**
+ * Default `mergeFilters`: the `and` of the filters, with the operators of the data provider.
+ * Without operators, a deep merge where the first filter takes precedence
+ * (arrays are merged by index).
+ */
+function defaultMergeFilters<TFilter = any>(
+  operators: FilterOperators<TFilter> | undefined
+): MergeFiltersFunc<TFilter> {
+  if (!operators) {
+    return deepMergeFilters
+  }
+  // `{}` without conditions, as the deep merge gives.
+  return (...filters) => andFilters(operators, filters) ?? ({} as TFilter)
 }
 
 export type MergeFiltersFunc<TFilter = any> = (
@@ -40,6 +54,11 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   initialSortOrder?: SortOrder
   initialSelectedIds?: RecordID[]
   baseFilter?: TFilter
+  /**
+   * Merges the filters of the list (eg. of a FilterBar) and `baseFilter`.
+   * Default: their `and`, when the data provider has `getFilterOperators`,
+   * otherwise a deep merge.
+   */
   mergeFilters?: MergeFiltersFunc<TFilter>
   onLoadSuccess?: LoadListSuccessHandler<TRecord>
   onLoadError?: LoadListErrorHandler<TFilter>
@@ -94,7 +113,7 @@ export function useList<TRecord = any, TFilter = any>(
     initialSortOrder = "asc",
     initialSelectedIds = [],
     baseFilter,
-    mergeFilters = defaultMergeFilters,
+    mergeFilters: mergeFiltersOpt,
     onLoadSuccess,
     onLoadError,
     syncWithURL = true,
@@ -105,6 +124,11 @@ export function useList<TRecord = any, TFilter = any>(
   } = options
 
   const resource = useResource(resourceOpt)
+  const operators = useFilterOperators<TFilter>(resource)
+  const mergeFilters = useMemo(
+    () => mergeFiltersOpt ?? defaultMergeFilters(operators),
+    [mergeFiltersOpt, operators]
+  )
   const notify = useNotify()
   const storage = useStorage(restoreKey ?? `${resource}-lastparams`, {
     enabled: restoreFromLast,
@@ -129,7 +153,7 @@ export function useList<TRecord = any, TFilter = any>(
   const [selectedIds, setSelectedIds] = useState(initialValues.selectedIds)
   const filterStack = useFilterStack()
 
-  // Merge filters in reverse order, so the first filter takes precedence over the others.
+  // Merge filters in reverse order: with a deep merge, the first filter takes precedence over the others.
   const mergedFilter = useMemo(
     () => mergeFilters(...filterStack.entries.reverse(), baseFilter),
     [baseFilter, filterStack.entries]

@@ -1,3 +1,5 @@
+import merge from "lodash.merge"
+
 /**
  * How the backend combines list filters.
  * Provided by the data provider, since only it knows the filter syntax.
@@ -17,6 +19,16 @@ export function isNoFilter(filter: unknown) {
       !Array.isArray(filter) &&
       Object.keys(filter as object).length === 0)
   )
+}
+
+/**
+ * Filters merged deeply, for data providers without operators: on the same key the
+ * last filter takes precedence, arrays are merged by index. `{}` without filters.
+ */
+export function deepMergeFilters<TFilter = any>(
+  ...filters: Array<TFilter | undefined>
+): TFilter {
+  return merge({}, ...filters)
 }
 
 /**
