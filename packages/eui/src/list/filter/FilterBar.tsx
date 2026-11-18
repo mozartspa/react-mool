@@ -68,7 +68,9 @@ export type FilterBarProps<TValues extends FormValues = any, TFilter = any> = {
   initialValues?: TValues
   /**
    * Changes the list filter given by the filters, eg. to add conditions that
-   * no filter gives. It receives `{}` when no filter has a value.
+   * no filter gives. It receives `{}` when no filter has a value. To add conditions,
+   * `andFilters(operators, [where, condition])` (from the context) works also when the
+   * data provider has no filter operators.
    */
   transformWhere?: TransformWhere<TFilter>
   /**

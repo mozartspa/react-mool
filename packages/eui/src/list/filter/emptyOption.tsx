@@ -17,7 +17,10 @@ export type EmptyOption<TFilter = any> = {
 }
 
 export type EmptyOptionProps = {
-  /** Adds an "(empty)" option, matching the records with no value. Requires `toWhere`. */
+  /**
+   * Adds an "(empty)" option, matching the records with no value. Requires `toWhere`,
+   * and filter operators from the data provider (it is an `or`).
+   */
   emptyOption?: EmptyOption
 }
 

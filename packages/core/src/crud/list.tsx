@@ -10,7 +10,6 @@ import React, {
 import { UseQueryResult } from "react-query"
 import {
   andFilters,
-  deepMergeFilters,
   FilterOperators,
   GetListOutput,
   GetListParams,
@@ -29,16 +28,13 @@ import { LoadListErrorHandler, LoadListSuccessHandler } from "./types"
 
 /**
  * Default `mergeFilters`: the `and` of the filters, with the operators of the data provider.
- * Without operators, a deep merge where the first filter takes precedence
- * (arrays are merged by index).
+ * Without operators, a deep merge that throws when two filters set the same key to
+ * different values (`strictMergeFilters`).
  */
 function defaultMergeFilters<TFilter = any>(
   operators: FilterOperators<TFilter> | undefined
 ): MergeFiltersFunc<TFilter> {
-  if (!operators) {
-    return deepMergeFilters
-  }
-  // `{}` without conditions, as the deep merge gives.
+  // `{}` without conditions, as the deep merge used to give.
   return (...filters) => andFilters(operators, filters) ?? ({} as TFilter)
 }
 
@@ -56,8 +52,9 @@ export type UseListOptions<TRecord = any, TFilter = any> = {
   baseFilter?: TFilter
   /**
    * Merges the filters of the list (eg. of a FilterBar) and `baseFilter`.
-   * Default: their `and`, when the data provider has `getFilterOperators`,
-   * otherwise a deep merge.
+   * Default: their `and` with the operators of the data provider (`getFilterOperators`).
+   * Without operators, a deep merge that throws when two filters set the same key
+   * to different values; a list that wants a plain deep merge can pass `deepMergeFilters`.
    */
   mergeFilters?: MergeFiltersFunc<TFilter>
   onLoadSuccess?: LoadListSuccessHandler<TRecord>
@@ -153,7 +150,7 @@ export function useList<TRecord = any, TFilter = any>(
   const [selectedIds, setSelectedIds] = useState(initialValues.selectedIds)
   const filterStack = useFilterStack()
 
-  // Merge filters in reverse order: with a deep merge, the first filter takes precedence over the others.
+  // Merge filters in reverse order: with a custom deep merge, the first filter takes precedence over the others.
   const mergedFilter = useMemo(
     () => mergeFilters(...filterStack.entries.reverse(), baseFilter),
     [baseFilter, filterStack.entries]

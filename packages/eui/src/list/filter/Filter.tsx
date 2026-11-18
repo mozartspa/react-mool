@@ -5,15 +5,19 @@ import { FilterOperators } from "@react-mool/core"
 export type FilterWhereContext<TFilter = any> = {
   /** Values of all the filters, to read only */
   values: any
-  /** Operators of the data provider, to combine filters */
-  operators: FilterOperators<TFilter>
+  /** Operators of the data provider, to combine filters, if it has them */
+  operators: FilterOperators<TFilter> | undefined
 }
 
-/** Turns the value of a filter into a list filter. */
+/**
+ * Turns the value of a filter into a list filter.
+ * `undefined` or `null`: the filter gives no condition (eg. its value is used by
+ * the `transformWhere` of the filter bar).
+ */
 export type ToWhere<TFilter = any> = (
   value: any,
   context: FilterWhereContext<TFilter>
-) => TFilter
+) => TFilter | undefined | null
 
 export type FilterBaseProps = {
   /**
@@ -28,7 +32,7 @@ export type FilterBaseProps = {
   /**
    * Turns the value of the filter into a list filter. Called only when the filter
    * has a value, with the value as stored in the filter values (ie. after `parse`).
-   * Requires the data provider to implement `getFilterOperators`.
+   * It can return `undefined` or `null`: no condition.
    */
   toWhere?: ToWhere
 }

@@ -1,4 +1,4 @@
-import { andFilters, deepMergeFilters, FilterOperators } from "@react-mool/core"
+import { andFilters, FilterOperators } from "@react-mool/core"
 import get from "dlv"
 import { FilterBaseProps, FilterComponent, getFilterToWhere } from "./Filter"
 
@@ -69,8 +69,10 @@ export type BuildListFilterParams<TFilter = any> = {
  * - Values without a filter (eg. from `initialValues`, or restored) are ignored.
  * - Conditions that match every record are skipped: `{}` if none is left, the condition
  *   itself if only one is left.
- * - Without operators the conditions are merged deeply, which requires no filter to have
- *   `toWhere`: the result is the filter values, without the empty ones.
+ * - A `toWhere` returning `undefined` or `null` gives no condition.
+ * - Without operators (the data provider has no `getFilterOperators` for the resource)
+ *   the conditions are merged deeply, and it throws when two of them set the same key
+ *   to different values (`strictMergeFilters`). `emptyOption` requires operators.
  *
  * The result goes through `transformWhere`, if set. The list combines it with its
  * `baseFilter` (with the default `mergeFilters`, in `and`).
@@ -80,38 +82,34 @@ export function buildListFilter<TFilter = any>(
 ): TFilter {
   const { values, filters, transformWhere, operators } = params
 
-  const namedFilters = filters
-    .filter((filter) => filter.props.name != null)
-    .map((filter) => ({ name: filter.props.name, toWhere: resolveToWhere(filter) }))
+  const namedFilters = filters.filter((filter) => filter.props.name != null)
 
   if (!operators) {
     const names = namedFilters
-      .filter((filter) => filter.toWhere)
-      .map((filter) => filter.name)
+      .filter((filter) => (filter.props as { emptyOption?: unknown }).emptyOption != null)
+      .map((filter) => filter.props.name)
     if (names.length > 0) {
       throw new Error(
-        `Filters with "toWhere" or "emptyOption" require the data provider to implement "getFilterOperators" (filters: ${names.join(
+        `Filters with "emptyOption" require the data provider to implement "getFilterOperators" (filters: ${names.join(
           ", "
         )}).`
       )
     }
   }
 
-  const conditions = namedFilters.map(({ name, toWhere }): TFilter | undefined => {
+  const conditions = namedFilters.map((filter): TFilter | undefined | null => {
+    const { name } = filter.props
+    const toWhere = resolveToWhere(filter)
     const value = get(values ?? {}, name)
     if (isEmptyFilterValue(value)) {
       return undefined
     }
-    return toWhere
-      ? toWhere(value, { values, operators: operators! })
-      : implicitWhere(name, value)
+    return toWhere ? toWhere(value, { values, operators }) : implicitWhere(name, value)
   })
 
   // Without conditions it is `{}`, as the filter bar has always given: custom
   // `mergeFilters` of the lists may not expect `undefined` (eg. `{ AND: filters }`).
-  const where = operators
-    ? andFilters(operators, conditions) ?? ({} as TFilter)
-    : deepMergeFilters(...conditions)
+  const where = andFilters(operators, conditions) ?? ({} as TFilter)
 
   return transformWhere ? transformWhere(where, { values, operators }) : where
 }
