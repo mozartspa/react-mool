@@ -1,5 +1,6 @@
 import React, { useMemo } from "react"
 import { useResource } from "../resource"
+import { FilterOperators } from "./filterOperators"
 
 export type RecordID = string | number
 
@@ -65,6 +66,8 @@ export interface DataProvider<
   create: (resource: string, params: TCreate) => Promise<TRecord>
   update: (resource: string, params: UpdateParams<TUpdate>) => Promise<TRecord>
   delete: (resource: string, params: DeleteParams) => Promise<TRecord | undefined>
+  /** How list filters of the resource are combined. Required by `toWhere` filters. */
+  getFilterOperators?: (resource: string) => FilterOperators<TFilter> | undefined
 }
 
 export type PartialDataProvider<
@@ -129,4 +132,13 @@ export function useResourceDataProvider<
   )
 
   return resourceDataProvider
+}
+
+/** Filter operators of the resource, if the data provider has them. */
+export function useFilterOperators<TFilter = any>(
+  resource?: string
+): FilterOperators<TFilter> | undefined {
+  const res = useResource(resource)
+  const dataProvider = useDataProvider<any, any, any, TFilter>()
+  return dataProvider.getFilterOperators?.(res)
 }

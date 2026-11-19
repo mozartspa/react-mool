@@ -23,6 +23,10 @@ export type TabbedFilterGroupsProps<TFilter = any> = {
   initialSelected?: string
   showCount?: boolean
   restoreFromLast?: boolean
+  /**
+   * Prefix of the storage key, instead of the resource.
+   * The key is `${restoreKey}-tabbedfiltergroup`.
+   */
   restoreKey?: string
   restoreStorage?: Storage
   syncWithURL?: boolean
@@ -46,7 +50,8 @@ export function TabbedFilterGroups<TFilter = any>(
 
   const resource = useResource()
   const translate = useTranslate()
-  const storage = useStorage(restoreKey ?? `${resource}-tabbedfiltergroup`, {
+  // Own suffix: the list may get the same `restoreKey`
+  const storage = useStorage(`${restoreKey ?? resource}-tabbedfiltergroup`, {
     enabled: restoreFromLast,
     storage: restoreStorage,
   })

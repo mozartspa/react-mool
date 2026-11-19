@@ -75,6 +75,12 @@ export function createCompositeDataProvider(
       const func = resources[resource]?.delete ?? fallback.delete
       return func(resource, params)
     },
+
+    getFilterOperators: (resource) => {
+      const func =
+        resources[resource]?.getFilterOperators ?? fallback.getFilterOperators
+      return func?.(resource)
+    },
   }
 
   return provider

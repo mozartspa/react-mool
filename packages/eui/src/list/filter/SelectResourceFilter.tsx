@@ -1,15 +1,28 @@
 import { SelectResource, SelectResourceProps } from "../../select/SelectResource"
-import { Filter, FilterComponentProps } from "./Filter"
+import {
+  EmptyOptionProps,
+  resolveSelectToWhere,
+  useOptionsWithEmptyOption,
+} from "./emptyOption"
+import { Filter, FilterComponent, FilterComponentProps } from "./Filter"
 
 export type SelectResourceFilterProps = FilterComponentProps &
+  EmptyOptionProps &
   Omit<SelectResourceProps, "value" | "onChange" | "onBlur">
 
-export const SelectResourceFilter: React.FC<SelectResourceFilterProps> = (props) => {
+export const SelectResourceFilter: FilterComponent<SelectResourceFilterProps> = (
+  props
+) => {
+  const { emptyOption, ...filterProps } = props
+  const { toWhere, ...selectProps } = filterProps
+  const extraOptions = useOptionsWithEmptyOption(props.extraOptions, emptyOption)
+
   return (
-    <Filter {...props}>
+    <Filter {...filterProps}>
       {(field) => (
         <SelectResource
-          {...props}
+          {...selectProps}
+          extraOptions={extraOptions}
           value={field.value}
           onChange={(value: any) => {
             field.setValue(value)
@@ -21,6 +34,8 @@ export const SelectResourceFilter: React.FC<SelectResourceFilterProps> = (props)
     </Filter>
   )
 }
+
+SelectResourceFilter.resolveToWhere = resolveSelectToWhere
 
 SelectResourceFilter.defaultProps = {
   emptyValue: () => undefined,

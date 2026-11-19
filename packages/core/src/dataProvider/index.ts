@@ -1,6 +1,7 @@
 export * from "./createCompositeDataProvider"
 export * from "./dataProvider"
 export * from "./DataProviderContextProvider"
+export * from "./filterOperators"
 export * from "./GetMany"
 export * from "./GetOne"
 export * from "./mutations"
