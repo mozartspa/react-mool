@@ -47,7 +47,9 @@ function mergeStrict(
   path: string[]
 ) {
   for (const [key, value] of Object.entries(source)) {
-    if (value === undefined) continue
+    if (value === undefined) {
+      continue
+    }
     const current = target[key]
     if (current === undefined) {
       target[key] = isPlainObject(value) ? mergeStrict({}, value, [...path, key]) : value
@@ -94,8 +96,12 @@ export function andFilters<TFilter>(
   filters: Array<TFilter | null | undefined>
 ): TFilter | undefined {
   const parts = filters.filter((filter): filter is TFilter => !isNoFilter(filter))
-  if (parts.length === 0) return undefined
-  if (parts.length === 1) return parts[0]
+  if (parts.length === 0) {
+    return undefined
+  }
+  if (parts.length === 1) {
+    return parts[0]
+  }
   return operators ? operators.and(parts) : strictMergeFilters(...parts)
 }
 
@@ -113,8 +119,12 @@ export function orFilters<TFilter>(
   if (filters.length === 0) {
     throw new Error("orFilters requires at least one filter.")
   }
-  if (filters.some(isNoFilter)) return undefined
-  if (filters.length === 1) return filters[0]
+  if (filters.some(isNoFilter)) {
+    return undefined
+  }
+  if (filters.length === 1) {
+    return filters[0]
+  }
   if (!operators) {
     throw new Error(
       "Filters cannot be combined in or: the data provider has no filter operators for the resource."

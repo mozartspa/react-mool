@@ -24,24 +24,40 @@ export type EmptyOptionProps = {
   emptyOption?: EmptyOption
 }
 
-/** The "(empty)" option to add to the select, if `emptyOption` is set. */
-export function useEmptySelectOption(emptyOption: EmptyOption | undefined) {
+/** `options` followed by the "(empty)" option, if `emptyOption` is set. */
+export function useOptionsWithEmptyOption<T>(
+  options: SelectOption<T>[],
+  emptyOption: EmptyOption | undefined
+): SelectOption<T>[]
+export function useOptionsWithEmptyOption<T>(
+  options: SelectOption<T>[] | undefined,
+  emptyOption: EmptyOption | undefined
+): SelectOption<T>[] | undefined
+export function useOptionsWithEmptyOption<T>(
+  options: SelectOption<T>[] | undefined,
+  emptyOption: EmptyOption | undefined
+) {
   const translate = useTranslate()
   const label = emptyOption?.label ?? translate(t.eui.filter.empty_option)
   const enabled = emptyOption != null
 
-  return useMemo<SelectOption | undefined>(
-    () =>
-      enabled
-        ? { value: EMPTY_OPTION_VALUE, label, append: <EuiIcon type="tokenNull" /> }
-        : undefined,
-    [enabled, label]
-  )
+  return useMemo(() => {
+    if (!enabled) {
+      return options
+    }
+    const option = {
+      value: EMPTY_OPTION_VALUE,
+      label,
+      append: <EuiIcon type="tokenNull" />,
+    } as SelectOption<any>
+    return [...(options ?? []), option]
+  }, [options, enabled, label])
 }
 
 /**
  * `toWhere` handling the "(empty)" option: with it selected, the filter is
- * `emptyOption.where`, or-ed with `toWhere` of the other selected options, if any.
+ * `emptyOption.where`, or-ed with `toWhere` of the other selected options, if any
+ * and if it gives a condition.
  */
 export function withEmptyOption(toWhere: ToWhere, emptyOption: EmptyOption): ToWhere {
   return (value, context) => {
@@ -55,9 +71,16 @@ export function withEmptyOption(toWhere: ToWhere, emptyOption: EmptyOption): ToW
     const others = Array.isArray(value)
       ? value.filter((item) => item !== EMPTY_OPTION_VALUE)
       : undefined
-    return isEmptyFilterValue(others)
-      ? emptyOption.where
-      : orFilters(context.operators, [emptyOption.where, toWhere(others, context)])
+    if (isEmptyFilterValue(others)) {
+      return emptyOption.where
+    }
+    // No condition from the other options (eg. they are handled by `transformWhere`):
+    // they add nothing to the `or`, which would otherwise match every record.
+    const othersWhere = toWhere(others, context)
+    if (isNoFilter(othersWhere)) {
+      return emptyOption.where
+    }
+    return orFilters(context.operators, [emptyOption.where, othersWhere])
   }
 }
 

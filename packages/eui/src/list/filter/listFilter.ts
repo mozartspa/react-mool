@@ -1,6 +1,11 @@
 import { andFilters, FilterOperators } from "@react-mool/core"
 import get from "dlv"
-import { FilterBaseProps, FilterComponent, getFilterToWhere } from "./Filter"
+import {
+  FilterBaseProps,
+  FilterComponent,
+  FilterWhereContext,
+  getFilterToWhere,
+} from "./Filter"
 
 /** A filter value set by the user: not `null`, `""`, `[]` or an object of empty values. */
 export function isEmptyFilterValue(value: unknown): boolean {
@@ -25,25 +30,32 @@ function implicitWhere(name: string, value: unknown): any {
  * `toWhere` of the filter element. `emptyOption` is handled by the `resolveToWhere`
  * of the select filters: a component without it (eg. a wrapper that does not
  * forward it) would pass the "(empty)" option to the `toWhere` prop.
+ * It is called for every filter, also without a value, so that a misconfigured
+ * `emptyOption` throws on mount, not when the user selects it.
  */
-function resolveToWhere(filter: React.ReactElement<FilterBaseProps>) {
+function resolveToWhere(
+  filter: React.ReactElement<FilterBaseProps>,
+  operators: FilterOperators | undefined
+) {
   const { name, emptyOption } = filter.props as FilterBaseProps & {
     emptyOption?: unknown
   }
-  if (emptyOption != null && !(filter.type as FilterComponent).resolveToWhere) {
-    throw new Error(
-      `Filter "${name}": its component does not support "emptyOption". A component wrapping a select filter must forward its "resolveToWhere".`
-    )
+  if (emptyOption != null) {
+    if (!(filter.type as FilterComponent).resolveToWhere) {
+      throw new Error(
+        `Filter "${name}": its component does not support "emptyOption". A component wrapping a select filter must forward its "resolveToWhere".`
+      )
+    }
+    if (!operators) {
+      throw new Error(
+        `Filter "${name}": "emptyOption" requires the data provider to implement "getFilterOperators".`
+      )
+    }
   }
   return getFilterToWhere(filter)
 }
 
-export type TransformWhereContext<TFilter = any> = {
-  /** Values of all the filters, to read only */
-  values: any
-  /** Operators of the data provider, if it has them */
-  operators: FilterOperators<TFilter> | undefined
-}
+export type TransformWhereContext<TFilter = any> = FilterWhereContext<TFilter>
 
 /** Changes the list filter of a filter bar, eg. to add conditions that no filter gives. */
 export type TransformWhere<TFilter = any> = (
@@ -84,22 +96,9 @@ export function buildListFilter<TFilter = any>(
 
   const namedFilters = filters.filter((filter) => filter.props.name != null)
 
-  if (!operators) {
-    const names = namedFilters
-      .filter((filter) => (filter.props as { emptyOption?: unknown }).emptyOption != null)
-      .map((filter) => filter.props.name)
-    if (names.length > 0) {
-      throw new Error(
-        `Filters with "emptyOption" require the data provider to implement "getFilterOperators" (filters: ${names.join(
-          ", "
-        )}).`
-      )
-    }
-  }
-
   const conditions = namedFilters.map((filter): TFilter | undefined | null => {
     const { name } = filter.props
-    const toWhere = resolveToWhere(filter)
+    const toWhere = resolveToWhere(filter, operators)
     const value = get(values ?? {}, name)
     if (isEmptyFilterValue(value)) {
       return undefined

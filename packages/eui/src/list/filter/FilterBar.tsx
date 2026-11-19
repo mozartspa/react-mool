@@ -145,15 +145,6 @@ function FilterBarComp<TValues extends FormValues, TFilter = any>(
     }
   )
 
-  const initialValues = useMemo(
-    () => storage.getValue("filterValues", props.initialValues),
-    []
-  )
-  const initialVisibleFilters = useMemo(
-    () => storage.getValue("visibleFilters", [] as string[]),
-    []
-  )
-
   // Form values to list filter: see `buildListFilter`.
   const buildFilter = (values: TValues) =>
     buildListFilter({
@@ -163,6 +154,32 @@ function FilterBarComp<TValues extends FormValues, TFilter = any>(
       operators,
     })
   const buildFilterRef = useFreshRef(buildFilter)
+
+  // Restored values that give no list filter (eg. stored when building it threw, or with
+  // filters changed since then) are dropped, otherwise the page would throw on every mount.
+  const initialValues = useMemo(() => {
+    const restored = storage.getValue("filterValues", undefined as TValues | undefined)
+    if (restored === undefined) {
+      return props.initialValues
+    }
+    try {
+      buildFilter(restored)
+      return restored
+    } catch {
+      return props.initialValues
+    }
+  }, [])
+  const initialVisibleFilters = useMemo(
+    () => storage.getValue("visibleFilters", [] as string[]),
+    []
+  )
+
+  // Error building the list filter in the autorun below, thrown while rendering:
+  // mobx would only log it, keeping the previous list filter.
+  const [buildError, setBuildError] = useState<{ error: unknown }>()
+  if (buildError) {
+    throw buildError.error
+  }
 
   const setFilter = useAddFilter<TFilter>(
     // Also without initial values, for `transformWhere`
@@ -187,8 +204,15 @@ function FilterBarComp<TValues extends FormValues, TFilter = any>(
     () =>
       autorun(() => {
         if (form.isValid) {
+          let filter: TFilter
+          try {
+            filter = buildFilterRef.current!(form.values)
+          } catch (error) {
+            setBuildError({ error })
+            return
+          }
           setFilter(
-            buildFilterRef.current!(form.values),
+            filter,
             // Tell the list whether these values are set by the user
             { isActive: (getActiveFilterNamesRef.current?.().length ?? 0) > 0 }
           )

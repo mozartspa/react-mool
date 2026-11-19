@@ -152,7 +152,7 @@ export function useList<TRecord = any, TFilter = any>(
 
   // Merge filters in reverse order: with a custom deep merge, the first filter takes precedence over the others.
   const mergedFilter = useMemo(
-    () => mergeFilters(...filterStack.entries.reverse(), baseFilter),
+    () => mergeFilters(...[...filterStack.entries].reverse(), baseFilter),
     [baseFilter, filterStack.entries]
   )
 

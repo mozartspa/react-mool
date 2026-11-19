@@ -1,24 +1,21 @@
-import { useMemo } from "react"
 import { SelectResource, SelectResourceProps } from "../../select/SelectResource"
-import { EmptyOptionProps, resolveSelectToWhere, useEmptySelectOption } from "./emptyOption"
+import {
+  EmptyOptionProps,
+  resolveSelectToWhere,
+  useOptionsWithEmptyOption,
+} from "./emptyOption"
 import { Filter, FilterComponent, FilterComponentProps } from "./Filter"
 
 export type SelectResourceFilterProps = FilterComponentProps &
   EmptyOptionProps &
   Omit<SelectResourceProps, "value" | "onChange" | "onBlur">
 
-export const SelectResourceFilter: FilterComponent<SelectResourceFilterProps> = (props) => {
+export const SelectResourceFilter: FilterComponent<SelectResourceFilterProps> = (
+  props
+) => {
   const { emptyOption, ...filterProps } = props
   const { toWhere, ...selectProps } = filterProps
-  const emptySelectOption = useEmptySelectOption(emptyOption)
-
-  const extraOptions = useMemo(
-    () =>
-      emptySelectOption
-        ? [...(props.extraOptions ?? []), emptySelectOption]
-        : props.extraOptions,
-    [props.extraOptions, emptySelectOption]
-  )
+  const extraOptions = useOptionsWithEmptyOption(props.extraOptions, emptyOption)
 
   return (
     <Filter {...filterProps}>
